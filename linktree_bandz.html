@@ -585,7 +585,7 @@
         <main class="main-links">
           
           <a href="https://discord.gg/KsTTzpwS" 
-             data-app-url="discord://invite/KsTTzpwS"
+             target="_blank"
              class="glass-btn big-btn discord-btn">
             <i class="fa-brands fa-discord"></i>
             Free Discord + Live Streams
@@ -608,7 +608,7 @@
 
         <div class="social-grid">
           <a href="https://x.com/Band_with_sam" 
-             data-app-url="twitter://user?screen_name=Band_with_sam"
+             target="_blank"
              class="glass-btn social-btn x" aria-label="X">
             <svg viewBox="0 0 24 24">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -616,19 +616,19 @@
           </a>
 
           <a href="https://www.instagram.com/bandwithsam/" 
-             data-app-url="instagram://user?username=bandwithsam"
+             target="_blank"
              class="glass-btn social-btn insta" aria-label="Instagram">
             <i class="fa-brands fa-instagram"></i>
           </a>
 
           <a href="https://www.tiktok.com/@bandwithsam" 
-             data-app-url="tiktok://@bandwithsam"
+             target="_blank"
              class="glass-btn social-btn tiktok" aria-label="TikTok">
             <i class="fa-brands fa-tiktok"></i>
           </a>
 
           <a href="https://www.youtube.com/@BandWithSam" 
-             data-app-url="vnd.youtube://channel/@BandWithSam"
+             target="_blank"
              class="glass-btn social-btn youtube" aria-label="YouTube">
             <i class="fa-brands fa-youtube"></i>
           </a>
@@ -637,59 +637,5 @@
 
     </div>
   </div>
-
-  <script>
-    // Mobile deep linking - open apps on mobile devices
-    (function() {
-      // Detect mobile devices
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      
-      if (!isMobile) return; // Only run on mobile
-      
-      // Find all links with app URLs
-      const appLinks = document.querySelectorAll('a[data-app-url]');
-      
-      appLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          const appUrl = this.getAttribute('data-app-url');
-          const webUrl = this.getAttribute('href');
-          
-          if (!appUrl) return;
-          
-          e.preventDefault();
-          
-          let appOpened = false;
-          const startTime = Date.now();
-          
-          // Track if page becomes hidden (app likely opened)
-          const handleVisibilityChange = () => {
-            if (document.hidden || document.webkitHidden) {
-              appOpened = true;
-            }
-          };
-          
-          document.addEventListener('visibilitychange', handleVisibilityChange);
-          document.addEventListener('webkitvisibilitychange', handleVisibilityChange);
-          
-          // Try to open the app
-          window.location.href = appUrl;
-          
-          // Fallback: if app doesn't open within timeout, go to web URL
-          setTimeout(() => {
-            document.removeEventListener('visibilitychange', handleVisibilityChange);
-            document.removeEventListener('webkitvisibilitychange', handleVisibilityChange);
-            
-            // If page is still visible after timeout, app probably didn't open
-            // Redirect to web URL
-            if (!appOpened && (Date.now() - startTime > 1500)) {
-              if (!document.hidden && !document.webkitHidden) {
-                window.location.href = webUrl;
-              }
-            }
-          }, 2000);
-        });
-      });
-    })();
-  </script>
 </body>
 </html>
