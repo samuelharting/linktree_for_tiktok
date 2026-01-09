@@ -1,0 +1,16 @@
+{
+  "name": "linktree-bandz",
+  "version": "1.0.0",
+  "description": "Custom Linktree for Bandz",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 3000 -o"
+  },
+  "keywords": ["linktree", "links"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
+
