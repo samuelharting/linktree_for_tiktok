@@ -28,29 +28,33 @@
       --glass-border: rgba(255, 255, 255, 0.12);
       --glass-shine: rgba(255, 255, 255, 0.2);
       --blur-amt: 20px;
+
+      /* Social sizing */
+      --social-size: 60px;
+      --social-gap: 14px;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
     html, body { 
-      height: 100%;
       width: 100%;
-      overflow: hidden;
-      position: fixed;
+      overflow-x: hidden;
     }
 
     body {
       font-family: "Inter", sans-serif;
       color: var(--text-main);
-      height: 100vh;
+      min-height: 100vh;
       width: 100vw;
-      max-height: 100vh;
-      max-width: 100vw;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       background-color: var(--bg-dark);
-      overflow: hidden;
       
       /* Background - Grid lines only (blurred logo is in ::after) */
       background-image: 
@@ -89,15 +93,26 @@
       opacity: 0.8;
     }
 
+    /* === ANIMATIONS === */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     /* === CONTAINER === */
     .container {
       width: 100%;
       max-width: 440px;
-      max-height: 100vh;
+      min-height: 100vh;
       position: relative;
       z-index: 10;
-      padding: 20px;
-      overflow: hidden;
+      padding: 40px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -108,6 +123,7 @@
       display: flex;
       flex-direction: column;
       gap: 0;
+      width: 100%;
     }
 
     /* === HERO IMAGE (MOBILE - Gemini style) === */
@@ -118,6 +134,10 @@
       display: flex; 
       justify-content: center;
       margin-bottom: 25px;
+      
+      /* Animation */
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      animation-delay: 0.1s;
       
       /* Edge blur mask - Gemini style */
       -webkit-mask-image: linear-gradient(to bottom, 
@@ -171,6 +191,14 @@
       position: relative;
       z-index: 20;
     }
+    
+    /* Staggered animation for main buttons */
+    .main-links > a {
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+    
+    .main-links > a:nth-child(1) { animation-delay: 0.2s; }
+    .main-links > a:nth-child(2) { animation-delay: 0.3s; }
 
     /* Glass Button Base */
     .glass-btn {
@@ -196,6 +224,12 @@
       
       transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
       overflow: hidden;
+      
+      /* Remove mobile tap highlight */
+      -webkit-tap-highlight-color: transparent;
+      tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      user-select: none;
     }
 
     /* Top shine */
@@ -332,6 +366,10 @@
       font-weight: 700;
       letter-spacing: 3px;
       text-transform: uppercase;
+      
+      /* Animation */
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      animation-delay: 0.4s;
     }
 
     .divider::before, .divider::after {
@@ -342,17 +380,64 @@
       margin: 0 15px;
     }
 
-    /* === SOCIAL GRID === */
-    .social-grid {
+    /* =========================
+       SOCIALS (MOBILE REQUEST)
+       ========================= */
+    .socials {
+      width: 100%;
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 14px;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      
+      /* Animation */
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      animation-delay: 0.5s;
     }
 
+    /* 4 socials in a row */
+    .social-row {
+      display: grid;
+      grid-template-columns: repeat(4, var(--social-size));
+      justify-content: center;
+      gap: var(--social-gap);
+      width: 100%;
+    }
+
+    /* Email centered below */
+    .email-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .email-text {
+      color: #3b82f6;
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      
+      /* Remove mobile tap highlight */
+      -webkit-tap-highlight-color: transparent;
+      tap-highlight-color: transparent;
+    }
+
+    .email-text:hover {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+
+    .email-text:active {
+      color: #1d4ed8;
+    }
+
+    /* Social button base */
     .social-btn {
-      width: 60px;
-      height: 60px;
+      width: var(--social-size);
+      height: var(--social-size);
       border-radius: 16px;
       font-size: 1.4rem;
       justify-content: center;
@@ -369,11 +454,14 @@
       flex-shrink: 0;
     }
 
-    /* Social hover colors */
-    .social-btn.x:hover svg { fill: white; }
-    .social-btn.insta:hover { color: #E1306C; }
-    .social-btn.tiktok:hover { color: #00f2ea; text-shadow: 2px 2px 0px #ff0050; }
-    .social-btn.youtube:hover { color: #FF0000; }
+    /* Social hover colors (desktop only; prevents weird mobile tap/hover flashes) */
+    @media (hover: hover) and (pointer: fine) {
+      .social-btn.x:hover svg { fill: white; }
+      .social-btn.insta:hover { color: #E1306C; }
+      .social-btn.tiktok:hover { color: #00f2ea; text-shadow: 2px 2px 0px #ff0050; }
+      .social-btn.youtube:hover { color: #FF0000; }
+      .social-btn.email:hover { color: #EA4335; }
+    }
 
     /* ===========================================
        DESKTOP LAYOUT (ChatGPT style - side by side)
@@ -507,8 +595,11 @@
         width: 1.4rem;
         flex-shrink: 0;
       }
-      .social-btn { width: 64px; height: 64px; }
+
       .divider { margin: 20px 0 16px; }
+
+      /* slightly larger socials on desktop */
+      :root { --social-size: 64px; --social-gap: 14px; }
 
       .journal-preview {
         width: min(380px, calc(100vw - 84px));
@@ -517,11 +608,7 @@
 
     /* Mobile small screen adjustment */
     @media (max-width: 360px) {
-      .social-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 60px);
-        justify-content: center;
-      }
+      :root { --social-size: 54px; --social-gap: 12px; }
       
       .big-btn {
         font-size: 0.9rem;
@@ -533,6 +620,8 @@
       .discord-btn {
         padding-left: 12px;
       }
+
+      .email-text { font-size: 0.88rem; }
     }
     
     /* Mobile font size adjustment for longer text */
@@ -548,8 +637,10 @@
       }
     }
     
-    /* Very small screens - allow wrapping if needed */
+    /* Very small screens */
     @media (max-width: 340px) {
+      :root { --social-size: 50px; --social-gap: 10px; }
+
       .big-btn {
         font-size: 0.85rem;
         padding-left: 15px;
@@ -560,12 +651,15 @@
       .discord-btn {
         padding-left: 12px;
       }
+
+      .email-text { font-size: 0.84rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       body::after { animation: none; }
       .journal-preview { transition: none; }
       .glass-btn { transition: none; }
+      .hero-section, .main-links > a, .divider, .socials { animation: none; }
     }
   </style>
 </head>
@@ -584,19 +678,22 @@
       <section class="panel">
         <main class="main-links">
           
+          <!-- Discord: opens in new tab (mobile will prompt to open app) -->
           <a href="https://discord.gg/KsTTzpwS" 
              target="_blank"
+             rel="noopener noreferrer"
              class="glass-btn big-btn discord-btn">
             <i class="fa-brands fa-discord"></i>
             Free Discord + Live Streams
           </a>
 
+          <!-- Journal: opens in same tab -->
           <a href="https://bandzjournal.vercel.app/" 
              class="glass-btn big-btn journal-btn">
             <i class="fa-solid fa-chart-line"></i>
             Free Trading Journal 🦄
             
-            <!-- Hover Preview -->
+            <!-- Hover Preview (desktop only) -->
             <span class="journal-preview" aria-hidden="true">
               <img src="calender.png" alt="">
             </span>
@@ -606,36 +703,85 @@
 
         <div class="divider">Socials</div>
 
-        <div class="social-grid">
-          <a href="https://x.com/Band_with_sam" 
-             target="_blank"
-             class="glass-btn social-btn x" aria-label="X">
-            <svg viewBox="0 0 24 24">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-            </svg>
-          </a>
+        <!-- SOCIALS (4 across) + EMAIL centered below -->
+        <div class="socials">
+          <div class="social-row">
+            <!-- X/Twitter: opens in new tab -->
+            <a href="https://x.com/Band_with_sam" 
+               target="_blank"
+               rel="noopener noreferrer"
+               class="glass-btn social-btn x" aria-label="X">
+              <svg viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
 
-          <a href="https://www.instagram.com/bandwithsam/" 
-             target="_blank"
-             class="glass-btn social-btn insta" aria-label="Instagram">
-            <i class="fa-brands fa-instagram"></i>
-          </a>
+            <!-- Instagram: opens in new tab -->
+            <a href="https://www.instagram.com/bandwithsam/" 
+               target="_blank"
+               rel="noopener noreferrer"
+               class="glass-btn social-btn insta" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
 
-          <a href="https://www.tiktok.com/@bandwithsam" 
-             target="_blank"
-             class="glass-btn social-btn tiktok" aria-label="TikTok">
-            <i class="fa-brands fa-tiktok"></i>
-          </a>
+            <!-- TikTok: opens in new tab -->
+            <a href="https://www.tiktok.com/@bandwithsam" 
+               target="_blank"
+               rel="noopener noreferrer"
+               class="glass-btn social-btn tiktok" aria-label="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
 
-          <a href="https://youtube.com/@BandWithSam" 
-             target="_blank"
-             class="glass-btn social-btn youtube" aria-label="YouTube">
-            <i class="fa-brands fa-youtube"></i>
-          </a>
+            <!-- YouTube: opens in new tab -->
+            <a href="https://youtube.com/@BandWithSam" 
+               target="_blank"
+               rel="noopener noreferrer"
+               class="glass-btn social-btn youtube" aria-label="YouTube">
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+          </div>
+
+          <div class="email-stack">
+            <!-- Email button: smart handling for mobile/desktop -->
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bandwithsam@gmail.com"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="glass-btn social-btn email email-link" aria-label="Email">
+              <i class="fa-solid fa-envelope"></i>
+            </a>
+
+            <!-- Email text link: same smart handling -->
+            <a class="email-text email-link"
+               href="https://mail.google.com/mail/?view=cm&fs=1&to=bandwithsam@gmail.com"
+               target="_blank"
+               rel="noopener noreferrer">
+              bandwithsam@gmail.com
+            </a>
+          </div>
         </div>
+
       </section>
 
     </div>
   </div>
+
+  <!-- Email link mobile optimization -->
+  <script>
+  (function() {
+    // Detect mobile devices
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
+                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    
+    if (isMobile) {
+      // On mobile, remove target="_blank" so links open in same tab
+      // Gmail Universal Links will automatically open the Gmail app if installed
+      var emailLinks = document.querySelectorAll('.email-link');
+      emailLinks.forEach(function(link) {
+        link.removeAttribute('target');
+        link.removeAttribute('rel');
+      });
+    }
+  })();
+  </script>
 </body>
 </html>
