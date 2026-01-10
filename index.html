@@ -687,8 +687,10 @@
             Free Discord + Live Streams
           </a>
 
-          <!-- Journal: opens in same tab -->
+          <!-- Journal: opens in new tab -->
           <a href="https://bandzjournal.vercel.app/" 
+             target="_blank"
+             rel="noopener noreferrer"
              class="glass-btn big-btn journal-btn">
             <i class="fa-solid fa-chart-line"></i>
             Free Trading Journal 🦄
@@ -742,16 +744,16 @@
           </div>
 
           <div class="email-stack">
-            <!-- Email button: smart handling for mobile/desktop -->
+            <!-- Email button: opens in new tab -->
             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bandwithsam@gmail.com"
                target="_blank"
                rel="noopener noreferrer"
-               class="glass-btn social-btn email email-link" aria-label="Email">
+               class="glass-btn social-btn email" aria-label="Email">
               <i class="fa-solid fa-envelope"></i>
             </a>
 
-            <!-- Email text link: same smart handling -->
-            <a class="email-text email-link"
+            <!-- Email text link: opens in new tab -->
+            <a class="email-text"
                href="https://mail.google.com/mail/?view=cm&fs=1&to=bandwithsam@gmail.com"
                target="_blank"
                rel="noopener noreferrer">
@@ -765,23 +767,5 @@
     </div>
   </div>
 
-  <!-- Email link mobile optimization -->
-  <script>
-  (function() {
-    // Detect mobile devices
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
-                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    
-    if (isMobile) {
-      // On mobile, remove target="_blank" so links open in same tab
-      // Gmail Universal Links will automatically open the Gmail app if installed
-      var emailLinks = document.querySelectorAll('.email-link');
-      emailLinks.forEach(function(link) {
-        link.removeAttribute('target');
-        link.removeAttribute('rel');
-      });
-    }
-  })();
-  </script>
 </body>
 </html>
