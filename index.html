@@ -876,20 +876,46 @@
         <button class="tt-btn" type="button" onclick="copyDiscordLink()">Copy invite link</button>
         <button class="tt-btn" type="button" onclick="shareDiscordLink()">Share link</button>
         <button class="tt-btn tt-btn-primary" type="button" onclick="tryOpenDiscordApp()">Try open Discord app</button>
-        <a class="tt-btn tt-btn-ghost" href="https://discord.com/invite/KsTTzpwS" target="_blank" rel="noopener noreferrer">Open invite page</a>
+        <button class="tt-btn tt-btn-ghost" type="button" onclick="openInvitePage()">Open invite page</button>
       </div>
       <div class="tt-modal-note" id="ttModalNote" aria-live="polite"></div>
     </div>
   </div>
 
   <script>
+    const DEBUG_UA = true;
     const DISCORD_INVITE_CODE = "KsTTzpwS";
     const DISCORD_INVITE_WEB = "https://discord.com/invite/" + DISCORD_INVITE_CODE;
     const DISCORD_INVITE_APP = "discord://-/invite/" + DISCORD_INVITE_CODE;
 
+    let _tiktokAutoTried = false;
+
     function isTikTokInAppBrowser() {
-      return /TikTok/i.test(navigator.userAgent || "");
+      const ua = (navigator.userAgent || "").toLowerCase();
+      const signals = ["tiktok", "musical_ly", "bytedance", "aweme", "trill"];
+      const hasSignal = signals.some((s) => ua.includes(s));
+
+      // iOS Safari "Add to Home Screen" mode exposes this; we don't use it,
+      // but safely touching it helps avoid future detection bugs.
+      const _standalone = typeof window !== "undefined" && window.navigator
+        ? window.navigator.standalone
+        : undefined;
+      void _standalone;
+
+      return hasSignal;
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const ua = navigator.userAgent || "";
+      if (DEBUG_UA) {
+        console.log("[DEBUG_UA] navigator.userAgent:", ua);
+        appendDebugUAPill(ua);
+      }
+
+      if (isTikTokInAppBrowser()) {
+        showTikTokModal();
+      }
+    });
 
     function handleDiscordInvite(event) {
       if (event) event.preventDefault();
@@ -897,6 +923,10 @@
       // TikTok in-app browser is known to break Discord's handoff.
       if (isTikTokInAppBrowser()) {
         showTikTokModal();
+        if (!_tiktokAutoTried) {
+          _tiktokAutoTried = true;
+          tryOpenDiscordApp();
+        }
         return false;
       }
 
@@ -929,8 +959,10 @@
       try {
         await navigator.clipboard.writeText(DISCORD_INVITE_WEB);
         if (note) note.textContent = "Copied! Paste into Safari/Chrome (or use ••• → Open in browser).";
+        alert("Copied! Now paste the link into Safari/Chrome to join the Discord.");
       } catch {
         if (note) note.textContent = "Couldn’t copy automatically. Long-press the link to copy it.";
+        alert("Couldn’t copy automatically. Long-press the invite link to copy it, then paste into Safari/Chrome.");
       }
     }
 
@@ -948,8 +980,87 @@
     }
 
     function tryOpenDiscordApp() {
-      // Some in-app browsers block this; still worth a try.
+      const note = document.getElementById("ttModalNote");
+      if (note) note.textContent = "Trying to open Discord…";
+
+      // Attempt 1: open Discord app via deep link
       window.location.href = DISCORD_INVITE_APP;
+
+      // Attempt 2 (600ms): fall back to the web invite
+      setTimeout(() => {
+        window.location.href = DISCORD_INVITE_WEB;
+      }, 600);
+
+      // Attempt 3 (1800ms total): if we're still here, show clearer instructions
+      setTimeout(() => {
+        const note2 = document.getElementById("ttModalNote");
+        if (note2) {
+          note2.textContent =
+            "If nothing happened, tap ••• in TikTok (top right) → Open in browser, then join in Discord.";
+        }
+      }, 1800);
+    }
+
+    function openInvitePage() {
+      // Best-effort: opens a new tab where TikTok may offer "Open in browser".
+      window.open(DISCORD_INVITE_WEB, "_blank", "noopener,noreferrer");
+    }
+
+    function appendDebugUAPill(ua) {
+      const pill = document.createElement("div");
+      pill.style.position = "fixed";
+      pill.style.left = "12px";
+      pill.style.right = "12px";
+      pill.style.bottom = "12px";
+      pill.style.zIndex = "10000";
+      pill.style.display = "flex";
+      pill.style.gap = "10px";
+      pill.style.alignItems = "center";
+      pill.style.justifyContent = "space-between";
+      pill.style.padding = "10px 12px";
+      pill.style.borderRadius = "14px";
+      pill.style.background = "rgba(0,0,0,0.68)";
+      pill.style.border = "1px solid rgba(255,255,255,0.14)";
+      pill.style.backdropFilter = "blur(12px) saturate(140%)";
+      pill.style.webkitBackdropFilter = "blur(12px) saturate(140%)";
+      pill.style.color = "rgba(255,255,255,0.9)";
+      pill.style.fontFamily = "Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+      pill.style.fontSize = "12px";
+      pill.style.lineHeight = "1.2";
+
+      const text = document.createElement("div");
+      text.style.flex = "1";
+      text.style.overflow = "hidden";
+      text.style.whiteSpace = "nowrap";
+      text.style.textOverflow = "ellipsis";
+      text.textContent = "UA: " + (ua || "").slice(0, 120);
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = "Copy UA";
+      btn.style.flexShrink = "0";
+      btn.style.borderRadius = "12px";
+      btn.style.padding = "8px 10px";
+      btn.style.border = "1px solid rgba(255,255,255,0.14)";
+      btn.style.background = "rgba(255,255,255,0.08)";
+      btn.style.color = "#fff";
+      btn.style.fontWeight = "800";
+      btn.style.cursor = "pointer";
+
+      btn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(ua);
+          btn.textContent = "Copied!";
+          setTimeout(() => (btn.textContent = "Copy UA"), 1200);
+        } catch {
+          // Fallback if clipboard blocked in an in-app browser
+          prompt("Copy this UA:", ua);
+        }
+      });
+
+      pill.appendChild(text);
+      pill.appendChild(btn);
+      document.body.appendChild(pill);
     }
 
     // Close modal when tapping the dark backdrop.
