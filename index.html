@@ -799,7 +799,17 @@
             e.stopPropagation();
             try {
               await navigator.clipboard.writeText(DISCORD_INVITE_WEB);
-              alert("Copied! Paste this link in Safari or Chrome to join the Discord.");
+              // Change button text to show success
+              const originalText = discordBtn.innerHTML;
+              discordBtn.innerHTML = '<i class="fa-brands fa-discord"></i> ✓ Copied!';
+              discordBtn.style.opacity = '0.8';
+              // Show alert
+              alert("Link copied! Paste it in Safari or Chrome to join the Discord.");
+              // Reset button after 3 seconds
+              setTimeout(() => {
+                discordBtn.innerHTML = originalText;
+                discordBtn.style.opacity = '1';
+              }, 3000);
             } catch {
               prompt("Copy this link and paste it in Safari or Chrome:", DISCORD_INVITE_WEB);
             }
