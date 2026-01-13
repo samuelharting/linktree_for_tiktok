@@ -655,102 +655,6 @@
       .email-text { font-size: 0.84rem; }
     }
 
-    /* =========================
-       TikTok Discord helper modal
-       ========================= */
-    .tt-modal {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.72);
-      z-index: 9999;
-    }
-    .tt-modal.is-open { display: flex; }
-
-    .tt-modal-card {
-      width: min(440px, 100%);
-      border-radius: 20px;
-      padding: 18px 16px 16px;
-      background: rgba(10, 10, 10, 0.82);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      backdrop-filter: blur(18px) saturate(140%);
-      -webkit-backdrop-filter: blur(18px) saturate(140%);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.65);
-      position: relative;
-    }
-
-    .tt-modal-close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.06);
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 22px;
-      line-height: 1;
-      cursor: pointer;
-    }
-
-    .tt-modal-title {
-      font-weight: 900;
-      font-size: 1.05rem;
-      letter-spacing: 0.2px;
-      margin: 4px 38px 10px 2px;
-    }
-
-    .tt-modal-text {
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 0.93rem;
-      line-height: 1.35;
-      margin: 0 2px 14px;
-    }
-
-    .tt-modal-actions {
-      display: grid;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .tt-btn {
-      width: 100%;
-      border-radius: 14px;
-      padding: 12px 14px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.06);
-      color: #fff;
-      font-weight: 900;
-      letter-spacing: 0.2px;
-      text-decoration: none;
-      text-align: center;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .tt-btn-primary {
-      border-color: rgba(139, 92, 246, 0.45);
-      background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
-      box-shadow: 0 10px 26px rgba(139, 92, 246, 0.35);
-    }
-
-    .tt-btn-ghost {
-      background: transparent;
-      border-color: rgba(255, 255, 255, 0.12);
-      color: rgba(255, 255, 255, 0.9);
-    }
-
-    .tt-modal-note {
-      margin-top: 12px;
-      font-size: 0.88rem;
-      color: rgba(255, 255, 255, 0.75);
-      min-height: 1.15em;
-    }
-
     @media (prefers-reduced-motion: reduce) {
       body::after { animation: none; }
       .journal-preview { transition: none; }
@@ -862,33 +766,10 @@
     </div>
   </div>
 
-  <!-- TikTok in-app browser helper (Discord invites often fail there) -->
-  <div class="tt-modal" id="tiktokDiscordModal" aria-hidden="true">
-    <div class="tt-modal-card" role="dialog" aria-modal="true" aria-labelledby="ttModalTitle">
-      <button class="tt-modal-close" type="button" aria-label="Close" onclick="hideTikTokModal()">×</button>
-      <div class="tt-modal-title" id="ttModalTitle">Having trouble joining from TikTok?</div>
-      <div class="tt-modal-text">
-        TikTok’s in-app browser can block Discord from opening when you tap “Accept Invite”.
-        <br><br>
-        Tap the <strong>•••</strong> menu (top right) and choose <strong>Open in browser</strong>, then join.
-      </div>
-      <div class="tt-modal-actions">
-        <button class="tt-btn" type="button" onclick="copyDiscordLink()">Copy invite link</button>
-        <button class="tt-btn" type="button" onclick="shareDiscordLink()">Share link</button>
-        <button class="tt-btn tt-btn-primary" type="button" onclick="tryOpenDiscordApp()">Try open Discord app</button>
-        <button class="tt-btn tt-btn-ghost" type="button" onclick="openInvitePage()">Open invite page</button>
-      </div>
-      <div class="tt-modal-note" id="ttModalNote" aria-live="polite"></div>
-    </div>
-  </div>
-
   <script>
-    const DEBUG_UA = true;
     const DISCORD_INVITE_CODE = "KsTTzpwS";
-    const DISCORD_INVITE_WEB = "https://discord.com/invite/" + DISCORD_INVITE_CODE;
+    const DISCORD_INVITE_WEB = "https://discord.gg/" + DISCORD_INVITE_CODE;
     const DISCORD_INVITE_APP = "discord://-/invite/" + DISCORD_INVITE_CODE;
-
-    let _tiktokAutoTried = false;
 
     function isTikTokInAppBrowser() {
       const ua = (navigator.userAgent || "").toLowerCase();
@@ -906,27 +787,32 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      const ua = navigator.userAgent || "";
-      if (DEBUG_UA) {
-        console.log("[DEBUG_UA] navigator.userAgent:", ua);
-        appendDebugUAPill(ua);
-      }
-
       if (isTikTokInAppBrowser()) {
-        showTikTokModal();
+        const discordBtn = document.querySelector(".discord-btn");
+        if (discordBtn) {
+          // Change button text
+          discordBtn.innerHTML = '<i class="fa-brands fa-discord"></i> 📋 Copy Discord Invite Link';
+          
+          // Change onclick to only copy link
+          discordBtn.onclick = async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            try {
+              await navigator.clipboard.writeText(DISCORD_INVITE_WEB);
+              alert("Copied! Paste this link in Safari or Chrome to join the Discord.");
+            } catch {
+              prompt("Copy this link and paste it in Safari or Chrome:", DISCORD_INVITE_WEB);
+            }
+          };
+        }
       }
     });
 
     function handleDiscordInvite(event) {
       if (event) event.preventDefault();
 
-      // TikTok in-app browser is known to break Discord's handoff.
+      // TikTok users already have their button changed on DOMContentLoaded
       if (isTikTokInAppBrowser()) {
-        showTikTokModal();
-        if (!_tiktokAutoTried) {
-          _tiktokAutoTried = true;
-          tryOpenDiscordApp();
-        }
         return false;
       }
 
@@ -937,138 +823,6 @@
       }, 500);
       return false;
     }
-
-    function showTikTokModal() {
-      const modal = document.getElementById("tiktokDiscordModal");
-      const note = document.getElementById("ttModalNote");
-      if (!modal) return;
-      modal.classList.add("is-open");
-      modal.setAttribute("aria-hidden", "false");
-      if (note) note.textContent = "";
-    }
-
-    function hideTikTokModal() {
-      const modal = document.getElementById("tiktokDiscordModal");
-      if (!modal) return;
-      modal.classList.remove("is-open");
-      modal.setAttribute("aria-hidden", "true");
-    }
-
-    async function copyDiscordLink() {
-      const note = document.getElementById("ttModalNote");
-      try {
-        await navigator.clipboard.writeText(DISCORD_INVITE_WEB);
-        if (note) note.textContent = "Copied! Paste into Safari/Chrome (or use ••• → Open in browser).";
-        alert("Copied! Now paste the link into Safari/Chrome to join the Discord.");
-      } catch {
-        if (note) note.textContent = "Couldn’t copy automatically. Long-press the link to copy it.";
-        alert("Couldn’t copy automatically. Long-press the invite link to copy it, then paste into Safari/Chrome.");
-      }
-    }
-
-    async function shareDiscordLink() {
-      const note = document.getElementById("ttModalNote");
-      if (navigator.share) {
-        try {
-          await navigator.share({ title: "Join my Discord", url: DISCORD_INVITE_WEB });
-          return;
-        } catch {
-          // User canceled or share failed; fall through to note.
-        }
-      }
-      if (note) note.textContent = "Sharing isn’t available here. Use Copy link instead.";
-    }
-
-    function tryOpenDiscordApp() {
-      const note = document.getElementById("ttModalNote");
-      if (note) note.textContent = "Trying to open Discord…";
-
-      // Attempt 1: open Discord app via deep link
-      window.location.href = DISCORD_INVITE_APP;
-
-      // Attempt 2 (600ms): fall back to the web invite
-      setTimeout(() => {
-        window.location.href = DISCORD_INVITE_WEB;
-      }, 600);
-
-      // Attempt 3 (1800ms total): if we're still here, show clearer instructions
-      setTimeout(() => {
-        const note2 = document.getElementById("ttModalNote");
-        if (note2) {
-          note2.textContent =
-            "If nothing happened, tap ••• in TikTok (top right) → Open in browser, then join in Discord.";
-        }
-      }, 1800);
-    }
-
-    function openInvitePage() {
-      // Best-effort: opens a new tab where TikTok may offer "Open in browser".
-      window.open(DISCORD_INVITE_WEB, "_blank", "noopener,noreferrer");
-    }
-
-    function appendDebugUAPill(ua) {
-      const pill = document.createElement("div");
-      pill.style.position = "fixed";
-      pill.style.left = "12px";
-      pill.style.right = "12px";
-      pill.style.bottom = "12px";
-      pill.style.zIndex = "10000";
-      pill.style.display = "flex";
-      pill.style.gap = "10px";
-      pill.style.alignItems = "center";
-      pill.style.justifyContent = "space-between";
-      pill.style.padding = "10px 12px";
-      pill.style.borderRadius = "14px";
-      pill.style.background = "rgba(0,0,0,0.68)";
-      pill.style.border = "1px solid rgba(255,255,255,0.14)";
-      pill.style.backdropFilter = "blur(12px) saturate(140%)";
-      pill.style.webkitBackdropFilter = "blur(12px) saturate(140%)";
-      pill.style.color = "rgba(255,255,255,0.9)";
-      pill.style.fontFamily = "Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-      pill.style.fontSize = "12px";
-      pill.style.lineHeight = "1.2";
-
-      const text = document.createElement("div");
-      text.style.flex = "1";
-      text.style.overflow = "hidden";
-      text.style.whiteSpace = "nowrap";
-      text.style.textOverflow = "ellipsis";
-      text.textContent = "UA: " + (ua || "").slice(0, 120);
-
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.textContent = "Copy UA";
-      btn.style.flexShrink = "0";
-      btn.style.borderRadius = "12px";
-      btn.style.padding = "8px 10px";
-      btn.style.border = "1px solid rgba(255,255,255,0.14)";
-      btn.style.background = "rgba(255,255,255,0.08)";
-      btn.style.color = "#fff";
-      btn.style.fontWeight = "800";
-      btn.style.cursor = "pointer";
-
-      btn.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(ua);
-          btn.textContent = "Copied!";
-          setTimeout(() => (btn.textContent = "Copy UA"), 1200);
-        } catch {
-          // Fallback if clipboard blocked in an in-app browser
-          prompt("Copy this UA:", ua);
-        }
-      });
-
-      pill.appendChild(text);
-      pill.appendChild(btn);
-      document.body.appendChild(pill);
-    }
-
-    // Close modal when tapping the dark backdrop.
-    document.addEventListener("click", (e) => {
-      const modal = document.getElementById("tiktokDiscordModal");
-      if (!modal || !modal.classList.contains("is-open")) return;
-      if (e.target === modal) hideTikTokModal();
-    });
   </script>
 
 </body>
