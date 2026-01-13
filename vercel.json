@@ -4,11 +4,11 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/linktree_bandz.html"
+      "destination": "/index.html"
     },
     {
       "source": "/(.*)",
-      "destination": "/linktree_bandz.html"
+      "destination": "/index.html"
     }
   ]
 }
