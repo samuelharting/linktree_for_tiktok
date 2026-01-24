@@ -127,6 +127,11 @@
       }
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
     /* === CONTAINER === */
     .container {
       width: 100%;
@@ -215,12 +220,14 @@
     }
     
     /* Staggered animation for main buttons */
-    .main-links > a {
+    .main-links > a,
+    .main-links > button {
       animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
     }
     
     .main-links > a:nth-child(1) { animation-delay: 0.2s; }
     .main-links > a:nth-child(2) { animation-delay: 0.3s; }
+    .main-links > button:nth-child(3) { animation-delay: 0.4s; }
 
     /* Glass Button Base */
     .glass-btn {
@@ -285,7 +292,8 @@
       gap: 14px;
     }
 
-    .big-btn i { 
+    .big-btn i,
+    .big-btn .emoji-icon { 
       font-size: 1.4rem;
       flex-shrink: 0;
       width: 1.4rem;
@@ -317,9 +325,27 @@
       border-color: rgba(216, 27, 38, 0.3);
     }
     .journal-btn i { color: #ff4d4d; }
+    .journal-btn .emoji-icon {
+      /* keep emoji aligned like the other icons */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
     .journal-btn:hover {
       border-color: rgba(216, 27, 38, 0.5);
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(216, 27, 38, 0.15);
+    }
+
+    /* Indicators button */
+    .indicators-btn {
+      cursor: pointer;
+      border: none;
+    }
+    .indicators-btn i { color: #60a5fa; }
+    .indicators-btn:hover {
+      border-color: rgba(96, 165, 250, 0.5);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(96, 165, 250, 0.15);
     }
 
     /* Journal hover preview */
@@ -741,6 +767,176 @@
       outline: 2px solid rgba(255,255,255,0.55); 
       outline-offset: 3px; 
     }
+
+    /* === INDICATORS PAGE === */
+    .indicators-page {
+      display: none;
+      width: 100%;
+      /* Use opacity-only animation so fixed back button doesn't "jump" */
+      animation: fadeIn 0.25s ease both;
+    }
+
+    .indicators-page.active {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      /* leave room for fixed back button */
+      padding-top: 72px;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      z-index: 1000;
+      cursor: pointer;
+
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 10px 26px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
+
+      transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+                  background 0.25s ease,
+                  box-shadow 0.25s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .back-button:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .back-button:active {
+      transform: translateY(0px) scale(0.96);
+    }
+
+    .back-button i {
+      font-size: 1.2rem;
+    }
+
+    .back-button:focus-visible {
+      outline: 2px solid rgba(255,255,255,0.55);
+      outline-offset: 3px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .indicators-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      /* Keep the nice slide-up animation on the content only */
+      animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    .indicator-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 20px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--blur-amt)) saturate(140%);
+      -webkit-backdrop-filter: blur(var(--blur-amt)) saturate(140%);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      box-shadow: 
+        0 4px 30px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .indicator-item:hover {
+      transform: translateY(-3px) scale(1.01);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .indicator-item:active {
+      transform: scale(0.98);
+    }
+
+    .indicator-image {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 12px;
+      object-fit: contain;
+    }
+
+    .indicator-link {
+      font-weight: 700;
+      font-size: 1rem;
+      text-align: center;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .indicator-item:hover .indicator-link {
+      color: #60a5fa;
+    }
+
+    /* Hide main content when indicators page is active */
+    .layout.hide-main .hero-section,
+    .layout.hide-main .panel {
+      display: none;
+    }
+
+    @media (min-width: 900px) {
+      /* when indicators are open, remove the "empty right column" */
+      .layout.hide-main {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .indicators-page {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .indicators-content {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(460px, 1fr));
+        gap: 26px;
+      }
+
+      .indicator-item {
+        padding: 26px;
+      }
+
+      .indicator-image {
+        max-width: 100%;
+        height: clamp(240px, 18vw, 340px);
+        object-fit: cover;
+      }
+    }
   </style>
 </head>
 
@@ -775,14 +971,22 @@
              target="_blank"
              rel="noopener noreferrer"
              class="glass-btn big-btn journal-btn">
-            <i class="fa-solid fa-chart-line"></i>
-            Free Trading Journal 🦄
+            <span class="emoji-icon" aria-hidden="true">🦄</span>
+            Free Trading Journal
             
             <!-- Hover Preview (desktop only) -->
             <span class="journal-preview" aria-hidden="true">
               <img src="calender.png" alt="">
             </span>
           </a>
+
+          <!-- Indicators: opens indicators page -->
+          <button type="button"
+                  onclick="showIndicatorsPage()"
+                  class="glass-btn big-btn indicators-btn">
+            <i class="fa-solid fa-chart-bar"></i>
+            Indicators
+          </button>
 
         </main>
 
@@ -845,6 +1049,34 @@
           </div>
         </div>
 
+      </section>
+
+      <!-- Indicators Page (hidden by default) -->
+      <section class="indicators-page" id="indicatorsPage">
+        <button type="button" class="back-button" onclick="showMainPage()" aria-label="Back">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span class="sr-only">Back</span>
+        </button>
+
+        <div class="indicators-content">
+          <!-- Indicator 1: ICT NWOG NDOG -->
+          <a href="https://www.tradingview.com/script/0oH9ALEX-ICT-NWOG-NDOG-Bandz/" target="_blank" rel="noopener noreferrer" class="indicator-item">
+            <img src="https://s3.tradingview.com/0/0oH9ALEX_mid.webp?v=1769292641" alt="ICT NWOG NDOG" class="indicator-image" onerror="this.style.display='none'">
+            <span class="indicator-link">ICT NWOG NDOG</span>
+          </a>
+
+          <!-- Indicator 2: ICT Killzones -->
+          <a href="https://www.tradingview.com/script/obmxboZR-ICT-Killzones-Bandz/" target="_blank" rel="noopener noreferrer" class="indicator-item">
+            <img src="https://s3.tradingview.com/o/obmxboZR_mid.webp?v=1769292055" alt="ICT Killzones" class="indicator-image" onerror="this.style.display='none'">
+            <span class="indicator-link">ICT Killzones</span>
+          </a>
+
+          <!-- Indicator 3: HTF Candles PSP SMT T-Spot CISD -->
+          <a href="https://www.tradingview.com/script/V2R2QNi2-Bandz-HTF-Candles-PSP-SMT-T-Spot-CISD/" target="_blank" rel="noopener noreferrer" class="indicator-item">
+            <img src="https://s3.tradingview.com/v/V2R2QNi2_mid.webp?v=1769291444" alt="HTF Candles PSP SMT T-Spot CISD" class="indicator-image" onerror="this.style.display='none'">
+            <span class="indicator-link">HTF Candles PSP SMT T-Spot CISD</span>
+          </a>
+        </div>
       </section>
 
     </div>
@@ -943,6 +1175,33 @@
         window.location.href = DISCORD_INVITE_WEB;
       }, 500);
       return false;
+    }
+
+    // Indicators page navigation
+    function showIndicatorsPage() {
+      const layout = document.querySelector('.layout');
+      const indicatorsPage = document.getElementById('indicatorsPage');
+      const mainPanel = document.querySelector('.panel');
+      const heroSection = document.querySelector('.hero-section');
+      
+      if (layout && indicatorsPage && mainPanel && heroSection) {
+        layout.classList.add('hide-main');
+        indicatorsPage.classList.add('active');
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function showMainPage() {
+      const layout = document.querySelector('.layout');
+      const indicatorsPage = document.getElementById('indicatorsPage');
+      
+      if (layout && indicatorsPage) {
+        layout.classList.remove('hide-main');
+        indicatorsPage.classList.remove('active');
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
   </script>
 
