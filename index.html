@@ -32,7 +32,11 @@
       --text-sub: #a1a1aa;
 
       /* Brand imagery */
-      --brand-image: url("bandz_logo.jpg");
+      --background-image: url("bandz_logo.jpg");
+      --card-image: url("black_classy_zoom.jpeg");
+      --card-scale: 1.22;
+      --card-shift-x: -1%;
+      --card-shift-y: 2%;
       
       --discord: #5865F2;
       --journal-border: #D81B26;
@@ -99,7 +103,7 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image: var(--brand-image);
+      background-image: var(--background-image);
       background-size: cover;
       background-position: center center;
       background-attachment: fixed;
@@ -112,7 +116,11 @@
 
     /* Image-only "light mode" (swaps assets only; does not change theme colors) */
     body.light-mode {
-      --brand-image: url("white_Bandz.JPG");
+      --background-image: url("white_Bandz.JPG");
+      --card-image: url("white_classy.jpg");
+      --card-scale: 1.18;
+      --card-shift-x: 0%;
+      --card-shift-y: 4%;
     }
 
     /* === ANIMATIONS === */
@@ -155,12 +163,15 @@
 
     /* === HERO IMAGE (MOBILE - Gemini style) === */
     .hero-section {
-      --hero-url: var(--brand-image);
+      --hero-url: var(--card-image);
       width: 100%;
+      aspect-ratio: 4 / 5;
       position: relative;
       display: flex; 
       justify-content: center;
       margin-bottom: 25px;
+      overflow: hidden;
+      border-radius: 26px;
       
       /* Animation */
       animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
@@ -195,9 +206,12 @@
 
     .hero-image {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
-      object-fit: contain;
+      object-fit: cover;
+      object-position: center center;
+      transform: translate(var(--card-shift-x), var(--card-shift-y)) scale(var(--card-scale));
+      transform-origin: center center;
       filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
     }
 
@@ -950,7 +964,7 @@
       
       <!-- Hero Section -->
       <header class="hero-section">
-        <img src="bandz_logo.jpg" alt="Bandz Profile" class="hero-image" />
+        <img src="black_classy_zoom.jpeg" alt="Bandz Profile" class="hero-image" />
         <span class="hero-soft" aria-hidden="true"></span>
       </header>
 
@@ -1087,8 +1101,8 @@
     const DISCORD_INVITE_WEB = "https://discord.gg/" + DISCORD_INVITE_CODE;
     const DISCORD_INVITE_APP = "discord://-/invite/" + DISCORD_INVITE_CODE;
 
-    const BRAND_IMAGE_DARK = "bandz_logo.jpg";
-    const BRAND_IMAGE_LIGHT = "white_Bandz.JPG";
+    const BRAND_IMAGE_DARK = "black_classy_zoom.jpeg";
+    const BRAND_IMAGE_LIGHT = "white_classy.jpg";
 
     function isTikTokInAppBrowser() {
       const ua = (navigator.userAgent || "").toLowerCase();
