@@ -2,8 +2,10 @@
   "name": "linktree-bandz",
   "version": "1.0.0",
   "description": "Custom Linktree for Bandz",
+  "type": "module",
   "main": "index.html",
   "scripts": {
+    "build": "node scripts/build.mjs",
     "start": "http-server -p 3000 -o"
   },
   "keywords": ["linktree", "links"],
