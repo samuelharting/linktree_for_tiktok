@@ -164,85 +164,45 @@
       }
 
       .brand-row {
-        position: relative;
-        isolation: isolate;
         display: flex;
         align-items: flex-end;
-        justify-content: space-between;
-        gap: 30px;
-        margin-bottom: clamp(30px, 5vw, 48px);
-      }
-
-      .brand-row::before {
-        content: "";
-        position: absolute;
-        z-index: -2;
-        top: -34%;
-        right: 5%;
-        width: min(48vw, 510px);
-        height: 138%;
-        background: rgba(40, 52, 62, 0.1);
-        border-radius: 56% 44% 63% 37% / 41% 58% 42% 59%;
-        filter: blur(0.35px);
-        transform: rotate(-4deg);
+        gap: clamp(24px, 5vw, 64px);
+        margin-bottom: clamp(26px, 4vw, 40px);
       }
 
       .brand-row::after {
         content: "";
-        position: absolute;
-        z-index: -1;
-        right: 14%;
-        bottom: 4%;
-        width: 48%;
-        height: 24px;
-        background: rgba(23, 25, 26, 0.075);
-        clip-path: polygon(0 34%, 8% 16%, 21% 23%, 34% 8%, 53% 18%, 68% 4%, 84% 19%, 100% 11%, 97% 78%, 82% 70%, 64% 88%, 47% 72%, 28% 91%, 10% 76%);
-        transform: rotate(-2deg);
+        flex: 1;
+        height: 1px;
+        margin-bottom: 8px;
+        background: var(--line);
       }
 
       h1 {
         margin: 0;
         font-family: var(--serif);
         font-size: clamp(4.8rem, 12vw, 8.8rem);
-        font-weight: 500;
+        font-weight: 400;
         letter-spacing: -0.065em;
         line-height: 0.78;
-      }
-
-      .seal {
-        width: 42px;
-        height: 42px;
-        display: grid;
-        flex: 0 0 auto;
-        place-items: center;
-        margin-bottom: 4px;
-        color: var(--paper);
-        background: var(--indigo);
-        border: 1px solid var(--indigo);
-        font-family: var(--sans);
-        font-size: 0.76rem;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        line-height: 1;
-        transform: rotate(-2deg);
       }
 
       .destination-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
+        gap: 16px;
       }
 
       .destination-card {
         position: relative;
         width: 100%;
-        min-height: 238px;
+        min-height: 366px;
         display: grid;
-        grid-template-rows: auto 1fr auto;
-        gap: 20px;
-        padding: 24px;
+        grid-template-rows: minmax(0, 1fr) auto;
+        gap: 0;
+        padding: 0;
         color: var(--ink);
-        background: rgba(251, 250, 246, 0.68);
+        background: rgba(251, 250, 246, 0.9);
         border: 1px solid var(--line);
         appearance: none;
         text-align: left;
@@ -250,120 +210,107 @@
         cursor: pointer;
         overflow: hidden;
         transition:
-          color 280ms var(--ease),
-          background-color 280ms var(--ease),
-          transform 280ms var(--ease);
-      }
-
-      .destination-card + .destination-card {
-        border-left: 1px solid var(--line);
-      }
-
-      .destination-card > * {
-        position: relative;
-        z-index: 1;
-      }
-
-      .destination-card::before {
-        content: "";
-        position: absolute;
-        z-index: 0;
-        top: 31%;
-        left: 18%;
-        width: 74%;
-        height: 34%;
-        background: rgba(40, 52, 62, 0.085);
-        clip-path: polygon(0 28%, 9% 15%, 25% 23%, 42% 5%, 61% 17%, 78% 8%, 100% 21%, 96% 77%, 79% 68%, 60% 89%, 39% 74%, 19% 91%, 3% 73%);
-        transform: rotate(-5deg);
-        transition:
-          background-color 280ms var(--ease),
-          transform 420ms var(--ease);
-      }
-
-      .destination-card:nth-child(2)::before {
-        top: 13%;
-        left: 55%;
-        width: 30%;
-        height: 72%;
-        background: rgba(23, 25, 26, 0.06);
-        clip-path: polygon(18% 0, 81% 5%, 100% 17%, 87% 39%, 96% 63%, 73% 100%, 24% 93%, 0 76%, 12% 52%, 3% 27%);
-        transform: rotate(8deg);
-      }
-
-      .destination-card:nth-child(3)::before {
-        top: 58%;
-        left: 7%;
-        width: 86%;
-        height: 20%;
-        background: rgba(40, 52, 62, 0.095);
-        transform: rotate(-3deg);
-      }
-
-      .destination-card::after {
-        content: "";
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        width: 16px;
-        height: 16px;
-        border-right: 1px solid currentColor;
-        border-bottom: 1px solid currentColor;
-        opacity: 0;
-        transition:
-          opacity 280ms var(--ease),
-          transform 280ms var(--ease);
+          border-color 240ms ease,
+          box-shadow 320ms var(--ease),
+          transform 320ms var(--ease);
       }
 
       .destination-card:hover {
+        border-color: var(--ink);
+        box-shadow: 0 18px 42px rgba(23, 25, 26, 0.09);
+        transform: translateY(-4px);
+      }
+
+      .card-preview {
+        position: relative;
+        min-height: 262px;
+        overflow: hidden;
+        background: #e5e2da;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .card-preview img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        filter: saturate(0.72) contrast(1.04);
+        transition:
+          filter 360ms var(--ease),
+          transform 560ms var(--ease);
+      }
+
+      .card-preview--journal img {
+        object-position: 26% 20%;
+      }
+
+      .card-preview--indicator img {
+        object-position: center;
+      }
+
+      .destination-card:hover .card-preview img {
+        filter: saturate(0.9) contrast(1.03);
+        transform: scale(1.025);
+      }
+
+      .card-preview--discord {
+        display: grid;
+        place-items: center;
         color: var(--paper);
         background: var(--indigo);
-        transform: translateY(-3px);
       }
 
-      .destination-card:hover::before {
-        background: rgba(251, 250, 246, 0.1);
-        transform: rotate(-2deg) scale(1.03);
+      .card-preview--discord::after {
+        content: "";
+        position: absolute;
+        inset: 18px;
+        border: 1px solid rgba(251, 250, 246, 0.24);
       }
 
-      .destination-card:nth-child(2):hover::before {
-        transform: rotate(5deg) scale(1.03);
+      .discord-mark {
+        position: relative;
+        z-index: 1;
+        font-size: 3.6rem;
+        transition: transform 360ms var(--ease);
       }
 
-      .destination-card:hover::after {
-        opacity: 0.55;
-        transform: translate(-10px, -10px);
-      }
-
-      .card-top,
-      .card-bottom {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
+      .destination-card:hover .discord-mark {
+        transform: scale(1.06);
       }
 
       .card-number {
-        color: var(--muted);
-        font-size: 0.68rem;
-        font-weight: 500;
+        position: absolute;
+        z-index: 2;
+        top: 14px;
+        left: 14px;
+        padding: 6px 8px;
+        color: var(--ink);
+        background: rgba(251, 250, 246, 0.9);
+        font-size: 0.64rem;
+        font-weight: 600;
         letter-spacing: 0.16em;
-        transition: color 280ms var(--ease);
       }
 
-      .destination-card:hover .card-number {
-        color: rgba(255, 253, 248, 0.65);
+      .card-preview--discord .card-number {
+        color: rgba(251, 250, 246, 0.72);
+        background: transparent;
       }
 
-      .card-icon {
-        font-size: 1.08rem;
+      .card-meta {
+        min-height: 102px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 22px 20px;
+        background: var(--paper);
       }
 
       .card-title {
-        align-self: end;
         margin: 0;
         font-family: var(--serif);
-        font-size: clamp(1.75rem, 3vw, 2.3rem);
-        font-weight: 500;
+        font-size: clamp(1.9rem, 3vw, 2.35rem);
+        font-weight: 400;
         letter-spacing: -0.035em;
         line-height: 1;
       }
@@ -664,16 +611,11 @@
         }
 
         .brand-row {
-          margin-bottom: 30px;
+          margin-bottom: 26px;
         }
 
         h1 {
           font-size: clamp(4rem, 21vw, 6.2rem);
-        }
-
-        .seal {
-          width: 36px;
-          height: 36px;
         }
 
         .destination-grid {
@@ -682,42 +624,34 @@
         }
 
         .destination-card {
-          min-height: 102px;
-          grid-template-columns: auto 1fr auto;
+          min-height: 158px;
+          grid-template-columns: minmax(132px, 42%) 1fr;
           grid-template-rows: 1fr;
-          align-items: center;
-          gap: 18px;
-          padding: 18px 16px;
+          gap: 0;
         }
 
-        .destination-card + .destination-card {
-          border-left: 1px solid var(--line);
+        .card-preview {
+          min-height: 156px;
+          height: 100%;
+          border-right: 1px solid var(--line);
+          border-bottom: 0;
         }
 
-        .card-top,
-        .card-bottom {
-          display: contents;
+        .card-preview--discord::after {
+          inset: 12px;
         }
 
-        .card-number {
-          grid-column: 1;
-          grid-row: 1;
+        .discord-mark {
+          font-size: 2.5rem;
         }
 
-        .card-icon {
-          display: none;
+        .card-meta {
+          min-height: 156px;
+          padding: 18px;
         }
 
         .card-title {
-          grid-column: 2;
-          grid-row: 1;
-          align-self: center;
-          font-size: 1.75rem;
-        }
-
-        .card-arrow {
-          grid-column: 3;
-          grid-row: 1;
+          font-size: clamp(1.55rem, 8vw, 2rem);
         }
 
         .social-row {
@@ -804,7 +738,6 @@
       <main id="main-content">
         <div class="brand-row reveal" style="--delay: 90ms">
           <h1>Bandz.</h1>
-          <span class="seal" aria-hidden="true">B</span>
         </div>
 
         <nav class="destination-grid reveal" style="--delay: 150ms" aria-label="Bandz links">
@@ -814,12 +747,11 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span class="card-top">
+            <span class="card-preview card-preview--discord">
               <span class="card-number">01</span>
-              <i class="card-icon fa-brands fa-discord" aria-hidden="true"></i>
+              <i class="discord-mark fa-brands fa-discord" aria-hidden="true"></i>
             </span>
-            <span aria-hidden="true"></span>
-            <span class="card-bottom">
+            <span class="card-meta">
               <span class="card-title">Discord</span>
               <span class="card-arrow" aria-hidden="true">↗</span>
             </span>
@@ -832,12 +764,17 @@
             aria-haspopup="dialog"
             aria-controls="journalDialog"
           >
-            <span class="card-top">
+            <span class="card-preview card-preview--journal">
               <span class="card-number">02</span>
-              <i class="card-icon fa-regular fa-bookmark" aria-hidden="true"></i>
+              <img
+                src="calender.png"
+                alt=""
+                width="3840"
+                height="2063"
+                decoding="async"
+              />
             </span>
-            <span aria-hidden="true"></span>
-            <span class="card-bottom">
+            <span class="card-meta">
               <span class="card-title">Journal</span>
               <span class="card-arrow" aria-hidden="true">↗</span>
             </span>
@@ -850,12 +787,17 @@
             aria-haspopup="dialog"
             aria-controls="indicatorsDialog"
           >
-            <span class="card-top">
+            <span class="card-preview card-preview--indicator">
               <span class="card-number">03</span>
-              <i class="card-icon fa-solid fa-chart-simple" aria-hidden="true"></i>
+              <img
+                src="https://s3.tradingview.com/w/wc5MzQEq_mid.webp?v=1781555710"
+                alt=""
+                width="932"
+                height="550"
+                decoding="async"
+              />
             </span>
-            <span aria-hidden="true"></span>
-            <span class="card-bottom">
+            <span class="card-meta">
               <span class="card-title">Indicators</span>
               <span class="card-arrow" aria-hidden="true">↗</span>
             </span>
