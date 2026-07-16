@@ -93,13 +93,13 @@ function testMobileAppLink({ appUrl, webUrl }) {
 }
 
 testMobileAppLink({
-  appUrl: "instagram://user?username=bandwithsam",
-  webUrl: "https://www.instagram.com/bandwithsam/",
+  appUrl: "instagram://user?username=bandz_trading",
+  webUrl: "https://www.instagram.com/bandz_trading/",
 });
 
 testMobileAppLink({
-  appUrl: "tiktok://@bandwithsam",
-  webUrl: "https://www.tiktok.com/@bandwithsam",
+  appUrl: "tiktok://@bandztrading",
+  webUrl: "https://www.tiktok.com/@bandztrading",
 });
 
 console.log("Instagram and TikTok mobile app links and web fallbacks are wired correctly.");
