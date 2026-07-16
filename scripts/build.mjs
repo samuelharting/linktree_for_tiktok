@@ -9,6 +9,7 @@ const serverDir = path.join(dist, "server");
 const html = await readFile(path.join(root, "index.html"), "utf8");
 const ogImage = await readFile(path.join(root, "og.png"));
 const journalImage = await readFile(path.join(root, "calender.png"));
+const portraitImage = await readFile(path.join(root, "fearing_bandz.png"));
 
 await rm(dist, { recursive: true, force: true });
 await mkdir(serverDir, { recursive: true });
@@ -17,8 +18,10 @@ const workerSource = `
 const pageHtml = ${JSON.stringify(html)};
 const ogBase64 = ${JSON.stringify(ogImage.toString("base64"))};
 const journalBase64 = ${JSON.stringify(journalImage.toString("base64"))};
+const portraitBase64 = ${JSON.stringify(portraitImage.toString("base64"))};
 let ogBytes;
 let journalBytes;
+let portraitBytes;
 
 function getOgBytes() {
   if (!ogBytes) {
@@ -34,6 +37,14 @@ function getJournalBytes() {
     journalBytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
   }
   return journalBytes;
+}
+
+function getPortraitBytes() {
+  if (!portraitBytes) {
+    const binary = atob(portraitBase64);
+    portraitBytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+  }
+  return portraitBytes;
 }
 
 function responseFor(request, body, init) {
@@ -73,6 +84,15 @@ const worker = {
       });
     }
 
+    if (url.pathname === "/fearing_bandz.png") {
+      return responseFor(request, getPortraitBytes(), {
+        headers: {
+          "Content-Type": "image/png",
+          "Cache-Control": "public, max-age=31536000, immutable",
+        },
+      });
+    }
+
     if (url.pathname === "/favicon.ico") {
       return new Response(null, { status: 204 });
     }
@@ -96,6 +116,7 @@ await Promise.all([
   copyFile(path.join(root, "index.html"), path.join(dist, "index.html")),
   copyFile(path.join(root, "og.png"), path.join(dist, "og.png")),
   copyFile(path.join(root, "calender.png"), path.join(dist, "calender.png")),
+  copyFile(path.join(root, "fearing_bandz.png"), path.join(dist, "fearing_bandz.png")),
 ]);
 
 console.log("Static site build complete.");
