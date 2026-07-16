@@ -145,25 +145,15 @@
 
       .portrait-column {
         min-width: 0;
-        display: grid;
-        place-items: center;
-        position: relative;
-      }
-
-      .portrait-column::before {
-        content: "";
-        position: absolute;
-        width: min(95%, 500px);
-        aspect-ratio: 1;
-        border: 1px solid rgba(23, 25, 26, 0.2);
-        border-radius: 50%;
-        transform: translate(16px, 16px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .portrait-frame {
         width: min(92%, 480px);
         aspect-ratio: 1;
-        margin: 0;
+        margin: 0 auto;
         overflow: hidden;
         border: 1px solid rgba(23, 25, 26, 0.56);
         border-radius: 50%;
@@ -178,21 +168,11 @@
         height: 100%;
         object-fit: cover;
         object-position: 50% 25%;
-        transform: scale(1.02);
         filter: saturate(0.88) contrast(1.03);
       }
 
       .panel {
         min-width: 0;
-      }
-
-      .brand {
-        margin: 0 0 28px 130px;
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: clamp(44px, 5.4vw, 71px);
-        font-weight: 400;
-        line-height: 0.86;
-        letter-spacing: -0.045em;
       }
 
       .main-links {
@@ -508,16 +488,6 @@
           width: min(72vw, 420px);
         }
 
-        .portrait-column::before {
-          width: min(74vw, 430px);
-          transform: translate(10px, 10px);
-        }
-
-        .brand {
-          margin: 0 0 20px;
-          font-size: clamp(44px, 13vw, 64px);
-          text-align: center;
-        }
       }
 
       @media (max-width: 560px) {
@@ -532,11 +502,6 @@
 
         .portrait-frame {
           width: min(78vw, 330px);
-        }
-
-        .portrait-column::before {
-          width: min(80vw, 338px);
-          transform: translate(8px, 8px);
         }
 
         .link-row {
@@ -613,9 +578,7 @@
           </figure>
         </div>
 
-        <section class="panel reveal" style="--delay: 150ms" aria-labelledby="brand-title">
-          <h1 class="brand" id="brand-title">Bandz.</h1>
-
+        <div class="panel reveal" style="--delay: 150ms">
           <nav class="main-links" aria-label="Bandz links">
             <a
               class="link-row"
@@ -690,7 +653,7 @@
               </a>
             </nav>
           </section>
-        </section>
+        </div>
       </main>
 
       <div class="rule reveal" style="--delay: 220ms" aria-hidden="true"></div>
