@@ -397,11 +397,10 @@
         max-height: 88vh;
         max-height: 88svh;
         display: grid;
-        grid-template-rows: auto 1fr auto;
+        grid-template-rows: auto 1fr;
       }
 
-      .dialog-header,
-      .dialog-footer {
+      .dialog-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -411,10 +410,6 @@
 
       .dialog-header {
         border-bottom: 1px solid var(--line);
-      }
-
-      .dialog-footer {
-        border-top: 1px solid var(--line);
       }
 
       .dialog-title {
@@ -455,39 +450,6 @@
         min-height: 0;
         overflow: auto;
         padding: 24px;
-      }
-
-      .journal-frame {
-        padding: 10px;
-        background: var(--paper);
-        border: 1px solid var(--line);
-        clip-path: polygon(0.15% 0, 99.8% 0.25%, 100% 99.65%, 0.1% 100%);
-      }
-
-      .journal-frame img {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
-
-      .dialog-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        color: var(--ink);
-        font-size: 0.82rem;
-        font-weight: 500;
-        letter-spacing: 0.07em;
-        text-decoration: none;
-        text-transform: uppercase;
-        transition:
-          color 220ms ease,
-          transform 280ms var(--ease);
-      }
-
-      .dialog-link:hover {
-        color: var(--indigo);
-        transform: translateX(3px);
       }
 
       .indicator-grid {
@@ -686,8 +648,7 @@
           max-height: 91svh;
         }
 
-        .dialog-header,
-        .dialog-footer {
+        .dialog-header {
           padding: 16px;
         }
 
@@ -765,12 +726,11 @@
             </span>
           </a>
 
-          <button
+          <a
             class="destination-card"
-            type="button"
-            id="openJournal"
-            aria-haspopup="dialog"
-            aria-controls="journalDialog"
+            href="https://bandzjournal.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <span class="card-preview card-preview--journal">
               <img
@@ -788,7 +748,7 @@
               </span>
               <span class="card-arrow" aria-hidden="true">↗</span>
             </span>
-          </button>
+          </a>
 
           <button
             class="destination-card"
@@ -865,40 +825,6 @@
 
       <div class="bottom-rule reveal" style="--delay: 270ms" aria-hidden="true"></div>
     </div>
-
-    <dialog id="journalDialog" aria-labelledby="journalTitle">
-      <div class="dialog-shell">
-        <header class="dialog-header">
-          <h2 class="dialog-title" id="journalTitle">Journal</h2>
-          <button class="close-button" type="button" data-close-dialog aria-label="Close journal">
-            <span aria-hidden="true">×</span>
-          </button>
-        </header>
-        <div class="dialog-body">
-          <div class="journal-frame">
-            <img
-              src="calender.png"
-              alt="Bandz Journal yearly overview with month-by-month trading results"
-              width="3840"
-              height="2063"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-        </div>
-        <footer class="dialog-footer">
-          <span aria-hidden="true"></span>
-          <a
-            class="dialog-link"
-            href="https://bandzjournal.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open Journal <span aria-hidden="true">↗</span>
-          </a>
-        </footer>
-      </div>
-    </dialog>
 
     <dialog id="indicatorsDialog" aria-labelledby="indicatorsTitle">
       <div class="dialog-shell">
@@ -981,10 +907,8 @@
     </dialog>
 
     <script>
-      const journalDialog = document.querySelector("#journalDialog");
       const indicatorsDialog = document.querySelector("#indicatorsDialog");
       const dialogBindings = [
-        [document.querySelector("#openJournal"), journalDialog],
         [document.querySelector("#openIndicators"), indicatorsDialog],
       ];
 
