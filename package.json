@@ -6,7 +6,8 @@
   "main": "index.html",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "start": "http-server -p 3000 -o"
+    "start": "http-server -p 3000 -o",
+    "test:social-links": "node scripts/test-social-links.mjs"
   },
   "keywords": ["linktree", "links"],
   "author": "",

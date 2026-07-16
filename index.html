@@ -642,10 +642,10 @@
               <a class="social-link" href="https://x.com/Bandz_Trading" aria-label="Bandz on X" title="X">
                 <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
               </a>
-              <a class="social-link" href="https://www.instagram.com/bandwithsam/" aria-label="Bandz on Instagram" title="Instagram">
+              <a class="social-link" href="https://www.instagram.com/bandwithsam/" data-app-url="instagram://user?username=bandwithsam" aria-label="Bandz on Instagram" title="Instagram">
                 <i class="fa-brands fa-instagram" aria-hidden="true"></i>
               </a>
-              <a class="social-link" href="https://www.tiktok.com/@bandwithsam" aria-label="Bandz on TikTok" title="TikTok">
+              <a class="social-link" href="https://www.tiktok.com/@bandwithsam" data-app-url="tiktok://@bandwithsam" aria-label="Bandz on TikTok" title="TikTok">
                 <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
               </a>
               <a class="social-link" href="https://www.youtube.com/@BandzTrading" aria-label="Bandz on YouTube" title="YouTube">
@@ -708,6 +708,43 @@
       const indicatorsDialog = document.querySelector("#indicatorsDialog");
       const openIndicators = document.querySelector("#openIndicators");
       const closeIndicators = indicatorsDialog.querySelector("[data-close-dialog]");
+
+      const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+      );
+
+      if (isMobileDevice) {
+        document.querySelectorAll("a[data-app-url]").forEach((link) => {
+          link.addEventListener("click", (event) => {
+            const appUrl = link.dataset.appUrl;
+            const webUrl = link.href;
+
+            if (!appUrl) return;
+
+            event.preventDefault();
+
+            let appOpened = false;
+            const handleVisibilityChange = () => {
+              if (document.hidden || document.webkitHidden) {
+                appOpened = true;
+              }
+            };
+
+            document.addEventListener("visibilitychange", handleVisibilityChange);
+            document.addEventListener("webkitvisibilitychange", handleVisibilityChange);
+            window.location.href = appUrl;
+
+            window.setTimeout(() => {
+              document.removeEventListener("visibilitychange", handleVisibilityChange);
+              document.removeEventListener("webkitvisibilitychange", handleVisibilityChange);
+
+              if (!appOpened && !document.hidden && !document.webkitHidden) {
+                window.location.href = webUrl;
+              }
+            }, 2000);
+          });
+        });
+      }
 
       function openDialog() {
         if (!indicatorsDialog.open) {
