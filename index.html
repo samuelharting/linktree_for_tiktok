@@ -283,40 +283,17 @@
         letter-spacing: -0.025em;
       }
 
-      .external-arrow {
-        position: relative;
-        display: block;
-        width: 18px;
-        height: 18px;
-        color: var(--muted);
-      }
-
-      .external-arrow::before {
-        content: "";
-        position: absolute;
-        left: 2px;
-        bottom: 4px;
-        width: 14px;
-        height: 1.5px;
-        border-radius: 999px;
-        background: currentColor;
-        transform: rotate(-45deg);
-        transform-origin: center;
-      }
-
-      .external-arrow::after {
-        content: "";
-        position: absolute;
-        top: 2px;
-        right: 2px;
-        width: 8px;
-        height: 8px;
-        border-top: 1.5px solid currentColor;
-        border-right: 1.5px solid currentColor;
-      }
-
       .link-arrow {
         place-self: center;
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18px;
+        font-style: normal;
+        font-variant-emoji: text;
+        font-weight: 400;
+        line-height: 1;
         transition: color 240ms ease, transform 240ms ease;
       }
 
@@ -488,8 +465,14 @@
 
       .indicator-arrow {
         flex: 0 0 auto;
-        width: 16px;
-        height: 16px;
+        margin-top: 1px;
+        color: var(--muted);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        font-variant-emoji: text;
+        font-weight: 400;
+        line-height: 1;
       }
 
       .reveal {
@@ -628,7 +611,7 @@
                 <span class="link-kicker">Free access</span>
                 <span class="link-title">Discord</span>
               </span>
-              <span class="link-arrow external-arrow" aria-hidden="true"></span>
+              <span class="link-arrow" aria-hidden="true">&#x2197;&#xfe0e;</span>
             </a>
 
             <a
@@ -644,7 +627,7 @@
                 <span class="link-kicker">Free access</span>
                 <span class="link-title">Trading Journal</span>
               </span>
-              <span class="link-arrow external-arrow" aria-hidden="true"></span>
+              <span class="link-arrow" aria-hidden="true">&#x2197;&#xfe0e;</span>
             </a>
 
             <button
@@ -667,7 +650,7 @@
                 <span class="link-kicker">Free access</span>
                 <span class="link-title">Indicators</span>
               </span>
-              <span class="link-arrow external-arrow" aria-hidden="true"></span>
+              <span class="link-arrow" aria-hidden="true">&#x2197;&#xfe0e;</span>
             </button>
           </nav>
 
@@ -711,7 +694,7 @@
               </span>
               <span class="indicator-info">
                 <span class="indicator-name">Multi-Timeframe Timecycles · QT · SSMT</span>
-                <span class="indicator-arrow external-arrow" aria-hidden="true"></span>
+                <span class="indicator-arrow" aria-hidden="true">&#x2197;&#xfe0e;</span>
               </span>
             </a>
 
@@ -721,7 +704,7 @@
               </span>
               <span class="indicator-info">
                 <span class="indicator-name">Multi HTF Candles 2.0 · PSP · SMT · T-Spot · CISD</span>
-                <span class="indicator-arrow external-arrow" aria-hidden="true"></span>
+                <span class="indicator-arrow" aria-hidden="true">&#x2197;&#xfe0e;</span>
               </span>
             </a>
 
@@ -731,7 +714,7 @@
               </span>
               <span class="indicator-info">
                 <span class="indicator-name">NWOG · NDOG · Macros · Watermark</span>
-                <span class="indicator-arrow external-arrow" aria-hidden="true"></span>
+                <span class="indicator-arrow" aria-hidden="true">&#x2197;&#xfe0e;</span>
               </span>
             </a>
           </div>
