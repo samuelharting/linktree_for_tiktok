@@ -4,29 +4,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Bandz. | Discord, Journal &amp; Indicators</title>
+    <title>Bandz | Indicators, Discord &amp; Trading Journal</title>
     <meta
       name="description"
-      content="Free Discord, a free trading journal, free TradingView indicators, and Bandz socials."
+      content="Explore five focused Bandz indicators, join the Discord community, and review every trade with the free trading journal."
     />
-    <meta name="theme-color" content="#f1eee6" />
+    <meta name="theme-color" content="#F3EFE7" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://all-bandz-links.vercel.app/" />
-    <meta property="og:title" content="Bandz." />
-    <meta property="og:description" content="Discord · Journal · Indicators · Socials" />
-    <meta property="og:image" content="https://all-bandz-links.vercel.app/og.png" />
-    <meta property="og:image:alt" content="Bandz. Discord, Journal, Indicators, and Socials." />
+    <meta property="og:title" content="Bandz | Build a better trading process." />
+    <meta
+      property="og:description"
+      content="Five focused indicators · Discord community · Free trading journal"
+    />
+    <meta
+      property="og:image"
+      content="https://all-bandz-links.vercel.app/og-store-graphite-preview.png"
+    />
+    <meta
+      property="og:image:alt"
+      content="Bandz trading journal, five-indicator bundle, and trading communities."
+    />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Bandz." />
-    <meta name="twitter:description" content="Discord · Journal · Indicators · Socials" />
-    <meta name="twitter:image" content="https://all-bandz-links.vercel.app/og.png" />
+    <meta name="twitter:title" content="Bandz | Build a better trading process." />
+    <meta
+      name="twitter:description"
+      content="Five focused indicators · Discord community · Free trading journal"
+    />
+    <meta
+      name="twitter:image"
+      content="https://all-bandz-links.vercel.app/og-store-graphite-preview.png"
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
     <link
@@ -34,18 +49,44 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     />
 
+    <script>
+      // DESIGN OPTION: Change only this value to "paper", "grid", or "market".
+      const backgroundVariant = "grid";
+      const allowedBackgroundVariants = ["paper", "grid", "market"];
+      document.documentElement.dataset.backgroundVariant = allowedBackgroundVariants.includes(
+        backgroundVariant,
+      )
+        ? backgroundVariant
+        : "paper";
+    </script>
+
     <style>
       :root {
         color-scheme: light;
-        --canvas: #f1eee6;
-        --paper: #fbfaf6;
-        --ink: #17191a;
-        --muted: #6d6d69;
-        --line: #c9c4b8;
-        --navy: #28343e;
-        --plum: #59465f;
-        --plum-dark: #443349;
-        --focus: #75615e;
+        --background: #F3EFE7;
+        --background-alt: #ECE8E0;
+        --surface: #FBF9F4;
+        --text: #171715;
+        --muted-text: #67645E;
+        --body-text: #5D5A54;
+        --border: #D4CEC3;
+        --accent: #34383E;
+        --accent-dark: #1E2125;
+        --accent-soft: #E5E6E8;
+        --accent-muted: #71767D;
+        --canvas: var(--background);
+        --canvas-soft: var(--background-alt);
+        --surface-strong: #FFFDF8;
+        --paper: var(--surface);
+        --ink: var(--text);
+        --muted: var(--muted-text);
+        --line: var(--border);
+        --line-strong: #AFA79C;
+        --accent-deep: var(--accent-dark);
+        --accent-ink: #F8F5EE;
+        --discord: #5865F2;
+        --max-width: 1180px;
+        --radius: 22px;
       }
 
       *,
@@ -65,36 +106,35 @@
         min-height: 100vh;
         min-height: 100svh;
         color: var(--ink);
-        background-color: var(--canvas);
-        background-image:
-          radial-gradient(circle at 13% 17%, rgba(255, 255, 255, 0.6), transparent 30%),
-          radial-gradient(circle at 86% 82%, rgba(40, 52, 62, 0.055), transparent 33%),
-          repeating-linear-gradient(8deg, rgba(23, 25, 26, 0.012) 0 1px, transparent 1px 5px);
+        background:
+          radial-gradient(circle at 13% 17%, rgba(255, 255, 255, 0.72), transparent 30rem),
+          radial-gradient(circle at 86% 82%, rgba(52, 56, 62, 0.055), transparent 34rem),
+          var(--canvas);
         font-family: "Manrope", sans-serif;
         -webkit-font-smoothing: antialiased;
       }
 
-      body::after {
+      body::before {
         content: "";
         position: fixed;
         inset: 0;
         z-index: -1;
         pointer-events: none;
-        opacity: 0.32;
+        opacity: 0.26;
         background-image:
-          radial-gradient(circle at 20% 30%, rgba(23, 25, 26, 0.08) 0 0.5px, transparent 0.7px),
-          radial-gradient(circle at 70% 60%, rgba(23, 25, 26, 0.06) 0 0.5px, transparent 0.7px);
+          radial-gradient(circle at 20% 30%, rgba(23, 23, 21, 0.1) 0 0.45px, transparent 0.7px),
+          radial-gradient(circle at 72% 64%, rgba(23, 23, 21, 0.07) 0 0.4px, transparent 0.65px);
         background-size: 7px 7px, 11px 11px;
-      }
-
-      body.modal-open {
-        overflow: hidden;
       }
 
       button,
       a {
         font: inherit;
         -webkit-tap-highlight-color: transparent;
+      }
+
+      button {
+        color: inherit;
       }
 
       img {
@@ -107,11 +147,13 @@
         top: 12px;
         left: 12px;
         z-index: 100;
-        padding: 10px 14px;
-        color: var(--paper);
-        background: var(--ink);
+        padding: 11px 15px;
+        color: var(--accent-ink);
+        background: var(--accent);
+        border-radius: 999px;
+        font-weight: 800;
         text-decoration: none;
-        transform: translateY(-160%);
+        transform: translateY(-180%);
         transition: transform 180ms ease;
       }
 
@@ -119,445 +161,1287 @@
         transform: translateY(0);
       }
 
-      .page {
-        width: min(1120px, calc(100% - 48px));
-        min-height: 100svh;
+      .site-shell {
+        width: min(var(--max-width), calc(100% - 48px));
         margin: 0 auto;
-        padding: clamp(24px, 4vw, 54px) 0;
-        display: grid;
-        grid-template-rows: auto 1fr auto;
-        gap: clamp(22px, 3vw, 38px);
       }
 
-      .rule {
-        height: 1px;
-        background: var(--ink);
-        opacity: 0.78;
-        transform-origin: left;
-      }
-
-      .layout {
+      .site-header {
+        position: sticky;
+        top: 14px;
+        z-index: 20;
+        width: min(var(--max-width), calc(100% - 48px));
+        min-height: 70px;
+        margin: 14px auto 0;
+        padding: 10px 12px 10px 20px;
         display: grid;
-        grid-template-columns: minmax(360px, 1.08fr) minmax(390px, 0.92fr);
+        grid-template-columns: auto minmax(0, 1fr) auto;
         align-items: center;
-        gap: clamp(44px, 7vw, 92px);
+        gap: 24px;
+        background: rgba(251, 250, 246, 0.98);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        box-shadow: 0 14px 50px rgba(23, 25, 26, 0.1);
       }
 
-      .portrait-column {
+      .brand {
+        color: var(--ink);
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: 34px;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        text-decoration: none;
+      }
+
+      .header-nav {
         min-width: 0;
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: clamp(14px, 2.4vw, 32px);
       }
 
-      .portrait-frame {
-        width: min(92%, 480px);
-        aspect-ratio: 1;
-        margin: 0 auto;
-        overflow: hidden;
-        border: 1px solid rgba(23, 25, 26, 0.56);
-        border-radius: 50%;
-        background: #ded5c6;
-        box-shadow: 0 24px 70px rgba(23, 25, 26, 0.13);
+      .header-nav a {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: color 180ms ease;
+      }
+
+      .header-nav a:hover {
+        color: var(--ink);
+      }
+
+      .nav-free {
+        margin-left: 4px;
+        padding: 0;
+        color: var(--accent);
+        background: transparent;
+        border-radius: 0;
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        font-style: normal;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .header-offer {
+        min-height: 48px;
+        padding: 0 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        color: var(--accent-ink);
+        background: var(--accent-dark);
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 800;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+      }
+
+      .header-offer:hover {
+        background: var(--accent);
+        box-shadow: 0 10px 24px rgba(30, 33, 37, 0.18);
+        transform: translateY(-1px);
+      }
+
+      .hero {
+        position: relative;
+        min-height: min(820px, calc(100svh - 84px));
+        padding: clamp(54px, 7.5vw, 104px) 0 clamp(56px, 7vw, 92px);
+        display: grid;
+        grid-template-columns: minmax(0, 1.18fr) minmax(230px, 0.52fr);
+        align-items: center;
+        gap: clamp(42px, 7vw, 96px);
+      }
+
+      .hero > :not(.market-decoration) {
         position: relative;
         z-index: 1;
       }
 
-      .portrait-frame img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: 50% 25%;
-        filter: saturate(0.88) contrast(1.03);
+      html[data-background-variant="grid"] .hero::before {
+        content: "";
+        position: absolute;
+        inset: 2% -8% 0;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.78;
+        background-image: radial-gradient(rgba(20, 20, 18, 0.085) 0.75px, transparent 0.75px);
+        background-size: 18px 18px;
+        mask-image: radial-gradient(ellipse at 68% 48%, black, transparent 68%);
       }
 
-      .panel {
-        min-width: 0;
+      .eyebrow {
+        margin: 0 0 22px;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        color: var(--accent);
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.13em;
+        line-height: 1.4;
+        text-transform: uppercase;
       }
 
-      .main-links {
-        display: grid;
+      .eyebrow::before {
+        content: "";
+        width: 34px;
+        height: 1px;
+        background: currentColor;
+      }
+
+      .hero h1 {
+        max-width: 720px;
+        margin: 0;
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: clamp(66px, 8vw, 118px);
+        font-weight: 400;
+        line-height: 0.84;
+        letter-spacing: -0.055em;
+      }
+
+      .hero h1 em {
+        color: var(--accent);
+        font-weight: 400;
+      }
+
+      .hero-lede {
+        max-width: 600px;
+        margin: 30px 0 0;
+        color: var(--muted);
+        font-size: clamp(16px, 1.7vw, 20px);
+        line-height: 1.65;
+      }
+
+      .hero-actions {
+        margin-top: 36px;
+        display: flex;
+        flex-wrap: wrap;
         gap: 12px;
       }
 
-      .link-row {
-        appearance: none;
-        width: 100%;
-        min-height: 108px;
-        padding: 0;
-        display: grid;
-        grid-template-columns: 112px minmax(0, 1fr) 42px;
-        align-items: stretch;
-        color: var(--ink);
-        background: rgba(251, 250, 246, 0.8);
-        border: 1px solid var(--line);
-        border-radius: 2px;
+      .button {
+        min-height: 52px;
+        padding: 0 21px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
         cursor: pointer;
-        overflow: hidden;
-        text-align: left;
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1.2;
         text-decoration: none;
-        transition:
-          transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1),
-          border-color 280ms ease,
-          background-color 280ms ease,
-          box-shadow 280ms ease;
+        transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease,
+          box-shadow 180ms ease;
       }
 
-      .link-row:hover {
-        transform: translateX(5px);
-        border-color: rgba(23, 25, 26, 0.56);
-        background: var(--paper);
-        box-shadow: -10px 12px 28px rgba(23, 25, 26, 0.07);
+      .button:hover {
+        transform: translateY(-1px);
       }
 
-      .link-row:focus-visible,
-      .social-link:focus-visible,
-      .close-button:focus-visible,
-      .indicator-item:focus-visible {
-        outline: 2px solid var(--focus);
-        outline-offset: 4px;
+      .button--primary {
+        color: var(--accent-ink);
+        background: var(--accent-dark);
+        border-color: var(--accent-dark);
       }
 
-      .link-preview {
-        min-width: 0;
+      .button--primary:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .button--secondary {
+        color: var(--ink);
+        background: transparent;
+      }
+
+      .button--secondary:hover {
+        background: rgba(23, 25, 26, 0.065);
+        border-color: var(--ink);
+      }
+
+      .button-arrow {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        transition: transform 180ms ease;
+      }
+
+      .button:hover .button-arrow {
+        transform: translateX(3px);
+      }
+
+      .hero-visual {
+        position: relative;
+        width: min(100%, 310px);
+        min-height: 390px;
+        padding: 44px 28px 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        justify-self: end;
+        background: rgba(251, 250, 246, 0.7);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: 0 24px 70px rgba(23, 25, 26, 0.11);
+      }
+
+      .hero-visual::before {
+        content: "";
+        position: absolute;
+        inset: 18px;
+        pointer-events: none;
+        opacity: 0.04;
+        background-image:
+          linear-gradient(rgba(52, 56, 62, 0.7) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(52, 56, 62, 0.7) 1px, transparent 1px);
+        background-size: 28px 28px;
+        mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
+      }
+
+      .hero-visual > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .portrait-card {
+        position: relative;
+        width: 178px;
+        aspect-ratio: 1;
+        margin: 0;
         overflow: hidden;
-        background: #d7d4cc;
-        border-right: 1px solid var(--line);
+        background: var(--border);
+        border: 1px solid var(--line-strong);
+        border-radius: 50%;
+        box-shadow: 0 18px 42px rgba(23, 25, 26, 0.16);
       }
 
-      .link-preview img {
+      .portrait-card::after {
+        content: none;
+      }
+
+      .portrait-card img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        filter: saturate(0.72) contrast(1.02);
-        transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        object-position: 50% 22%;
+        filter: saturate(0.8) contrast(1.04);
       }
 
-      .link-row:hover .link-preview img {
-        transform: scale(1.045);
+      .portrait-caption {
+        margin-top: 24px;
+        display: block;
+        text-align: center;
       }
 
-      .link-preview--discord {
-        display: grid;
-        place-items: center;
-        color: #f8f5ee;
-        background: var(--plum);
-        border-right-color: var(--plum-dark);
+      .portrait-caption strong {
+        display: block;
+        color: var(--ink);
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 0.96;
       }
 
-      .link-preview--discord i {
-        font-size: 37px;
-      }
-
-      .link-preview--journal img {
-        object-position: 50% 45%;
-      }
-
-      .link-preview--indicator img {
-        object-position: 52% 50%;
-      }
-
-      .link-copy {
-        min-width: 0;
-        padding: 20px 18px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 5px;
-      }
-
-      .link-kicker {
-        color: var(--muted);
+      .portrait-caption span {
+        display: block;
+        margin-top: 8px;
+        padding-bottom: 0;
+        color: var(--accent);
+        font-family: "DM Mono", monospace;
         font-size: 10px;
-        font-weight: 700;
-        line-height: 1;
-        letter-spacing: 0.16em;
+        letter-spacing: 0.12em;
+        text-align: center;
         text-transform: uppercase;
       }
 
-      .link-title {
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: clamp(26px, 2.7vw, 34px);
-        font-weight: 400;
-        line-height: 1;
-        letter-spacing: -0.025em;
+      .portrait-caption .tool-strip {
+        max-width: 245px;
+        margin: 12px auto 0;
+        color: var(--accent-muted);
+        font-size: 8px;
+        letter-spacing: 0.08em;
+        line-height: 1.55;
       }
 
-      .link-arrow {
-        place-self: center;
+      .section {
+        padding: clamp(62px, 7.5vw, 102px) 0;
+        scroll-margin-top: 110px;
+      }
+
+      .section-heading {
+        margin-bottom: clamp(28px, 4vw, 46px);
         display: grid;
-        place-items: center;
-        color: var(--muted);
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 18px;
-        font-style: normal;
-        font-variant-emoji: text;
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 0.42fr);
+        align-items: end;
+        gap: 40px;
+      }
+
+      .section-number {
+        margin-bottom: 18px;
+        display: block;
+        color: var(--accent);
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+      }
+
+      .section-title {
+        margin: 0;
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: clamp(54px, 7vw, 92px);
         font-weight: 400;
-        line-height: 1;
-        transition: color 240ms ease, transform 240ms ease;
+        line-height: 0.9;
+        letter-spacing: -0.045em;
       }
 
-      .link-row:hover .link-arrow {
-        color: var(--ink);
-        transform: translate(2px, -2px);
+      .section-intro {
+        margin: 0;
+        color: var(--body-text);
+        font-size: 17px;
+        line-height: 1.75;
       }
 
-      .socials {
-        margin-top: clamp(22px, 3vw, 34px);
-        padding-top: 18px;
+      .journal-card {
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: minmax(320px, 0.78fr) minmax(0, 1.22fr);
+        background: var(--paper);
+        border-radius: var(--radius);
+        color: var(--text);
+      }
+
+      .journal-copy {
+        padding: clamp(32px, 5vw, 62px);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+      }
+
+      .status-pill {
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--accent);
+        background: transparent;
+        border-radius: 0;
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .status-pill::before {
+        content: "";
+        width: 24px;
+        height: 1px;
+        background: currentColor;
+        border-radius: 0;
+      }
+
+      .journal-copy h3 {
+        margin: 25px 0 17px;
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: clamp(42px, 5vw, 66px);
+        font-weight: 400;
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+      }
+
+      .journal-copy > p {
+        margin: 0;
+        color: var(--body-text);
+        font-size: 17px;
+        line-height: 1.75;
+      }
+
+      .feature-list {
+        margin: 28px 0 31px;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        list-style: none;
+      }
+
+      .feature-list li {
+        padding: 9px 12px;
+        color: var(--accent-dark);
+        background: var(--accent-soft);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .journal-copy .button {
+        color: var(--accent-ink);
+        background: var(--accent-dark);
+        border-color: var(--accent-dark);
+      }
+
+      .journal-copy .button:hover {
+        background: var(--text);
+        border-color: var(--text);
+      }
+
+      .journal-image {
+        min-width: 0;
+        min-height: 530px;
+        padding: 0;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 20px;
+        overflow: hidden;
+        background: #0b0b0b;
+      }
+
+      .journal-window {
+        width: 100%;
+        height: 100%;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        background: #0b0b0b;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .journal-window img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+      }
+
+      .indicators-section {
+        position: relative;
+        overflow: hidden;
+        background: var(--canvas-soft);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .indicators-section > .site-shell {
+        position: relative;
+        z-index: 1;
+      }
+
+      html[data-background-variant="grid"] .indicators-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.74;
+        background-image: radial-gradient(rgba(20, 20, 18, 0.095) 0.75px, transparent 0.75px);
+        background-size: 18px 18px;
+        mask-image: linear-gradient(to right, black, rgba(0, 0, 0, 0.18) 54%, transparent 78%);
+      }
+
+      .market-decoration {
+        display: none;
+        position: absolute;
+        z-index: 0;
+        pointer-events: none;
+        color: var(--accent);
+        opacity: 0.04;
+      }
+
+      html[data-background-variant="market"] .market-decoration {
+        display: block;
+      }
+
+      .market-decoration--hero {
+        top: 112px;
+        right: 0;
+        width: min(60vw, 860px);
+      }
+
+      .market-decoration--indicators {
+        right: -4vw;
+        bottom: 2%;
+        width: min(70vw, 980px);
+      }
+
+      .bundle-badge {
+        width: fit-content;
+        margin: 0 0 17px;
+        padding: 9px 13px;
+        color: var(--accent-ink);
+        background: var(--accent);
+        border: 1px solid var(--accent);
+        border-radius: 999px;
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+
+      .indicator-browser {
+        display: grid;
+        grid-template-columns: 250px minmax(0, 1fr);
+        align-items: start;
+        gap: 18px;
+      }
+
+      .indicator-tabs {
+        padding: 8px;
+        display: grid;
+        gap: 7px;
+        background: rgba(251, 250, 246, 0.48);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+      }
+
+      .indicator-tab {
+        width: 100%;
+        min-height: 60px;
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--muted);
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 700;
+        text-align: left;
+        transition: color 260ms ease, background-color 260ms ease, border-color 260ms ease,
+          transform 260ms ease;
+      }
+
+      .indicator-tab:hover {
+        color: var(--ink);
+        background: rgba(251, 250, 246, 0.72);
+      }
+
+      .indicator-tab[aria-selected="true"] {
+        color: var(--accent-ink);
+        background: var(--accent-dark);
+        border-color: var(--accent-dark);
+      }
+
+      .indicator-tab-number {
+        min-width: 25px;
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.08em;
+      }
+
+      .indicator-list {
+        min-width: 0;
+        display: grid;
+      }
+
+      .indicator-card {
+        min-width: 0;
+        display: grid;
+        grid-template-columns: minmax(320px, 1.15fr) minmax(260px, 0.85fr);
+        overflow: hidden;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        transition: border-color 220ms ease, transform 220ms ease, background-color 220ms ease;
+      }
+
+      .indicator-card[hidden] {
+        display: none;
+      }
+
+      .indicator-card:hover {
+        background: var(--surface-strong);
+        border-color: var(--line-strong);
+        transform: translateY(-3px);
+      }
+
+      .indicator-visual {
+        position: relative;
+        min-height: 310px;
+        overflow: hidden;
+        display: grid;
+        place-items: center;
+        background: #D7D3CB;
+        border-right: 1px solid var(--line);
+      }
+
+      .indicator-screenshot {
+        width: 100%;
+        height: 100%;
+        min-height: inherit;
+        object-fit: contain;
+        object-position: left center;
+      }
+
+      .indicator-copy {
+        min-width: 0;
+        padding: clamp(28px, 4vw, 48px);
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        align-content: center;
+      }
+
+      .product-meta {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 18px;
+        color: var(--muted);
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .indicator-copy h3 {
+        margin: 18px 0 14px;
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: clamp(38px, 4.4vw, 58px);
+        font-weight: 400;
+        line-height: 0.94;
+        letter-spacing: -0.035em;
+      }
+
+      .indicator-copy p {
+        max-width: 590px;
+        margin: 0;
+        color: var(--body-text);
+        font-size: 16px;
+        line-height: 1.75;
+      }
+
+      .bundle-banner {
+        margin-top: 18px;
+        padding: clamp(25px, 3.5vw, 40px);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 30px;
+        color: var(--accent-ink);
+        background: var(--accent-dark);
+        border-radius: 18px;
+      }
+
+      .bundle-banner-kicker {
+        margin: 0 0 10px;
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .bundle-banner h3 {
+        margin: 0;
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: clamp(36px, 5vw, 62px);
+        font-weight: 400;
+        line-height: 0.94;
+        letter-spacing: -0.035em;
+      }
+
+      .bundle-banner .button {
+        color: var(--ink);
+        background: var(--surface);
+        border-color: var(--surface);
+        opacity: 1;
+      }
+
+      .bundle-banner .button:hover {
+        background: var(--background-alt);
+        border-color: var(--background-alt);
+      }
+
+      .bundle-banner .button:disabled,
+      .bundle-banner .button[aria-disabled="true"] {
+        color: var(--ink);
+        cursor: default;
+        opacity: 1;
+      }
+
+      .bundle-banner .button:disabled:hover,
+      .bundle-banner .button[aria-disabled="true"]:hover {
+        background: var(--background-alt);
+        border-color: var(--background-alt);
+        transform: translateY(-1px);
+      }
+
+      .community-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .community-card {
+        position: relative;
+        min-width: 0;
+        min-height: 235px;
+        padding: clamp(26px, 3.5vw, 40px);
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
+        align-items: center;
+        gap: clamp(34px, 6vw, 78px);
+        background:
+          linear-gradient(110deg, var(--surface) 0 68%, rgba(88, 101, 242, 0.055) 100%);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: none;
+        transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+      }
+
+      .community-card:hover {
+        border-color: rgba(88, 101, 242, 0.34);
+        box-shadow: 0 18px 46px rgba(88, 101, 242, 0.09);
+        transform: translateY(-1px);
+      }
+
+      .community-content {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .community-brandline {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .discord-icon {
+        width: 62px;
+        height: 62px;
+        display: grid;
+        place-items: center;
+        color: var(--paper);
+        background: var(--discord);
+        border-radius: 18px;
+        box-shadow: 0 20px 50px rgba(88, 101, 242, 0.18);
+      }
+
+      .discord-icon i {
+        font-size: 28px;
+      }
+
+      .community-status {
+        margin-top: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--discord);
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .community-status::before {
+        content: "";
+        width: 22px;
+        height: 1px;
+        background: currentColor;
+      }
+
+      .community-card h3 {
+        margin: 19px 0 10px;
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: clamp(42px, 5vw, 62px);
+        font-weight: 400;
+        line-height: 0.94;
+        letter-spacing: -0.035em;
+      }
+
+      .community-card p {
+        max-width: 680px;
+        margin: 0 0 22px;
+        color: var(--body-text);
+        font-size: 16px;
+        line-height: 1.75;
+      }
+
+      .community-card .button {
+        margin-top: 0;
+      }
+
+      .community-card .button:hover {
+        border-color: var(--discord);
+        box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.12);
+      }
+
+      .discord-visual {
+        position: relative;
+        width: 100%;
+        min-height: 170px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 70% 30%, rgba(88, 101, 242, 0.18), transparent 34%),
+          rgba(88, 101, 242, 0.045);
+        border: 1px solid rgba(88, 101, 242, 0.14);
+        border-radius: 18px;
+      }
+
+      .discord-bubble {
+        position: absolute;
+        width: 58%;
+        height: 46px;
+        padding: 12px 15px;
+        display: grid;
+        gap: 6px;
+        background: var(--surface);
+        border: 1px solid rgba(88, 101, 242, 0.15);
+        border-radius: 14px 14px 14px 5px;
+        box-shadow: 0 12px 26px rgba(30, 33, 37, 0.08);
+      }
+
+      .discord-bubble::before,
+      .discord-bubble::after {
+        content: "";
+        display: block;
+        height: 4px;
+        background: rgba(52, 56, 62, 0.16);
+        border-radius: 999px;
+      }
+
+      .discord-bubble::after {
+        width: 68%;
+      }
+
+      .discord-bubble--one {
+        top: 25px;
+        left: 18px;
+      }
+
+      .discord-bubble--two {
+        right: 18px;
+        bottom: 28px;
+        border-radius: 14px 14px 5px 14px;
+      }
+
+      .discord-avatars {
+        position: absolute;
+        top: 25px;
+        right: 20px;
+        display: flex;
+      }
+
+      .discord-avatar {
+        width: 27px;
+        height: 27px;
+        margin-left: -7px;
+        background: var(--discord);
+        border: 3px solid var(--surface);
+        border-radius: 50%;
+        opacity: 0.78;
+      }
+
+      .discord-avatar:nth-child(2) {
+        background: var(--accent-muted);
+      }
+
+      .discord-avatar:nth-child(3) {
+        background: var(--accent);
+      }
+
+      #discord .section-title {
+        font-size: clamp(48px, 6vw, 76px);
+      }
+
+      #discord {
+        padding-bottom: clamp(46px, 6vw, 78px);
+      }
+
+      #journal {
+        padding-top: clamp(46px, 6vw, 78px);
+      }
+
+      .site-footer {
+        padding: 0 0 38px;
+      }
+
+      .footer-inner {
+        padding-top: 30px;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 22px;
         border-top: 1px solid var(--line);
       }
 
-      .social-label {
+      .footer-brand {
         margin: 0;
-        color: var(--muted);
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: 32px;
       }
 
       .social-links {
         display: flex;
+        align-items: center;
+        justify-content: center;
         gap: 8px;
       }
 
       .social-link {
-        width: 48px;
-        height: 48px;
+        width: 46px;
+        height: 46px;
         display: grid;
         place-items: center;
-        color: var(--ink);
-        border: 1px solid var(--line);
-        border-radius: 50%;
-        background: rgba(251, 250, 246, 0.45);
-        text-decoration: none;
-        transition: color 220ms ease, background-color 220ms ease, transform 220ms ease;
-      }
-
-      .social-link i {
-        font-size: 20px;
-      }
-
-      .social-link:hover {
-        color: var(--paper);
-        background: var(--ink);
-        transform: translateY(-3px);
-      }
-
-      dialog {
-        width: min(1040px, calc(100% - 32px));
-        max-height: min(760px, calc(100svh - 32px));
-        padding: 0;
-        color: var(--ink);
-        background: var(--paper);
-        border: 1px solid var(--ink);
-        border-radius: 2px;
-        box-shadow: 0 30px 100px rgba(23, 25, 26, 0.28);
-      }
-
-      dialog::backdrop {
-        background: rgba(24, 26, 27, 0.58);
-        backdrop-filter: blur(5px);
-      }
-
-      .dialog-shell {
-        max-height: inherit;
-        overflow: auto;
-      }
-
-      .dialog-header {
-        position: sticky;
-        top: 0;
-        z-index: 2;
-        padding: 20px 22px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        background: rgba(251, 250, 246, 0.95);
-        border-bottom: 1px solid var(--line);
-      }
-
-      .dialog-title {
-        margin: 0;
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: clamp(38px, 5vw, 58px);
-        font-weight: 400;
-        line-height: 0.9;
-      }
-
-      .close-button {
-        width: 42px;
-        height: 42px;
-        display: grid;
-        place-items: center;
-        color: var(--ink);
+        color: var(--muted);
         background: transparent;
         border: 1px solid var(--line);
         border-radius: 50%;
-        cursor: pointer;
-        font-size: 26px;
-        line-height: 1;
-      }
-
-      .close-button:hover {
-        color: var(--paper);
-        background: var(--ink);
-      }
-
-      .dialog-body {
-        padding: 22px;
-      }
-
-      .indicator-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 16px;
-      }
-
-      .indicator-item {
-        min-width: 0;
-        color: var(--ink);
-        border: 1px solid var(--line);
-        background: #f6f3ec;
         text-decoration: none;
-        transition: transform 220ms ease, border-color 220ms ease;
+        transition: color 180ms ease, border-color 180ms ease, transform 180ms ease;
       }
 
-      .indicator-item:hover {
-        transform: translateY(-4px);
-        border-color: var(--ink);
+      .social-link:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+        transform: translateY(-2px);
       }
 
-      .indicator-image-wrap {
-        display: block;
-        aspect-ratio: 932 / 550;
-        overflow: hidden;
-        background: var(--navy);
+      .footer-note {
+        margin: 0;
+        color: var(--muted-text);
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.06em;
+        text-align: right;
+        text-transform: uppercase;
       }
 
-      .indicator-image-wrap img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        filter: saturate(0.78);
+      .button:disabled,
+      .button[aria-disabled="true"] {
+        cursor: not-allowed;
+        opacity: 0.62;
       }
 
-      .indicator-info {
-        min-height: 78px;
-        padding: 14px;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 12px;
+      .button:disabled:hover,
+      .button[aria-disabled="true"]:hover {
+        transform: none;
       }
 
-      .indicator-name {
-        font-size: 13px;
-        font-weight: 600;
-        line-height: 1.45;
-      }
-
-      .indicator-arrow {
-        flex: 0 0 auto;
-        margin-top: 1px;
-        color: var(--muted);
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 16px;
-        font-style: normal;
-        font-variant-emoji: text;
-        font-weight: 400;
-        line-height: 1;
+      .brand:focus-visible,
+      .header-nav a:focus-visible,
+      .header-offer:focus-visible,
+      .button:focus-visible,
+      .indicator-tab:focus-visible,
+      .social-link:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
       }
 
       .reveal {
-        animation: reveal 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-        animation-delay: var(--delay, 0ms);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 680ms cubic-bezier(0.2, 0.8, 0.2, 1),
+          transform 680ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        transition-delay: var(--delay, 0ms);
       }
 
-      @keyframes reveal {
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .reveal-stagger > * {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 680ms cubic-bezier(0.2, 0.8, 0.2, 1),
+          transform 680ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .reveal-stagger.is-visible > * {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .reveal-stagger.is-visible > :nth-child(2) {
+        transition-delay: 70ms;
+      }
+
+      .reveal-stagger.is-visible > :nth-child(3) {
+        transition-delay: 140ms;
+      }
+
+      .reveal-stagger.is-visible > :nth-child(4) {
+        transition-delay: 210ms;
+      }
+
+      .indicator-card.is-switching .indicator-screenshot {
+        animation: indicator-image-in 640ms ease both;
+      }
+
+      .indicator-card.is-switching .indicator-copy > * {
+        animation: indicator-copy-in 560ms ease both;
+      }
+
+      @keyframes indicator-image-in {
+        from {
+          opacity: 0.18;
+        }
+      }
+
+      @keyframes indicator-copy-in {
         from {
           opacity: 0;
-          transform: translateY(14px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+          transform: translateY(9px);
         }
       }
 
-      @media (max-width: 860px) {
-        .page {
-          width: min(640px, calc(100% - 36px));
-          padding: 24px 0 30px;
+      @media (max-width: 920px) {
+        .site-header {
+          grid-template-columns: auto 1fr auto;
+          gap: 16px;
         }
 
-        .layout {
+        .header-nav {
+          justify-content: flex-end;
+        }
+
+        .header-nav a {
+          font-size: 11px;
+        }
+
+        .header-offer {
+          display: none;
+        }
+
+        .hero {
           grid-template-columns: 1fr;
-          gap: 20px;
+          gap: 58px;
         }
 
-        .portrait-frame {
-          width: min(72vw, 420px);
+        .hero-copy {
+          max-width: 760px;
         }
 
+        .hero-visual {
+          width: min(84vw, 310px);
+          justify-self: center;
+        }
+
+        .section-heading {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .section-intro {
+          max-width: 620px;
+        }
+
+        .journal-card {
+          grid-template-columns: 1fr;
+        }
+
+        .journal-image {
+          min-height: 430px;
+        }
+
+        .indicator-browser {
+          grid-template-columns: 190px minmax(0, 1fr);
+        }
+
+        .indicator-card {
+          grid-template-columns: 1fr;
+        }
+
+        .indicator-visual {
+          min-height: 270px;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
       }
 
-      @media (max-width: 560px) {
-        .page {
-          width: min(100% - 28px, 440px);
-          gap: 22px;
+      @media (max-width: 700px) {
+        .site-shell,
+        .site-header {
+          width: min(100% - 28px, 560px);
         }
 
-        .layout {
-          gap: 20px;
+        .site-header {
+          top: 8px;
+          min-height: auto;
+          padding: 12px 14px;
+          grid-template-columns: 1fr;
+          justify-items: center;
+          gap: 10px;
+          border-radius: 22px;
         }
 
-        .portrait-frame {
-          width: min(78vw, 330px);
+        .brand {
+          font-size: 30px;
         }
 
-        .link-row {
-          min-height: 96px;
-          grid-template-columns: 94px minmax(0, 1fr) 34px;
+        .header-nav {
+          width: 100%;
+          min-width: 0;
+          justify-content: center;
+          gap: 14px;
+          overflow-x: auto;
+          scrollbar-width: none;
         }
 
-        .link-copy {
-          padding: 15px 14px;
+        .header-nav::-webkit-scrollbar {
+          display: none;
         }
 
-        .link-title {
-          font-size: clamp(24px, 7.4vw, 30px);
+        .header-nav a {
+          font-size: 10px;
         }
 
-        .socials {
-          align-items: flex-start;
-          flex-direction: column;
+        .hero {
+          min-height: auto;
+          padding: 64px 0 70px;
+        }
+
+        .hero h1 {
+          font-size: clamp(58px, 19vw, 86px);
+        }
+
+        .hero-lede {
+          margin-top: 24px;
+          font-size: 16px;
+        }
+
+        .hero-actions {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .hero-visual {
+          width: min(calc(100% - 16px), 310px);
+          min-height: 360px;
+        }
+
+        .portrait-caption strong {
+          font-size: 30px;
+        }
+
+        .section {
+          padding: 64px 0;
+          scroll-margin-top: 92px;
+        }
+
+        .section-title {
+          font-size: clamp(52px, 16vw, 74px);
+        }
+
+        .journal-copy {
+          padding: 30px 24px 34px;
+        }
+
+        .journal-image {
+          min-height: 310px;
+          padding: 0;
+        }
+
+        .indicator-card {
+          grid-template-columns: 1fr;
+        }
+
+        .indicator-browser {
+          grid-template-columns: 1fr;
           gap: 12px;
         }
 
-        .social-links {
+        .indicator-tabs {
+          padding: 7px;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 7px;
+        }
+
+        .indicator-tab {
           width: 100%;
-          justify-content: space-between;
+          min-height: 48px;
+          padding: 10px 13px;
         }
 
-        .social-link {
-          width: 52px;
-          height: 52px;
+        .indicator-tab:last-child {
+          grid-column: 1 / -1;
         }
 
-        .indicator-grid {
+        .indicator-visual {
+          min-height: 250px;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .indicator-copy {
+          padding: 26px 22px 28px;
+        }
+
+        .indicator-copy h3 {
+          font-size: 42px;
+        }
+
+        .product-meta {
+          align-items: flex-start;
+        }
+
+        .bundle-banner {
           grid-template-columns: 1fr;
         }
 
-        .dialog-body {
-          padding: 14px;
+        .community-card {
+          min-height: 0;
+          grid-template-columns: 1fr;
+          gap: 28px;
         }
+
+        .discord-visual {
+          min-height: 145px;
+        }
+
+        .footer-inner {
+          grid-template-columns: 1fr;
+          justify-items: center;
+        }
+
+        .footer-note {
+          text-align: center;
+        }
+
+      }
+
+      @media (max-width: 390px) {
+        .header-nav {
+          gap: 9px;
+        }
+
+        .header-nav a {
+          font-size: 9px;
+        }
+
+        .nav-free {
+          margin-left: 3px;
+          padding: 0;
+          font-size: 8px;
+        }
+
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -571,20 +1455,66 @@
           animation-duration: 0.01ms !important;
           animation-iteration-count: 1 !important;
           transition-duration: 0.01ms !important;
+          transform: none !important;
+        }
+
+        .reveal,
+        .reveal-stagger > * {
+          opacity: 1 !important;
         }
       }
     </style>
   </head>
 
-  <body>
-    <a class="skip-link" href="#main-content">Skip to links</a>
+  <body id="top">
+    <a class="skip-link" href="#main-content">Skip to content</a>
 
-    <div class="page">
-      <div class="rule reveal" style="--delay: 40ms" aria-hidden="true"></div>
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Bandz home">Bandz</a>
+      <nav class="header-nav" aria-label="Store sections">
+        <a href="#indicators">Indicators</a>
+        <a href="#discord">Discord</a>
+        <a href="#journal">Trading Journal <em class="nav-free">Free</em></a>
+      </nav>
+      <a
+        class="header-offer"
+        href="https://whop.com/bandwithsam/bandz-indicator-suite/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>All 5 · $1</span>
+      </a>
+    </header>
 
-      <main class="layout" id="main-content">
-        <div class="portrait-column reveal" style="--delay: 90ms">
-          <figure class="portrait-frame">
+    <main id="main-content">
+      <section class="hero site-shell" aria-labelledby="hero-title">
+        <svg class="market-decoration market-decoration--hero" viewBox="0 0 900 300" aria-hidden="true">
+          <path d="M0 235 L92 214 L158 247 L248 157 L330 178 L425 95 L510 128 L602 56 L690 101 L782 42 L900 68" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" />
+        </svg>
+        <div class="hero-copy reveal-stagger">
+          <p class="eyebrow">THE BANDZ TRADING TOOLKIT</p>
+          <h1 id="hero-title">Build a better trading <em>process.</em></h1>
+          <p class="hero-lede">
+            Review every trade, find patterns in your execution, and use five focused indicators
+            built around the Bandz process.
+          </p>
+          <div class="hero-actions">
+            <a class="button button--primary" href="#indicators">
+              Explore the indicators <span class="button-arrow" aria-hidden="true">↓</span>
+            </a>
+            <a
+              class="button button--secondary"
+              href="https://bandzjournal.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open the free journal <span class="button-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" style="--delay: 150ms">
+          <figure class="portrait-card">
             <img
               src="fearing_bandz.png"
               alt="Painterly portrait of Bandz in a dark suit"
@@ -594,138 +1524,449 @@
               decoding="async"
             />
           </figure>
+          <div class="portrait-caption">
+            <strong>Five tools. One system.</strong>
+            <span class="tool-strip">Intraday · Sessions · SMT · HTF · Levels</span>
+          </div>
         </div>
+      </section>
 
-        <div class="panel reveal" style="--delay: 150ms">
-          <nav class="main-links" aria-label="Bandz links">
+      <section class="section indicators-section" id="indicators" aria-labelledby="indicators-title">
+        <svg class="market-decoration market-decoration--indicators" viewBox="0 0 1000 380" aria-hidden="true">
+          <path d="M0 300 L105 282 L186 320 L275 222 L362 249 L455 152 L548 193 L648 102 L742 137 L840 58 L1000 92" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" />
+          <path d="M0 348 L120 330 L206 351 L300 285 L402 302 L498 234 L606 255 L704 192 L820 215 L910 164 L1000 177" fill="none" stroke="currentColor" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+        </svg>
+        <div class="site-shell">
+          <header class="section-heading reveal-stagger">
+            <div>
+              <span class="section-number">01 · Indicators</span>
+              <h2 class="section-title" id="indicators-title">Five tools, built as one system.</h2>
+            </div>
+            <div>
+              <p class="bundle-badge">5 indicators · $1 total</p>
+              <p class="section-intro">
+                Intraday references, sessions, SMT, higher-timeframe context, and key levels—built
+                to work together without cluttering your chart.
+              </p>
+            </div>
+          </header>
+
+          <div class="indicator-browser reveal">
+            <div class="indicator-tabs" role="tablist" aria-label="Choose an indicator">
+              <button
+                class="indicator-tab"
+                type="button"
+                role="tab"
+                id="indicator-tab-1"
+                aria-controls="indicator-panel-1"
+                aria-selected="true"
+                data-indicator-tab="1"
+              >
+                <span class="indicator-tab-number">01</span>
+                <span data-indicator-name>Bandz Intraday</span>
+              </button>
+              <button
+                class="indicator-tab"
+                type="button"
+                role="tab"
+                id="indicator-tab-2"
+                aria-controls="indicator-panel-2"
+                aria-selected="false"
+                tabindex="-1"
+                data-indicator-tab="2"
+              >
+                <span class="indicator-tab-number">02</span>
+                <span data-indicator-name>Bandz Sessions</span>
+              </button>
+              <button
+                class="indicator-tab"
+                type="button"
+                role="tab"
+                id="indicator-tab-3"
+                aria-controls="indicator-panel-3"
+                aria-selected="false"
+                tabindex="-1"
+                data-indicator-tab="3"
+              >
+                <span class="indicator-tab-number">03</span>
+                <span data-indicator-name>Bandz SMT</span>
+              </button>
+              <button
+                class="indicator-tab"
+                type="button"
+                role="tab"
+                id="indicator-tab-4"
+                aria-controls="indicator-panel-4"
+                aria-selected="false"
+                tabindex="-1"
+                data-indicator-tab="4"
+              >
+                <span class="indicator-tab-number">04</span>
+                <span data-indicator-name>Bandz HTF</span>
+              </button>
+              <button
+                class="indicator-tab"
+                type="button"
+                role="tab"
+                id="indicator-tab-5"
+                aria-controls="indicator-panel-5"
+                aria-selected="false"
+                tabindex="-1"
+                data-indicator-tab="5"
+              >
+                <span class="indicator-tab-number">05</span>
+                <span data-indicator-name>Bandz Levels</span>
+              </button>
+            </div>
+
+            <div class="indicator-list">
+              <article
+                class="indicator-card"
+                role="tabpanel"
+                id="indicator-panel-1"
+                aria-labelledby="indicator-tab-1"
+                data-indicator-panel="1"
+              >
+                <div class="indicator-visual">
+                  <img
+                    class="indicator-screenshot"
+                    src="assets/indicators/bandz-intraday-1m.png"
+                    alt="Bandz Intraday indicator shown on a 1-minute chart"
+                    width="3840"
+                    height="2063"
+                    loading="lazy"
+                    decoding="async"
+                    data-indicator-image
+                  />
+                </div>
+                <div class="indicator-copy">
+                  <div class="product-meta">
+                    <span>01 / 05 · <span data-indicator-timeframe>1m chart</span></span>
+                  </div>
+                  <h3 data-indicator-heading>Bandz Intraday</h3>
+                  <p data-indicator-benefit>
+                    Maps ICT macro windows and first-presented FVGs with volume-imbalance and
+                    calendar context.
+                  </p>
+                </div>
+              </article>
+
+              <article
+                class="indicator-card"
+                role="tabpanel"
+                id="indicator-panel-2"
+                aria-labelledby="indicator-tab-2"
+                data-indicator-panel="2"
+                hidden
+              >
+                <div class="indicator-visual">
+                  <img
+                    class="indicator-screenshot"
+                    src="assets/indicators/bandz-sessions-1m.png"
+                    alt="Bandz Sessions indicator shown on a 1-minute chart"
+                    width="3840"
+                    height="2063"
+                    loading="lazy"
+                    decoding="async"
+                    data-indicator-image
+                  />
+                </div>
+                <div class="indicator-copy">
+                  <div class="product-meta">
+                    <span>02 / 05 · <span data-indicator-timeframe>1m chart</span></span>
+                  </div>
+                  <h3 data-indicator-heading>Bandz Sessions</h3>
+                  <p data-indicator-benefit>
+                    Tracks ICT killzones, session liquidity, opening ranges, and Opening RTH Gap
+                    projections.
+                  </p>
+                </div>
+              </article>
+
+              <article
+                class="indicator-card"
+                role="tabpanel"
+                id="indicator-panel-3"
+                aria-labelledby="indicator-tab-3"
+                data-indicator-panel="3"
+                hidden
+              >
+                <div class="indicator-visual">
+                  <img
+                    class="indicator-screenshot"
+                    src="assets/indicators/bandz-smt-15m.png"
+                    alt="Bandz SMT indicator shown on a 15-minute chart"
+                    width="3840"
+                    height="2063"
+                    loading="lazy"
+                    decoding="async"
+                    data-indicator-image
+                  />
+                </div>
+                <div class="indicator-copy">
+                  <div class="product-meta">
+                    <span>03 / 05 · <span data-indicator-timeframe>15m chart</span></span>
+                  </div>
+                  <h3 data-indicator-heading>Bandz SMT</h3>
+                  <p data-indicator-benefit>
+                    Scans multi-timeframe SMT divergence while filtering redundant lower-timeframe
+                    signals.
+                  </p>
+                </div>
+              </article>
+
+              <article
+                class="indicator-card"
+                role="tabpanel"
+                id="indicator-panel-4"
+                aria-labelledby="indicator-tab-4"
+                data-indicator-panel="4"
+                hidden
+              >
+                <div class="indicator-visual">
+                  <img
+                    class="indicator-screenshot"
+                    src="assets/indicators/bandz-htf-15m.png"
+                    alt="Bandz HTF indicator shown on a 15-minute chart"
+                    width="3840"
+                    height="2063"
+                    loading="lazy"
+                    decoding="async"
+                    data-indicator-image
+                  />
+                </div>
+                <div class="indicator-copy">
+                  <div class="product-meta">
+                    <span>04 / 05 · <span data-indicator-timeframe>15m chart</span></span>
+                  </div>
+                  <h3 data-indicator-heading>Bandz HTF</h3>
+                  <p data-indicator-benefit>
+                    Displays higher-timeframe candles with PSP, SMT, T-Spots, CISD, FVGs, and
+                    sweeps.
+                  </p>
+                </div>
+              </article>
+
+              <article
+                class="indicator-card"
+                role="tabpanel"
+                id="indicator-panel-5"
+                aria-labelledby="indicator-tab-5"
+                data-indicator-panel="5"
+                hidden
+              >
+                <div class="indicator-visual">
+                  <img
+                    class="indicator-screenshot"
+                    src="assets/indicators/bandz-levels-5m.png"
+                    alt="Bandz Levels indicator shown on a 5-minute chart"
+                    width="3840"
+                    height="2063"
+                    loading="lazy"
+                    decoding="async"
+                    data-indicator-image
+                  />
+                </div>
+                <div class="indicator-copy">
+                  <div class="product-meta">
+                    <span>05 / 05 · <span data-indicator-timeframe>5m chart</span></span>
+                  </div>
+                  <h3 data-indicator-heading>Bandz Levels</h3>
+                  <p data-indicator-benefit>
+                    Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <aside class="bundle-banner reveal" aria-label="Five indicator bundle">
+            <div>
+              <p class="bundle-banner-kicker">Complete collection</p>
+              <h3>Get all five indicators for $1.</h3>
+            </div>
             <a
-              class="link-row"
-              href="https://discord.gg/XdWaEBXQ6G"
+              class="button"
+              href="https://whop.com/bandwithsam/bandz-indicator-suite/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span class="link-preview link-preview--discord" aria-hidden="true">
-                <i class="fa-brands fa-discord"></i>
-              </span>
-              <span class="link-copy">
-                <span class="link-kicker">Free access</span>
-                <span class="link-title">Discord</span>
-              </span>
-              <span class="link-arrow" aria-hidden="true">&#x2197;&#xfe0e;</span>
+              Get all five <span class="button-arrow" aria-hidden="true">→</span>
             </a>
+          </aside>
+        </div>
+      </section>
 
+      <section class="section site-shell" id="discord" aria-labelledby="community-title">
+        <header class="section-heading reveal-stagger">
+          <div>
+            <span class="section-number">02 · Discord</span>
+            <h2 class="section-title" id="community-title">Trade with the Bandz community.</h2>
+          </div>
+          <p class="section-intro">
+            Join the free Discord for market discussion, indicator updates, new releases, and
+            conversations with other traders.
+          </p>
+        </header>
+
+        <div class="community-grid">
+          <article class="community-card reveal">
+            <div class="community-content">
+              <div class="community-brandline">
+                <span class="discord-icon" aria-hidden="true">
+                  <i class="fa-brands fa-discord"></i>
+                </span>
+                <span class="community-status">Open now · Free</span>
+              </div>
+              <h3>Free Discord</h3>
+              <p>
+                Discuss setups, share trade ideas, get indicator updates, and follow new Bandz
+                releases.
+              </p>
+              <a
+                class="button button--primary"
+                href="https://discord.gg/XdWaEBXQ6G"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Join the free Discord <span class="button-arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <div class="discord-visual" aria-hidden="true">
+              <span class="discord-bubble discord-bubble--one"></span>
+              <span class="discord-bubble discord-bubble--two"></span>
+              <span class="discord-avatars">
+                <span class="discord-avatar"></span>
+                <span class="discord-avatar"></span>
+                <span class="discord-avatar"></span>
+              </span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section site-shell" id="journal" aria-labelledby="journal-title">
+        <header class="section-heading reveal-stagger">
+          <div>
+            <span class="section-number">03 · Trading Journal</span>
+            <h2 class="section-title" id="journal-title">Review the process, not just the P&amp;L.</h2>
+          </div>
+          <p class="section-intro">
+            Log the setup, context, execution, and result. Review your trades over time and see
+            what is actually improving—or hurting—your performance.
+          </p>
+        </header>
+
+        <article class="journal-card reveal">
+          <div class="journal-copy">
+            <span class="status-pill">Free to use</span>
+            <h3>Bandz Trading Journal</h3>
+            <p>
+              A free trading journal for documenting setups, reviewing execution, and finding
+              patterns across your trading.
+            </p>
+            <ul class="feature-list" aria-label="Journal features">
+              <li>Calendar overview</li>
+              <li>Trade log</li>
+              <li>Notebook</li>
+              <li>Performance summary</li>
+              <li>Data view</li>
+            </ul>
             <a
-              class="link-row"
+              class="button"
               href="https://bandzjournal.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span class="link-preview link-preview--journal" aria-hidden="true">
-                <img src="calender.png" alt="" width="3840" height="2063" decoding="async" />
-              </span>
-              <span class="link-copy">
-                <span class="link-kicker">Free access</span>
-                <span class="link-title">Trading Journal</span>
-              </span>
-              <span class="link-arrow" aria-hidden="true">&#x2197;&#xfe0e;</span>
-            </a>
-
-            <button
-              class="link-row"
-              type="button"
-              id="openIndicators"
-              aria-haspopup="dialog"
-              aria-controls="indicatorsDialog"
-            >
-              <span class="link-preview link-preview--indicator" aria-hidden="true">
-                <img
-                  src="https://s3.tradingview.com/w/wc5MzQEq_mid.webp?v=1781555710"
-                  alt=""
-                  width="932"
-                  height="550"
-                  decoding="async"
-                />
-              </span>
-              <span class="link-copy">
-                <span class="link-kicker">Free access</span>
-                <span class="link-title">Indicators</span>
-              </span>
-              <span class="link-arrow" aria-hidden="true">&#x2197;&#xfe0e;</span>
-            </button>
-          </nav>
-
-          <section class="socials" aria-labelledby="social-title">
-            <h2 class="social-label" id="social-title">Socials</h2>
-            <nav class="social-links" aria-label="Bandz social media">
-              <a class="social-link" href="https://x.com/Bandz_Trading" aria-label="Bandz on X" title="X">
-                <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
-              </a>
-              <a class="social-link" href="https://www.instagram.com/bandz_trading/" data-app-url="instagram://user?username=bandz_trading" aria-label="Bandz on Instagram" title="Instagram">
-                <i class="fa-brands fa-instagram" aria-hidden="true"></i>
-              </a>
-              <a class="social-link" href="https://www.tiktok.com/@bandztrading" data-app-url="tiktok://@bandztrading" aria-label="Bandz on TikTok" title="TikTok">
-                <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
-              </a>
-              <a class="social-link" href="https://www.youtube.com/@BandzTrading" aria-label="Bandz on YouTube" title="YouTube">
-                <i class="fa-brands fa-youtube" aria-hidden="true"></i>
-              </a>
-            </nav>
-          </section>
-        </div>
-      </main>
-
-      <div class="rule reveal" style="--delay: 220ms" aria-hidden="true"></div>
-    </div>
-
-    <dialog id="indicatorsDialog" aria-labelledby="indicatorsTitle">
-      <div class="dialog-shell">
-        <header class="dialog-header">
-          <h2 class="dialog-title" id="indicatorsTitle">Indicators</h2>
-          <button class="close-button" type="button" data-close-dialog aria-label="Close indicators">
-            <span aria-hidden="true">×</span>
-          </button>
-        </header>
-
-        <div class="dialog-body">
-          <div class="indicator-grid">
-            <a class="indicator-item" href="https://www.tradingview.com/script/wc5MzQEq-Bandz-Multi-Timeframe-timecycles-QT-SSMT/" target="_blank" rel="noopener noreferrer">
-              <span class="indicator-image-wrap">
-                <img src="https://s3.tradingview.com/w/wc5MzQEq_mid.webp?v=1781555710" alt="Multi-Timeframe Timecycles QT SSMT indicator preview" width="932" height="550" loading="lazy" decoding="async" />
-              </span>
-              <span class="indicator-info">
-                <span class="indicator-name">Multi-Timeframe Timecycles · QT · SSMT</span>
-                <span class="indicator-arrow" aria-hidden="true">&#x2197;&#xfe0e;</span>
-              </span>
-            </a>
-
-            <a class="indicator-item" href="https://www.tradingview.com/script/Y8RDMaqx-Bandz-Multi-HTF-Candles-2-0-PSP-SMT-T-Spot-CISD/" target="_blank" rel="noopener noreferrer">
-              <span class="indicator-image-wrap">
-                <img src="https://s3.tradingview.com/y/Y8RDMaqx_mid.webp?v=1781556706" alt="Multi HTF Candles 2.0 indicator preview" width="932" height="550" loading="lazy" decoding="async" />
-              </span>
-              <span class="indicator-info">
-                <span class="indicator-name">Multi HTF Candles 2.0 · PSP · SMT · T-Spot · CISD</span>
-                <span class="indicator-arrow" aria-hidden="true">&#x2197;&#xfe0e;</span>
-              </span>
-            </a>
-
-            <a class="indicator-item" href="https://www.tradingview.com/script/XIwA0v2s-Bandz-NWOG-NDOG-Macros-Watermark/" target="_blank" rel="noopener noreferrer">
-              <span class="indicator-image-wrap">
-                <img src="https://s3.tradingview.com/x/XIwA0v2s_mid.webp?v=1781557481" alt="NWOG NDOG Macros Watermark indicator preview" width="932" height="550" loading="lazy" decoding="async" />
-              </span>
-              <span class="indicator-info">
-                <span class="indicator-name">NWOG · NDOG · Macros · Watermark</span>
-                <span class="indicator-arrow" aria-hidden="true">&#x2197;&#xfe0e;</span>
-              </span>
+              Open the free journal <span class="button-arrow" aria-hidden="true">↗</span>
             </a>
           </div>
-        </div>
+          <div class="journal-image" aria-hidden="true">
+            <div class="journal-window">
+              <img
+                src="assets/journal/bandz-journal-calendar.png"
+                alt=""
+                width="3840"
+                height="2215"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner site-shell">
+        <p class="footer-brand">Bandz</p>
+        <nav class="social-links" aria-label="Bandz social media">
+          <a
+            class="social-link"
+            href="https://x.com/Bandz_Trading"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Bandz on X"
+            title="X"
+          >
+            <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+          </a>
+          <a
+            class="social-link"
+            href="https://www.instagram.com/bandz_trading/"
+            data-app-url="instagram://user?username=bandz_trading"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Bandz on Instagram"
+            title="Instagram"
+          >
+            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+          </a>
+          <a
+            class="social-link"
+            href="https://www.tiktok.com/@bandztrading"
+            data-app-url="tiktok://@bandztrading"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Bandz on TikTok"
+            title="TikTok"
+          >
+            <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+          </a>
+          <a
+            class="social-link"
+            href="https://www.youtube.com/@BandzTrading"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Bandz on YouTube"
+            title="YouTube"
+          >
+            <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+          </a>
+        </nav>
+        <p class="footer-note">Indicators · Discord · Journal</p>
       </div>
-    </dialog>
+    </footer>
 
     <script>
-      const indicatorsDialog = document.querySelector("#indicatorsDialog");
-      const openIndicators = document.querySelector("#openIndicators");
-      const closeIndicators = indicatorsDialog.querySelector("[data-close-dialog]");
+      const revealElements = Array.from(document.querySelectorAll(".reveal, .reveal-stagger"));
+
+      if ("IntersectionObserver" in window) {
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -6%" },
+        );
+
+        revealElements.forEach((element) => revealObserver.observe(element));
+      } else {
+        revealElements.forEach((element) => element.classList.add("is-visible"));
+      }
 
       const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
         navigator.userAgent,
@@ -764,28 +2005,118 @@
         });
       }
 
-      function openDialog() {
-        if (!indicatorsDialog.open) {
-          indicatorsDialog.showModal();
+      // OWNER EDIT: Update indicator names, timeframes, screenshots, and benefits here.
+      const indicatorCatalog = [
+        {
+          id: "1",
+          name: "Bandz Intraday",
+          timeframe: "1m chart",
+          image: "assets/indicators/bandz-intraday-1m.png",
+          alt: "Bandz Intraday indicator shown on a 1-minute chart",
+          benefit: "Maps ICT macro windows and first-presented FVGs with volume-imbalance and calendar context.",
+        },
+        {
+          id: "2",
+          name: "Bandz Sessions",
+          timeframe: "1m chart",
+          image: "assets/indicators/bandz-sessions-1m.png",
+          alt: "Bandz Sessions indicator shown on a 1-minute chart",
+          benefit: "Tracks ICT killzones, session liquidity, opening ranges, and Opening RTH Gap projections.",
+        },
+        {
+          id: "3",
+          name: "Bandz SMT",
+          timeframe: "15m chart",
+          image: "assets/indicators/bandz-smt-15m.png",
+          alt: "Bandz SMT indicator shown on a 15-minute chart",
+          benefit: "Scans multi-timeframe SMT divergence while filtering redundant lower-timeframe signals.",
+        },
+        {
+          id: "4",
+          name: "Bandz HTF",
+          timeframe: "15m chart",
+          image: "assets/indicators/bandz-htf-15m.png",
+          alt: "Bandz HTF indicator shown on a 15-minute chart",
+          benefit: "Displays higher-timeframe candles with PSP, SMT, T-Spots, CISD, FVGs, and sweeps.",
+        },
+        {
+          id: "5",
+          name: "Bandz Levels",
+          timeframe: "5m chart",
+          image: "assets/indicators/bandz-levels-5m.png",
+          alt: "Bandz Levels indicator shown on a 5-minute chart",
+          benefit: "Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.",
+        },
+      ];
+
+      indicatorCatalog.forEach(({ id, name, timeframe, image, alt, benefit }) => {
+        const tabName = document.querySelector(`#indicator-tab-${id} [data-indicator-name]`);
+        const panelHeading = document.querySelector(`#indicator-panel-${id} [data-indicator-heading]`);
+        const panelTimeframe = document.querySelector(`#indicator-panel-${id} [data-indicator-timeframe]`);
+        const panelImage = document.querySelector(`#indicator-panel-${id} [data-indicator-image]`);
+        const panelBenefit = document.querySelector(`#indicator-panel-${id} [data-indicator-benefit]`);
+
+        if (tabName) tabName.textContent = name;
+        if (panelHeading) panelHeading.textContent = name;
+        if (panelTimeframe) panelTimeframe.textContent = timeframe;
+        if (panelImage) {
+          panelImage.src = image;
+          panelImage.alt = alt;
         }
-        document.body.classList.add("modal-open");
+        if (panelBenefit) panelBenefit.textContent = benefit;
+      });
+
+      const indicatorTabs = Array.from(document.querySelectorAll("[data-indicator-tab]"));
+      const indicatorPanels = Array.from(document.querySelectorAll("[data-indicator-panel]"));
+
+      function activateIndicator(nextTab, moveFocus = false) {
+        const nextIndicator = nextTab.dataset.indicatorTab;
+
+        indicatorTabs.forEach((tab) => {
+          const isActive = tab === nextTab;
+          tab.setAttribute("aria-selected", String(isActive));
+          tab.tabIndex = isActive ? 0 : -1;
+        });
+
+        indicatorPanels.forEach((panel) => {
+          const isActive = panel.dataset.indicatorPanel === nextIndicator;
+          panel.hidden = !isActive;
+
+          if (isActive && panel.classList) {
+            panel.classList.remove("is-switching");
+            void panel.offsetWidth;
+            panel.classList.add("is-switching");
+            window.setTimeout(() => panel.classList.remove("is-switching"), 700);
+          }
+        });
+
+        if (moveFocus) {
+          nextTab.focus();
+        }
       }
 
-      function closeDialog() {
-        indicatorsDialog.close();
-        document.body.classList.remove("modal-open");
-      }
+      indicatorTabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => activateIndicator(tab));
+        tab.addEventListener("keydown", (event) => {
+          let nextIndex;
 
-      openIndicators.addEventListener("click", openDialog);
-      closeIndicators.addEventListener("click", closeDialog);
-      indicatorsDialog.addEventListener("click", (event) => {
-        if (event.target === indicatorsDialog) {
-          closeDialog();
-        }
+          if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+            nextIndex = (index + 1) % indicatorTabs.length;
+          } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+            nextIndex = (index - 1 + indicatorTabs.length) % indicatorTabs.length;
+          } else if (event.key === "Home") {
+            nextIndex = 0;
+          } else if (event.key === "End") {
+            nextIndex = indicatorTabs.length - 1;
+          } else {
+            return;
+          }
+
+          event.preventDefault();
+          activateIndicator(indicatorTabs[nextIndex], true);
+        });
       });
-      indicatorsDialog.addEventListener("close", () => {
-        document.body.classList.remove("modal-open");
-      });
+
     </script>
   </body>
 </html>

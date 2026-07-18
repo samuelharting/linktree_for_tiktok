@@ -7,21 +7,42 @@ const dist = path.join(root, "dist");
 const serverDir = path.join(dist, "server");
 
 const html = await readFile(path.join(root, "index.html"), "utf8");
-const ogImage = await readFile(path.join(root, "og.png"));
-const journalImage = await readFile(path.join(root, "calender.png"));
+const ogImage = await readFile(path.join(root, "og-store-graphite-preview.png"));
+const journalImage = await readFile(
+  path.join(root, "assets", "journal", "bandz-journal-calendar.png"),
+);
 const portraitImage = await readFile(path.join(root, "fearing_bandz.png"));
+const indicatorAssetPaths = [
+  "bandz-intraday-1m.png",
+  "bandz-sessions-1m.png",
+  "bandz-smt-15m.png",
+  "bandz-htf-15m.png",
+  "bandz-levels-5m.png",
+];
+const indicatorImages = Object.fromEntries(
+  await Promise.all(
+    indicatorAssetPaths.map(async (filename) => [
+      `/assets/indicators/${filename}`,
+      (await readFile(path.join(root, "assets", "indicators", filename))).toString("base64"),
+    ]),
+  ),
+);
 
 await rm(dist, { recursive: true, force: true });
 await mkdir(serverDir, { recursive: true });
+await mkdir(path.join(dist, "assets", "indicators"), { recursive: true });
+await mkdir(path.join(dist, "assets", "journal"), { recursive: true });
 
 const workerSource = `
 const pageHtml = ${JSON.stringify(html)};
 const ogBase64 = ${JSON.stringify(ogImage.toString("base64"))};
 const journalBase64 = ${JSON.stringify(journalImage.toString("base64"))};
 const portraitBase64 = ${JSON.stringify(portraitImage.toString("base64"))};
+const indicatorBase64 = ${JSON.stringify(indicatorImages)};
 let ogBytes;
 let journalBytes;
 let portraitBytes;
+const indicatorBytes = new Map();
 
 function getOgBytes() {
   if (!ogBytes) {
@@ -47,6 +68,14 @@ function getPortraitBytes() {
   return portraitBytes;
 }
 
+function getIndicatorBytes(pathname) {
+  if (!indicatorBytes.has(pathname)) {
+    const binary = atob(indicatorBase64[pathname]);
+    indicatorBytes.set(pathname, Uint8Array.from(binary, (character) => character.charCodeAt(0)));
+  }
+  return indicatorBytes.get(pathname);
+}
+
 function responseFor(request, body, init) {
   return new Response(request.method === "HEAD" ? null : body, init);
 }
@@ -66,7 +95,7 @@ const worker = {
 
     const url = new URL(request.url);
 
-    if (url.pathname === "/og.png") {
+    if (url.pathname === "/og-store-graphite-preview.png") {
       return responseFor(request, getOgBytes(), {
         headers: {
           "Content-Type": "image/png",
@@ -75,7 +104,7 @@ const worker = {
       });
     }
 
-    if (url.pathname === "/calender.png") {
+    if (url.pathname === "/assets/journal/bandz-journal-calendar.png") {
       return responseFor(request, getJournalBytes(), {
         headers: {
           "Content-Type": "image/png",
@@ -86,6 +115,15 @@ const worker = {
 
     if (url.pathname === "/fearing_bandz.png") {
       return responseFor(request, getPortraitBytes(), {
+        headers: {
+          "Content-Type": "image/png",
+          "Cache-Control": "public, max-age=31536000, immutable",
+        },
+      });
+    }
+
+    if (url.pathname in indicatorBase64) {
+      return responseFor(request, getIndicatorBytes(url.pathname), {
         headers: {
           "Content-Type": "image/png",
           "Cache-Control": "public, max-age=31536000, immutable",
@@ -114,9 +152,21 @@ export default worker;
 await Promise.all([
   writeFile(path.join(serverDir, "index.js"), workerSource),
   copyFile(path.join(root, "index.html"), path.join(dist, "index.html")),
-  copyFile(path.join(root, "og.png"), path.join(dist, "og.png")),
-  copyFile(path.join(root, "calender.png"), path.join(dist, "calender.png")),
+  copyFile(
+    path.join(root, "og-store-graphite-preview.png"),
+    path.join(dist, "og-store-graphite-preview.png"),
+  ),
+  copyFile(
+    path.join(root, "assets", "journal", "bandz-journal-calendar.png"),
+    path.join(dist, "assets", "journal", "bandz-journal-calendar.png"),
+  ),
   copyFile(path.join(root, "fearing_bandz.png"), path.join(dist, "fearing_bandz.png")),
+  ...indicatorAssetPaths.map((filename) =>
+    copyFile(
+      path.join(root, "assets", "indicators", filename),
+      path.join(dist, "assets", "indicators", filename),
+    ),
+  ),
 ]);
 
 console.log("Static site build complete.");
