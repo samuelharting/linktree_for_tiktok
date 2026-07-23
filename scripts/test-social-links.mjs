@@ -141,25 +141,27 @@ const renderedText = textFromMarkup(bodyMatch[1]);
 const requiredCopy = [
   "THE BANDZ TRADING TOOLKIT",
   "Build a better trading process.",
-  "Review every trade, find patterns in your execution, and use five focused indicators built around the Bandz process.",
+  "Review every trade, find patterns in your execution, and use six focused indicators plus an all-in-one version built around the Bandz process.",
   "Explore the indicators",
   "Open the free journal",
-  "Five tools. One system.",
-  "Intraday · Sessions · SMT · HTF · Levels",
-  "All 5 · $1",
+  "Seven scripts. One system.",
+  "Intraday · Sessions · SMT · HTF · Levels · STDV Flow · All-in-One",
+  "All 7 · $1",
   "Review the process, not just the P&L.",
   "Log the setup, context, execution, and result. Review your trades over time and see what is actually improving—or hurting—your performance.",
   "A free trading journal for documenting setups, reviewing execution, and finding patterns across your trading.",
-  "Five tools, built as one system.",
-  "5 indicators · $1 total",
-  "Intraday references, sessions, SMT, higher-timeframe context, and key levels—built to work together without cluttering your chart.",
+  "Seven scripts, built as one system.",
+  "7 indicators · $1 total",
+  "Six focused tools plus one all-in-one version for the complete Bandz process—even when your TradingView plan limits how many indicators you can add to a chart.",
   "Maps ICT macro windows and first-presented FVGs with volume-imbalance and calendar context.",
   "Tracks ICT killzones, session liquidity, opening ranges, and Opening RTH Gap projections.",
   "Scans multi-timeframe SMT divergence while filtering redundant lower-timeframe signals.",
   "Displays higher-timeframe candles with PSP, SMT, T-Spots, CISD, FVGs, and sweeps.",
   "Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.",
-  "Get all five indicators for $1.",
-  "Get all five",
+  "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
+  "Combines all six Bandz indicators into one script, giving traders without TradingView Premium the complete toolkit through a single chart indicator.",
+  "Get all seven indicators for $1.",
+  "Get all seven",
   "01 · Indicators",
   "02 · Discord",
   "03 · Trading Journal",
@@ -287,15 +289,28 @@ const expectedIndicators = [
     source: "assets/indicators/bandz-levels-5m.png",
     alt: "Bandz Levels indicator shown on a 5-minute chart",
   },
+  {
+    id: "6",
+    name: "Bandz STDV Flow",
+    timeframe: "Multi-timeframe",
+    placeholderAlt: "Bandz STDV Flow coming soon",
+  },
+  {
+    id: "7",
+    name: "Bandz All-in-One",
+    timeframe: "All timeframes",
+    placeholderAlt: "Bandz All-in-One coming soon",
+  },
 ];
 
 const indicatorCards = classedTags("article", "indicator-card");
-assert.equal(indicatorCards.length, 5, "The storefront should contain exactly five indicator cards");
+assert.equal(indicatorCards.length, 7, "The storefront should contain exactly seven indicator cards");
+assert.equal(classedTags("span", "product-status").length, 2, "Exactly the two unreleased indicators should display a Coming soon status");
 
 const indicatorTabTags = tagsWithAttributeValue("button", "role", "tab");
 const indicatorPanelTags = tagsWithAttributeValue(null, "role", "tabpanel");
-assert.equal(indicatorTabTags.length, 5, "The indicator selector should contain exactly five role=tab buttons");
-assert.equal(indicatorPanelTags.length, 5, "The indicator selector should contain exactly five tabpanels");
+assert.equal(indicatorTabTags.length, 7, "The indicator selector should contain exactly seven role=tab buttons");
+assert.equal(indicatorPanelTags.length, 7, "The indicator selector should contain exactly seven tabpanels");
 
 const selectedIndicatorTabTags = indicatorTabTags.filter(
   (tag) => attributeValue(tag, "aria-selected") === "true",
@@ -306,8 +321,8 @@ assert.equal(visibleIndicatorPanelTags.length, 1, "Exactly one indicator panel s
 
 const tabDataIds = indicatorTabTags.map((tag) => attributeValue(tag, "data-indicator-tab"));
 const panelDataIds = indicatorPanelTags.map((tag) => attributeValue(tag, "data-indicator-panel"));
-assert.equal(new Set(tabDataIds).size, 5, "Each indicator tab should have a unique data id");
-assert.equal(new Set(panelDataIds).size, 5, "Each indicator panel should have a unique data id");
+assert.equal(new Set(tabDataIds).size, 7, "Each indicator tab should have a unique data id");
+assert.equal(new Set(panelDataIds).size, 7, "Each indicator panel should have a unique data id");
 
 for (const tabTag of indicatorTabTags) {
   const dataId = attributeValue(tabTag, "data-indicator-tab");
@@ -354,10 +369,17 @@ for (const tabTag of indicatorTabTags) {
   );
 
   const panelImage = panelElement.match(/<img\b[^>]*>/i)?.[0];
-  assert.ok(panelImage, `Indicator panel ${dataId} should contain a screenshot image`);
-  assert.ok(hasAttribute(panelImage, "data-indicator-image"), `Indicator panel ${dataId} screenshot should use the catalog hook`);
-  assert.equal(attributeValue(panelImage, "src"), expectedIndicator.source, `Indicator panel ${dataId} should use the correct screenshot source`);
-  assert.equal(attributeValue(panelImage, "alt"), expectedIndicator.alt, `Indicator panel ${dataId} should describe its screenshot`);
+  if (expectedIndicator.source) {
+    assert.ok(panelImage, `Indicator panel ${dataId} should contain a screenshot image`);
+    assert.ok(hasAttribute(panelImage, "data-indicator-image"), `Indicator panel ${dataId} screenshot should use the catalog hook`);
+    assert.equal(attributeValue(panelImage, "src"), expectedIndicator.source, `Indicator panel ${dataId} should use the correct screenshot source`);
+    assert.equal(attributeValue(panelImage, "alt"), expectedIndicator.alt, `Indicator panel ${dataId} should describe its screenshot`);
+  } else {
+    const placeholder = panelElement.match(/<div\b[^>]*class=["'][^"']*indicator-placeholder[^"']*["'][^>]*>/i)?.[0];
+    assert.ok(placeholder, `Indicator panel ${dataId} should contain a preview placeholder until a real chart is supplied`);
+    assert.equal(attributeValue(placeholder, "role"), "img", `Indicator panel ${dataId} placeholder should expose image semantics`);
+    assert.equal(attributeValue(placeholder, "aria-label"), expectedIndicator.placeholderAlt, `Indicator panel ${dataId} placeholder should be described accessibly`);
+  }
   assert.match(
     panelElement,
     new RegExp(
@@ -366,10 +388,12 @@ for (const tabTag of indicatorTabTags) {
     ),
     `Indicator panel ${dataId} should display its ${expectedIndicator.timeframe} timeframe`,
   );
-  await assert.doesNotReject(
-    access(new URL(`../${expectedIndicator.source}`, import.meta.url)),
-    `Indicator panel ${dataId} screenshot asset should exist`,
-  );
+  if (expectedIndicator.source) {
+    await assert.doesNotReject(
+      access(new URL(`../${expectedIndicator.source}`, import.meta.url)),
+      `Indicator panel ${dataId} screenshot asset should exist`,
+    );
+  }
 }
 
 assert.equal(
@@ -433,7 +457,7 @@ assert.equal(
 );
 assert.equal(
   textFromMarkup(bundleBannerButton),
-  "Get all five →",
+  "Get all seven →",
   "The bottom bundle CTA should use the approved copy",
 );
 
@@ -496,8 +520,8 @@ function testIndicatorSelection() {
     });
   }
 
-  const tabs = Array.from({ length: 5 }, (_, index) => indicatorTab(index + 1, index === 0));
-  const panels = Array.from({ length: 5 }, (_, index) => ({
+  const tabs = Array.from({ length: 7 }, (_, index) => indicatorTab(index + 1, index === 0));
+  const panels = Array.from({ length: 7 }, (_, index) => ({
     dataset: { indicatorPanel: String(index + 1) },
     hidden: index !== 0,
   }));

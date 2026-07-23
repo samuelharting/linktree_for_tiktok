@@ -7,7 +7,7 @@
     <title>Bandz | Indicators, Discord &amp; Trading Journal</title>
     <meta
       name="description"
-      content="Explore five focused Bandz indicators, join the Discord community, and review every trade with the free trading journal."
+      content="Explore six focused Bandz indicators plus an all-in-one version, join the Discord community, and review every trade with the free trading journal."
     />
     <meta name="theme-color" content="#F3EFE7" />
 
@@ -16,7 +16,7 @@
     <meta property="og:title" content="Bandz | Build a better trading process." />
     <meta
       property="og:description"
-      content="Five focused indicators · Discord community · Free trading journal"
+      content="Six focused indicators plus All-in-One · Discord community · Free trading journal"
     />
     <meta
       property="og:image"
@@ -24,14 +24,14 @@
     />
     <meta
       property="og:image:alt"
-      content="Bandz trading journal, five-indicator bundle, and trading communities."
+      content="Bandz trading journal, seven-indicator bundle, and trading communities."
     />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Bandz | Build a better trading process." />
     <meta
       name="twitter:description"
-      content="Five focused indicators · Discord community · Free trading journal"
+      content="Six focused indicators plus All-in-One · Discord community · Free trading journal"
     />
     <meta
       name="twitter:image"
@@ -793,6 +793,65 @@
         object-position: left center;
       }
 
+      .indicator-placeholder {
+        position: relative;
+        width: 100%;
+        min-height: inherit;
+        padding: clamp(28px, 5vw, 58px);
+        display: grid;
+        align-content: end;
+        overflow: hidden;
+        color: #f4f0e8;
+        background:
+          linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px) 0 0 / 52px 52px,
+          linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px) 0 0 / 52px 52px,
+          linear-gradient(145deg, #111814 0%, #1f2b24 56%, #0d120f 100%);
+      }
+
+      .indicator-placeholder::before,
+      .indicator-placeholder::after {
+        content: "";
+        position: absolute;
+        left: -5%;
+        width: 110%;
+        height: 2px;
+        transform-origin: left center;
+      }
+
+      .indicator-placeholder::before {
+        top: 43%;
+        background: #d7b56d;
+        transform: rotate(-7deg);
+        box-shadow: 0 44px 0 rgba(215, 181, 109, 0.48), 0 88px 0 rgba(215, 181, 109, 0.24);
+      }
+
+      .indicator-placeholder::after {
+        top: 30%;
+        background: rgba(210, 229, 216, 0.46);
+        transform: rotate(5deg);
+        box-shadow: 0 78px 0 rgba(210, 229, 216, 0.18);
+      }
+
+      .indicator-placeholder-label {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: 7px;
+        font-family: "DM Mono", monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .indicator-placeholder-label strong {
+        font-size: clamp(20px, 3vw, 34px);
+        letter-spacing: 0.04em;
+      }
+
+      .indicator-placeholder-label span {
+        color: rgba(244, 240, 232, 0.68);
+        font-size: 10px;
+      }
+
       .indicator-copy {
         min-width: 0;
         padding: clamp(28px, 4vw, 48px);
@@ -811,6 +870,14 @@
         font-size: 9px;
         letter-spacing: 0.08em;
         text-transform: uppercase;
+      }
+
+      .product-status {
+        padding: 5px 8px;
+        color: var(--accent-ink);
+        background: var(--accent-dark);
+        border-radius: 999px;
+        font-weight: 700;
       }
 
       .indicator-copy h3 {
@@ -1482,7 +1549,7 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        <span>All 5 · $1</span>
+        <span>All 7 · $1</span>
       </a>
     </header>
 
@@ -1495,8 +1562,8 @@
           <p class="eyebrow">THE BANDZ TRADING TOOLKIT</p>
           <h1 id="hero-title">Build a better trading <em>process.</em></h1>
           <p class="hero-lede">
-            Review every trade, find patterns in your execution, and use five focused indicators
-            built around the Bandz process.
+            Review every trade, find patterns in your execution, and use six focused indicators
+            plus an all-in-one version built around the Bandz process.
           </p>
           <div class="hero-actions">
             <a class="button button--primary" href="#indicators">
@@ -1525,8 +1592,8 @@
             />
           </figure>
           <div class="portrait-caption">
-            <strong>Five tools. One system.</strong>
-            <span class="tool-strip">Intraday · Sessions · SMT · HTF · Levels</span>
+            <strong>Seven scripts. One system.</strong>
+            <span class="tool-strip">Intraday · Sessions · SMT · HTF · Levels · STDV Flow · All-in-One</span>
           </div>
         </div>
       </section>
@@ -1540,13 +1607,13 @@
           <header class="section-heading reveal-stagger">
             <div>
               <span class="section-number">01 · Indicators</span>
-              <h2 class="section-title" id="indicators-title">Five tools, built as one system.</h2>
+              <h2 class="section-title" id="indicators-title">Seven scripts, built as one system.</h2>
             </div>
             <div>
-              <p class="bundle-badge">5 indicators · $1 total</p>
+              <p class="bundle-badge">7 indicators · $1 total</p>
               <p class="section-intro">
-                Intraday references, sessions, SMT, higher-timeframe context, and key levels—built
-                to work together without cluttering your chart.
+                Six focused tools plus one all-in-one version for the complete Bandz process—even
+                when your TradingView plan limits how many indicators you can add to a chart.
               </p>
             </div>
           </header>
@@ -1617,6 +1684,32 @@
                 <span class="indicator-tab-number">05</span>
                 <span data-indicator-name>Bandz Levels</span>
               </button>
+              <button
+                class="indicator-tab"
+                type="button"
+                role="tab"
+                id="indicator-tab-6"
+                aria-controls="indicator-panel-6"
+                aria-selected="false"
+                tabindex="-1"
+                data-indicator-tab="6"
+              >
+                <span class="indicator-tab-number">06</span>
+                <span data-indicator-name>Bandz STDV Flow</span>
+              </button>
+              <button
+                class="indicator-tab"
+                type="button"
+                role="tab"
+                id="indicator-tab-7"
+                aria-controls="indicator-panel-7"
+                aria-selected="false"
+                tabindex="-1"
+                data-indicator-tab="7"
+              >
+                <span class="indicator-tab-number">07</span>
+                <span data-indicator-name>Bandz All-in-One</span>
+              </button>
             </div>
 
             <div class="indicator-list">
@@ -1641,7 +1734,7 @@
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
-                    <span>01 / 05 · <span data-indicator-timeframe>1m chart</span></span>
+                    <span>01 / 07 · <span data-indicator-timeframe>1m chart</span></span>
                   </div>
                   <h3 data-indicator-heading>Bandz Intraday</h3>
                   <p data-indicator-benefit>
@@ -1673,7 +1766,7 @@
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
-                    <span>02 / 05 · <span data-indicator-timeframe>1m chart</span></span>
+                    <span>02 / 07 · <span data-indicator-timeframe>1m chart</span></span>
                   </div>
                   <h3 data-indicator-heading>Bandz Sessions</h3>
                   <p data-indicator-benefit>
@@ -1705,7 +1798,7 @@
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
-                    <span>03 / 05 · <span data-indicator-timeframe>15m chart</span></span>
+                    <span>03 / 07 · <span data-indicator-timeframe>15m chart</span></span>
                   </div>
                   <h3 data-indicator-heading>Bandz SMT</h3>
                   <p data-indicator-benefit>
@@ -1737,7 +1830,7 @@
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
-                    <span>04 / 05 · <span data-indicator-timeframe>15m chart</span></span>
+                    <span>04 / 07 · <span data-indicator-timeframe>15m chart</span></span>
                   </div>
                   <h3 data-indicator-heading>Bandz HTF</h3>
                   <p data-indicator-benefit>
@@ -1769,7 +1862,7 @@
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
-                    <span>05 / 05 · <span data-indicator-timeframe>5m chart</span></span>
+                    <span>05 / 07 · <span data-indicator-timeframe>5m chart</span></span>
                   </div>
                   <h3 data-indicator-heading>Bandz Levels</h3>
                   <p data-indicator-benefit>
@@ -1777,13 +1870,71 @@
                   </p>
                 </div>
               </article>
+
+              <article
+                class="indicator-card"
+                role="tabpanel"
+                id="indicator-panel-6"
+                aria-labelledby="indicator-tab-6"
+                data-indicator-panel="6"
+                hidden
+              >
+                <div class="indicator-visual">
+                  <div class="indicator-placeholder" role="img" aria-label="Bandz STDV Flow coming soon">
+                    <div class="indicator-placeholder-label">
+                      <strong>STDV Flow</strong>
+                      <span>Coming soon</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="indicator-copy">
+                  <div class="product-meta">
+                    <span>06 / 07 · <span data-indicator-timeframe>Multi-timeframe</span></span>
+                    <span class="product-status">Coming soon</span>
+                  </div>
+                  <h3 data-indicator-heading>Bandz STDV Flow</h3>
+                  <p data-indicator-benefit>
+                    Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing
+                    confirmation, then projects standard-deviation objectives from the setup anchors.
+                  </p>
+                </div>
+              </article>
+
+              <article
+                class="indicator-card"
+                role="tabpanel"
+                id="indicator-panel-7"
+                aria-labelledby="indicator-tab-7"
+                data-indicator-panel="7"
+                hidden
+              >
+                <div class="indicator-visual">
+                  <div class="indicator-placeholder" role="img" aria-label="Bandz All-in-One coming soon">
+                    <div class="indicator-placeholder-label">
+                      <strong>All-in-One</strong>
+                      <span>Coming soon</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="indicator-copy">
+                  <div class="product-meta">
+                    <span>07 / 07 · <span data-indicator-timeframe>All timeframes</span></span>
+                    <span class="product-status">Coming soon</span>
+                  </div>
+                  <h3 data-indicator-heading>Bandz All-in-One</h3>
+                  <p data-indicator-benefit>
+                    Combines all six Bandz indicators into one script, giving traders without
+                    TradingView Premium the complete toolkit through a single chart indicator.
+                  </p>
+                </div>
+              </article>
             </div>
           </div>
 
-          <aside class="bundle-banner reveal" aria-label="Five indicator bundle">
+          <aside class="bundle-banner reveal" aria-label="Seven indicator bundle">
             <div>
               <p class="bundle-banner-kicker">Complete collection</p>
-              <h3>Get all five indicators for $1.</h3>
+              <h3>Get all seven indicators for $1.</h3>
             </div>
             <a
               class="button"
@@ -1791,7 +1942,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              Get all five <span class="button-arrow" aria-hidden="true">→</span>
+              Get all seven <span class="button-arrow" aria-hidden="true">→</span>
             </a>
           </aside>
         </div>
@@ -2046,6 +2197,18 @@
           image: "assets/indicators/bandz-levels-5m.png",
           alt: "Bandz Levels indicator shown on a 5-minute chart",
           benefit: "Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.",
+        },
+        {
+          id: "6",
+          name: "Bandz STDV Flow",
+          timeframe: "Multi-timeframe",
+          benefit: "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
+        },
+        {
+          id: "7",
+          name: "Bandz All-in-One",
+          timeframe: "All timeframes",
+          benefit: "Combines all six Bandz indicators into one script, giving traders without TradingView Premium the complete toolkit through a single chart indicator.",
         },
       ];
 
