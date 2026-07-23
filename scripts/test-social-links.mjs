@@ -159,6 +159,7 @@ const requiredCopy = [
   "Displays higher-timeframe candles with PSP, SMT, T-Spots, CISD, FVGs, and sweeps.",
   "Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.",
   "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
+  "View on TradingView",
   "Combines all six Bandz indicators into one script, giving traders without TradingView Premium the complete toolkit through a single chart indicator.",
   "Get all seven indicators for $1.",
   "Get all seven",
@@ -292,8 +293,9 @@ const expectedIndicators = [
   {
     id: "6",
     name: "Bandz STDV Flow",
-    timeframe: "Multi-timeframe",
-    placeholderAlt: "Bandz STDV Flow coming soon",
+    timeframe: "1h chart",
+    source: "assets/indicators/bandz-stdv-flow-1h.png",
+    alt: "Bandz STDV Flow indicator projecting standard-deviation objectives on a 1-hour MNQ chart",
   },
   {
     id: "7",
@@ -305,7 +307,7 @@ const expectedIndicators = [
 
 const indicatorCards = classedTags("article", "indicator-card");
 assert.equal(indicatorCards.length, 7, "The storefront should contain exactly seven indicator cards");
-assert.equal(classedTags("span", "product-status").length, 2, "Exactly the two unreleased indicators should display a Coming soon status");
+assert.equal(classedTags("span", "product-status").length, 1, "Only the unreleased All-in-One indicator should display a Coming soon status");
 
 const indicatorTabTags = tagsWithAttributeValue("button", "role", "tab");
 const indicatorPanelTags = tagsWithAttributeValue(null, "role", "tabpanel");
@@ -468,7 +470,6 @@ const liveCheckoutLinks = openingTags("a").filter((tag) => {
 assert.equal(liveCheckoutLinks.length, 2, "The header and final bundle CTA should use the supplied Whop checkout link");
 
 const retiredTradingViewReferences = [
-  "tradingview.com",
   "wc5MzQEq",
   "Y8RDMaqx",
   "XIwA0v2s",
@@ -477,6 +478,12 @@ const retiredTradingViewReferences = [
   "Macros",
   "Watermark",
 ];
+
+assert.equal(
+  literalCount('href="https://www.tradingview.com/script/YnOsAQ78-Bandz-STDV-Flow/"'),
+  1,
+  "Bandz STDV Flow should link to its verified TradingView page once",
+);
 
 for (const retiredReference of retiredTradingViewReferences) {
   assert.equal(

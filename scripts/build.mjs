@@ -18,6 +18,7 @@ const indicatorAssetPaths = [
   "bandz-smt-15m.png",
   "bandz-htf-15m.png",
   "bandz-levels-5m.png",
+  "bandz-stdv-flow-1h.png",
 ];
 const indicatorImages = Object.fromEntries(
   await Promise.all(

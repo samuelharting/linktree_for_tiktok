@@ -897,6 +897,26 @@
         line-height: 1.75;
       }
 
+      .indicator-link {
+        width: fit-content;
+        margin-top: 24px;
+        padding-bottom: 4px;
+        color: var(--ink);
+        border-bottom: 1px solid var(--accent);
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color 220ms ease, border-color 220ms ease;
+      }
+
+      .indicator-link:hover {
+        color: var(--accent-dark);
+        border-color: var(--accent-dark);
+      }
+
       .bundle-banner {
         margin-top: 18px;
         padding: clamp(25px, 3.5vw, 40px);
@@ -1211,6 +1231,7 @@
       .header-offer:focus-visible,
       .button:focus-visible,
       .indicator-tab:focus-visible,
+      .indicator-link:focus-visible,
       .social-link:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 4px;
@@ -1880,23 +1901,34 @@
                 hidden
               >
                 <div class="indicator-visual">
-                  <div class="indicator-placeholder" role="img" aria-label="Bandz STDV Flow coming soon">
-                    <div class="indicator-placeholder-label">
-                      <strong>STDV Flow</strong>
-                      <span>Coming soon</span>
-                    </div>
-                  </div>
+                  <img
+                    class="indicator-screenshot"
+                    src="assets/indicators/bandz-stdv-flow-1h.png"
+                    alt="Bandz STDV Flow indicator projecting standard-deviation objectives on a 1-hour MNQ chart"
+                    width="2851"
+                    height="1977"
+                    loading="lazy"
+                    decoding="async"
+                    data-indicator-image
+                  />
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
-                    <span>06 / 07 · <span data-indicator-timeframe>Multi-timeframe</span></span>
-                    <span class="product-status">Coming soon</span>
+                    <span>06 / 07 · <span data-indicator-timeframe>1h chart</span></span>
                   </div>
                   <h3 data-indicator-heading>Bandz STDV Flow</h3>
                   <p data-indicator-benefit>
                     Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing
                     confirmation, then projects standard-deviation objectives from the setup anchors.
                   </p>
+                  <a
+                    class="indicator-link"
+                    href="https://www.tradingview.com/script/YnOsAQ78-Bandz-STDV-Flow/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View on TradingView <span aria-hidden="true">↗</span>
+                  </a>
                 </div>
               </article>
 
@@ -2201,7 +2233,9 @@
         {
           id: "6",
           name: "Bandz STDV Flow",
-          timeframe: "Multi-timeframe",
+          timeframe: "1h chart",
+          image: "assets/indicators/bandz-stdv-flow-1h.png",
+          alt: "Bandz STDV Flow indicator projecting standard-deviation objectives on a 1-hour MNQ chart",
           benefit: "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
         },
         {
