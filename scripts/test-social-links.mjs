@@ -161,7 +161,6 @@ const requiredCopy = [
   "Displays higher-timeframe candles with PSP, SMT, T-Spots, CISD, FVGs, and sweeps.",
   "Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.",
   "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
-  "View on TradingView",
   "Combines all six Bandz indicators into one script, giving traders without TradingView Premium the complete toolkit through a single chart indicator.",
   "All seven scripts are available together for $1.",
   "Continue to Whop",
@@ -260,49 +259,42 @@ const expectedIndicators = [
   {
     id: "1",
     name: "Bandz Intraday",
-    timeframe: "1m chart",
     source: "assets/indicators/bandz-intraday-1m.png",
     alt: "Bandz Intraday indicator shown on a 1-minute chart",
   },
   {
     id: "2",
     name: "Bandz Sessions",
-    timeframe: "1m chart",
     source: "assets/indicators/bandz-sessions-1m.png",
     alt: "Bandz Sessions indicator shown on a 1-minute chart",
   },
   {
     id: "3",
     name: "Bandz SMT",
-    timeframe: "15m chart",
     source: "assets/indicators/bandz-smt-15m.png",
     alt: "Bandz SMT indicator shown on a 15-minute chart",
   },
   {
     id: "4",
     name: "Bandz HTF",
-    timeframe: "15m chart",
     source: "assets/indicators/bandz-htf-15m.png",
     alt: "Bandz HTF indicator shown on a 15-minute chart",
   },
   {
     id: "5",
     name: "Bandz Levels",
-    timeframe: "5m chart",
     source: "assets/indicators/bandz-levels-5m.png",
     alt: "Bandz Levels indicator shown on a 5-minute chart",
   },
   {
     id: "6",
     name: "Bandz STDV Flow",
-    timeframe: "1h chart",
     source: "assets/indicators/bandz-stdv-flow-1h.png",
     alt: "Bandz STDV Flow indicator projecting standard-deviation objectives on a 1-hour MNQ chart",
   },
   {
     id: "7",
     name: "Bandz All-in-One",
-    timeframe: "All timeframes",
     placeholderAlt: "Bandz All-in-One coming soon",
   },
 ];
@@ -310,6 +302,11 @@ const expectedIndicators = [
 const indicatorCards = classedTags("article", "indicator-card");
 assert.equal(indicatorCards.length, 7, "The storefront should contain exactly seven indicator cards");
 assert.equal(classedTags("span", "product-status").length, 1, "Only the unreleased All-in-One indicator should display a Coming soon status");
+assert.equal(
+  html.includes("data-indicator-timeframe"),
+  false,
+  "Indicator slides should not display timeframe labels",
+);
 
 const indicatorTabTags = tagsWithAttributeValue("button", "role", "tab");
 const indicatorPanelTags = tagsWithAttributeValue(null, "role", "tabpanel");
@@ -384,14 +381,6 @@ for (const tabTag of indicatorTabTags) {
     assert.equal(attributeValue(placeholder, "role"), "img", `Indicator panel ${dataId} placeholder should expose image semantics`);
     assert.equal(attributeValue(placeholder, "aria-label"), expectedIndicator.placeholderAlt, `Indicator panel ${dataId} placeholder should be described accessibly`);
   }
-  assert.match(
-    panelElement,
-    new RegExp(
-      `<span\\b[^>]*\\bdata-indicator-timeframe\\b[^>]*>\\s*${escapeRegExp(expectedIndicator.timeframe)}\\s*<\\/span>`,
-      "i",
-    ),
-    `Indicator panel ${dataId} should display its ${expectedIndicator.timeframe} timeframe`,
-  );
   if (expectedIndicator.source) {
     await assert.doesNotReject(
       access(new URL(`../${expectedIndicator.source}`, import.meta.url)),
@@ -492,8 +481,8 @@ const retiredTradingViewReferences = [
 
 assert.equal(
   literalCount('href="https://www.tradingview.com/script/YnOsAQ78-Bandz-STDV-Flow/"'),
-  1,
-  "Bandz STDV Flow should link to its verified TradingView page once",
+  0,
+  "Bandz STDV Flow should not display a TradingView link",
 );
 
 for (const retiredReference of retiredTradingViewReferences) {

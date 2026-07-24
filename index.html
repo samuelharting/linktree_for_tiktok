@@ -1964,7 +1964,7 @@
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
-                    <span>01 / 07 · <span data-indicator-timeframe>1m chart</span></span>
+                    <span>01 / 07</span>
                   </div>
                   <h3 data-indicator-heading>Bandz Intraday</h3>
                   <p data-indicator-benefit>
@@ -1996,7 +1996,7 @@
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
-                    <span>02 / 07 · <span data-indicator-timeframe>1m chart</span></span>
+                    <span>02 / 07</span>
                   </div>
                   <h3 data-indicator-heading>Bandz Sessions</h3>
                   <p data-indicator-benefit>
@@ -2028,7 +2028,7 @@
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
-                    <span>03 / 07 · <span data-indicator-timeframe>15m chart</span></span>
+                    <span>03 / 07</span>
                   </div>
                   <h3 data-indicator-heading>Bandz SMT</h3>
                   <p data-indicator-benefit>
@@ -2060,7 +2060,7 @@
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
-                    <span>04 / 07 · <span data-indicator-timeframe>15m chart</span></span>
+                    <span>04 / 07</span>
                   </div>
                   <h3 data-indicator-heading>Bandz HTF</h3>
                   <p data-indicator-benefit>
@@ -2092,7 +2092,7 @@
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
-                    <span>05 / 07 · <span data-indicator-timeframe>5m chart</span></span>
+                    <span>05 / 07</span>
                   </div>
                   <h3 data-indicator-heading>Bandz Levels</h3>
                   <p data-indicator-benefit>
@@ -2123,21 +2123,13 @@
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
-                    <span>06 / 07 · <span data-indicator-timeframe>1h chart</span></span>
+                    <span>06 / 07</span>
                   </div>
                   <h3 data-indicator-heading>Bandz STDV Flow</h3>
                   <p data-indicator-benefit>
                     Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing
                     confirmation, then projects standard-deviation objectives from the setup anchors.
                   </p>
-                  <a
-                    class="indicator-link"
-                    href="https://www.tradingview.com/script/YnOsAQ78-Bandz-STDV-Flow/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View on TradingView <span aria-hidden="true">↗</span>
-                  </a>
                 </div>
               </article>
 
@@ -2159,7 +2151,7 @@
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
-                    <span>07 / 07 · <span data-indicator-timeframe>All timeframes</span></span>
+                    <span>07 / 07</span>
                     <span class="product-status">Coming soon</span>
                   </div>
                   <h3 data-indicator-heading>Bandz All-in-One</h3>
@@ -2398,12 +2390,11 @@
         });
       }
 
-      // OWNER EDIT: Update indicator names, timeframes, screenshots, and benefits here.
+      // OWNER EDIT: Update indicator names, screenshots, and benefits here.
       const indicatorCatalog = [
         {
           id: "1",
           name: "Bandz Intraday",
-          timeframe: "1m chart",
           image: "assets/indicators/bandz-intraday-1m.png",
           alt: "Bandz Intraday indicator shown on a 1-minute chart",
           benefit: "Maps ICT macro windows and first-presented FVGs with volume-imbalance and calendar context.",
@@ -2411,7 +2402,6 @@
         {
           id: "2",
           name: "Bandz Sessions",
-          timeframe: "1m chart",
           image: "assets/indicators/bandz-sessions-1m.png",
           alt: "Bandz Sessions indicator shown on a 1-minute chart",
           benefit: "Tracks ICT killzones, session liquidity, opening ranges, and Opening RTH Gap projections.",
@@ -2419,7 +2409,6 @@
         {
           id: "3",
           name: "Bandz SMT",
-          timeframe: "15m chart",
           image: "assets/indicators/bandz-smt-15m.png",
           alt: "Bandz SMT indicator shown on a 15-minute chart",
           benefit: "Scans multi-timeframe SMT divergence while filtering redundant lower-timeframe signals.",
@@ -2427,7 +2416,6 @@
         {
           id: "4",
           name: "Bandz HTF",
-          timeframe: "15m chart",
           image: "assets/indicators/bandz-htf-15m.png",
           alt: "Bandz HTF indicator shown on a 15-minute chart",
           benefit: "Displays higher-timeframe candles with PSP, SMT, T-Spots, CISD, FVGs, and sweeps.",
@@ -2435,7 +2423,6 @@
         {
           id: "5",
           name: "Bandz Levels",
-          timeframe: "5m chart",
           image: "assets/indicators/bandz-levels-5m.png",
           alt: "Bandz Levels indicator shown on a 5-minute chart",
           benefit: "Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.",
@@ -2443,7 +2430,6 @@
         {
           id: "6",
           name: "Bandz STDV Flow",
-          timeframe: "1h chart",
           image: "assets/indicators/bandz-stdv-flow-1h.png",
           alt: "Bandz STDV Flow indicator projecting standard-deviation objectives on a 1-hour MNQ chart",
           benefit: "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
@@ -2451,21 +2437,18 @@
         {
           id: "7",
           name: "Bandz All-in-One",
-          timeframe: "All timeframes",
           benefit: "Combines all six Bandz indicators into one script, giving traders without TradingView Premium the complete toolkit through a single chart indicator.",
         },
       ];
 
-      indicatorCatalog.forEach(({ id, name, timeframe, image, alt, benefit }) => {
+      indicatorCatalog.forEach(({ id, name, image, alt, benefit }) => {
         const tabName = document.querySelector(`#indicator-tab-${id} [data-indicator-name]`);
         const panelHeading = document.querySelector(`#indicator-panel-${id} [data-indicator-heading]`);
-        const panelTimeframe = document.querySelector(`#indicator-panel-${id} [data-indicator-timeframe]`);
         const panelImage = document.querySelector(`#indicator-panel-${id} [data-indicator-image]`);
         const panelBenefit = document.querySelector(`#indicator-panel-${id} [data-indicator-benefit]`);
 
         if (tabName) tabName.textContent = name;
         if (panelHeading) panelHeading.textContent = name;
-        if (panelTimeframe) panelTimeframe.textContent = timeframe;
         if (panelImage) {
           panelImage.src = image;
           panelImage.alt = alt;
