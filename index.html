@@ -433,6 +433,67 @@
         transform: translateX(3px);
       }
 
+      .funnel-header-duo {
+        display: flex;
+        justify-self: end;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .funnel-header-duo a {
+        min-height: 42px;
+        padding: 0 13px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        font-size: 9px;
+        font-weight: 800;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .funnel-header-duo a:first-child {
+        color: var(--accent-ink);
+        background: var(--accent-dark);
+        border-color: var(--accent-dark);
+      }
+
+      .funnel-section-banner {
+        margin: 18px 0 0;
+        padding: 18px 20px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 18px;
+        color: var(--accent-ink);
+        background: var(--accent-dark);
+        border-radius: 16px;
+      }
+
+      .funnel-section-banner p {
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .funnel-section-banner p strong {
+        display: block;
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: 25px;
+        font-weight: 400;
+        line-height: 1;
+      }
+
+      .funnel-section-banner .button {
+        min-height: 44px;
+        color: var(--ink);
+        background: var(--surface);
+        border-color: var(--surface);
+        font-size: 10px;
+      }
+
       .hero-visual {
         position: relative;
         width: min(100%, 310px);
@@ -1381,6 +1442,18 @@
           display: none;
         }
 
+        .site-header {
+          grid-template-columns: auto minmax(0, 1fr) auto;
+        }
+
+        .header-nav {
+          display: none;
+        }
+
+        .funnel-header-duo {
+          display: flex;
+        }
+
         .hero {
           grid-template-columns: 1fr;
           gap: 58px;
@@ -1443,6 +1516,27 @@
           border-radius: 24px;
         }
 
+        .site-header {
+          grid-template-columns: 1fr;
+        }
+
+        .header-nav {
+          display: none;
+        }
+
+        .funnel-header-duo {
+          width: 100%;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 6px;
+        }
+
+        .funnel-header-duo a {
+          width: 100%;
+          min-height: 48px;
+          padding-inline: 8px;
+        }
+
         .brand {
           justify-self: center;
           font-size: 30px;
@@ -1492,6 +1586,10 @@
           transform: translateY(0) scale(0.98);
         }
 
+        .site-header .header-nav {
+          display: none;
+        }
+
         .nav-free {
           display: none;
         }
@@ -1516,6 +1614,14 @@
         }
 
         .button {
+          width: 100%;
+        }
+
+        .funnel-section-banner {
+          grid-template-columns: 1fr;
+        }
+
+        .funnel-section-banner .button {
           width: 100%;
         }
 
@@ -1659,14 +1765,22 @@
         <a href="#discord">Discord</a>
         <a href="#journal">Trading Journal <em class="nav-free">Free</em></a>
       </nav>
-      <a
-        class="header-offer"
-        href="https://whop.com/bandwithsam/bandz-indicator-suite/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <span>All 7 · $1</span>
-      </a>
+      <div class="funnel-header-duo" aria-label="Bandz product links">
+        <a
+          href="https://whop.com/bandwithsam/bandz-indicator-suite/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Indicators · $1 ↗
+        </a>
+        <a
+          href="https://bandzjournal.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Journal · Free ↗
+        </a>
+      </div>
     </header>
 
     <main id="main-content">
@@ -2058,20 +2172,21 @@
             </div>
           </div>
 
-          <aside class="bundle-banner reveal" aria-label="Seven indicator bundle">
-            <div>
-              <p class="bundle-banner-kicker">Complete collection</p>
-              <h3>Get all seven indicators for $1.</h3>
-            </div>
+          <aside
+            class="funnel-section-banner funnel-section-banner--indicators"
+            aria-label="Indicator purchase link"
+          >
+            <p><strong>Ready to add the indicators?</strong> All seven scripts are available together for $1.</p>
             <a
               class="button"
               href="https://whop.com/bandwithsam/bandz-indicator-suite/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Get all seven <span class="button-arrow" aria-hidden="true">→</span>
+              Continue to Whop <span class="button-arrow" aria-hidden="true">↗</span>
             </a>
           </aside>
+
         </div>
       </section>
 

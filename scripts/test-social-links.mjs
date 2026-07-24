@@ -140,13 +140,15 @@ for (const [pattern, label] of forbiddenColorPatterns) {
 const renderedText = textFromMarkup(bodyMatch[1]);
 const requiredCopy = [
   "THE BANDZ TRADING TOOLKIT",
+  "Ready to add the indicators?",
   "Build a better trading process.",
   "Review every trade, find patterns in your execution, and use six focused indicators plus an all-in-one version built around the Bandz process.",
   "Explore the indicators",
   "Open the free journal",
   "Seven scripts. One system.",
   "Intraday · Sessions · SMT · HTF · Levels · STDV Flow · All-in-One",
-  "All 7 · $1",
+  "Indicators · $1",
+  "Journal · Free",
   "Review the process, not just the P&L.",
   "Log the setup, context, execution, and result. Review your trades over time and see what is actually improving—or hurting—your performance.",
   "A free trading journal for documenting setups, reviewing execution, and finding patterns across your trading.",
@@ -161,8 +163,8 @@ const requiredCopy = [
   "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
   "View on TradingView",
   "Combines all six Bandz indicators into one script, giving traders without TradingView Premium the complete toolkit through a single chart indicator.",
-  "Get all seven indicators for $1.",
-  "Get all seven",
+  "All seven scripts are available together for $1.",
+  "Continue to Whop",
   "01 · Indicators",
   "02 · Discord",
   "03 · Trading Journal",
@@ -243,7 +245,7 @@ assert.equal(html.includes("offer-strip"), false, "The repetitive price divider 
 assert.equal(
   renderedText.split("$1").length - 1,
   3,
-  "The $1 offer should appear only in the header, indicator badge, and final indicator CTA",
+  "The $1 offer should appear in the header actions, indicator badge, and indicator CTA",
 );
 
 for (const forbiddenCopy of forbiddenPublicCopy) {
@@ -421,8 +423,8 @@ assert.equal(
 );
 assert.equal(
   literalCount('href="https://bandzjournal.vercel.app/"'),
-  2,
-  "The current free journal should be linked from the hero and journal section",
+  3,
+  "The journal should be linked from the header, hero, and journal section",
 );
 
 const journalScreenshotSource = "assets/journal/bandz-journal-calendar.png";
@@ -445,29 +447,38 @@ const indicatorBundleButtons =
 assert.equal(indicatorBundleButtons.length, 0, "Individual indicator cards should not repeat the bundle action");
 assert.equal(html.includes('class="included-tag"'), false, "Redundant Included badges should be removed");
 
-const bundleBanner = html.match(
-  /<aside\b(?=[^>]*\bclass=["'][^"']*\bbundle-banner\b[^"']*["'])[^>]*>[\s\S]*?<\/aside>/i,
+const indicatorBanner = html.match(
+  /<aside\b(?=[^>]*\bclass=["'][^"']*\bfunnel-section-banner--indicators\b[^"']*["'])[^>]*>[\s\S]*?<\/aside>/i,
 )?.[0];
-assert.ok(bundleBanner, "The bottom bundle banner should be present");
-const bundleBannerButton = bundleBanner.match(/<a\b[^>]*>[\s\S]*?<\/a>/i)?.[0];
-assert.ok(bundleBannerButton, "The bottom bundle banner should contain a purchase link");
-const bundleBannerButtonTag = elementOpeningTag(bundleBannerButton, "a");
+assert.ok(indicatorBanner, "The indicator CTA banner should be present below the indicator browser");
+const indicatorBannerButton = indicatorBanner.match(/<a\b[^>]*>[\s\S]*?<\/a>/i)?.[0];
+assert.ok(indicatorBannerButton, "The indicator CTA banner should contain a purchase link");
+const indicatorBannerButtonTag = elementOpeningTag(indicatorBannerButton, "a");
 assert.equal(
-  attributeValue(bundleBannerButtonTag, "href"),
+  attributeValue(indicatorBannerButtonTag, "href"),
   "https://whop.com/bandwithsam/bandz-indicator-suite/",
-  "The bottom bundle CTA should use the verified Whop URL",
+  "The indicator CTA should use the verified Whop URL",
 );
 assert.equal(
-  textFromMarkup(bundleBannerButton),
-  "Get all seven →",
-  "The bottom bundle CTA should use the approved copy",
+  textFromMarkup(indicatorBannerButton),
+  "Continue to Whop ↗",
+  "The indicator CTA should use the approved copy",
 );
 
 const liveCheckoutLinks = openingTags("a").filter((tag) => {
   const href = attributeValue(tag, "href");
   return href && /(?:whop|checkout|wap)/i.test(href);
 });
-assert.equal(liveCheckoutLinks.length, 2, "The header and final bundle CTA should use the supplied Whop checkout link");
+assert.equal(
+  liveCheckoutLinks.length,
+  2,
+  "The header and indicator CTA should use the supplied Whop checkout link",
+);
+assert.equal(
+  /href=["']\?(?:original|popup)=/i.test(html),
+  false,
+  "Retired Original and Popup preview links should not remain in the page",
+);
 
 const retiredTradingViewReferences = [
   "wc5MzQEq",
