@@ -450,8 +450,39 @@ assert.equal(
 );
 assert.equal(
   textFromMarkup(indicatorBannerButton),
-  "Continue to Whop ↗",
+  "Continue to Whop",
   "The indicator CTA should use the approved copy",
+);
+assert.equal(
+  html.includes("↗"),
+  false,
+  "External-link arrows should not use a Unicode glyph that iOS can render as emoji",
+);
+assert.equal(
+  html.includes("↓"),
+  false,
+  "The in-page arrow should use the same SVG icon system as the external-link arrows",
+);
+assert.equal(
+  openingTags("svg").filter((tag) => /\bexternal-arrow\b/.test(attributeValue(tag, "class") ?? ""))
+    .length,
+  6,
+  "Every external-link CTA should use the stable monochrome SVG arrow",
+);
+assert.equal(
+  literalCount('d="M5 11 11 5M6.5 5H11v4.5"'),
+  6,
+  "Every external-link icon should use the verified northeast-arrow SVG path",
+);
+assert.equal(
+  literalCount('d="M8 3.5v9M4.75 9.25 8 12.5l3.25-3.25"'),
+  1,
+  "The indicators CTA should use the matching down-arrow SVG path",
+);
+assert.equal(
+  html.includes(".external-arrow::before") || html.includes(".external-arrow::after"),
+  false,
+  "The distortion-prone CSS-drawn arrow should not return",
 );
 
 const liveCheckoutLinks = openingTags("a").filter((tag) => {

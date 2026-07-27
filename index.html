@@ -433,6 +433,22 @@
         transform: translateX(3px);
       }
 
+      .arrow-icon {
+        width: 13px;
+        height: 13px;
+        flex: 0 0 auto;
+        display: block;
+        overflow: visible;
+      }
+
+      .arrow-icon path {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
       .funnel-header-duo {
         display: flex;
         justify-self: end;
@@ -446,6 +462,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        gap: 4px;
         border: 1px solid var(--line-strong);
         border-radius: 999px;
         font-size: 9px;
@@ -458,6 +475,15 @@
         color: var(--accent-ink);
         background: var(--accent-dark);
         border-color: var(--accent-dark);
+      }
+
+      .funnel-header-duo a:not(:first-child) .external-arrow {
+        color: var(--ink);
+      }
+
+      .funnel-header-duo .arrow-icon {
+        width: 11px;
+        height: 11px;
       }
 
       .funnel-section-banner {
@@ -1771,14 +1797,30 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          Indicators · $1 ↗
+          Indicators · $1
+          <svg
+            class="arrow-icon external-arrow"
+            aria-hidden="true"
+            viewBox="0 0 16 16"
+            focusable="false"
+          >
+            <path d="M5 11 11 5M6.5 5H11v4.5"></path>
+          </svg>
         </a>
         <a
           href="https://bandzjournal.vercel.app/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Journal · Free ↗
+          Journal · Free
+          <svg
+            class="arrow-icon external-arrow"
+            aria-hidden="true"
+            viewBox="0 0 16 16"
+            focusable="false"
+          >
+            <path d="M5 11 11 5M6.5 5H11v4.5"></path>
+          </svg>
         </a>
       </div>
     </header>
@@ -1797,7 +1839,15 @@
           </p>
           <div class="hero-actions">
             <a class="button button--primary" href="#indicators">
-              Explore the indicators <span class="button-arrow" aria-hidden="true">↓</span>
+              Explore the indicators
+              <svg
+                class="button-arrow arrow-icon down-arrow"
+                aria-hidden="true"
+                viewBox="0 0 16 16"
+                focusable="false"
+              >
+                <path d="M8 3.5v9M4.75 9.25 8 12.5l3.25-3.25"></path>
+              </svg>
             </a>
             <a
               class="button button--secondary"
@@ -1805,7 +1855,15 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open the free journal <span class="button-arrow" aria-hidden="true">↗</span>
+              Open the free journal
+              <svg
+                class="button-arrow arrow-icon external-arrow"
+                aria-hidden="true"
+                viewBox="0 0 16 16"
+                focusable="false"
+              >
+                <path d="M5 11 11 5M6.5 5H11v4.5"></path>
+              </svg>
             </a>
           </div>
         </div>
@@ -2175,7 +2233,15 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              Continue to Whop <span class="button-arrow" aria-hidden="true">↗</span>
+              Continue to Whop
+              <svg
+                class="button-arrow arrow-icon external-arrow"
+                aria-hidden="true"
+                viewBox="0 0 16 16"
+                focusable="false"
+              >
+                <path d="M5 11 11 5M6.5 5H11v4.5"></path>
+              </svg>
             </a>
           </aside>
 
@@ -2214,7 +2280,15 @@
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Join the free Discord <span class="button-arrow" aria-hidden="true">↗</span>
+                Join the free Discord
+                <svg
+                  class="button-arrow arrow-icon external-arrow"
+                  aria-hidden="true"
+                  viewBox="0 0 16 16"
+                  focusable="false"
+                >
+                  <path d="M5 11 11 5M6.5 5H11v4.5"></path>
+                </svg>
               </a>
             </div>
             <div class="discord-visual" aria-hidden="true">
@@ -2263,7 +2337,15 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open the free journal <span class="button-arrow" aria-hidden="true">↗</span>
+              Open the free journal
+              <svg
+                class="button-arrow arrow-icon external-arrow"
+                aria-hidden="true"
+                viewBox="0 0 16 16"
+                focusable="false"
+              >
+                <path d="M5 11 11 5M6.5 5H11v4.5"></path>
+              </svg>
             </a>
           </div>
           <div class="journal-image" aria-hidden="true">
