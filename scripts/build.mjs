@@ -11,7 +11,7 @@ const ogImage = await readFile(path.join(root, "og-store-graphite-preview.png"))
 const journalImage = await readFile(
   path.join(root, "assets", "journal", "bandz-journal-calendar.png"),
 );
-const portraitImage = await readFile(path.join(root, "fearing_bandz.png"));
+const portraitImage = await readFile(path.join(root, "PFP_Final_Bandz.png"));
 const indicatorAssetPaths = [
   "bandz-intraday-1m.png",
   "bandz-sessions-1m.png",
@@ -114,7 +114,7 @@ const worker = {
       });
     }
 
-    if (url.pathname === "/fearing_bandz.png") {
+    if (url.pathname === "/PFP_Final_Bandz.png") {
       return responseFor(request, getPortraitBytes(), {
         headers: {
           "Content-Type": "image/png",
@@ -161,7 +161,7 @@ await Promise.all([
     path.join(root, "assets", "journal", "bandz-journal-calendar.png"),
     path.join(dist, "assets", "journal", "bandz-journal-calendar.png"),
   ),
-  copyFile(path.join(root, "fearing_bandz.png"), path.join(dist, "fearing_bandz.png")),
+  copyFile(path.join(root, "PFP_Final_Bandz.png"), path.join(dist, "PFP_Final_Bandz.png")),
   ...indicatorAssetPaths.map((filename) =>
     copyFile(
       path.join(root, "assets", "indicators", filename),

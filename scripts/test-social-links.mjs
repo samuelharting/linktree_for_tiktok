@@ -73,16 +73,16 @@ function elementWithAttributeValue(tagName, attribute, value) {
 }
 
 const expectedDesignTokens = new Map([
-  ["--background", "#F3EFE7"],
-  ["--background-alt", "#ECE8E0"],
-  ["--surface", "#FBF9F4"],
-  ["--text", "#171715"],
-  ["--muted-text", "#67645E"],
-  ["--border", "#D4CEC3"],
-  ["--accent", "#34383E"],
-  ["--accent-dark", "#1E2125"],
-  ["--accent-soft", "#E5E6E8"],
-  ["--accent-muted", "#71767D"],
+  ["--background", "#F4F4F2"],
+  ["--background-alt", "#E9E9E6"],
+  ["--surface", "#FFFFFF"],
+  ["--text", "#111111"],
+  ["--muted-text", "#666662"],
+  ["--border", "#D3D3CF"],
+  ["--accent", "#A1161E"],
+  ["--accent-dark", "#171717"],
+  ["--accent-soft", "#F1E7E8"],
+  ["--accent-muted", "#797975"],
   ["--discord", "#5865F2"],
 ]);
 
@@ -90,13 +90,13 @@ for (const [token, value] of expectedDesignTokens) {
   assert.match(
     css,
     new RegExp(`${escapeRegExp(token)}\\s*:\\s*${escapeRegExp(value)}\\s*;`, "i"),
-    `${token} should use the approved cream and graphite palette value ${value}`,
+    `${token} should use the refreshed graphite and crimson palette value ${value}`,
   );
 }
 
 assert.match(
   html,
-  /<meta\s+name=["']theme-color["']\s+content=["']#F3EFE7["']\s*\/>/i,
+  /<meta\s+name=["']theme-color["']\s+content=["']#F1F1EE["']\s*\/>/i,
   "The browser theme color should match the approved background token",
 );
 assert.equal(html.includes("og-store-forest-preview.png"), false, "The old forest social preview should not be referenced");
@@ -192,6 +192,51 @@ assert.match(
 assert.match(css, /data-background-variant=["']grid["']/, "The grid background variant should be implemented");
 assert.match(css, /data-background-variant=["']market["']/, "The market background variant should be implemented");
 
+const expectedUiThemes = ["studio", "night"];
+assert.match(
+  html,
+  /const\s+allowedUiThemes\s*=\s*\[\s*["']studio["']\s*,\s*["']night["']\s*\]/,
+  "Only the final light and dark themes should be selectable",
+);
+assert.match(
+  html,
+  /let\s+initialUiTheme\s*=\s*["']studio["']\s*;/,
+  "Studio Edit should be the default theme",
+);
+assert.match(
+  html,
+  /<div\b[^>]*class=["'][^"']*ui-switcher[^"']*["'][^>]*\bhidden\b/i,
+  "The retired comparison switcher should remain hidden",
+);
+
+const modeToggles = classedTags("button", "theme-mode-toggle");
+assert.equal(modeToggles.length, 1, "The header should expose one light and dark mode toggle");
+assert.equal(
+  attributeValue(modeToggles[0], "aria-label"),
+  "Switch to dark mode",
+  "The default light-mode toggle should clearly announce its action",
+);
+assert.ok(
+  hasAttribute(modeToggles[0], "data-theme-mode-toggle"),
+  "The light and dark mode toggle should include its behavior hook",
+);
+
+assert.doesNotMatch(html, /toggle-style-cycle/, "The removed toggle comparison control should stay absent");
+assert.doesNotMatch(html, /data-toggle-design/, "The final page should not retain alternate toggle treatments");
+assert.match(
+  css,
+  /linear-gradient\(90deg,\s*#171717\s+0\s+50%,\s*#f5f5f1\s+50%\s+100%\)/i,
+  "The final light/dark control should retain the split-disc treatment",
+);
+
+for (const theme of expectedUiThemes) {
+  assert.match(
+    css,
+    new RegExp(`data-ui-theme=["']${escapeRegExp(theme)}["']`, "i"),
+    `The ${theme} UI should have a dedicated stylesheet`,
+  );
+}
+
 const indicatorsSectionIndex = html.indexOf('id="indicators"');
 const discordSectionIndex = html.indexOf('id="discord"');
 const journalSectionIndex = html.indexOf('id="journal"');
@@ -239,7 +284,11 @@ const forbiddenPublicCopy = [
   "send your Whop/WAP product link",
 ];
 
-assert.equal(html.includes("Bandz."), false, "Visible Bandz branding should not include a trailing period");
+assert.equal(
+  renderedText.includes("Bandz."),
+  false,
+  "Visible Bandz branding should not include a trailing period",
+);
 assert.equal(html.includes("offer-strip"), false, "The repetitive price divider should be fully removed");
 assert.equal(
   renderedText.split("$1").length - 1,
