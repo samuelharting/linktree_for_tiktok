@@ -165,8 +165,8 @@ const requiredCopy = [
   "All seven scripts are available together for $1.",
   "Continue to Whop",
   "01 · Indicators",
-  "02 · Discord",
-  "03 · Trading Journal",
+  "02 · Trading Journal",
+  "03 · Discord",
   "Trade with the Bandz community.",
   "Join the free Discord for market discussion, indicator updates, new releases, and conversations with other traders.",
   "Free Discord",
@@ -184,6 +184,14 @@ assert.match(
   "The header brand should render without a trailing period",
 );
 assert.match(html, /<a\s+href=["']#discord["']>\s*Discord\s*<\/a>/i, "Navigation should link to Discord");
+assert.ok(
+  html.indexOf('href="#journal"') < html.indexOf('href="#discord"'),
+  "Trading Journal should appear before Discord in the navigation",
+);
+assert.ok(
+  html.indexOf('id="journal"') < html.indexOf('id="discord"'),
+  "Trading Journal should appear before Discord on the page",
+);
 assert.match(
   html,
   /const\s+backgroundVariant\s*=\s*["']grid["']\s*;/,
@@ -241,17 +249,17 @@ const indicatorsSectionIndex = html.indexOf('id="indicators"');
 const discordSectionIndex = html.indexOf('id="discord"');
 const journalSectionIndex = html.indexOf('id="journal"');
 assert.ok(indicatorsSectionIndex > -1, "The Indicators section should be present");
-assert.ok(discordSectionIndex > indicatorsSectionIndex, "Discord should follow Indicators in the page hierarchy");
-assert.ok(journalSectionIndex > discordSectionIndex, "Trading Journal should follow Discord in the page hierarchy");
+assert.ok(journalSectionIndex > indicatorsSectionIndex, "Trading Journal should follow Indicators in the page hierarchy");
+assert.ok(discordSectionIndex > journalSectionIndex, "Discord should follow Trading Journal in the page hierarchy");
 
 const headerNavigation = html.match(
   /<nav\b[^>]*class=["'][^"']*header-nav[^"']*["'][^>]*>[\s\S]*?<\/nav>/i,
 )?.[0];
 assert.ok(headerNavigation, "The header navigation should be present");
 assert.ok(
-  headerNavigation.indexOf('href="#indicators"') < headerNavigation.indexOf('href="#discord"') &&
-    headerNavigation.indexOf('href="#discord"') < headerNavigation.indexOf('href="#journal"'),
-  "The header navigation should list Indicators, Discord, then Trading Journal",
+  headerNavigation.indexOf('href="#indicators"') < headerNavigation.indexOf('href="#journal"') &&
+    headerNavigation.indexOf('href="#journal"') < headerNavigation.indexOf('href="#discord"'),
+  "The header navigation should list Indicators, Trading Journal, then Discord",
 );
 
 const forbiddenPublicCopy = [
