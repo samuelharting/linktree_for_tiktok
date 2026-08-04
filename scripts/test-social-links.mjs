@@ -245,6 +245,12 @@ for (const theme of expectedUiThemes) {
   );
 }
 
+assert.match(
+  css,
+  /html\[data-ui-theme=["']studio["']\]\s+\.brand\s*,\s*html\[data-ui-theme=["']night["']\]\s+\.brand\s*\{[^}]*font-family:\s*["']Instrument Serif["'][^}]*font-style:\s*italic/is,
+  "Light and dark modes should share the approved Bandz wordmark typography",
+);
+
 const indicatorsSectionIndex = html.indexOf('id="indicators"');
 const discordSectionIndex = html.indexOf('id="discord"');
 const journalSectionIndex = html.indexOf('id="journal"');
