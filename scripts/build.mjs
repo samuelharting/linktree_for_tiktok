@@ -7,7 +7,7 @@ const dist = path.join(root, "dist");
 const serverDir = path.join(dist, "server");
 
 const html = await readFile(path.join(root, "index.html"), "utf8");
-const ogImage = await readFile(path.join(root, "og-store-graphite-preview.png"));
+const ogImage = await readFile(path.join(root, "og-seven-scripts-preview.png"));
 const journalImage = await readFile(
   path.join(root, "assets", "journal", "bandz-journal-calendar.png"),
 );
@@ -96,7 +96,7 @@ const worker = {
 
     const url = new URL(request.url);
 
-    if (url.pathname === "/og-store-graphite-preview.png") {
+    if (url.pathname === "/og-seven-scripts-preview.png") {
       return responseFor(request, getOgBytes(), {
         headers: {
           "Content-Type": "image/png",
@@ -154,8 +154,8 @@ await Promise.all([
   writeFile(path.join(serverDir, "index.js"), workerSource),
   copyFile(path.join(root, "index.html"), path.join(dist, "index.html")),
   copyFile(
-    path.join(root, "og-store-graphite-preview.png"),
-    path.join(dist, "og-store-graphite-preview.png"),
+    path.join(root, "og-seven-scripts-preview.png"),
+    path.join(dist, "og-seven-scripts-preview.png"),
   ),
   copyFile(
     path.join(root, "assets", "journal", "bandz-journal-calendar.png"),

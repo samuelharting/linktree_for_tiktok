@@ -100,10 +100,16 @@ assert.match(
   "The browser theme color should match the approved background token",
 );
 assert.equal(html.includes("og-store-forest-preview.png"), false, "The old forest social preview should not be referenced");
-assert.match(html, /og-store-graphite-preview\.png/, "The graphite social preview should be wired into page metadata");
+assert.equal(html.includes("og-store-graphite-preview.png"), false, "The stale social preview path should not be referenced");
+assert.match(html, /og-seven-scripts-preview\.png/, "The seven-scripts social preview should be wired into page metadata");
+assert.match(
+  html,
+  /<meta\s+property=["']og:url["']\s+content=["']https:\/\/all-bandz-links\.vercel\.app\/\?preview=seven-scripts["']\s*\/>/i,
+  "The social card should use a fresh canonical preview URL",
+);
 await assert.doesNotReject(
-  access(new URL("../og-store-graphite-preview.png", import.meta.url)),
-  "The graphite social preview asset should exist on disk",
+  access(new URL("../og-seven-scripts-preview.png", import.meta.url)),
+  "The seven-scripts social preview asset should exist on disk",
 );
 assert.match(
   css,
