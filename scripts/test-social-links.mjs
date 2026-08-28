@@ -190,6 +190,31 @@ assert.match(
   "The header brand should render without a trailing period",
 );
 assert.match(html, /<a\s+href=["']#discord["']>\s*Discord\s*<\/a>/i, "Navigation should link to Discord");
+assert.match(
+  html,
+  /<nav\s+class=["']hero-socials["'][^>]*aria-label=["']Bandz social media quick links["']/i,
+  "The hero should include a subtle social-links row",
+);
+for (const socialLabel of ["Bandz on X", "Bandz on Instagram", "Bandz on TikTok", "Bandz on YouTube"]) {
+  assert.equal(
+    (html.match(new RegExp(`aria-label=["']${socialLabel}["']`, "g")) ?? []).length,
+    2,
+    `${socialLabel} should appear once near the top and once in the footer`,
+  );
+}
+const heroSocialMarkup = elementWithAttributeValue("nav", "aria-label", "Bandz social media quick links");
+const footerSocialMarkup = elementWithAttributeValue("nav", "aria-label", "Bandz social media");
+const socialTargets = (markup) =>
+  (markup.match(/<a\b[^>]*\bclass=["'][^"']*\bsocial-link\b[^"']*["'][^>]*>/gi) ?? []).map((tag) => ({
+    label: attributeValue(tag, "aria-label"),
+    href: attributeValue(tag, "href"),
+    appUrl: attributeValue(tag, "data-app-url"),
+  }));
+assert.deepEqual(
+  socialTargets(heroSocialMarkup),
+  socialTargets(footerSocialMarkup),
+  "The top and footer social controls should share the same destinations and app-link behavior",
+);
 assert.ok(
   html.indexOf('href="#journal"') < html.indexOf('href="#discord"'),
   "Trading Journal should appear before Discord in the navigation",

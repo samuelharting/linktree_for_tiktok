@@ -1456,6 +1456,37 @@
         transform: translateY(-2px);
       }
 
+      .hero-socials {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+      }
+
+      .hero-socials-label {
+        margin-right: 7px;
+        color: var(--muted-text);
+        font-family: "DM Mono", monospace;
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .hero-socials .social-link {
+        width: 32px;
+        height: 32px;
+        border-color: transparent;
+        font-size: 13px;
+        opacity: 0.72;
+      }
+
+      .hero-socials .social-link:hover {
+        opacity: 1;
+        background: var(--surface);
+        border-color: var(--line-strong);
+      }
+
       .footer-note {
         margin: 0;
         color: var(--muted-text);
@@ -1749,6 +1780,11 @@
         .hero-actions {
           display: grid;
           grid-template-columns: 1fr;
+        }
+
+        .hero-socials {
+          margin-top: 16px;
+          justify-content: center;
         }
 
         .button {
@@ -3593,6 +3629,51 @@
               </svg>
             </a>
           </div>
+          <nav class="hero-socials" aria-label="Bandz social media quick links">
+            <span class="hero-socials-label" aria-hidden="true">Follow</span>
+            <a
+              class="social-link"
+              href="https://x.com/Bandz_Trading"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Bandz on X"
+              title="X"
+            >
+              <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+            </a>
+            <a
+              class="social-link"
+              href="https://www.instagram.com/bandz_trading/"
+              data-app-url="instagram://user?username=bandz_trading"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Bandz on Instagram"
+              title="Instagram"
+            >
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a
+              class="social-link"
+              href="https://www.tiktok.com/@bandztrading"
+              data-app-url="tiktok://@bandztrading"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Bandz on TikTok"
+              title="TikTok"
+            >
+              <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
+            </a>
+            <a
+              class="social-link"
+              href="https://www.youtube.com/@BandzTrading"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Bandz on YouTube"
+              title="YouTube"
+            >
+              <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+            </a>
+          </nav>
         </div>
 
         <div class="hero-visual reveal" style="--delay: 150ms">
