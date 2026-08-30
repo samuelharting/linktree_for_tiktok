@@ -1013,7 +1013,8 @@
 
       .indicator-visual {
         position: relative;
-        min-height: 310px;
+        aspect-ratio: 3840 / 2063;
+        min-height: 0;
         overflow: hidden;
         display: grid;
         place-items: center;
@@ -1022,11 +1023,12 @@
       }
 
       .indicator-screenshot {
+        display: block;
         width: 100%;
         height: 100%;
-        min-height: inherit;
-        object-fit: contain;
-        object-position: left center;
+        min-height: 0;
+        object-fit: cover;
+        object-position: center;
       }
 
       @media (min-width: 921px) {
@@ -1040,7 +1042,7 @@
         }
 
         .indicator-visual {
-          min-height: 348px;
+          min-height: 0;
         }
       }
 
@@ -1650,7 +1652,7 @@
         }
 
         .indicator-visual {
-          min-height: 270px;
+          min-height: 0;
           border-right: 0;
           border-bottom: 1px solid var(--line);
         }
@@ -1853,7 +1855,7 @@
         }
 
         .indicator-visual {
-          min-height: 250px;
+          min-height: 0;
           border-right: 0;
           border-bottom: 1px solid var(--line);
         }
@@ -3821,8 +3823,8 @@
                     class="indicator-screenshot"
                     src="assets/indicators/bandz-intraday-1m.png"
                     alt="Bandz Intraday indicator shown on a 1-minute chart"
-                    width="3840"
-                    height="2063"
+                    width="3412"
+                    height="1437"
                     loading="lazy"
                     decoding="async"
                     data-indicator-image
@@ -3916,9 +3918,9 @@
                   <img
                     class="indicator-screenshot"
                     src="assets/indicators/bandz-htf-15m.png"
-                    alt="Bandz HTF indicator shown on a 15-minute chart"
-                    width="3840"
-                    height="2063"
+                    alt="Bandz HTF candles indicator shown on a 1-minute chart"
+                    width="3415"
+                    height="1449"
                     loading="lazy"
                     decoding="async"
                     data-indicator-image
@@ -3979,9 +3981,9 @@
                   <img
                     class="indicator-screenshot"
                     src="assets/indicators/bandz-stdv-flow-1h.png"
-                    alt="Bandz STDV Flow indicator projecting standard-deviation objectives on a 1-hour MNQ chart"
-                    width="2851"
-                    height="1977"
+                    alt="Bandz STDV Flow indicator projecting CISD standard-deviation objectives on a 4-hour MNQ chart"
+                    width="3409"
+                    height="1440"
                     loading="lazy"
                     decoding="async"
                     data-indicator-image
@@ -4008,22 +4010,25 @@
                 hidden
               >
                 <div class="indicator-visual">
-                  <div class="indicator-placeholder" role="img" aria-label="Bandz All-in-One coming soon">
-                    <div class="indicator-placeholder-label">
-                      <strong>All-in-One</strong>
-                      <span>Coming soon</span>
-                    </div>
-                  </div>
+                  <img
+                    class="indicator-screenshot"
+                    src="assets/indicators/bandz-all-in-one-4h.png"
+                    alt="Bandz All-in-One indicator combining the Bandz toolkit on a 4-hour MNQ chart"
+                    width="3840"
+                    height="2063"
+                    loading="lazy"
+                    decoding="async"
+                    data-indicator-image
+                  />
                 </div>
                 <div class="indicator-copy">
                   <div class="product-meta">
                     <span>07 / 07</span>
-                    <span class="product-status">Coming soon</span>
                   </div>
                   <h3 data-indicator-heading>Bandz All-in-One</h3>
                   <p data-indicator-benefit>
-                    Combines all six Bandz indicators into one script, giving traders without
-                    TradingView Premium the complete toolkit through a single chart indicator.
+                    Combines five core Bandz workflows into one streamlined script for a cleaner
+                    single-chart workflow. Bandz Levels and alerts are not included.
                   </p>
                 </div>
               </article>
@@ -4410,7 +4415,7 @@
           id: "4",
           name: "Bandz HTF",
           image: "assets/indicators/bandz-htf-15m.png",
-          alt: "Bandz HTF indicator shown on a 15-minute chart",
+          alt: "Bandz HTF candles indicator shown on a 1-minute chart",
           benefit: "Displays higher-timeframe candles with PSP, SMT, T-Spots, CISD, FVGs, and sweeps.",
         },
         {
@@ -4424,13 +4429,15 @@
           id: "6",
           name: "Bandz STDV Flow",
           image: "assets/indicators/bandz-stdv-flow-1h.png",
-          alt: "Bandz STDV Flow indicator projecting standard-deviation objectives on a 1-hour MNQ chart",
+          alt: "Bandz STDV Flow indicator projecting CISD standard-deviation objectives on a 4-hour MNQ chart",
           benefit: "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
         },
         {
           id: "7",
           name: "Bandz All-in-One",
-          benefit: "Combines all six Bandz indicators into one script, giving traders without TradingView Premium the complete toolkit through a single chart indicator.",
+          image: "assets/indicators/bandz-all-in-one-4h.png",
+          alt: "Bandz All-in-One indicator combining the Bandz toolkit on a 4-hour MNQ chart",
+          benefit: "Combines five core Bandz workflows into one streamlined script for a cleaner single-chart workflow. Bandz Levels and alerts are not included.",
         },
       ];
 

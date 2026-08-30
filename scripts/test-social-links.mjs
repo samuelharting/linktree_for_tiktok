@@ -167,7 +167,7 @@ const requiredCopy = [
   "Displays higher-timeframe candles with PSP, SMT, T-Spots, CISD, FVGs, and sweeps.",
   "Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.",
   "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
-  "Combines all six Bandz indicators into one script, giving traders without TradingView Premium the complete toolkit through a single chart indicator.",
+  "Combines five core Bandz workflows into one streamlined script for a cleaner single-chart workflow. Bandz Levels and alerts are not included.",
   "All seven scripts are available together for $1.",
   "Continue to Whop",
   "01 · Indicators",
@@ -372,7 +372,7 @@ const expectedIndicators = [
     id: "4",
     name: "Bandz HTF",
     source: "assets/indicators/bandz-htf-15m.png",
-    alt: "Bandz HTF indicator shown on a 15-minute chart",
+    alt: "Bandz HTF candles indicator shown on a 1-minute chart",
   },
   {
     id: "5",
@@ -384,18 +384,19 @@ const expectedIndicators = [
     id: "6",
     name: "Bandz STDV Flow",
     source: "assets/indicators/bandz-stdv-flow-1h.png",
-    alt: "Bandz STDV Flow indicator projecting standard-deviation objectives on a 1-hour MNQ chart",
+    alt: "Bandz STDV Flow indicator projecting CISD standard-deviation objectives on a 4-hour MNQ chart",
   },
   {
     id: "7",
     name: "Bandz All-in-One",
-    placeholderAlt: "Bandz All-in-One coming soon",
+    source: "assets/indicators/bandz-all-in-one-4h.png",
+    alt: "Bandz All-in-One indicator combining the Bandz toolkit on a 4-hour MNQ chart",
   },
 ];
 
 const indicatorCards = classedTags("article", "indicator-card");
 assert.equal(indicatorCards.length, 7, "The storefront should contain exactly seven indicator cards");
-assert.equal(classedTags("span", "product-status").length, 1, "Only the unreleased All-in-One indicator should display a Coming soon status");
+assert.equal(classedTags("span", "product-status").length, 0, "Released indicators should not display a Coming soon status");
 assert.equal(
   html.includes("data-indicator-timeframe"),
   false,
