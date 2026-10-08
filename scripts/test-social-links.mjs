@@ -146,9 +146,9 @@ for (const [pattern, label] of forbiddenColorPatterns) {
 
 const renderedText = textFromMarkup(bodyMatch[1]);
 const requiredCopy = [
-  "FREE INDICATORS · FREE JOURNAL · FREE DISCORD",
-  "Build a better trading process.",
-  "Eight open-source TradingView indicators, a trading journal, and a Discord community. All free. Join the Discord to get the indicators.",
+  "FREE INDICATORS · LIVESTREAMS · FREE JOURNAL",
+  "Join the free Discord.",
+  "Get all 8 indicators free, watch live trading streams, and review every trade in the free journal.",
   "8 free, open-source indicators in the free Discord",
   "Free trading journal",
   "Join the free Discord",
@@ -277,7 +277,7 @@ for (const theme of expectedUiThemes) {
 
 assert.match(
   css,
-  /html\[data-ui-theme=["']studio["']\]\s+\.brand\s*,\s*html\[data-ui-theme=["']night["']\]\s+\.brand\s*\{[^}]*font-family:\s*["']Instrument Serif["'][^}]*font-style:\s*italic/is,
+  /html\[data-ui-theme=["']studio["']\]\s+\.brand\s*,\s*html\[data-ui-theme=["']night["']\]\s+\.brand\s*\{[^}]*font-family:\s*["']Manrope["'][^}]*font-style:\s*normal/is,
   "Light and dark modes should share the approved Bandz wordmark typography",
 );
 

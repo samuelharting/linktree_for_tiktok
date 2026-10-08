@@ -3018,8 +3018,11 @@
 
       html[data-ui-theme="studio"] .brand,
       html[data-ui-theme="night"] .brand {
-        font-family: "Instrument Serif", Georgia, serif;
-        font-style: italic;
+        font-family: "Manrope", sans-serif;
+        font-style: normal;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.04em;
       }
 
       html[data-ui-theme="studio"] .hero {
@@ -3622,11 +3625,13 @@
 
         html[data-ui-theme] .brand {
           justify-self: start;
-          font-size: 28px;
+          font-size: 22px;
         }
 
         html[data-ui-theme] .header-tools {
           width: auto;
+          min-width: 0;
+          max-width: 100%;
           display: flex;
           justify-self: end;
           gap: 6px;
@@ -3634,6 +3639,7 @@
 
         html[data-ui-theme] .funnel-header-duo {
           width: auto;
+          min-width: 0;
           display: flex;
         }
 
@@ -3646,6 +3652,26 @@
           min-height: 42px;
           padding: 0 16px;
           font-size: 12px;
+        }
+
+        @media (max-width: 400px) {
+          html[data-ui-theme] .funnel-header-duo {
+            flex: 0 1 auto;
+          }
+
+          html[data-ui-theme] .funnel-header-duo a {
+            min-width: 0;
+            padding: 0 12px;
+            gap: 6px;
+            font-size: 11px;
+            line-height: 1.15;
+            text-align: center;
+            white-space: normal;
+          }
+
+          html[data-ui-theme] .funnel-header-duo a .external-arrow {
+            display: none;
+          }
         }
 
         html[data-ui-theme] .theme-mode-toggle {
@@ -4110,11 +4136,11 @@
           <path d="M0 235 L92 214 L158 247 L248 157 L330 178 L425 95 L510 128 L602 56 L690 101 L782 42 L900 68" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" />
         </svg>
         <div class="hero-copy reveal-stagger">
-          <p class="eyebrow">FREE INDICATORS · FREE JOURNAL · FREE DISCORD</p>
-          <h1 id="hero-title">Build a better trading <em>process.</em></h1>
+          <p class="eyebrow">FREE INDICATORS · LIVESTREAMS · FREE JOURNAL</p>
+          <h1 id="hero-title">Join the free <em>Discord.</em></h1>
           <p class="hero-lede">
-            Eight open-source TradingView indicators, a trading journal, and a Discord community.
-            All free. Join the Discord to get the indicators.
+            Get all 8 indicators free, watch live trading streams, and review every trade in the
+            free journal.
           </p>
           <div class="hero-actions">
             <a
