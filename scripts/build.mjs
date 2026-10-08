@@ -7,11 +7,10 @@ const dist = path.join(root, "dist");
 const serverDir = path.join(dist, "server");
 
 const html = await readFile(path.join(root, "index.html"), "utf8");
-const ogImage = await readFile(path.join(root, "og-seven-scripts-preview.png"));
+const ogImage = await readFile(path.join(root, "og-livestream-preview.png"));
 const journalImage = await readFile(
   path.join(root, "assets", "journal", "bandz-journal-calendar.png"),
 );
-const portraitImage = await readFile(path.join(root, "PFP_Final_Bandz.png"));
 const indicatorAssetPaths = [
   "bandz-intraday-1m.png",
   "bandz-sessions-1m.png",
@@ -20,6 +19,7 @@ const indicatorAssetPaths = [
   "bandz-levels-5m.png",
   "bandz-stdv-flow-1h.png",
   "bandz-all-in-one-4h.png",
+  "bandz-htf-zones.png",
 ];
 const indicatorImages = Object.fromEntries(
   await Promise.all(
@@ -39,11 +39,9 @@ const workerSource = `
 const pageHtml = ${JSON.stringify(html)};
 const ogBase64 = ${JSON.stringify(ogImage.toString("base64"))};
 const journalBase64 = ${JSON.stringify(journalImage.toString("base64"))};
-const portraitBase64 = ${JSON.stringify(portraitImage.toString("base64"))};
 const indicatorBase64 = ${JSON.stringify(indicatorImages)};
 let ogBytes;
 let journalBytes;
-let portraitBytes;
 const indicatorBytes = new Map();
 
 function getOgBytes() {
@@ -60,14 +58,6 @@ function getJournalBytes() {
     journalBytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
   }
   return journalBytes;
-}
-
-function getPortraitBytes() {
-  if (!portraitBytes) {
-    const binary = atob(portraitBase64);
-    portraitBytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
-  }
-  return portraitBytes;
 }
 
 function getIndicatorBytes(pathname) {
@@ -97,7 +87,7 @@ const worker = {
 
     const url = new URL(request.url);
 
-    if (url.pathname === "/og-seven-scripts-preview.png") {
+    if (url.pathname === "/og-livestream-preview.png") {
       return responseFor(request, getOgBytes(), {
         headers: {
           "Content-Type": "image/png",
@@ -108,15 +98,6 @@ const worker = {
 
     if (url.pathname === "/assets/journal/bandz-journal-calendar.png") {
       return responseFor(request, getJournalBytes(), {
-        headers: {
-          "Content-Type": "image/png",
-          "Cache-Control": "public, max-age=31536000, immutable",
-        },
-      });
-    }
-
-    if (url.pathname === "/PFP_Final_Bandz.png") {
-      return responseFor(request, getPortraitBytes(), {
         headers: {
           "Content-Type": "image/png",
           "Cache-Control": "public, max-age=31536000, immutable",
@@ -155,14 +136,13 @@ await Promise.all([
   writeFile(path.join(serverDir, "index.js"), workerSource),
   copyFile(path.join(root, "index.html"), path.join(dist, "index.html")),
   copyFile(
-    path.join(root, "og-seven-scripts-preview.png"),
-    path.join(dist, "og-seven-scripts-preview.png"),
+    path.join(root, "og-livestream-preview.png"),
+    path.join(dist, "og-livestream-preview.png"),
   ),
   copyFile(
     path.join(root, "assets", "journal", "bandz-journal-calendar.png"),
     path.join(dist, "assets", "journal", "bandz-journal-calendar.png"),
   ),
-  copyFile(path.join(root, "PFP_Final_Bandz.png"), path.join(dist, "PFP_Final_Bandz.png")),
   ...indicatorAssetPaths.map((filename) =>
     copyFile(
       path.join(root, "assets", "indicators", filename),

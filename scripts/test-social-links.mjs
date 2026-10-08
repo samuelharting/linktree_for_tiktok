@@ -79,18 +79,19 @@ const expectedDesignTokens = new Map([
   ["--text", "#111111"],
   ["--muted-text", "#666662"],
   ["--border", "#D3D3CF"],
-  ["--accent", "#A1161E"],
+  ["--accent", "#111111"],
   ["--accent-dark", "#171717"],
-  ["--accent-soft", "#F1E7E8"],
+  ["--accent-soft", "#ECECEA"],
   ["--accent-muted", "#797975"],
-  ["--discord", "#5865F2"],
+  ["--discord", "#7C4DFF"],
+  ["--journal", "#0071E3"],
 ]);
 
 for (const [token, value] of expectedDesignTokens) {
   assert.match(
     css,
     new RegExp(`${escapeRegExp(token)}\\s*:\\s*${escapeRegExp(value)}\\s*;`, "i"),
-    `${token} should use the refreshed graphite and crimson palette value ${value}`,
+    `${token} should use the monochrome palette value ${value}`,
   );
 }
 
@@ -101,15 +102,15 @@ assert.match(
 );
 assert.equal(html.includes("og-store-forest-preview.png"), false, "The old forest social preview should not be referenced");
 assert.equal(html.includes("og-store-graphite-preview.png"), false, "The stale social preview path should not be referenced");
-assert.match(html, /og-seven-scripts-preview\.png/, "The seven-scripts social preview should be wired into page metadata");
+assert.match(html, /og-livestream-preview\.png/, "The livestream social preview should be wired into page metadata");
 assert.match(
   html,
-  /<meta\s+property=["']og:url["']\s+content=["']https:\/\/all-bandz-links\.vercel\.app\/\?preview=seven-scripts["']\s*\/>/i,
+  /<meta\s+property=["']og:url["']\s+content=["']https:\/\/all-bandz-links\.vercel\.app\/\?preview=livestream["']\s*\/>/i,
   "The social card should use a fresh canonical preview URL",
 );
 await assert.doesNotReject(
-  access(new URL("../og-seven-scripts-preview.png", import.meta.url)),
-  "The seven-scripts social preview asset should exist on disk",
+  access(new URL("../og-livestream-preview.png", import.meta.url)),
+  "The livestream social preview asset should exist on disk",
 );
 assert.match(
   css,
@@ -145,22 +146,18 @@ for (const [pattern, label] of forbiddenColorPatterns) {
 
 const renderedText = textFromMarkup(bodyMatch[1]);
 const requiredCopy = [
-  "THE BANDZ TRADING TOOLKIT",
-  "Ready to add the indicators?",
+  "FREE INDICATORS · FREE JOURNAL · FREE DISCORD",
   "Build a better trading process.",
-  "Review every trade, find patterns in your execution, and use six focused indicators plus an all-in-one version built around the Bandz process.",
-  "Explore the indicators",
+  "Eight open-source TradingView indicators, a trading journal, and a Discord community. All free. Join the Discord to get the indicators.",
+  "8 free, open-source indicators in the free Discord",
+  "Free trading journal",
+  "Join the free Discord",
   "Open the free journal",
-  "Seven scripts. One system.",
-  "Intraday · Sessions · SMT · HTF · Levels · STDV Flow · All-in-One",
-  "Indicators · $1",
+  "Free Indicators in Discord",
   "Journal · Free",
-  "Review the process, not just the P&L.",
-  "Log the setup, context, execution, and result. Review your trades over time and see what is actually improving—or hurting—your performance.",
-  "A free trading journal for documenting setups, reviewing execution, and finding patterns across your trading.",
-  "Seven scripts, built as one system.",
-  "7 indicators · $1 total",
-  "Six focused tools plus one all-in-one version for the complete Bandz process—even when your TradingView plan limits how many indicators you can add to a chart.",
+  "01 · Indicators",
+  "Eight free indicators.",
+  "Free & open source",
   "Maps ICT macro windows and first-presented FVGs with volume-imbalance and calendar context.",
   "Tracks ICT killzones, session liquidity, opening ranges, and Opening RTH Gap projections.",
   "Scans multi-timeframe SMT divergence while filtering redundant lower-timeframe signals.",
@@ -168,16 +165,18 @@ const requiredCopy = [
   "Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.",
   "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
   "Combines five core Bandz workflows into one streamlined script for a cleaner single-chart workflow. Bandz Levels and alerts are not included.",
-  "All seven scripts are available together for $1.",
-  "Continue to Whop",
-  "01 · Indicators",
+  "Want all eight?",
+  "Free and open source in the Discord.",
   "02 · Trading Journal",
+  "Review the process, not just the P&L.",
+  "Bandz Trading Journal",
+  "Log every trade. See what is working.",
   "03 · Discord",
-  "Trade with the Bandz community.",
-  "Join the free Discord for market discussion, indicator updates, new releases, and conversations with other traders.",
+  "Get all eight in the free Discord.",
   "Free Discord",
-  "Discuss setups, share trade ideas, get indicator updates, and follow new Bandz releases.",
-  "Join the free Discord",
+  "Free to join",
+  "All eight indicators, source code included, plus updates and trade talk.",
+  "Get all eight indicators in the server",
 ];
 
 for (const expectedCopy of requiredCopy) {
@@ -189,7 +188,7 @@ assert.match(
   /<a\s+class=["']brand["'][^>]*>\s*Bandz\s*<\/a>/i,
   "The header brand should render without a trailing period",
 );
-assert.match(html, /<a\s+href=["']#discord["']>\s*Discord\s*<\/a>/i, "Navigation should link to Discord");
+assert.match(html, /<a\s+href=["']#discord["']>\s*Discord\s*<em class="nav-free[^"]*">Free<\/em><\/a>/i, "Navigation should link to Discord and mark it free like the other links");
 assert.match(
   html,
   /<nav\s+class=["']hero-socials["'][^>]*aria-label=["']Bandz social media quick links["']/i,
@@ -335,11 +334,8 @@ assert.equal(
   "Visible Bandz branding should not include a trailing period",
 );
 assert.equal(html.includes("offer-strip"), false, "The repetitive price divider should be fully removed");
-assert.equal(
-  renderedText.split("$1").length - 1,
-  3,
-  "The $1 offer should appear in the header actions, indicator badge, and indicator CTA",
-);
+assert.equal(renderedText.includes("$"), false, "The indicators are free, so no price should appear");
+assert.equal(html.toLowerCase().includes("whop"), false, "The retired Whop checkout should not be linked");
 
 for (const forbiddenCopy of forbiddenPublicCopy) {
   assert.equal(
@@ -392,10 +388,17 @@ const expectedIndicators = [
     source: "assets/indicators/bandz-all-in-one-4h.png",
     alt: "Bandz All-in-One indicator combining the Bandz toolkit on a 4-hour MNQ chart",
   },
+  {
+    id: "8",
+    name: "Bandz HTF Statistical Zones",
+    tabName: "HTF Zones",
+    source: "assets/indicators/bandz-htf-zones.png",
+    alt: "Bandz HTF Statistical Zones showing daily percentile zones, session zones, and price targets",
+  },
 ];
 
 const indicatorCards = classedTags("article", "indicator-card");
-assert.equal(indicatorCards.length, 7, "The storefront should contain exactly seven indicator cards");
+assert.equal(indicatorCards.length, 8, "The storefront should contain exactly eight indicator cards");
 assert.equal(classedTags("span", "product-status").length, 0, "Released indicators should not display a Coming soon status");
 assert.equal(
   html.includes("data-indicator-timeframe"),
@@ -405,8 +408,8 @@ assert.equal(
 
 const indicatorTabTags = tagsWithAttributeValue("button", "role", "tab");
 const indicatorPanelTags = tagsWithAttributeValue(null, "role", "tabpanel");
-assert.equal(indicatorTabTags.length, 7, "The indicator selector should contain exactly seven role=tab buttons");
-assert.equal(indicatorPanelTags.length, 7, "The indicator selector should contain exactly seven tabpanels");
+assert.equal(indicatorTabTags.length, 8, "The indicator selector should contain exactly eight role=tab buttons");
+assert.equal(indicatorPanelTags.length, 8, "The indicator selector should contain exactly eight tabpanels");
 
 const selectedIndicatorTabTags = indicatorTabTags.filter(
   (tag) => attributeValue(tag, "aria-selected") === "true",
@@ -417,8 +420,8 @@ assert.equal(visibleIndicatorPanelTags.length, 1, "Exactly one indicator panel s
 
 const tabDataIds = indicatorTabTags.map((tag) => attributeValue(tag, "data-indicator-tab"));
 const panelDataIds = indicatorPanelTags.map((tag) => attributeValue(tag, "data-indicator-panel"));
-assert.equal(new Set(tabDataIds).size, 7, "Each indicator tab should have a unique data id");
-assert.equal(new Set(panelDataIds).size, 7, "Each indicator panel should have a unique data id");
+assert.equal(new Set(tabDataIds).size, 8, "Each indicator tab should have a unique data id");
+assert.equal(new Set(panelDataIds).size, 8, "Each indicator panel should have a unique data id");
 
 for (const tabTag of indicatorTabTags) {
   const dataId = attributeValue(tabTag, "data-indicator-tab");
@@ -450,10 +453,10 @@ for (const tabTag of indicatorTabTags) {
   assert.match(
     tabElement,
     new RegExp(
-      `<span\\b[^>]*\\bdata-indicator-name\\b[^>]*>\\s*${escapeRegExp(expectedIndicator.name)}\\s*<\\/span>`,
+      `<span\\b[^>]*\\bdata-indicator-name\\b[^>]*>\\s*${escapeRegExp(expectedIndicator.tabName ?? expectedIndicator.name.replace(/^Bandz\s+/, ""))}\\s*<\\/span>`,
       "i",
     ),
-    `Indicator tab ${dataId} should display ${expectedIndicator.name}`,
+    `Indicator tab ${dataId} should display the short name of ${expectedIndicator.name}`,
   );
   assert.match(
     panelElement,
@@ -471,7 +474,7 @@ for (const tabTag of indicatorTabTags) {
     assert.equal(attributeValue(panelImage, "src"), expectedIndicator.source, `Indicator panel ${dataId} should use the correct screenshot source`);
     assert.equal(attributeValue(panelImage, "alt"), expectedIndicator.alt, `Indicator panel ${dataId} should describe its screenshot`);
   } else {
-    const placeholder = panelElement.match(/<div\b[^>]*class=["'][^"']*indicator-placeholder[^"']*["'][^>]*>/i)?.[0];
+    const placeholder = panelElement.match(/<div\b[^>]*class=["'][^"']*zones-visual[^"']*["'][^>]*>/i)?.[0];
     assert.ok(placeholder, `Indicator panel ${dataId} should contain a preview placeholder until a real chart is supplied`);
     assert.equal(attributeValue(placeholder, "role"), "img", `Indicator panel ${dataId} placeholder should expose image semantics`);
     assert.equal(attributeValue(placeholder, "aria-label"), expectedIndicator.placeholderAlt, `Indicator panel ${dataId} placeholder should be described accessibly`);
@@ -494,7 +497,7 @@ const discordCards = classedTags("article", "community-card");
 const discordIconWraps = classedTags("span", "discord-icon");
 assert.equal(discordCards.length, 1, "The community section should contain one intentional free Discord card");
 assert.equal(discordIconWraps.length, 1, "The Discord card should display one Discord icon");
-assert.equal(literalCount("fa-brands fa-discord"), 1, "The community card should use one Discord glyph");
+assert.equal(literalCount("fa-brands fa-discord"), 5, "Every Discord link should carry the Discord glyph");
 assert.match(html, /<h3>Free Discord<\/h3>/, "The Discord card should use the approved title");
 assert.match(html, /class=["'][^"']*discord-visual/, "The Discord banner should include a restrained community visual");
 assert.equal(html.includes("Bandz Premium"), false, "The premium Discord placeholder should be removed");
@@ -502,13 +505,13 @@ assert.equal(html.includes("community-card--paid"), false, "No paid Discord card
 
 assert.equal(
   literalCount('href="https://discord.gg/XdWaEBXQ6G"'),
-  1,
-  "The current free Discord invite should be linked once",
+  5,
+  "The Discord invite should be linked from the top bar, header, hero, indicator CTA, and Discord section",
 );
 assert.equal(
   literalCount('href="https://bandzjournal.vercel.app/"'),
-  3,
-  "The journal should be linked from the header, hero, and journal section",
+  4,
+  "The journal should be linked from the top bar, header, hero, and journal section",
 );
 
 const journalScreenshotSource = "assets/journal/bandz-journal-calendar.png";
@@ -540,12 +543,12 @@ assert.ok(indicatorBannerButton, "The indicator CTA banner should contain a purc
 const indicatorBannerButtonTag = elementOpeningTag(indicatorBannerButton, "a");
 assert.equal(
   attributeValue(indicatorBannerButtonTag, "href"),
-  "https://whop.com/bandwithsam/bandz-indicator-suite/",
-  "The indicator CTA should use the verified Whop URL",
+  "https://discord.gg/XdWaEBXQ6G",
+  "The indicator CTA should use the Discord invite",
 );
 assert.equal(
   textFromMarkup(indicatorBannerButton),
-  "Continue to Whop",
+  "Join the free Discord",
   "The indicator CTA should use the approved copy",
 );
 assert.equal(
@@ -561,18 +564,18 @@ assert.equal(
 assert.equal(
   openingTags("svg").filter((tag) => /\bexternal-arrow\b/.test(attributeValue(tag, "class") ?? ""))
     .length,
-  6,
+  9,
   "Every external-link CTA should use the stable monochrome SVG arrow",
 );
 assert.equal(
   literalCount('d="M5 11 11 5M6.5 5H11v4.5"'),
-  6,
+  9,
   "Every external-link icon should use the verified northeast-arrow SVG path",
 );
 assert.equal(
   literalCount('d="M8 3.5v9M4.75 9.25 8 12.5l3.25-3.25"'),
-  1,
-  "The indicators CTA should use the matching down-arrow SVG path",
+  0,
+  "Every hero link is external now, so no in-page down-arrow remains",
 );
 assert.equal(
   html.includes(".external-arrow::before") || html.includes(".external-arrow::after"),
@@ -586,8 +589,8 @@ const liveCheckoutLinks = openingTags("a").filter((tag) => {
 });
 assert.equal(
   liveCheckoutLinks.length,
-  2,
-  "The header and indicator CTA should use the supplied Whop checkout link",
+  0,
+  "No checkout links should remain now that the indicators are free",
 );
 assert.equal(
   /href=["']\?(?:original|popup)=/i.test(html),
