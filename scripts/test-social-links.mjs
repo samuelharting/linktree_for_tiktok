@@ -147,8 +147,9 @@ for (const [pattern, label] of forbiddenColorPatterns) {
 const renderedText = textFromMarkup(bodyMatch[1]);
 const requiredCopy = [
   "FREE INDICATORS · LIVESTREAMS · FREE JOURNAL",
-  "Join the free Discord.",
-  "Get all 8 indicators free, watch live trading streams, and review every trade in the free journal.",
+  "Live trading. Free tools.",
+  "Live streams, a trading community, free indicators, and a free journal.",
+  "Get the indicators in Discord",
   "8 free, open-source indicators in the free Discord",
   "Free trading journal",
   "Join the free Discord",
@@ -172,11 +173,11 @@ const requiredCopy = [
   "Bandz Trading Journal",
   "Log every trade. See what is working.",
   "03 · Discord",
-  "Get all eight in the free Discord.",
+  "Trade live with us in the free Discord.",
   "Free Discord",
   "Free to join",
-  "All eight indicators, source code included, plus updates and trade talk.",
-  "Get all eight indicators in the server",
+  "Watch live trading streams, ask questions in real time, and get all eight indicators.",
+  "Catch the live trading streams",
 ];
 
 for (const expectedCopy of requiredCopy) {
