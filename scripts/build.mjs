@@ -1,4 +1,4 @@
-import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -20,6 +20,7 @@ const indicatorAssetPaths = [
   "bandz-stdv-flow-1h.png",
   "bandz-all-in-one-4h.png",
   "bandz-htf-zones.png",
+  "bandz-po3-profiler.png",
 ];
 const indicatorImages = Object.fromEntries(
   await Promise.all(
@@ -30,7 +31,11 @@ const indicatorImages = Object.fromEntries(
   ),
 );
 
-await rm(dist, { recursive: true, force: true });
+// Keep the output directory itself so Windows previews holding it open do not block a rebuild.
+await mkdir(dist, { recursive: true });
+for (const entry of await readdir(dist)) {
+  await rm(path.join(dist, entry), { recursive: true, force: true });
+}
 await mkdir(serverDir, { recursive: true });
 await mkdir(path.join(dist, "assets", "indicators"), { recursive: true });
 await mkdir(path.join(dist, "assets", "journal"), { recursive: true });

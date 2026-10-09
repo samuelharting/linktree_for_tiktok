@@ -150,14 +150,14 @@ const requiredCopy = [
   "Live trading. Free tools.",
   "Live streams, a trading community, free indicators, and a free journal.",
   "Get the indicators in Discord",
-  "8 free, open-source indicators in the free Discord",
+  "9 free, open-source indicators in the free Discord",
   "Free trading journal",
   "Join the free Discord",
   "Open the free journal",
   "Free Indicators in Discord",
   "Journal · Free",
   "01 · Indicators",
-  "Eight free indicators.",
+  "Nine free indicators.",
   "Free & open source",
   "Maps ICT macro windows and first-presented FVGs with volume-imbalance and calendar context.",
   "Tracks ICT killzones, session liquidity, opening ranges, and Opening RTH Gap projections.",
@@ -166,7 +166,7 @@ const requiredCopy = [
   "Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.",
   "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
   "Combines five core Bandz workflows into one streamlined script for a cleaner single-chart workflow. Bandz Levels and alerts are not included.",
-  "Want all eight?",
+  "Want all nine?",
   "Free and open source in the Discord.",
   "02 · Trading Journal",
   "Review the process, not just the P&L.",
@@ -176,7 +176,7 @@ const requiredCopy = [
   "Trade live with us in the free Discord.",
   "Free Discord",
   "Free to join",
-  "Watch live trading streams, ask questions in real time, and get all eight indicators.",
+  "Watch live trading streams, ask questions in real time, and get all nine indicators.",
   "Catch the live trading streams",
 ];
 
@@ -396,10 +396,17 @@ const expectedIndicators = [
     source: "assets/indicators/bandz-htf-zones.png",
     alt: "Bandz HTF Statistical Zones showing daily percentile zones, session zones, and price targets",
   },
+  {
+    id: "9",
+    name: "Bandz Po3 Profiler",
+    tabName: "Po3 Profiler",
+    source: "assets/indicators/bandz-po3-profiler.png",
+    alt: "Bandz Po3 Profiler showing C1-C4 sequences, SMT divergence, CISD and three HTF candle lanes",
+  },
 ];
 
 const indicatorCards = classedTags("article", "indicator-card");
-assert.equal(indicatorCards.length, 8, "The storefront should contain exactly eight indicator cards");
+assert.equal(indicatorCards.length, 9, "The storefront should contain exactly nine indicator cards");
 assert.equal(classedTags("span", "product-status").length, 0, "Released indicators should not display a Coming soon status");
 assert.equal(
   html.includes("data-indicator-timeframe"),
@@ -409,8 +416,8 @@ assert.equal(
 
 const indicatorTabTags = tagsWithAttributeValue("button", "role", "tab");
 const indicatorPanelTags = tagsWithAttributeValue(null, "role", "tabpanel");
-assert.equal(indicatorTabTags.length, 8, "The indicator selector should contain exactly eight role=tab buttons");
-assert.equal(indicatorPanelTags.length, 8, "The indicator selector should contain exactly eight tabpanels");
+assert.equal(indicatorTabTags.length, 9, "The indicator selector should contain exactly nine role=tab buttons");
+assert.equal(indicatorPanelTags.length, 9, "The indicator selector should contain exactly nine tabpanels");
 
 const selectedIndicatorTabTags = indicatorTabTags.filter(
   (tag) => attributeValue(tag, "aria-selected") === "true",
@@ -421,8 +428,8 @@ assert.equal(visibleIndicatorPanelTags.length, 1, "Exactly one indicator panel s
 
 const tabDataIds = indicatorTabTags.map((tag) => attributeValue(tag, "data-indicator-tab"));
 const panelDataIds = indicatorPanelTags.map((tag) => attributeValue(tag, "data-indicator-panel"));
-assert.equal(new Set(tabDataIds).size, 8, "Each indicator tab should have a unique data id");
-assert.equal(new Set(panelDataIds).size, 8, "Each indicator panel should have a unique data id");
+assert.equal(new Set(tabDataIds).size, 9, "Each indicator tab should have a unique data id");
+assert.equal(new Set(panelDataIds).size, 9, "Each indicator panel should have a unique data id");
 
 for (const tabTag of indicatorTabTags) {
   const dataId = attributeValue(tabTag, "data-indicator-tab");
