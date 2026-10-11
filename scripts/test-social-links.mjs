@@ -325,17 +325,7 @@ assert.equal(
 );
 
 // Guard real destinations and functionality independently of the visual design.
-const expectedReleases = [
-  "I5ttNn7Z",
-  "U8kMOoTV",
-  "rznhXs1f",
-  "o5YEAyX5",
-  "ARHLM4iy",
-  "y8wBff4r",
-  "CedxWd5T",
-  "r6gH5G4q",
-  "i0RzxXU7",
-];
+assert.doesNotMatch(html, /href=["'][^"']*tradingview\.com/i, "Indicator access goes through Discord, not direct TradingView links");
 for (let i = 1; i <= 9; i++) {
   const panel = elementWithAttributeValue(
     "article",
@@ -343,12 +333,11 @@ for (let i = 1; i <= 9; i++) {
     String(i),
   );
   const links = panel.match(/<a\b[^>]*>/g) || [];
-  assert.equal(links.length, 1, "Each indicator has one release link");
-  assert.ok(
-    attributeValue(links[0], "href").startsWith(
-      "https://www.tradingview.com/script/" + expectedReleases[i - 1] + "-",
-    ),
-    "The correct public release is linked",
+  assert.equal(links.length, 1, "Each indicator has one Discord access link");
+  assert.equal(
+    attributeValue(links[0], "href"),
+    "https://discord.gg/XdWaEBXQ6G",
+    "Every indicator links to the Bandz Discord",
   );
 }
 const anchors = openingTags("a");
