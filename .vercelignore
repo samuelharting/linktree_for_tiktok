@@ -1,0 +1,7 @@
+.playwright-cli/
+output/
+og-preview-options/
+.agents/
+.codex/
+.openai/
+.sites/

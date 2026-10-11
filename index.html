@@ -4004,6 +4004,191 @@
           display: none;
         }
       }
+      /* Production polish: quiet surfaces, clear hierarchy, product-first spacing. */
+      html[data-ui-theme="studio"] {
+        --canvas: #FAFAFA;
+        --canvas-soft: #F3F3F3;
+        --paper: #FFFFFF;
+        --surface: #FFFFFF;
+        --surface-strong: #FFFFFF;
+        --ink: #171717;
+        --muted: #737373;
+        --body-text: #606060;
+        --line: #E4E4E4;
+        --line-strong: #C8C8C8;
+      }
+      html[data-ui-theme="night"] {
+        --canvas: #101011;
+        --canvas-soft: #151516;
+        --paper: #1B1B1D;
+        --surface: #1B1B1D;
+        --surface-strong: #202022;
+        --ink: #F5F5F5;
+        --muted: #A3A3A8;
+        --body-text: #B6B6BC;
+        --line: #303034;
+        --line-strong: #505057;
+      }
+      html[data-ui-theme] body { background: var(--canvas); }
+      html[data-ui-theme] body::before,
+      html[data-ui-theme] .hero::before,
+      html[data-ui-theme] .indicators-section::before { display: none; }
+      .site-shell { width: min(1120px, calc(100% - 64px)); }
+      .promo-bar { background: var(--canvas-soft); border-bottom: 1px solid var(--line); }
+      .promo-link { min-height: 34px; padding: 8px 20px; font-size: 10px; font-weight: 500; color: var(--body-text); background: transparent; }
+      .promo-link strong { font-weight: 600; }
+      .promo-link i { font-size: 12px; }
+      .promo-link--discord { border-right: 1px solid var(--line); }
+      .promo-link--discord i { color: var(--discord); }
+      .promo-link--journal i { color: var(--journal); }
+      .promo-link:hover { background: var(--paper); }
+      html[data-ui-theme] .site-header {
+        position: relative; top: 0; width: min(1120px, calc(100% - 64px)); min-height: 82px;
+        margin: 0 auto; padding: 0; grid-template-columns: auto 1fr auto;
+        background: transparent; border: 0; border-bottom: 1px solid var(--line);
+        border-radius: 0; box-shadow: none; backdrop-filter: none;
+      }
+      html[data-ui-theme] .brand { font-family: "Manrope", sans-serif; font-size: 28px; font-weight: 800; letter-spacing: -1.4px; }
+      .header-nav { width: auto; gap: 26px; }
+      .header-nav a { font-size: 11px; font-weight: 600; letter-spacing: 0; }
+      .header-nav a::after { display: none; }
+      .nav-free { font-size: 7px; margin-left: 5px; }
+      html[data-ui-theme] .header-tools { gap: 17px; }
+      html[data-ui-theme] .funnel-header-duo { gap: 0; }
+      html[data-ui-theme] .funnel-header-duo a { min-height: 40px; padding: 0 15px; border-radius: 7px; font-size: 10px; font-weight: 600; }
+      html[data-ui-theme] .funnel-header-duo a.duo-journal { display: none; }
+      html[data-ui-theme] .funnel-header-duo a.duo-discord { background: var(--ink); border-color: var(--ink); color: var(--canvas); }
+      html[data-ui-theme] .funnel-header-duo a.duo-discord:hover { background: var(--discord); border-color: var(--discord); color: white; box-shadow: none; }
+      .theme-mode-toggle { min-width: 36px; min-height: 40px; padding: 6px; }
+      .theme-mode-track { width: 17px; height: 17px; }
+      html[data-ui-theme] .hero { padding: 66px 0 52px; min-height: 0; gap: 0; }
+      html[data-ui-theme] .hero-copy { max-width: 850px; }
+      html[data-ui-theme] .hero .eyebrow { margin: 0 0 23px; font-family: "Manrope", sans-serif; font-size: 10px; letter-spacing: 1.8px; color: var(--muted); }
+      html[data-ui-theme] .hero .eyebrow::before { display: none; }
+      html[data-ui-theme] .hero h1 {
+        max-width: 850px; margin: 0 auto; font-family: "Manrope", sans-serif;
+        font-size: clamp(48px, 6.4vw, 78px); font-weight: 800; line-height: 1.08; letter-spacing: -4.5px;
+      }
+      html[data-ui-theme] .hero h1 em { font-style: normal; font-weight: 500; color: var(--muted); text-decoration: none; text-decoration-thickness: 0; }
+      html[data-ui-theme] .hero h1 em::after { display: none; }
+      html[data-ui-theme] .hero-lede { max-width: 460px; margin-top: 24px; font-size: 15px; line-height: 1.8; }
+      .hero-actions { margin-top: 27px; gap: 10px; }
+      html[data-ui-theme] .button { min-height: 47px; padding: 0 19px; border-radius: 7px; font-size: 12px; font-weight: 600; box-shadow: none; }
+      html[data-ui-theme] .button:hover { box-shadow: none; }
+      html[data-ui-theme] .button.button--journal { border-color: var(--line); background: var(--paper); color: var(--ink); }
+      html[data-ui-theme] .button.button--journal:hover { border-color: var(--journal); color: var(--journal); }
+      .hero-socials { margin-top: 22px; gap: 14px; }
+      .hero-socials-label { font-size: 8px; letter-spacing: 1.5px; }
+      .hero-socials .social-link { width: 34px; height: 34px; font-size: 15px; }
+      .section { padding: 58px 0; scroll-margin-top: 24px; }
+      .section-heading { margin-bottom: 26px; gap: 24px; }
+      .section-number { font-size: 9px; letter-spacing: 1.3px; margin-bottom: 12px; color: var(--muted); }
+      html[data-ui-theme] .section-title { font-family: "Manrope", sans-serif; font-size: clamp(29px, 3.2vw, 39px); font-weight: 700; line-height: 1.2; letter-spacing: -1.5px; max-width: 740px; }
+      html[data-ui-theme] .indicators-section { padding: 48px 0; background: var(--canvas-soft); }
+      html[data-ui-theme] .bundle-badge { padding: 7px 10px; background: var(--paper); border-color: var(--line); color: var(--body-text); font-family: "Manrope", sans-serif; font-size: 10px; letter-spacing: 0; text-transform: none; border-radius: 6px; }
+      html[data-ui-theme] .indicator-browser { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 22px; }
+      html[data-ui-theme] .indicator-tabs { display: grid; grid-template-columns: 1fr; gap: 5px; padding: 0; background: transparent; border: 0; border-radius: 0; }
+      html[data-ui-theme] .indicator-tab { min-height: 42px; padding: 10px 13px; gap: 10px; border: 1px solid transparent; border-radius: 7px; background: transparent; color: var(--body-text); font-size: 11px; font-weight: 600; }
+      html[data-ui-theme] .indicator-tab:last-child { grid-column: auto; }
+      html[data-ui-theme] .indicator-tab-number { min-width: 20px; font-size: 9px; color: var(--muted); }
+      html[data-ui-theme] .indicator-tab:hover { background: var(--paper); border-color: var(--line); }
+      html[data-ui-theme] .indicator-tab[aria-selected="true"] { color: var(--canvas); background: var(--ink); border-color: var(--ink); box-shadow: none; }
+      html[data-ui-theme] .indicator-tab[aria-selected="true"] .indicator-tab-number { color: inherit; opacity: .55; }
+      html[data-ui-theme] .indicator-card { grid-template-columns: 1fr; border-color: var(--line); background: var(--paper); border-radius: 12px; box-shadow: 0 8px 28px rgb(0 0 0 / 3%); }
+      html[data-ui-theme] .indicator-card:hover { transform: none; border-color: var(--line-strong); }
+      .indicator-visual { border: 0; border-bottom: 1px solid var(--line); }
+      html[data-ui-theme] .indicator-copy { padding: 22px 25px; display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto auto; column-gap: 24px; }
+      .indicator-copy .product-meta { grid-column: 1; font-size: 8px; }
+      html[data-ui-theme] .indicator-copy h3 { grid-column: 1; font-family: "Manrope", sans-serif; font-size: 23px; font-weight: 700; line-height: 1.3; letter-spacing: -.7px; margin: 8px 0; }
+      .indicator-copy p { grid-column: 1; font-size: 12px; line-height: 1.7; max-width: 530px; }
+      .indicator-copy > .button { grid-column: 2; grid-row: 1 / 4; align-self: center; margin: 0; font-size: 10px; min-height: 39px; white-space: nowrap; }
+      html[data-ui-theme="night"] .indicator-copy > .button { background: var(--ink); color: var(--canvas); border-color: var(--ink); }
+      html[data-ui-theme] .funnel-section-banner { margin-top: 20px; padding: 15px 0 0; border: 0; border-top: 1px solid var(--line); background: transparent; border-radius: 0; box-shadow: none; color: var(--body-text); }
+      .funnel-section-banner p { font-size: 11px; }
+      .funnel-section-banner p strong { display: inline; margin-right: 5px; font: 700 11px "Manrope", sans-serif; letter-spacing: 0; }
+      html[data-ui-theme] #discord .section-title { font-size: clamp(29px, 3.2vw, 39px); line-height: 1.2; max-width: 750px; }
+      html[data-ui-theme] .funnel-section-banner .button { min-height: 36px; padding: 0 12px; font-size: 10px; }
+      html[data-ui-theme] .journal-card { border: 1px solid var(--line); border-radius: 12px; box-shadow: none; grid-template-columns: .8fr 1.2fr; background: var(--paper); }
+      html[data-ui-theme] .journal-copy { padding: 34px; background: var(--paper); }
+      html[data-ui-theme] .journal-copy h3 { font-family: "Manrope", sans-serif; font-size: 29px; line-height: 1.2; letter-spacing: -1px; font-weight: 700; margin: 18px 0 12px; }
+      .journal-copy > p { font-size: 13px; line-height: 1.7; }
+      .feature-list { margin: 22px 0; gap: 6px; }
+      html[data-ui-theme] #journal .feature-list li { font-family: "Manrope", sans-serif; font-size: 10px; letter-spacing: 0; text-transform: none; border-radius: 4px; padding: 6px 9px; background: var(--canvas-soft); color: var(--body-text); }
+      .journal-image { min-height: 340px; }
+      html[data-ui-theme] .community-card { padding: 32px; border: 1px solid var(--line); border-radius: 12px; box-shadow: none; background: var(--paper); grid-template-columns: 1fr; min-height: 0; }
+      html[data-ui-theme] .community-card:hover { transform: none; box-shadow: none; }
+      .community-content { display: grid; grid-template-columns: 1fr auto; column-gap: 42px; }
+      .community-brandline { grid-column: 1; gap: 10px; }
+      .discord-icon { width: 31px; height: 31px; border-radius: 7px; box-shadow: none; }
+      .discord-icon i { font-size: 17px; }
+      .community-content h3 { grid-column: 1; font-family: "Manrope", sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -1px; line-height: 1.2; margin: 18px 0 10px; }
+      .community-content > p { grid-column: 1; font-size: 13px; line-height: 1.8; max-width: 550px; }
+      .access-steps { grid-column: 1; display: flex; flex-wrap: wrap; gap: 15px; margin: 18px 0 0; }
+      .access-steps li { font-size: 10px; }
+      .community-content > .button { grid-column: 2; grid-row: 1 / 5; align-self: center; margin-top: 0; }
+      html[data-ui-theme] .discord-visual { display: none; }
+      .site-footer { margin-top: 0; padding: 26px 0; border-top: 1px solid var(--line); }
+      .footer-brand { font-family: "Manrope", sans-serif; font-size: 23px; font-weight: 800; letter-spacing: -1px; }
+      .footer-note { font-size: 9px; }
+      @media (max-width: 1000px) {
+        .header-nav { gap: 16px; }
+        .nav-free { display: none; }
+        html[data-ui-theme] .indicator-browser { grid-template-columns: 160px minmax(0, 1fr); gap: 15px; }
+        html[data-ui-theme] .indicator-copy { grid-template-columns: 1fr; }
+        .indicator-copy > .button { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 15px; }
+      }
+      @media (max-width: 700px) {
+        .site-shell { width: calc(100% - 36px); }
+        .promo-bar { grid-template-columns: 1fr; }
+        .promo-link { min-height: 30px; padding: 7px 10px; font-size: 9px; gap: 7px; }
+        .promo-link--discord { border-right: 0; }
+        .promo-link--journal { display: none; }
+        html[data-ui-theme] .site-header { width: calc(100% - 36px); min-height: 68px; grid-template-columns: 1fr auto; gap: 10px; }
+        html[data-ui-theme] .brand { font-size: 25px; }
+        .header-nav { display: none; }
+        html[data-ui-theme] .header-tools { gap: 10px; }
+        html[data-ui-theme] .funnel-header-duo { display: flex; }
+        html[data-ui-theme] .funnel-header-duo a { min-height: 35px; padding: 0 11px; font-size: 9px; gap: 6px; }
+        .duo-discord .fa-discord { font-size: 12px; }
+        html[data-ui-theme] .theme-mode-toggle { min-width: 32px; }
+        html[data-ui-theme] .hero { padding: 40px 0 32px; }
+        html[data-ui-theme] .hero .eyebrow { font-size: 8px; letter-spacing: 1px; margin-bottom: 17px; }
+        html[data-ui-theme] .hero h1 { font-size: clamp(39px, 10.5vw, 60px); line-height: 1.12; letter-spacing: -2.1px; max-width: 490px; text-wrap: balance; }
+        html[data-ui-theme] .hero-lede { font-size: 13px; max-width: 320px; line-height: 1.75; margin-top: 18px; }
+        .hero-actions { margin-top: 23px; display: grid; grid-template-columns: 1fr; gap: 9px; }
+        html[data-ui-theme] .hero-actions .button { min-height: 45px; width: 100%; font-size: 12px; }
+        .hero-socials { margin-top: 16px; gap: 14px; }
+        .section { padding: 34px 0; }
+        html[data-ui-theme] .section-title, html[data-ui-theme] #discord .section-title { font-size: 27px; line-height: 1.22; letter-spacing: -1px; }
+        .section-number { font-size: 8px; margin-bottom: 10px; }
+        .section-heading { margin-bottom: 20px; grid-template-columns: 1fr; gap: 12px; }
+        html[data-ui-theme] .indicators-section { padding: 29px 0 30px; }
+        #indicators .section-heading { gap: 12px; }
+        html[data-ui-theme] .bundle-badge { font-size: 9px; padding: 5px 8px; }
+        html[data-ui-theme] .indicator-browser { grid-template-columns: 1fr; gap: 0; }
+        html[data-ui-theme] .indicator-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 0 0 16px; overflow: visible; }
+        html[data-ui-theme] .indicator-tab, html[data-ui-theme] .indicator-tab:last-child { width: auto; min-height: 38px; padding: 8px; font-size: 10px; justify-content: center; gap: 5px; border-color: var(--line); background: var(--paper); }
+        html[data-ui-theme] .indicator-tab-number { min-width: 0; font-size: 7px; }
+        html[data-ui-theme] .indicator-tab[aria-selected="true"] { background: var(--ink); color: var(--canvas); border-color: var(--ink); }
+        html[data-ui-theme] .indicator-copy { padding: 18px; column-gap: 0; }
+        html[data-ui-theme] .indicator-copy h3 { font-size: 20px; margin: 7px 0; }
+        .indicator-copy p { font-size: 12px; }
+        .indicator-copy > .button { min-height: 39px; width: 100%; }
+        html[data-ui-theme] .funnel-section-banner { gap: 12px; }
+        .funnel-section-banner p { font-size: 10px; line-height: 1.6; }
+        html[data-ui-theme] .journal-card { grid-template-columns: 1fr; }
+        html[data-ui-theme] .journal-copy { padding: 23px; }
+        html[data-ui-theme] .journal-copy h3 { font-size: 24px; margin-top: 15px; }
+        .journal-copy .button { width: 100%; }
+        .journal-image { min-height: 0; aspect-ratio: 3840 / 2215; }
+        html[data-ui-theme] .community-card { padding: 23px; }
+        .community-content { display: flex; gap: 0; }
+        .community-content h3 { font-size: 24px; }
+        .access-steps { gap: 10px; flex-direction: column; margin: 16px 0 20px; }
+        .community-content > .button { width: 100%; }
+        .site-footer { padding: 22px 0; }
+        .footer-inner { gap: 14px; padding-block: 0; min-height: 0; }
+      }
     </style>
   </head>
 
@@ -4390,6 +4575,9 @@
                     Maps ICT macro windows and first-presented FVGs with volume-imbalance and
                     calendar context.
                   </p>
+                  <a class="button button--primary"
+                    href="https://www.tradingview.com/script/I5ttNn7Z-Bandz-Intraday-Open-Source/"
+                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
                 </div>
               </article>
 
@@ -4422,6 +4610,9 @@
                     Tracks ICT killzones, session liquidity, opening ranges, and Opening RTH Gap
                     projections.
                   </p>
+                  <a class="button button--primary"
+                    href="https://www.tradingview.com/script/U8kMOoTV-Bandz-Sessions-Open-Source/"
+                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
                 </div>
               </article>
 
@@ -4454,6 +4645,9 @@
                     Scans multi-timeframe SMT divergence while filtering redundant lower-timeframe
                     signals.
                   </p>
+                  <a class="button button--primary"
+                    href="https://www.tradingview.com/script/rznhXs1f-Bandz-SMT-Open-Source/"
+                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
                 </div>
               </article>
 
@@ -4486,6 +4680,9 @@
                     Displays higher-timeframe candles with PSP, SMT, T-Spots, CISD, FVGs, and
                     sweeps.
                   </p>
+                  <a class="button button--primary"
+                    href="https://www.tradingview.com/script/o5YEAyX5-Bandz-HTF-Open-Source/"
+                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
                 </div>
               </article>
 
@@ -4517,6 +4714,9 @@
                   <p data-indicator-benefit>
                     Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.
                   </p>
+                  <a class="button button--primary"
+                    href="https://www.tradingview.com/script/ARHLM4iy-Bandz-Levels-Open-Source/"
+                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
                 </div>
               </article>
 
@@ -4549,6 +4749,9 @@
                     Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing
                     confirmation, then projects standard-deviation objectives from the setup anchors.
                   </p>
+                  <a class="button button--primary"
+                    href="https://www.tradingview.com/script/y8wBff4r-Bandz-STDV-Flow-Open-Source/"
+                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
                 </div>
               </article>
 
@@ -4581,6 +4784,9 @@
                     Combines five core Bandz workflows into one streamlined script for a cleaner
                     single-chart workflow. Bandz Levels and alerts are not included.
                   </p>
+                  <a class="button button--primary"
+                    href="https://www.tradingview.com/script/CedxWd5T-Bandz-All-in-One-Open-Source/"
+                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
                 </div>
               </article>
 
@@ -4613,6 +4819,9 @@
                     Daily percentile zones from the 18:00 New York open, session zones, opening
                     ranges, and historical price targets for NQ, ES, YM, and GC.
                   </p>
+                  <a class="button button--primary"
+                    href="https://www.tradingview.com/script/r6gH5G4q-Bandz-HTF-Statistical-Zones-Open-Source/"
+                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
                 </div>
               </article>
 
