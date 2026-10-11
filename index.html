@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -12,8 +12,14 @@
     <meta name="theme-color" content="#F1F1EE" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://all-bandz-links.vercel.app/?preview=livestream" />
-    <meta property="og:title" content="Bandz | Join the free Discord. Get all 9 indicators." />
+    <meta
+      property="og:url"
+      content="https://all-bandz-links.vercel.app/?preview=livestream"
+    />
+    <meta
+      property="og:title"
+      content="Bandz | Join the free Discord. Get all 9 indicators."
+    />
     <meta
       property="og:description"
       content="Live trading streams in the Discord · Free trading journal"
@@ -28,7 +34,10 @@
     />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Bandz | Join the free Discord. Get all 9 indicators." />
+    <meta
+      name="twitter:title"
+      content="Bandz | Join the free Discord. Get all 9 indicators."
+    />
     <meta
       name="twitter:description"
       content="Live trading streams in the Discord · Free trading journal"
@@ -53,4168 +62,1456 @@
       // DESIGN OPTION: Change only this value to "paper", "grid", or "market".
       const backgroundVariant = "grid";
       const allowedBackgroundVariants = ["paper", "grid", "market"];
-      document.documentElement.dataset.backgroundVariant = allowedBackgroundVariants.includes(
-        backgroundVariant,
-      )
-        ? backgroundVariant
-        : "paper";
+      document.documentElement.dataset.backgroundVariant =
+        allowedBackgroundVariants.includes(backgroundVariant)
+          ? backgroundVariant
+          : "paper";
 
       const allowedUiThemes = ["studio", "night"];
       let initialUiTheme = "studio";
 
       try {
         const savedUiTheme = window.localStorage.getItem("bandz-ui-theme");
-        if (allowedUiThemes.includes(savedUiTheme)) initialUiTheme = savedUiTheme;
+        if (allowedUiThemes.includes(savedUiTheme))
+          initialUiTheme = savedUiTheme;
       } catch {
         // The default theme remains available when storage is disabled.
       }
 
       document.documentElement.dataset.uiTheme = initialUiTheme;
-
     </script>
 
     <style>
       :root {
         color-scheme: light;
-        --background: #F4F4F2;
-        --background-alt: #E9E9E6;
-        --surface: #FFFFFF;
-        --text: #111111;
-        --muted-text: #666662;
-        --body-text: #595956;
-        --border: #D3D3CF;
-        --accent: #111111;
-        --accent-dark: #171717;
-        --accent-soft: #ECECEA;
-        --accent-muted: #797975;
-        --canvas: var(--background);
-        --canvas-soft: var(--background-alt);
-        --surface-strong: #FFFFFF;
-        --paper: var(--surface);
-        --ink: var(--text);
-        --muted: var(--muted-text);
-        --line: var(--border);
-        --line-strong: #9C9C97;
-        --accent-deep: var(--accent-dark);
-        --accent-ink: #FAFAF8;
-        --discord: #7C4DFF;
+        --canvas: #f7f7f5;
+        --paper: #fff;
+        --ink: #19191b;
+        --muted: #727278;
+        --body-text: #59595f;
+        --line: #dedee1;
+        --soft: #efefed;
+        --discord: #7c4dff;
+        --journal: #0071e3;
+        --radius: 16px;
         --max-width: 1180px;
-        --radius: 22px;
       }
-
-      *,
-      *::before,
-      *::after {
+      html[data-ui-theme="night"] {
+        color-scheme: dark;
+        --canvas: #131315;
+        --paper: #1b1b1e;
+        --ink: #f4f4f5;
+        --muted: #a1a1aa;
+        --body-text: #b9b9c0;
+        --line: #323237;
+        --soft: #222225;
+      }
+      * {
         box-sizing: border-box;
       }
-
       html {
-        min-width: 0;
-        overflow-x: clip;
         scroll-behavior: smooth;
+        scroll-padding-top: 30px;
       }
-
       body {
         margin: 0;
-        min-width: 0;
-        min-height: 100vh;
-        min-height: 100svh;
-        overflow-x: clip;
+        font:
+          14px/1.65 Manrope,
+          Arial,
+          sans-serif;
+        background: var(--canvas);
         color: var(--ink);
-        background:
-          radial-gradient(circle at 13% 17%, rgba(255, 255, 255, 0.72), transparent 30rem),
-          radial-gradient(circle at 86% 82%, rgba(52, 56, 62, 0.055), transparent 34rem),
-          var(--canvas);
-        font-family: "Manrope", sans-serif;
         -webkit-font-smoothing: antialiased;
       }
-
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        z-index: -1;
-        pointer-events: none;
-        opacity: 0.26;
-        background-image:
-          radial-gradient(circle at 20% 30%, rgba(23, 23, 21, 0.1) 0 0.45px, transparent 0.7px),
-          radial-gradient(circle at 72% 64%, rgba(23, 23, 21, 0.07) 0 0.4px, transparent 0.65px);
-        background-size: 7px 7px, 11px 11px;
-      }
-
-      button,
       a {
-        font: inherit;
-        -webkit-tap-highlight-color: transparent;
-      }
-
-      button {
         color: inherit;
+        text-decoration: none;
       }
-
+      button {
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+      }
       img {
         display: block;
         max-width: 100%;
       }
-
+      svg {
+        display: block;
+      }
+      a,
+      button {
+        -webkit-tap-highlight-color: transparent;
+      }
+      button:focus-visible,
+      a:focus-visible {
+        outline: 3px solid var(--discord);
+        outline-offset: 4px;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      button,
+      a {
+        touch-action: manipulation;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .site-shell {
+        width: min(var(--max-width), calc(100% - 80px));
+        margin: auto;
+      }
       .skip-link {
         position: fixed;
-        top: 12px;
-        left: 12px;
+        left: 15px;
+        top: -100px;
         z-index: 100;
-        padding: 11px 15px;
-        color: var(--accent-ink);
-        background: var(--accent);
-        border-radius: 999px;
-        font-weight: 800;
-        text-decoration: none;
-        transform: translateY(-180%);
-        transition: transform 180ms ease;
+        background: var(--paper);
+        padding: 10px 18px;
       }
-
       .skip-link:focus {
-        transform: translateY(0);
+        top: 10px;
       }
-
-      .site-shell {
-        width: min(var(--max-width), calc(100% - 48px));
-        margin: 0 auto;
-      }
-
-      .site-header {
-        position: sticky;
-        top: 14px;
-        z-index: 20;
-        width: min(var(--max-width), calc(100% - 48px));
-        min-height: 70px;
-        margin: 14px auto 0;
-        padding: 10px 12px;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-        align-items: center;
-        gap: clamp(16px, 2vw, 24px);
-        background: rgba(251, 250, 246, 0.98);
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        box-shadow: 0 14px 50px rgba(23, 25, 26, 0.1);
-      }
-
-      .brand {
-        justify-self: start;
-        color: var(--ink);
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: 34px;
-        line-height: 1;
-        letter-spacing: -0.04em;
-        text-decoration: none;
-      }
-
-.header-nav {
-  width: clamp(400px, 30vw, 480px);
-  min-width: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  justify-self: center;
-  gap: 0;
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-        box-shadow: none;
-      }
-
-      .header-nav a {
-        position: relative;
-        min-height: 40px;
-        padding: 0 2px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--body-text);
-        background: transparent;
-        border: 0;
-        border-radius: 0;
-        box-shadow: none;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-        text-decoration: none;
-        white-space: nowrap;
-        transition: color 180ms ease;
-      }
-
-      .header-nav a::after {
-        content: "";
-        position: absolute;
-        right: 0;
-        bottom: 4px;
-        left: 0;
-        height: 1px;
-        background: var(--accent-muted);
-        opacity: 0.55;
-        transform: scaleX(0.24);
-        transform-origin: center;
-        transition: opacity 180ms ease, transform 180ms ease;
-      }
-
-      .header-nav a:hover {
-        color: var(--ink);
-        background: transparent;
-        box-shadow: none;
-      }
-
-      .header-nav a:hover::after {
-        opacity: 1;
-        transform: scaleX(1);
-      }
-
-      .header-nav a:active {
-        opacity: 0.72;
-      }
-
-.nav-free {
-  margin-left: 4px;
-  padding: 0;
-  display: inline-flex;
-  align-items: center;
-  align-self: center;
-  color: var(--accent);
-  background: transparent;
-  border-radius: 0;
-  font-family: "DM Mono", monospace;
-  font-size: 9px;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: 0.05em;
-  transform: translateY(1px);
-  text-transform: uppercase;
-}
-
-      .header-offer {
-        justify-self: end;
-        min-height: 48px;
-        padding: 0 18px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 9px;
-        color: var(--accent-ink);
-        background: var(--accent-dark);
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 800;
-        text-decoration: none;
-        white-space: nowrap;
-        transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
-      }
-
-      .header-offer:hover {
-        background: var(--accent);
-        box-shadow: 0 10px 24px rgba(30, 33, 37, 0.18);
-        transform: translateY(-1px);
-      }
-
-      .hero {
-        position: relative;
-        min-height: min(820px, calc(100svh - 84px));
-        padding: clamp(54px, 7.5vw, 104px) 0 clamp(56px, 7vw, 92px);
-        display: grid;
-        grid-template-columns: minmax(0, 1.18fr) minmax(230px, 0.52fr);
-        align-items: center;
-        gap: clamp(42px, 7vw, 96px);
-      }
-
-      .hero > :not(.market-decoration) {
-        position: relative;
-        z-index: 1;
-      }
-
-      html[data-background-variant="grid"] .hero::before {
-        content: "";
-        position: absolute;
-        inset: 2% -8% 0;
-        z-index: 0;
-        pointer-events: none;
-        opacity: 0.78;
-        background-image: radial-gradient(rgba(20, 20, 18, 0.085) 0.75px, transparent 0.75px);
-        background-size: 18px 18px;
-        mask-image: radial-gradient(ellipse at 68% 48%, black, transparent 68%);
-      }
-
-      .eyebrow {
-        margin: 0 0 22px;
-        display: flex;
-        align-items: center;
-        gap: 11px;
-        color: var(--accent);
-        font-family: "DM Mono", monospace;
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.13em;
-        line-height: 1.4;
-        text-transform: uppercase;
-      }
-
-      .eyebrow::before {
-        content: "";
-        width: 34px;
-        height: 1px;
-        background: currentColor;
-      }
-
-      .hero h1 {
-        max-width: 720px;
-        margin: 0;
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: clamp(66px, 8vw, 118px);
-        font-weight: 400;
-        line-height: 0.84;
-        letter-spacing: -0.055em;
-      }
-
-      .hero h1 em {
-        color: var(--accent);
-        font-weight: 400;
-      }
-
-      .hero-lede {
-        max-width: 600px;
-        margin: 30px 0 0;
-        color: var(--muted);
-        font-size: clamp(16px, 1.7vw, 20px);
-        line-height: 1.65;
-      }
-
-      .hero-actions {
-        margin-top: 36px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      .button {
-        min-height: 52px;
-        padding: 0 21px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        border: 1px solid var(--line-strong);
-        border-radius: 999px;
-        cursor: pointer;
-        font-size: 13px;
-        font-weight: 800;
-        line-height: 1.2;
-        text-decoration: none;
-        transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease,
-          box-shadow 180ms ease;
-      }
-
-      .button:hover {
-        transform: translateY(-1px);
-      }
-
-      .button--primary {
-        color: var(--accent-ink);
-        background: var(--accent-dark);
-        border-color: var(--accent-dark);
-      }
-
-      .button--primary:hover {
-        background: var(--accent);
-        border-color: var(--accent);
-      }
-
-      .button--secondary {
-        color: var(--ink);
-        background: transparent;
-      }
-
-      .button--secondary:hover {
-        background: rgba(23, 25, 26, 0.065);
-        border-color: var(--ink);
-      }
-
-      .button-arrow {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 15px;
-        transition: transform 180ms ease;
-      }
-
-      .button:hover .button-arrow {
-        transform: translateX(3px);
-      }
-
       .arrow-icon {
-        width: 13px;
-        height: 13px;
-        flex: 0 0 auto;
-        display: block;
-        overflow: visible;
-      }
-
-      .arrow-icon path {
+        width: 18px;
+        height: 18px;
+        flex: 0 0 18px;
         fill: none;
         stroke: currentColor;
-        stroke-width: 1.3;
+        stroke-width: 1.5;
         stroke-linecap: round;
         stroke-linejoin: round;
       }
-
+      .announcement {
+        padding: 9px 20px;
+        background: #202023;
+        color: #e4e4e8;
+        text-align: center;
+        font-size: 10px;
+        letter-spacing: 0.15px;
+      }
+      .announcement span {
+        color: #bba4ff;
+        margin-right: 10px;
+      }
+      .announcement a {
+        display: inline-flex;
+        align-items: center;
+        gap: 13px;
+      }
+      .announcement .arrow-icon {
+        width: 13px;
+        height: 13px;
+        flex-basis: 13px;
+      }
+      .site-header {
+        width: min(var(--max-width), calc(100% - 80px));
+        margin: auto;
+        height: 88px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+        gap: 30px;
+      }
+      .brand {
+        font-size: 28px;
+        letter-spacing: -1.5px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+      }
+      .brand:before {
+        content: "";
+        width: 10px;
+        height: 24px;
+        border: 2px solid currentColor;
+        border-radius: 2px;
+        transform: skew(-15deg);
+        box-shadow:
+          6px -5px 0 -2px var(--canvas),
+          8px -5px 0 -2px currentColor;
+      }
+      .header-nav {
+        display: flex;
+        gap: 28px;
+        margin-left: auto;
+      }
+      .header-nav a {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--body-text);
+      }
+      .header-nav a:hover {
+        color: var(--discord);
+      }
+      .nav-free {
+        display: none;
+      }
+      .header-tools {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+      .theme-mode-toggle {
+        background: none;
+        border: 0;
+        padding: 10px;
+        min-width: 40px;
+        min-height: 40px;
+        display: grid;
+        place-items: center;
+      }
+      .theme-mode-track {
+        display: block;
+        width: 16px;
+        height: 16px;
+        border: 1.5px solid var(--muted);
+        border-radius: 50%;
+        background: linear-gradient(90deg, var(--ink) 50%, transparent 50%);
+      }
+      [data-theme-mode-label],
+      .theme-mode-knob {
+        display: none;
+      }
       .funnel-header-duo {
         display: flex;
-        justify-self: end;
-        align-items: center;
-        gap: 6px;
       }
-
-      .header-tools {
-        min-width: 0;
-        display: flex;
-        align-items: center;
-        justify-self: end;
-        gap: 8px;
-      }
-
-      .header-tools .funnel-header-duo {
-        justify-self: auto;
-      }
-
-      .theme-mode-toggle {
-        width: 40px;
-        min-height: 40px;
-        padding: 0;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0;
-        color: var(--body-text);
-        background: transparent;
-        border: 0;
-        border-radius: 50%;
-        cursor: pointer;
-        font-family: "DM Mono", monospace;
-        font-size: 8px;
-        font-weight: 500;
-        letter-spacing: 0.07em;
-        text-transform: uppercase;
-        transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
-      }
-
-      .theme-mode-toggle:hover {
-        color: var(--ink);
-        background: rgba(20, 20, 20, 0.055);
-      }
-
-      .theme-mode-toggle [data-theme-mode-label] {
-        display: none;
-      }
-
-      .theme-mode-track {
-        position: relative;
-        width: 26px;
-        height: 14px;
-        flex: 0 0 auto;
-        display: block;
-        background: var(--accent-soft);
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        transition: background-color 180ms ease, border-color 180ms ease;
-      }
-
-      .theme-mode-knob {
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        width: 8px;
-        height: 8px;
-        background: var(--accent-dark);
-        border-radius: 50%;
-        transition: background-color 180ms ease, transform 180ms ease;
-      }
-
-      html[data-ui-theme="night"] .theme-mode-toggle {
-        color: #d1d1cd;
-        background: transparent;
-        border: 0;
-      }
-
-      html[data-ui-theme="night"] .theme-mode-toggle:hover {
-        background: rgba(255, 255, 255, 0.06);
-      }
-
-      html[data-ui-theme="night"] .theme-mode-track {
-        background: #26262a;
-        border-color: rgba(255, 255, 255, 0.58);
-      }
-
-      html[data-ui-theme="night"] .theme-mode-knob {
-        background: #f2f2ef;
-        transform: translateX(12px);
-      }
-
       .funnel-header-duo a {
-        min-height: 42px;
-        padding: 0 13px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        border: 1px solid var(--line-strong);
-        border-radius: 999px;
-        font-size: 9px;
-        font-weight: 800;
-        text-decoration: none;
-        white-space: nowrap;
-      }
-
-      .funnel-header-duo a:first-child {
-        color: var(--accent-ink);
-        background: var(--accent-dark);
-        border-color: var(--accent-dark);
-      }
-
-      .funnel-header-duo a:not(:first-child) .external-arrow {
-        color: var(--ink);
-      }
-
-      .funnel-header-duo .arrow-icon {
-        width: 11px;
-        height: 11px;
-      }
-
-      .funnel-section-banner {
-        margin: 18px 0 0;
-        padding: 18px 20px;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: center;
-        gap: 18px;
-        color: var(--accent-ink);
-        background: var(--accent-dark);
-        border-radius: 16px;
-      }
-
-      .funnel-section-banner p {
-        margin: 0;
-        font-size: 12px;
-        line-height: 1.5;
-      }
-
-      .funnel-section-banner p strong {
-        display: block;
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: 25px;
-        font-weight: 400;
-        line-height: 1;
-      }
-
-      .funnel-section-banner .button {
-        min-height: 44px;
-        color: var(--ink);
-        background: var(--surface);
-        border-color: var(--surface);
-        font-size: 10px;
-      }
-
-      .hero-visual {
-        position: relative;
-        width: min(100%, 310px);
-        min-height: 390px;
-        padding: 44px 28px 30px;
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        justify-self: end;
-        background: rgba(251, 250, 246, 0.7);
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        box-shadow: 0 24px 70px rgba(23, 25, 26, 0.11);
-      }
-
-      .hero-visual::before {
-        content: "";
-        position: absolute;
-        inset: 18px;
-        pointer-events: none;
-        opacity: 0.04;
-        background-image:
-          linear-gradient(rgba(52, 56, 62, 0.7) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(52, 56, 62, 0.7) 1px, transparent 1px);
-        background-size: 28px 28px;
-        mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
-      }
-
-      .hero-visual > * {
-        position: relative;
-        z-index: 1;
-      }
-
-      .portrait-card {
-        position: relative;
-        width: 178px;
-        aspect-ratio: 1;
-        margin: 0;
-        overflow: hidden;
-        background: var(--border);
-        border: 1px solid var(--line-strong);
-        border-radius: 50%;
-        box-shadow: 0 18px 42px rgba(23, 25, 26, 0.16);
-      }
-
-      .portrait-card::after {
-        content: none;
-      }
-
-      .portrait-card img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: 50% 22%;
-        filter: saturate(0.8) contrast(1.04);
-      }
-
-      .portrait-caption {
-        margin-top: 24px;
-        display: block;
-        text-align: center;
-      }
-
-      .portrait-caption strong {
-        display: block;
-        color: var(--ink);
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: 32px;
-        font-weight: 400;
-        line-height: 0.96;
-      }
-
-      .portrait-caption span {
-        display: block;
-        margin-top: 8px;
-        padding-bottom: 0;
-        color: var(--accent);
-        font-family: "DM Mono", monospace;
-        font-size: 10px;
-        letter-spacing: 0.12em;
-        text-align: center;
-        text-transform: uppercase;
-      }
-
-      .portrait-caption .tool-strip {
-        max-width: 245px;
-        margin: 12px auto 0;
-        color: var(--accent-muted);
-        font-size: 8px;
-        letter-spacing: 0.08em;
-        line-height: 1.55;
-      }
-
-      .section {
-        padding: clamp(62px, 7.5vw, 102px) 0;
-        scroll-margin-top: 110px;
-      }
-
-      .section-heading {
-        margin-bottom: clamp(28px, 4vw, 46px);
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(260px, 0.42fr);
-        align-items: end;
-        gap: 40px;
-      }
-
-      .section-number {
-        margin-bottom: 18px;
-        display: block;
-        color: var(--accent);
-        font-family: "DM Mono", monospace;
-        font-size: 11px;
-        letter-spacing: 0.12em;
-      }
-
-      .section-title {
-        margin: 0;
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: clamp(54px, 7vw, 92px);
-        font-weight: 400;
-        line-height: 0.9;
-        letter-spacing: -0.045em;
-      }
-
-      .section-intro {
-        margin: 0;
-        color: var(--body-text);
-        font-size: 17px;
-        line-height: 1.75;
-      }
-
-      .journal-card {
-        overflow: hidden;
-        display: grid;
-        grid-template-columns: minmax(320px, 0.78fr) minmax(0, 1.22fr);
-        background: var(--paper);
-        border-radius: var(--radius);
-        color: var(--text);
-      }
-
-      .journal-copy {
-        padding: clamp(32px, 5vw, 62px);
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-      }
-
-      .status-pill {
-        padding: 0;
-        display: inline-flex;
         align-items: center;
         gap: 9px;
-        color: var(--accent);
-        background: transparent;
-        border-radius: 0;
-        font-family: "DM Mono", monospace;
-        font-size: 9px;
-        font-weight: 500;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+        min-height: 39px;
+        padding: 0 16px;
+        font-weight: 600;
+        font-size: 11px;
+        border-radius: 6px;
+        background: var(--ink);
+        color: var(--paper);
       }
-
-      .status-pill::before {
-        content: "";
-        width: 24px;
-        height: 1px;
-        background: currentColor;
-        border-radius: 0;
-      }
-
-      .journal-copy h3 {
-        margin: 25px 0 17px;
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: clamp(42px, 5vw, 66px);
-        font-weight: 400;
-        line-height: 0.92;
-        letter-spacing: -0.035em;
-      }
-
-      .journal-copy > p {
-        margin: 0;
-        color: var(--body-text);
-        font-size: 17px;
-        line-height: 1.75;
-      }
-
-      .feature-list {
-        margin: 28px 0 31px;
-        padding: 0;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        list-style: none;
-      }
-
-      .feature-list li {
-        padding: 9px 12px;
-        color: var(--accent-dark);
-        background: var(--accent-soft);
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        font-family: "DM Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-
-      .journal-copy .button {
-        color: var(--accent-ink);
-        background: var(--accent-dark);
-        border-color: var(--accent-dark);
-      }
-
-      .journal-copy .button:hover {
-        background: var(--text);
-        border-color: var(--text);
-      }
-
-      .journal-image {
-        min-width: 0;
-        min-height: 530px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        background: #0b0b0b;
-      }
-
-      .journal-window {
-        width: 100%;
-        height: 100%;
-        min-width: 0;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        background: #0b0b0b;
-        border: 0;
-        border-radius: 0;
-        box-shadow: none;
-      }
-
-      .journal-window img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        object-position: center;
-      }
-
-      .indicators-section {
-        position: relative;
-        overflow: hidden;
-        background: var(--canvas-soft);
-        border-top: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-      }
-
-      .indicators-section > .site-shell {
-        position: relative;
-        z-index: 1;
-      }
-
-      html[data-background-variant="grid"] .indicators-section::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        opacity: 0.74;
-        background-image: radial-gradient(rgba(20, 20, 18, 0.095) 0.75px, transparent 0.75px);
-        background-size: 18px 18px;
-        mask-image: linear-gradient(to right, black, rgba(0, 0, 0, 0.18) 54%, transparent 78%);
-      }
-
-      .market-decoration {
+      .funnel-header-duo .duo-journal {
         display: none;
-        position: absolute;
-        z-index: 0;
-        pointer-events: none;
-        color: var(--accent);
-        opacity: 0.04;
       }
-
-      html[data-background-variant="market"] .market-decoration {
-        display: block;
+      .funnel-header-duo i {
+        font-size: 14px;
       }
-
-      .market-decoration--hero {
-        top: 112px;
-        right: 0;
-        width: min(60vw, 860px);
+      .funnel-header-duo a:hover {
+        background: var(--discord);
+        color: white;
       }
-
-      .market-decoration--indicators {
-        right: -4vw;
-        bottom: 2%;
-        width: min(70vw, 980px);
-      }
-
-      .bundle-badge {
-        width: fit-content;
-        margin: 0 0 17px;
-        padding: 9px 13px;
-        color: var(--accent-ink);
-        background: var(--accent);
-        border: 1px solid var(--accent);
-        border-radius: 999px;
-        font-family: "DM Mono", monospace;
-        font-size: 10px;
-        font-weight: 500;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-      }
-
-      .indicator-browser {
+      .hero {
         display: grid;
-        grid-template-columns: 250px minmax(0, 1fr);
-        align-items: start;
-        gap: 18px;
-      }
-
-      .indicator-tabs {
-        padding: 8px;
-        display: grid;
-        gap: 7px;
-        background: rgba(251, 250, 246, 0.48);
-        border: 1px solid var(--line);
-        border-radius: 18px;
-      }
-
-      .indicator-tab {
-        width: 100%;
-        min-height: 60px;
-        padding: 12px 14px;
-        display: flex;
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 55px;
         align-items: center;
-        gap: 12px;
+        padding: 78px 0 68px;
+      }
+      .eyebrow,
+      .section-number {
+        font:
+          10px "DM Mono",
+          monospace;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
         color: var(--muted);
-        background: transparent;
-        border: 1px solid transparent;
-        border-radius: 12px;
-        cursor: pointer;
-        font-size: 12px;
-        font-weight: 700;
-        text-align: left;
-        transition: color 260ms ease, background-color 260ms ease, border-color 260ms ease,
-          transform 260ms ease;
       }
-
-      .indicator-tab:hover {
-        color: var(--ink);
-        background: rgba(251, 250, 246, 0.72);
+      .hero .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 24px;
       }
-
-      .indicator-tab[aria-selected="true"] {
-        color: var(--accent-ink);
-        background: var(--accent-dark);
-        border-color: var(--accent-dark);
+      .hero .eyebrow:before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        background: var(--discord);
+        border-radius: 50%;
       }
-
-      .indicator-tab-number {
-        min-width: 25px;
-        font-family: "DM Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.08em;
+      .hero h1 {
+        font-size: clamp(49px, 5.25vw, 72px);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -3.6px;
       }
-
-      .indicator-list {
-        min-width: 0;
-        display: grid;
+      .hero h1 span {
+        color: var(--muted);
+        font-weight: 500;
       }
-
-      .indicator-card {
-        min-width: 0;
-        display: grid;
-        grid-template-columns: minmax(320px, 1.15fr) minmax(260px, 0.85fr);
-        overflow: hidden;
-        background: var(--surface);
+      .hero-lede {
+        max-width: 360px;
+        margin-top: 25px;
+        font-size: 14px;
+        line-height: 1.85;
+        color: var(--body-text);
+      }
+      .hero-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 27px;
+        flex-wrap: wrap;
+      }
+      .button {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 0 18px;
         border: 1px solid var(--line);
-        border-radius: 18px;
-        transition: border-color 220ms ease, transform 220ms ease, background-color 220ms ease;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.3;
+        background: var(--paper);
+        color: var(--ink);
+        transition:
+          background 0.18s,
+          transform 0.18s;
       }
-
-      .indicator-card[hidden] {
-        display: none;
+      .button:hover {
+        transform: translateY(-2px);
+        border-color: var(--ink);
       }
-
-      .indicator-card:hover {
-        background: var(--surface-strong);
-        border-color: var(--line-strong);
-        transform: translateY(-3px);
+      .button--primary {
+        background: var(--ink);
+        color: var(--paper);
+        border-color: var(--ink);
       }
-
-      .indicator-visual {
-        position: relative;
-        aspect-ratio: 3840 / 2063;
-        min-height: 0;
-        overflow: hidden;
+      .button--discord {
+        background: var(--discord);
+        color: white;
+        border-color: var(--discord);
+      }
+      .button--discord:hover {
+        background: #6839e7;
+        border-color: #6839e7;
+      }
+      .hero-footnote {
+        font:
+          9px "DM Mono",
+          monospace;
+        color: var(--muted);
+        margin-top: 13px;
+      }
+      .hero-socials {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        margin-top: 25px;
+      }
+      .hero-socials-label {
+        font:
+          8px "DM Mono",
+          monospace;
+        color: var(--muted);
+        letter-spacing: 1px;
+      }
+      .social-link {
         display: grid;
         place-items: center;
-        background: #D7D3CB;
+        width: 30px;
+        height: 30px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+      .social-link:hover {
+        color: var(--ink);
+      }
+      .hero-workspace {
+        min-width: 0;
+        position: relative;
+        padding: 0 0 36px 16px;
+      }
+      .workspace-shell {
+        position: relative;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 22px 60px #1111110c;
+        transform: rotate(-2deg);
+      }
+      .workspace-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 17px;
+        border-bottom: 1px solid var(--line);
+        font-size: 10px;
+      }
+      .workspace-header strong {
+        font-weight: 700;
+      }
+      .window-dots {
+        display: flex;
+        gap: 4px;
+      }
+      .window-dots i {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--line);
+      }
+      .workspace-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3840/2063;
+        object-fit: cover;
+      }
+      .workspace-footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 17px;
+        font:
+          8px "DM Mono",
+          monospace;
+        color: var(--muted);
+      }
+      .workspace-footer span:first-child {
+        color: var(--ink);
+      }
+      .workspace-note {
+        position: absolute;
+        right: -12px;
+        bottom: 7px;
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        padding: 17px 22px;
+        background: var(--ink);
+        color: var(--paper);
+        border-radius: 8px;
+        box-shadow: 0 10px 35px #1111111a;
+      }
+      .workspace-note b {
+        font-size: 30px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -1px;
+      }
+      .workspace-note span {
+        font-size: 10px;
+        line-height: 1.7;
+      }
+      .workspace-note small {
+        display: block;
+        font-size: 8px;
+        opacity: 0.55;
+      }
+      .workspace-caption {
+        font:
+          8px "DM Mono",
+          monospace;
+        color: var(--muted);
+        letter-spacing: 1px;
+        position: absolute;
+        bottom: 0;
+        left: 17px;
+      }
+      .resource-index {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border-block: 1px solid var(--line);
+        padding: 23px 0;
+        margin-bottom: 0;
+      }
+      .resource-link {
+        display: grid;
+        grid-template-columns: 33px 1fr 18px;
+        gap: 15px;
+        align-items: center;
+        padding: 5px 27px;
         border-right: 1px solid var(--line);
       }
-
-      .indicator-screenshot {
-        display: block;
-        width: 100%;
-        height: 100%;
-        min-height: 0;
-        object-fit: cover;
-        object-position: center;
+      .resource-link:first-child {
+        padding-left: 0;
       }
-
-      @media (min-width: 921px) {
-        .indicator-tabs {
-          gap: 4px;
-        }
-
-        .indicator-tab {
-          min-height: 44px;
-          padding: 8px 14px;
-        }
-
-        .indicator-visual {
-          min-height: 0;
-        }
+      .resource-link:last-child {
+        border: 0;
+        padding-right: 0;
       }
-
-      .indicator-placeholder {
-        position: relative;
-        width: 100%;
-        min-height: inherit;
-        padding: clamp(28px, 5vw, 58px);
-        display: grid;
-        align-content: end;
-        overflow: hidden;
-        color: #f4f0e8;
-        background:
-          linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px) 0 0 / 52px 52px,
-          linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px) 0 0 / 52px 52px,
-          linear-gradient(145deg, #111814 0%, #1f2b24 56%, #0d120f 100%);
-      }
-
-      .indicator-placeholder::before,
-      .indicator-placeholder::after {
-        content: "";
-        position: absolute;
-        left: -5%;
-        width: 110%;
-        height: 2px;
-        transform-origin: left center;
-      }
-
-      .indicator-placeholder::before {
-        top: 43%;
-        background: #d7b56d;
-        transform: rotate(-7deg);
-        box-shadow: 0 44px 0 rgba(215, 181, 109, 0.48), 0 88px 0 rgba(215, 181, 109, 0.24);
-      }
-
-      .indicator-placeholder::after {
-        top: 30%;
-        background: rgba(210, 229, 216, 0.46);
-        transform: rotate(5deg);
-        box-shadow: 0 78px 0 rgba(210, 229, 216, 0.18);
-      }
-
-      .indicator-placeholder-label {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        gap: 7px;
-        font-family: "DM Mono", monospace;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
-
-      .indicator-placeholder-label strong {
-        font-size: clamp(20px, 3vw, 34px);
-        letter-spacing: 0.04em;
-      }
-
-      .indicator-placeholder-label span {
-        color: rgba(244, 240, 232, 0.68);
-        font-size: 10px;
-      }
-
-      .indicator-copy {
-        min-width: 0;
-        padding: clamp(28px, 4vw, 48px);
-        display: grid;
-        grid-template-rows: auto auto 1fr;
-        align-content: center;
-      }
-
-      .product-meta {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 18px;
+      .resource-link > span {
+        font:
+          11px "DM Mono",
+          monospace;
         color: var(--muted);
-        font-family: "DM Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
       }
-
-      .product-status {
-        padding: 5px 8px;
-        color: var(--accent-ink);
-        background: var(--accent-dark);
-        border-radius: 999px;
+      .resource-link strong {
+        display: block;
+        font-size: 12px;
         font-weight: 700;
       }
-
-      .indicator-copy h3 {
-        margin: 18px 0 14px;
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: clamp(38px, 4.4vw, 58px);
-        font-weight: 400;
-        line-height: 0.94;
-        letter-spacing: -0.035em;
-      }
-
-      .indicator-copy p {
-        max-width: 590px;
-        margin: 0;
-        color: var(--body-text);
-        font-size: 16px;
-        line-height: 1.75;
-      }
-
-      .indicator-link {
-        width: fit-content;
-        margin-top: 24px;
-        padding-bottom: 4px;
-        color: var(--ink);
-        border-bottom: 1px solid var(--accent);
-        font-family: "DM Mono", monospace;
+      .resource-link small {
+        display: block;
         font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-decoration: none;
-        text-transform: uppercase;
-        transition: color 220ms ease, border-color 220ms ease;
+        color: var(--muted);
+        margin-top: 3px;
       }
-
-      .indicator-link:hover {
-        color: var(--accent-dark);
-        border-color: var(--accent-dark);
+      .resource-link:hover strong {
+        color: var(--discord);
       }
-
-      .bundle-banner {
-        margin-top: 18px;
-        padding: clamp(25px, 3.5vw, 40px);
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: center;
+      .section {
+        padding: 75px 0;
+      }
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
         gap: 30px;
-        color: var(--accent-ink);
-        background: var(--accent-dark);
-        border-radius: 18px;
+        margin-bottom: 30px;
       }
-
-      .bundle-banner-kicker {
-        margin: 0 0 10px;
-        font-family: "DM Mono", monospace;
-        font-size: 9px;
-        font-weight: 500;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
+      .section-number {
+        display: block;
+        margin-bottom: 14px;
       }
-
-      .bundle-banner h3 {
-        margin: 0;
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: clamp(36px, 5vw, 62px);
-        font-weight: 400;
-        line-height: 0.94;
-        letter-spacing: -0.035em;
+      .section-title {
+        font-size: clamp(30px, 3.6vw, 43px);
+        line-height: 1.13;
+        font-weight: 700;
+        letter-spacing: -1.8px;
       }
-
-      .bundle-banner .button {
-        color: var(--ink);
-        background: var(--surface);
-        border-color: var(--surface);
-        opacity: 1;
+      .section-intro {
+        max-width: 340px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.8;
       }
-
-      .bundle-banner .button:hover {
-        background: var(--background-alt);
-        border-color: var(--background-alt);
-      }
-
-      .bundle-banner .button:disabled,
-      .bundle-banner .button[aria-disabled="true"] {
-        color: var(--ink);
-        cursor: default;
-        opacity: 1;
-      }
-
-      .bundle-banner .button:disabled:hover,
-      .bundle-banner .button[aria-disabled="true"]:hover {
-        background: var(--background-alt);
-        border-color: var(--background-alt);
-        transform: translateY(-1px);
-      }
-
-      .community-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-      }
-
-      .community-card {
-        position: relative;
-        min-width: 0;
-        min-height: 235px;
-        padding: clamp(26px, 3.5vw, 40px);
-        display: grid;
-        grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
-        align-items: center;
-        gap: clamp(34px, 6vw, 78px);
-        background:
-          linear-gradient(110deg, var(--surface) 0 68%, rgba(124, 77, 255, 0.055) 100%);
+      .bundle-badge {
+        padding: 5px 9px;
         border: 1px solid var(--line);
-        border-radius: var(--radius);
-        box-shadow: none;
-        transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+        border-radius: 5px;
+        font:
+          9px "DM Mono",
+          monospace;
+        letter-spacing: 0.15px;
+        color: var(--muted);
+        white-space: nowrap;
       }
-
-      .community-card:hover {
-        border-color: rgba(124, 77, 255, 0.34);
-        box-shadow: 0 18px 46px rgba(124, 77, 255, 0.09);
-        transform: translateY(-1px);
+      .market-decoration {
+        display: none;
       }
-
-      .community-content {
-        min-width: 0;
+      .indicator-browser {
+        display: grid;
+        gap: 18px;
+      }
+      .indicator-tabs {
+        display: grid;
+        grid-template-columns: repeat(9, minmax(0, 1fr));
+        border: 1px solid var(--line);
+        padding: 5px;
+        gap: 3px;
+        background: var(--soft);
+        border-radius: 9px;
+      }
+      .indicator-tab {
+        min-height: 43px;
+        padding: 7px 3px;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .community-brandline {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-      }
-
-      .discord-icon {
-        width: 62px;
-        height: 62px;
-        display: grid;
-        place-items: center;
-        color: var(--paper);
-        background: var(--discord);
-        border-radius: 18px;
-        box-shadow: 0 20px 50px rgba(124, 77, 255, 0.18);
-      }
-
-      .discord-icon i {
-        font-size: 28px;
-      }
-
-      .community-status {
-        margin-top: 0;
-        display: inline-flex;
-        align-items: center;
-        gap: 9px;
-        color: var(--discord);
-        font-family: "DM Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
-
-      .community-status::before {
-        content: "";
-        width: 22px;
-        height: 1px;
-        background: currentColor;
-      }
-
-      .community-card h3 {
-        margin: 19px 0 10px;
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: clamp(42px, 5vw, 62px);
-        font-weight: 400;
-        line-height: 0.94;
-        letter-spacing: -0.035em;
-      }
-
-      .community-card p {
-        max-width: 680px;
-        margin: 0 0 22px;
-        color: var(--body-text);
-        font-size: 16px;
-        line-height: 1.75;
-      }
-
-      .access-steps {
-        margin: 0 0 26px;
-        padding: 0;
-        display: grid;
-        gap: 9px;
-        list-style: none;
-        color: var(--ink);
-        font-size: 15px;
-        font-weight: 600;
-      }
-
-      .access-steps li {
-        display: flex;
-        align-items: baseline;
-        gap: 12px;
-      }
-
-      .access-steps span {
-        color: var(--discord);
-        font-family: "DM Mono", monospace;
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.08em;
-      }
-
-      .community-card .button {
-        margin-top: 0;
-      }
-
-      .community-card .button:hover {
-        border-color: var(--discord);
-        box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.12);
-      }
-
-      .discord-visual {
-        position: relative;
-        width: 100%;
-        min-height: 170px;
-        overflow: hidden;
-        background:
-          radial-gradient(circle at 70% 30%, rgba(124, 77, 255, 0.18), transparent 34%),
-          rgba(124, 77, 255, 0.045);
-        border: 1px solid rgba(124, 77, 255, 0.14);
-        border-radius: 18px;
-      }
-
-      .discord-bubble {
-        position: absolute;
-        width: 58%;
-        height: 46px;
-        padding: 12px 15px;
-        display: grid;
-        gap: 6px;
-        background: var(--surface);
-        border: 1px solid rgba(124, 77, 255, 0.15);
-        border-radius: 14px 14px 14px 5px;
-        box-shadow: 0 12px 26px rgba(30, 33, 37, 0.08);
-      }
-
-      .discord-bubble::before,
-      .discord-bubble::after {
-        content: "";
-        display: block;
-        height: 4px;
-        background: rgba(52, 56, 62, 0.16);
-        border-radius: 999px;
-      }
-
-      .discord-bubble::after {
-        width: 68%;
-      }
-
-      .discord-bubble--one {
-        top: 25px;
-        left: 18px;
-      }
-
-      .discord-bubble--two {
-        right: 18px;
-        bottom: 28px;
-        border-radius: 14px 14px 5px 14px;
-      }
-
-      .discord-avatars {
-        position: absolute;
-        top: 25px;
-        right: 20px;
-        display: flex;
-      }
-
-      .discord-avatar {
-        width: 27px;
-        height: 27px;
-        margin-left: -7px;
-        background: var(--discord);
-        border: 3px solid var(--surface);
-        border-radius: 50%;
-        opacity: 0.78;
-      }
-
-      .discord-avatar:nth-child(2) {
-        background: var(--accent-muted);
-      }
-
-      .discord-avatar:nth-child(3) {
-        background: var(--accent);
-      }
-
-      #discord .section-title {
-        font-size: clamp(48px, 6vw, 76px);
-      }
-
-      #discord {
-        padding-bottom: clamp(46px, 6vw, 78px);
-      }
-
-      #journal {
-        padding-top: clamp(46px, 6vw, 78px);
-      }
-
-      .site-footer {
-        padding: 0 0 38px;
-      }
-
-      .footer-inner {
-        padding-top: 30px;
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        align-items: center;
-        gap: 22px;
-        border-top: 1px solid var(--line);
-      }
-
-      .footer-brand {
-        margin: 0;
-        font-family: "Instrument Serif", Georgia, serif;
-        font-size: 32px;
-      }
-
-      .social-links {
-        display: flex;
+        gap: 3px;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-      }
-
-      .social-link {
-        width: 46px;
-        height: 46px;
-        display: grid;
-        place-items: center;
-        color: var(--muted);
         background: transparent;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 600;
+      }
+      .indicator-tab-number {
+        font:
+          7px "DM Mono",
+          monospace;
+        opacity: 0.6;
+      }
+      .indicator-tab[aria-selected="true"] {
+        background: var(--paper);
+        color: var(--ink);
+        border-color: var(--line);
+        box-shadow: 0 2px 5px #00000006;
+      }
+      .indicator-tab:hover {
+        color: var(--ink);
+        background: var(--paper);
+      }
+      .indicator-card {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        background: var(--paper);
         border: 1px solid var(--line);
-        border-radius: 50%;
-        text-decoration: none;
-        transition: color 180ms ease, border-color 180ms ease, transform 180ms ease;
+        border-radius: 12px;
+        overflow: hidden;
+        min-height: 345px;
       }
-
-      .social-link:hover {
-        color: var(--accent);
-        border-color: var(--accent);
-        transform: translateY(-2px);
+      .indicator-visual {
+        position: relative;
+        display: grid;
+        align-content: center;
+        min-width: 0;
+        background: #dfdcd5;
+        border-right: 1px solid var(--line);
+        cursor: zoom-in;
       }
-
-      .hero-socials {
-        margin-top: 20px;
+      .indicator-visual:after {
+        content: "EXPAND CHART";
+        position: absolute;
+        right: 11px;
+        bottom: 11px;
+        background: #19191bd9;
+        color: #fff;
+        padding: 5px 8px;
+        border-radius: 4px;
+        font:
+          7px "DM Mono",
+          monospace;
+        letter-spacing: 0.5px;
+        pointer-events: none;
+      }
+      .indicator-screenshot {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3840/2063;
+        object-fit: cover;
+      }
+      .indicator-copy {
+        padding: 30px;
         display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+      }
+      .product-meta {
+        font:
+          9px "DM Mono",
+          monospace;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+      .indicator-copy h3 {
+        font-size: 25px;
+        letter-spacing: -0.8px;
+        line-height: 1.18;
+        margin-bottom: 15px;
+      }
+      .indicator-copy p {
+        font-size: 12px;
+        line-height: 1.85;
+        color: var(--body-text);
+        margin-bottom: 23px;
+      }
+      .indicator-copy .button {
+        font-size: 10px;
+        min-height: 40px;
+      }
+      .funnel-section-banner {
+        display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 3px;
+        margin-top: 19px;
+        gap: 20px;
       }
-
-      .hero-socials-label {
-        margin-right: 7px;
-        color: var(--muted-text);
-        font-family: "DM Mono", monospace;
-        font-size: 8px;
-        font-weight: 500;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
+      .funnel-section-banner p {
+        font-size: 10px;
+        color: var(--muted);
       }
-
-      .hero-socials .social-link {
-        width: 32px;
-        height: 32px;
-        border-color: transparent;
-        font-size: 13px;
-        opacity: 0.72;
+      .funnel-section-banner strong {
+        font-weight: 600;
+        color: var(--ink);
+        margin-right: 4px;
       }
-
-      .hero-socials .social-link:hover {
-        opacity: 1;
-        background: var(--surface);
-        border-color: var(--line-strong);
+      .funnel-section-banner .button {
+        border: 0;
+        background: transparent;
+        color: var(--discord);
+        padding: 0;
+        min-height: 32px;
+        font-size: 10px;
       }
-
-      .footer-note {
-        margin: 0;
-        color: var(--muted-text);
-        font-family: "DM Mono", monospace;
-        font-size: 9px;
-        letter-spacing: 0.06em;
-        text-align: right;
-        text-transform: uppercase;
-      }
-
-      .button:disabled,
-      .button[aria-disabled="true"] {
-        cursor: not-allowed;
-        opacity: 0.62;
-      }
-
-      .button:disabled:hover,
-      .button[aria-disabled="true"]:hover {
+      .funnel-section-banner .button:hover {
         transform: none;
       }
-
-      .brand:focus-visible,
-      .header-nav a:focus-visible,
-      .header-offer:focus-visible,
-      .theme-mode-toggle:focus-visible,
-      .button:focus-visible,
-      .indicator-tab:focus-visible,
-      .indicator-link:focus-visible,
-      .social-link:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 4px;
+      .journal-stage {
+        background: #1a1a1e;
+        color: #f3f3f5;
+        border-radius: 18px;
+        padding: 45px;
+        margin-bottom: 0;
+        position: relative;
+        overflow: hidden;
       }
-
-      .reveal {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 680ms cubic-bezier(0.2, 0.8, 0.2, 1),
-          transform 680ms cubic-bezier(0.2, 0.8, 0.2, 1);
-        transition-delay: var(--delay, 0ms);
+      .journal-stage:before {
+        content: "";
+        position: absolute;
+        width: 460px;
+        height: 460px;
+        border: 1px solid #ffffff09;
+        border-radius: 50%;
+        right: -120px;
+        top: -250px;
+        pointer-events: none;
       }
-
-      .reveal.is-visible {
-        opacity: 1;
-        transform: translateY(0);
+      .journal-stage .section-number {
+        color: #898994;
       }
-
-      .reveal-stagger > * {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 680ms cubic-bezier(0.2, 0.8, 0.2, 1),
-          transform 680ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      .journal-stage .section-heading {
+        margin-bottom: 33px;
       }
-
-      .reveal-stagger.is-visible > * {
-        opacity: 1;
-        transform: translateY(0);
+      .journal-stage .section-title {
+        max-width: 640px;
+        font-size: 37px;
+        letter-spacing: -1.4px;
       }
-
-      .reveal-stagger.is-visible > :nth-child(2) {
-        transition-delay: 70ms;
+      .journal-card {
+        display: grid;
+        grid-template-columns: 0.68fr 1.32fr;
+        gap: 45px;
+        align-items: center;
       }
-
-      .reveal-stagger.is-visible > :nth-child(3) {
-        transition-delay: 140ms;
+      .journal-copy {
+        min-width: 0;
       }
-
-      .reveal-stagger.is-visible > :nth-child(4) {
-        transition-delay: 210ms;
+      .status-pill {
+        display: inline-flex;
+        gap: 7px;
+        align-items: center;
+        font:
+          9px "DM Mono",
+          monospace;
+        color: #72b1ff;
       }
-
-      .indicator-card.is-switching .indicator-screenshot {
-        animation: indicator-image-in 640ms ease both;
+      .status-pill:before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        background: #72b1ff;
+        border-radius: 50%;
       }
-
-      .indicator-card.is-switching .indicator-copy > * {
-        animation: indicator-copy-in 560ms ease both;
+      .journal-copy h3 {
+        font-size: 21px;
+        font-weight: 600;
+        letter-spacing: -0.7px;
+        margin: 17px 0 12px;
       }
-
-      @keyframes indicator-image-in {
-        from {
-          opacity: 0.18;
-        }
+      .journal-copy > p {
+        font-size: 12px;
+        line-height: 1.8;
+        color: #a0a0aa;
       }
-
-      @keyframes indicator-copy-in {
-        from {
-          opacity: 0;
-          transform: translateY(9px);
-        }
+      .feature-list {
+        list-style: none;
+        margin: 20px 0 25px;
+        padding: 0;
+        display: grid;
+        gap: 8px;
       }
-
-      @media (max-width: 920px) {
+      .feature-list li {
+        font-size: 11px;
+        color: #c3c3cb;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .feature-list li:before {
+        content: "";
+        height: 4px;
+        width: 4px;
+        background: #555561;
+        border-radius: 1px;
+      }
+      .journal-copy .button {
+        background: #0071e3;
+        border-color: #0071e3;
+        color: white;
+        font-size: 10px;
+      }
+      .journal-image {
+        min-width: 0;
+        align-self: center;
+        border-radius: 10px;
+        border: 1px solid #39393f;
+        padding: 7px;
+        background: #25252a;
+        box-shadow: 0 15px 35px #00000033;
+      }
+      .journal-window {
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .journal-window img {
+        width: 100%;
+        height: auto;
+      }
+      .journal-stage .button:hover {
+        background: #1683f1;
+      }
+      .community-section {
+        padding-top: 70px;
+        padding-bottom: 60px;
+      }
+      .community-layout {
+        display: grid;
+        grid-template-columns: 1fr 1.05fr;
+        gap: 65px;
+        align-items: center;
+      }
+      .community-intro .section-title {
+        max-width: 440px;
+        font-size: 43px;
+      }
+      .community-intro > p {
+        font-size: 13px;
+        line-height: 1.85;
+        color: var(--muted);
+        max-width: 345px;
+        margin-top: 20px;
+      }
+      .community-intro .community-social-note {
+        font:
+          9px "DM Mono",
+          monospace;
+        margin-top: 28px;
+        color: var(--muted);
+      }
+      .community-card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        padding: 29px;
+        overflow: hidden;
+      }
+      .community-brandline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .discord-icon {
+        width: 43px;
+        height: 43px;
+        border-radius: 10px;
+        background: #7c4dff;
+        color: white;
+        display: grid;
+        place-items: center;
+        font-size: 22px;
+      }
+      .community-status {
+        font:
+          8px "DM Mono",
+          monospace;
+        color: var(--muted);
+        letter-spacing: 0.7px;
+      }
+      .community-content h3 {
+        font-size: 24px;
+        letter-spacing: -0.8px;
+        margin: 20px 0 10px;
+      }
+      .community-content > p {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.8;
+        max-width: 370px;
+      }
+      .access-steps {
+        list-style: none;
+        padding: 0;
+        margin: 23px 0;
+        display: grid;
+        gap: 0;
+        border-top: 1px solid var(--line);
+      }
+      .access-steps li {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 13px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 11px;
+        color: var(--body-text);
+      }
+      .access-steps li span {
+        font:
+          9px "DM Mono",
+          monospace;
+        color: var(--muted);
+      }
+      .community-content .button {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0 16px;
+        font-size: 11px;
+      }
+      .discord-visual {
+        display: none;
+      }
+      .closing-line {
+        padding: 25px 0;
+        border-top: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .closing-line strong {
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .closing-line a {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 10px;
+      }
+      .closing-line a:hover {
+        color: var(--discord);
+      }
+      .site-footer {
+        border-top: 1px solid var(--line);
+        padding: 28px 0;
+      }
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 25px;
+      }
+      .footer-brand {
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -1px;
+      }
+      .footer-note {
+        font:
+          8px "DM Mono",
+          monospace;
+        color: var(--muted);
+        letter-spacing: 0.7px;
+      }
+      .social-links {
+        display: flex;
+        gap: 14px;
+      }
+      .shot-viewer {
+        width: min(1400px, 96vw);
+        max-height: 94dvh;
+        padding: 0;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--paper);
+        color: var(--ink);
+        overflow: hidden;
+      }
+      .shot-viewer::backdrop {
+        background: #000a;
+        backdrop-filter: blur(7px);
+      }
+      .shot-viewer-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 18px;
+        font-size: 12px;
+      }
+      .shot-viewer-close {
+        border: 0;
+        background: var(--soft);
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        font-size: 22px;
+      }
+      .shot-viewer-scroll {
+        overflow: auto;
+        max-height: 75dvh;
+      }
+      .shot-viewer-scroll img {
+        width: 100%;
+        max-width: none;
+      }
+      .shot-viewer-hint {
+        text-align: center;
+        padding: 12px;
+        font:
+          9px "DM Mono",
+          monospace;
+        color: var(--muted);
+      }
+      @media (max-width: 1000px) {
+        .site-shell,
         .site-header {
-          grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-          gap: 16px;
+          width: calc(100% - 48px);
         }
-
-        .header-nav {
-          width: min(50vw, 440px);
-          justify-content: space-between;
-          justify-self: center;
-        }
-
-        .header-nav a {
-          font-size: 11px;
-        }
-
-        .header-offer {
-          display: none;
-        }
-
-        .site-header {
-          grid-template-columns: auto minmax(0, 1fr) auto;
-        }
-
-        .header-nav {
-          display: none;
-        }
-
-        .funnel-header-duo {
-          display: flex;
-        }
-
         .hero {
-          grid-template-columns: 1fr;
-          gap: 58px;
+          gap: 25px;
+          padding: 55px 0;
         }
-
-        .hero-copy {
-          max-width: 760px;
+        .hero h1 {
+          font-size: 53px;
         }
-
-        .hero-visual {
-          width: min(84vw, 310px);
-          justify-self: center;
+        .hero-workspace {
+          padding-left: 0;
         }
-
-        .section-heading {
-          grid-template-columns: 1fr;
-          gap: 24px;
+        .workspace-note {
+          right: 0;
         }
-
-        .section-intro {
-          max-width: 620px;
+        .workspace-caption {
+          left: 0;
+          font-size: 7px;
         }
-
-        .journal-card {
-          grid-template-columns: 1fr;
+        .header-nav {
+          gap: 17px;
         }
-
-        .journal-image {
-          min-height: 430px;
+        .header-tools {
+          gap: 10px;
         }
-
-        .indicator-browser {
-          grid-template-columns: 190px minmax(0, 1fr);
+        .funnel-header-duo a {
+          font-size: 10px;
+          padding: 0 12px;
         }
-
+        .resource-link {
+          padding-inline: 16px;
+          gap: 9px;
+          grid-template-columns: 25px 1fr 14px;
+        }
+        .resource-link small {
+          font-size: 9px;
+        }
+        .indicator-copy {
+          padding: 23px;
+        }
         .indicator-card {
-          grid-template-columns: 1fr;
+          min-height: 300px;
         }
-
-        .indicator-visual {
-          min-height: 0;
-          border-right: 0;
-          border-bottom: 1px solid var(--line);
+        .journal-stage {
+          padding: 32px;
+        }
+        .journal-card {
+          gap: 27px;
+        }
+        .community-layout {
+          gap: 30px;
+        }
+        .community-intro .section-title {
+          font-size: 36px;
         }
       }
-
       @media (max-width: 700px) {
         .site-shell,
         .site-header {
-          width: min(100% - 28px, 560px);
+          width: calc(100% - 36px);
         }
-
-        .site-header {
-          top: 8px;
-          min-height: auto;
-          padding: 10px;
-          grid-template-columns: 1fr;
-          justify-items: center;
+        .announcement {
+          font-size: 8px;
+          padding: 8px 12px;
+        }
+        .announcement span {
+          margin-right: 5px;
+        }
+        .announcement a {
           gap: 8px;
-          border-radius: 24px;
         }
-
         .site-header {
-          grid-template-columns: 1fr;
-        }
-
-        .header-nav {
-          display: none;
-        }
-
-        .funnel-header-duo {
-          width: 100%;
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 6px;
-        }
-
-        .header-tools {
-          width: 100%;
-          display: grid;
-          grid-template-columns: auto minmax(0, 1fr);
-          gap: 6px;
-        }
-
-        .theme-mode-toggle {
-          width: 42px;
-          min-height: 48px;
-          padding: 0;
-        }
-
-        .funnel-header-duo a {
-          width: 100%;
-          min-height: 48px;
-          padding-inline: 8px;
-        }
-
-        .brand {
-          justify-self: center;
-          font-size: 30px;
-        }
-
-        .header-nav {
-          width: 100%;
-          min-width: 0;
-          padding: 5px;
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 5px;
-          overflow: visible;
-          background: rgba(52, 56, 62, 0.055);
-          border: 1px solid var(--line);
-          border-radius: 18px;
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
-        }
-
-        .header-nav a {
-          width: 100%;
-          min-height: 44px;
-          padding: 0 7px;
-          background: var(--surface-strong);
-          border: 1px solid rgba(175, 167, 156, 0.72);
-          border-radius: 999px;
-          box-shadow: 0 1px 3px rgba(30, 33, 37, 0.06);
-          font-size: 9.5px;
-          line-height: 1.15;
-          text-align: center;
-        }
-
-        .header-nav a::after {
-          display: none;
-        }
-
-        .header-nav a:hover {
-          color: var(--ink);
-          background: var(--accent-soft);
-          border-color: var(--line-strong);
-          box-shadow: 0 5px 14px rgba(30, 33, 37, 0.08);
-          transform: translateY(-1px);
-        }
-
-        .header-nav a:active {
-          opacity: 1;
-          transform: translateY(0) scale(0.98);
-        }
-
-        .site-header .header-nav {
-          display: none;
-        }
-
-        .nav-free {
-          display: none;
-        }
-
-        .hero {
-          min-height: auto;
-          padding: 64px 0 70px;
-        }
-
-        .hero h1 {
-          font-size: clamp(58px, 19vw, 86px);
-        }
-
-        .hero-lede {
-          margin-top: 24px;
-          font-size: 16px;
-        }
-
-        .hero-actions {
-          display: grid;
-          grid-template-columns: 1fr;
-        }
-
-        .hero-socials {
-          margin-top: 16px;
-          justify-content: center;
-        }
-
-        .button {
-          width: 100%;
-        }
-
-        .funnel-section-banner {
-          grid-template-columns: 1fr;
-        }
-
-        .funnel-section-banner .button {
-          width: 100%;
-        }
-
-        .hero-visual {
-          width: min(calc(100% - 16px), 310px);
-          min-height: 360px;
-        }
-
-        .portrait-caption strong {
-          font-size: 30px;
-        }
-
-        .section {
-          padding: 64px 0;
-          scroll-margin-top: 136px;
-        }
-
-        .section-title {
-          font-size: clamp(52px, 16vw, 74px);
-        }
-
-        .journal-copy {
-          padding: 30px 24px 34px;
-        }
-
-        .journal-image {
-          min-height: 310px;
-          padding: 0;
-        }
-
-        .indicator-card {
-          grid-template-columns: 1fr;
-        }
-
-        .indicator-browser {
-          grid-template-columns: 1fr;
+          height: 69px;
           gap: 12px;
         }
-
-        .indicator-tabs {
-          padding: 7px;
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 7px;
+        .brand {
+          font-size: 25px;
         }
-
-        .indicator-tab {
+        .brand:before {
+          height: 20px;
+          width: 9px;
+        }
+        .header-nav {
+          display: none;
+        }
+        .header-tools {
+          gap: 6px;
+        }
+        .funnel-header-duo a {
+          font-size: 10px;
+          min-height: 35px;
+          padding: 0 11px;
+        }
+        .funnel-header-duo a .arrow-icon {
+          display: none;
+        }
+        .theme-mode-toggle {
+          min-width: 35px;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 37px 0 28px;
+          gap: 31px;
+        }
+        .hero .eyebrow {
+          font-size: 8px;
+          letter-spacing: 1px;
+          margin-bottom: 19px;
+        }
+        .hero h1 {
+          font-size: clamp(46px, 13vw, 64px);
+          letter-spacing: -2.7px;
+          line-height: 1.04;
+        }
+        .hero-lede {
+          font-size: 13px;
+          max-width: 315px;
+          margin-top: 19px;
+          line-height: 1.8;
+        }
+        .hero-actions {
+          margin-top: 23px;
+          gap: 8px;
+          flex-wrap: nowrap;
+        }
+        .hero-actions .button {
+          font-size: 10px;
+          padding: 0 12px;
+          gap: 8px;
+          min-height: 44px;
+        }
+        .hero-actions .button .arrow-icon {
+          width: 14px;
+          height: 14px;
+          flex-basis: 14px;
+        }
+        .hero-footnote {
+          font-size: 8px;
+          margin-top: 11px;
+        }
+        .hero-socials {
+          margin-top: 16px;
+          gap: 14px;
+        }
+        .hero-workspace {
+          padding: 0 5px 32px;
+          max-width: 510px;
           width: 100%;
-          min-height: 48px;
-          padding: 10px 13px;
+          margin: auto;
         }
-
-        .indicator-tab:last-child {
-          grid-column: 1 / -1;
+        .workspace-shell {
+          transform: none;
+          border-radius: 9px;
         }
-
-        .indicator-visual {
+        .workspace-header {
+          font-size: 9px;
+          padding: 11px 12px;
+        }
+        .workspace-footer {
+          font-size: 7px;
+          padding: 10px 12px;
+        }
+        .workspace-note {
+          padding: 11px 15px;
+          gap: 11px;
+          bottom: 0;
+          right: 0;
+        }
+        .workspace-note b {
+          font-size: 25px;
+        }
+        .workspace-note span {
+          font-size: 9px;
+        }
+        .workspace-note small {
+          font-size: 7px;
+        }
+        .workspace-caption {
+          bottom: 5px;
+          font-size: 6px;
+        }
+        .resource-index {
+          padding: 16px 0;
+        }
+        .resource-link {
+          grid-template-columns: 1fr;
+          padding: 0 12px;
+          gap: 4px;
+        }
+        .resource-link > span {
+          font-size: 8px;
+        }
+        .resource-link strong {
+          font-size: 10px;
+        }
+        .resource-link small {
+          font-size: 8px;
+          line-height: 1.6;
+          max-width: 80px;
+        }
+        .resource-link .arrow-icon {
+          display: none;
+        }
+        .section {
+          padding: 38px 0;
+        }
+        .section-heading {
+          gap: 15px;
+          margin-bottom: 22px;
+          align-items: start;
+        }
+        .section-number {
+          font-size: 8px;
+          letter-spacing: 1px;
+          margin-bottom: 11px;
+        }
+        .section-title {
+          font-size: 29px;
+          letter-spacing: -1.1px;
+          line-height: 1.15;
+        }
+        .bundle-badge {
+          font-size: 7px;
+          padding: 5px 6px;
+          margin-top: 26px;
+        }
+        .indicator-tabs {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 4px;
+          padding: 4px;
+        }
+        .indicator-tab {
+          min-height: 35px;
+          padding: 7px 2px;
+          flex-direction: row;
+          gap: 5px;
+          font-size: 10px;
+        }
+        .indicator-tab-number {
+          font-size: 7px;
+        }
+        .indicator-browser {
+          gap: 12px;
+        }
+        .indicator-card {
+          grid-template-columns: 1fr;
           min-height: 0;
+          border-radius: 10px;
+        }
+        .indicator-visual {
           border-right: 0;
           border-bottom: 1px solid var(--line);
         }
-
         .indicator-copy {
-          padding: 26px 22px 28px;
+          padding: 21px;
         }
-
-        .indicator-copy h3 {
-          font-size: 42px;
-        }
-
         .product-meta {
-          align-items: flex-start;
+          font-size: 8px;
+          margin-bottom: 10px;
         }
-
-        .bundle-banner {
+        .indicator-copy h3 {
+          font-size: 23px;
+          margin-bottom: 11px;
+        }
+        .indicator-copy p {
+          font-size: 12px;
+          margin-bottom: 18px;
+        }
+        .indicator-copy .button {
+          width: 100%;
+          justify-content: space-between;
+        }
+        .funnel-section-banner {
+          margin-top: 14px;
+          gap: 12px;
+          align-items: start;
+        }
+        .funnel-section-banner p {
+          font-size: 9px;
+          max-width: 190px;
+        }
+        .funnel-section-banner strong {
+          display: block;
+        }
+        .funnel-section-banner .button {
+          font-size: 9px;
+          gap: 6px;
+          min-height: 30px;
+        }
+        .funnel-section-banner i {
+          display: none;
+        }
+        .funnel-section-banner .arrow-icon {
+          width: 13px;
+          height: 13px;
+          flex-basis: 13px;
+        }
+        .journal-stage {
+          padding: 26px 21px;
+          border-radius: 12px;
+        }
+        .journal-stage .section-heading {
+          margin-bottom: 26px;
+        }
+        .journal-stage .section-title {
+          font-size: 29px;
+          letter-spacing: -1px;
+        }
+        .journal-card {
           grid-template-columns: 1fr;
+          gap: 27px;
         }
-
-        .community-card {
-          min-height: 0;
-          grid-template-columns: 1fr;
-          gap: 28px;
+        .journal-copy h3 {
+          font-size: 20px;
+          margin-top: 12px;
         }
-
-        .discord-visual {
-          min-height: 145px;
+        .feature-list {
+          grid-template-columns: 1fr 1fr;
+          margin: 17px 0 22px;
+          gap: 8px;
         }
-
-        .footer-inner {
-          grid-template-columns: 1fr;
-          justify-items: center;
+        .feature-list li {
+          font-size: 9px;
         }
-
-        .footer-note {
-          text-align: center;
+        .journal-copy .button {
+          width: 100%;
+          justify-content: space-between;
         }
-
-      }
-
-      @media (max-width: 390px) {
-        .header-nav {
+        .journal-image {
           padding: 4px;
-          gap: 4px;
+          border-radius: 7px;
         }
-
-        .header-nav a {
-          padding: 0 5px;
+        .community-section {
+          padding-top: 39px;
+          padding-bottom: 30px;
         }
-
+        .community-layout {
+          grid-template-columns: 1fr;
+          gap: 25px;
+        }
+        .community-intro .section-title {
+          font-size: 33px;
+          max-width: 330px;
+        }
+        .community-intro > p {
+          font-size: 12px;
+          margin-top: 15px;
+          max-width: 320px;
+        }
+        .community-intro .community-social-note {
+          display: none;
+        }
+        .community-card {
+          padding: 23px;
+        }
+        .community-content h3 {
+          font-size: 22px;
+          margin-top: 17px;
+        }
+        .community-content > p {
+          font-size: 12px;
+        }
+        .access-steps {
+          margin: 19px 0;
+        }
+        .closing-line {
+          padding: 20px 0;
+          gap: 20px;
+          align-items: start;
+          font-size: 10px;
+        }
+        .closing-line strong {
+          display: block;
+        }
+        .closing-line a {
+          font-size: 9px;
+          white-space: nowrap;
+        }
+        .site-footer {
+          padding: 23px 0;
+        }
+        .footer-inner {
+          flex-wrap: wrap;
+          gap: 15px;
+        }
+        .footer-brand {
+          font-size: 23px;
+        }
+        .social-links {
+          gap: 8px;
+        }
+        .footer-note {
+          width: 100%;
+          font-size: 7px;
+        }
+        .shot-viewer-scroll img {
+          min-width: 900px;
+        }
+        .shot-viewer {
+          width: 96vw;
+        }
+        .shot-viewer-bar {
+          font-size: 10px;
+        }
       }
-
       @media (prefers-reduced-motion: reduce) {
         html {
           scroll-behavior: auto;
         }
-
         *,
-        *::before,
-        *::after {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.01ms !important;
-          transform: none !important;
+        *:before,
+        *:after {
+          transition: none !important;
+          animation: none !important;
         }
-
-        .reveal,
-        .reveal-stagger > * {
-          opacity: 1 !important;
-        }
-      }
-
-      /* UI preview switcher */
-      .ui-switcher {
-        position: fixed;
-        right: 18px;
-        bottom: 18px;
-        z-index: 80;
-        display: grid;
-        justify-items: end;
-        gap: 8px;
-        color: #f7f7f5;
-        font-family: "DM Mono", monospace;
-      }
-
-      .ui-switcher[hidden] {
-        display: none;
-      }
-
-      .ui-switcher-toggle,
-      .ui-theme-option {
-        appearance: none;
-        cursor: pointer;
-        font-family: inherit;
-      }
-
-      .ui-switcher-toggle {
-        min-height: 46px;
-        padding: 0 15px;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        color: #f7f7f5;
-        background: rgba(17, 17, 17, 0.96);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        border-radius: 999px;
-        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
-        font-size: 10px;
-        font-weight: 500;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        backdrop-filter: blur(18px);
-      }
-
-      .ui-switcher-toggle::before {
-        content: "";
-        width: 7px;
-        height: 7px;
-        background: #b11d26;
-        border-radius: 50%;
-        box-shadow: 0 0 0 4px rgba(177, 29, 38, 0.16);
-      }
-
-      .ui-switcher-toggle::after {
-        content: "+";
-        width: 16px;
-        font-size: 15px;
-        line-height: 1;
-        text-align: center;
-        transition: transform 180ms ease;
-      }
-
-      .ui-switcher-toggle[aria-expanded="true"]::after {
-        transform: rotate(45deg);
-      }
-
-      .ui-switcher-panel {
-        width: min(280px, calc(100vw - 36px));
-        padding: 10px;
-        background: rgba(17, 17, 17, 0.97);
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        border-radius: 18px;
-        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(20px);
-      }
-
-      .ui-switcher-panel[hidden] {
-        display: none;
-      }
-
-      .ui-switcher-heading {
-        margin: 2px 4px 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: rgba(255, 255, 255, 0.56);
-        font-size: 8px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-
-      .ui-theme-options {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px;
-      }
-
-      .ui-theme-option {
-        min-height: 48px;
-        padding: 8px 10px;
-        display: grid;
-        grid-template-columns: auto minmax(0, 1fr);
-        align-items: center;
-        gap: 8px;
-        color: rgba(255, 255, 255, 0.68);
-        background: rgba(255, 255, 255, 0.055);
-        border: 1px solid transparent;
-        border-radius: 11px;
-        font-size: 8px;
-        letter-spacing: 0.05em;
-        text-align: left;
-        text-transform: uppercase;
-        transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
-      }
-
-      .ui-theme-option span {
-        color: rgba(255, 255, 255, 0.34);
-      }
-
-      .ui-theme-option:hover {
-        color: #fff;
-        background: rgba(255, 255, 255, 0.1);
-      }
-
-      .ui-theme-option[aria-pressed="true"] {
-        color: #fff;
-        background: rgba(177, 29, 38, 0.2);
-        border-color: rgba(224, 82, 90, 0.46);
-      }
-
-      .ui-theme-option:last-child:nth-child(odd) {
-        grid-column: 1 / -1;
-      }
-
-      .ui-switcher-toggle:focus-visible,
-      .ui-theme-option:focus-visible {
-        outline: 2px solid #e0525a;
-        outline-offset: 3px;
-      }
-
-      /* 01 — Graphite: clean, restrained, and built around the new artwork. */
-      html[data-ui-theme="graphite"] {
-        color-scheme: light;
-      }
-
-      html[data-ui-theme="graphite"] body {
-        background:
-          radial-gradient(circle at 82% 8%, rgba(20, 20, 20, 0.055), transparent 26rem),
-          linear-gradient(180deg, #f7f7f5 0%, var(--canvas) 42%, #ededeb 100%);
-      }
-
-      html[data-ui-theme="graphite"] body::before {
-        opacity: 0.2;
-        background-image: radial-gradient(rgba(17, 17, 17, 0.14) 0.55px, transparent 0.7px);
-        background-size: 9px 9px;
-      }
-
-      html[data-ui-theme="graphite"] .site-header {
-        background: rgba(255, 255, 255, 0.92);
-        border-color: rgba(17, 17, 17, 0.14);
-        border-radius: 18px;
-        box-shadow: 0 16px 50px rgba(17, 17, 17, 0.09);
-        backdrop-filter: blur(18px);
-      }
-
-      html[data-ui-theme="graphite"] .brand::after {
-        content: "";
-        width: 6px;
-        height: 6px;
-        margin-left: 5px;
-        display: inline-block;
-        background: var(--accent);
-        border-radius: 50%;
-      }
-
-      html[data-ui-theme="graphite"] .hero {
-        grid-template-columns: minmax(0, 1.05fr) minmax(330px, 0.64fr);
-      }
-
-      html[data-ui-theme="graphite"] .hero h1 em {
-        color: var(--ink);
-        text-decoration-line: underline;
-        text-decoration-color: var(--accent);
-        text-decoration-thickness: 4px;
-        text-underline-offset: 0.08em;
-      }
-
-      html[data-ui-theme="graphite"] .hero-visual {
-        width: min(100%, 390px);
-        min-height: 0;
-        padding: 14px 14px 24px;
-        background: #e8e8e5;
-        border-color: #c6c6c1;
-        border-radius: 18px;
-        box-shadow: 18px 18px 0 rgba(17, 17, 17, 0.08);
-      }
-
-      html[data-ui-theme="graphite"] .hero-visual::before {
-        display: none;
-      }
-
-      html[data-ui-theme="graphite"] .portrait-card {
-        width: 100%;
-        border-color: rgba(17, 17, 17, 0.34);
-        border-radius: 10px;
-        box-shadow: none;
-      }
-
-      html[data-ui-theme="graphite"] .portrait-card img {
-        object-position: center;
-        filter: contrast(1.02);
-      }
-
-      html[data-ui-theme="graphite"] .portrait-caption strong {
-        font-size: 29px;
-      }
-
-      html[data-ui-theme="graphite"] .indicators-section {
-        background: #e9e9e6;
-        border-color: #cecec9;
-      }
-
-      html[data-ui-theme="graphite"] .indicator-tabs,
-      html[data-ui-theme="graphite"] .indicator-card,
-      html[data-ui-theme="graphite"] .community-card,
-      html[data-ui-theme="graphite"] .journal-card {
-        box-shadow: 0 18px 50px rgba(17, 17, 17, 0.06);
-      }
-
-      html[data-ui-theme="graphite"] .indicator-tab[aria-selected="true"] .indicator-tab-number {
-        color: #e0525a;
-      }
-
-      html[data-ui-theme="graphite"] .funnel-section-banner {
-        position: relative;
-        overflow: hidden;
-      }
-
-      html[data-ui-theme="graphite"] .funnel-section-banner::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 4px;
-        background: var(--accent);
-      }
-
-      html[data-ui-theme="graphite"] .journal-card {
-        border: 1px solid var(--line);
-      }
-
-      /* 02 — Obsidian: immersive dark mode with a narrow crimson signal. */
-      html[data-ui-theme="obsidian"] {
-        color-scheme: dark;
-        --background: #090909;
-        --background-alt: #101010;
-        --surface: #161616;
-        --surface-strong: #1b1b1b;
-        --text: #f4f4f1;
-        --muted-text: #9b9b96;
-        --body-text: #b2b2ad;
-        --border: #2f2f2d;
-        --line-strong: #555550;
-        --accent: #d33b43;
-        --accent-dark: #f0f0ec;
-        --accent-soft: #291719;
-        --accent-muted: #8f8f89;
-        --accent-ink: #101010;
-      }
-
-      html[data-ui-theme="obsidian"] body {
-        background:
-          radial-gradient(circle at 78% 12%, rgba(211, 59, 67, 0.12), transparent 26rem),
-          linear-gradient(145deg, #080808, #111 48%, #090909);
-      }
-
-      html[data-ui-theme="obsidian"] body::before {
-        opacity: 0.45;
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-        background-size: 44px 44px;
-      }
-
-      html[data-ui-theme="obsidian"] .site-header {
-        background: rgba(13, 13, 13, 0.92);
-        border-color: #333;
-        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
-        backdrop-filter: blur(20px);
-      }
-
-      html[data-ui-theme="obsidian"] .header-nav a,
-      html[data-ui-theme="obsidian"] .funnel-header-duo a:not(:first-child) {
-        color: var(--body-text);
-      }
-
-      html[data-ui-theme="obsidian"] .funnel-header-duo a:first-child,
-      html[data-ui-theme="obsidian"] .button--primary,
-      html[data-ui-theme="obsidian"] .journal-copy .button {
-        color: #0d0d0d;
-        background: #f2f2ef;
-        border-color: #f2f2ef;
-      }
-
-      html[data-ui-theme="obsidian"] .hero h1 em {
-        color: #f4f4f1;
-        text-shadow: 3px 3px 0 rgba(211, 59, 67, 0.55);
-      }
-
-      html[data-ui-theme="obsidian"] .hero-visual {
-        width: min(100%, 380px);
-        min-height: 0;
-        padding: 10px 10px 24px;
-        background: #131313;
-        border-color: rgba(211, 59, 67, 0.42);
-        border-radius: 8px;
-        box-shadow: 24px 24px 0 rgba(211, 59, 67, 0.08);
-      }
-
-      html[data-ui-theme="obsidian"] .hero-visual::before {
-        display: none;
-      }
-
-      html[data-ui-theme="obsidian"] .portrait-card {
-        width: 100%;
-        border-color: #40403d;
-        border-radius: 4px;
-        box-shadow: none;
-      }
-
-      html[data-ui-theme="obsidian"] .portrait-card img {
-        object-position: center;
-        filter: grayscale(0.18) contrast(1.08);
-      }
-
-      html[data-ui-theme="obsidian"] .indicators-section {
-        background: #0d0d0d;
-        border-color: #2d2d2b;
-      }
-
-      html[data-ui-theme="obsidian"] .indicator-tabs {
-        background: #121212;
-      }
-
-      html[data-ui-theme="obsidian"] .indicator-tab:hover {
-        background: #1b1b1b;
-      }
-
-      html[data-ui-theme="obsidian"] .indicator-tab[aria-selected="true"] {
-        color: #fff;
-        background: #261214;
-        border-color: rgba(211, 59, 67, 0.5);
-      }
-
-      html[data-ui-theme="obsidian"] .indicator-card,
-      html[data-ui-theme="obsidian"] .community-card,
-      html[data-ui-theme="obsidian"] .journal-card {
-        border: 1px solid var(--line);
-        box-shadow: 0 22px 80px rgba(0, 0, 0, 0.28);
-      }
-
-      html[data-ui-theme="obsidian"] .indicator-visual {
-        background: #20201f;
-      }
-
-      html[data-ui-theme="obsidian"] .community-card {
-        background: linear-gradient(110deg, #151515 0 68%, rgba(124, 77, 255, 0.08) 100%);
-      }
-
-      html[data-ui-theme="obsidian"] .discord-bubble {
-        background: #1e1e1e;
-      }
-
-      html[data-ui-theme="obsidian"] .journal-copy {
-        background: #151515;
-      }
-
-      /* 03 — Editorial: hard rules, oversized type, and magazine pacing. */
-      html[data-ui-theme="editorial"] {
-        color-scheme: light;
-        --background: #f8f7f3;
-        --background-alt: #f0efea;
-        --surface: #fffefb;
-        --surface-strong: #fff;
-        --text: #111;
-        --muted-text: #66635d;
-        --body-text: #4e4c47;
-        --border: #b9b6af;
-        --line-strong: #111;
-        --accent: #b21d25;
-        --accent-dark: #111;
-        --accent-soft: #eee9e5;
-        --accent-muted: #73706a;
-        --accent-ink: #fffefb;
-        --max-width: 1280px;
-        --radius: 0px;
-      }
-
-      html[data-ui-theme="editorial"] body {
-        background: #f8f7f3;
-      }
-
-      html[data-ui-theme="editorial"] body::before {
-        display: none;
-      }
-
-      html[data-ui-theme="editorial"] .site-header {
-        top: 0;
-        width: 100%;
-        margin-top: 0;
-        padding-inline: max(24px, calc((100vw - var(--max-width)) / 2));
-        background: rgba(248, 247, 243, 0.96);
-        border: 0;
-        border-bottom: 2px solid #111;
-        border-radius: 0;
-        box-shadow: none;
-        backdrop-filter: blur(16px);
-      }
-
-      html[data-ui-theme="editorial"] .brand {
-        font-size: 40px;
-        font-style: italic;
-      }
-
-      html[data-ui-theme="editorial"] .header-nav a,
-      html[data-ui-theme="editorial"] .funnel-header-duo a {
-        border-radius: 0;
-      }
-
-      html[data-ui-theme="editorial"] .hero {
-        grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
-        gap: clamp(30px, 5vw, 72px);
-      }
-
-      html[data-ui-theme="editorial"] .hero h1,
-      html[data-ui-theme="editorial"] .section-title {
-        line-height: 0.82;
-      }
-
-      html[data-ui-theme="editorial"] .hero h1 em {
-        color: var(--ink);
-        font-style: italic;
-        text-decoration: underline;
-        text-decoration-color: var(--accent);
-        text-decoration-thickness: 5px;
-        text-underline-offset: 8px;
-      }
-
-      html[data-ui-theme="editorial"] .button,
-      html[data-ui-theme="editorial"] .bundle-badge,
-      html[data-ui-theme="editorial"] .feature-list li,
-      html[data-ui-theme="editorial"] .social-link {
-        border-radius: 0;
-      }
-
-      html[data-ui-theme="editorial"] .hero-visual {
-        width: min(100%, 430px);
-        min-height: 0;
-        padding: 9px 9px 24px;
-        display: flex;
-        flex-direction: column;
-        background: #111;
-        border: 2px solid #111;
-        border-radius: 0;
-        box-shadow: 10px 10px 0 var(--accent);
-      }
-
-      html[data-ui-theme="editorial"] .hero-visual::before {
-        display: none;
-      }
-
-      html[data-ui-theme="editorial"] .portrait-card {
-        width: 100%;
-        border: 0;
-        border-radius: 0;
-        box-shadow: none;
-      }
-
-      html[data-ui-theme="editorial"] .portrait-card img {
-        object-position: center;
-        filter: contrast(1.05);
-      }
-
-      html[data-ui-theme="editorial"] .portrait-caption {
-        margin: 22px 0 0;
-        padding: 0 16px;
-        display: block;
-        text-align: center;
-      }
-
-      html[data-ui-theme="editorial"] .portrait-caption strong {
-        color: #fff;
-        font-size: 32px;
-        line-height: 0.96;
-      }
-
-      html[data-ui-theme="editorial"] .portrait-caption span,
-      html[data-ui-theme="editorial"] .portrait-caption .tool-strip {
-        color: #c8c8c3;
-        text-align: center;
-      }
-
-      html[data-ui-theme="editorial"] .indicators-section {
-        background: #efeee9;
-        border-block: 2px solid #111;
-      }
-
-      html[data-ui-theme="editorial"] .indicator-browser {
-        display: block;
-      }
-
-      html[data-ui-theme="editorial"] .indicator-tabs {
-        margin-bottom: -1px;
-        padding: 0;
-        grid-template-columns: repeat(9, minmax(0, 1fr));
-        gap: 0;
-        background: transparent;
-        border: 0;
-        border-radius: 0;
-      }
-
-      html[data-ui-theme="editorial"] .indicator-tab {
-        min-height: 64px;
-        padding: 10px;
-        justify-content: center;
-        border: 1px solid #111;
-        border-radius: 0;
-        text-align: center;
-      }
-
-      html[data-ui-theme="editorial"] .indicator-tab[aria-selected="true"] {
-        background: var(--accent);
-        border-color: #111;
-      }
-
-      html[data-ui-theme="editorial"] .indicator-card,
-      html[data-ui-theme="editorial"] .community-card,
-      html[data-ui-theme="editorial"] .journal-card,
-      html[data-ui-theme="editorial"] .funnel-section-banner {
-        border: 2px solid #111;
-        border-radius: 0;
-        box-shadow: none;
-      }
-
-      html[data-ui-theme="editorial"] .indicator-card:hover,
-      html[data-ui-theme="editorial"] .community-card:hover {
-        transform: none;
-      }
-
-      html[data-ui-theme="editorial"] .section-number {
-        color: var(--accent);
-        font-weight: 700;
-      }
-
-      /* 04 — Terminal: utilitarian grid, condensed spacing, data-first type. */
-      html[data-ui-theme="terminal"] {
-        color-scheme: dark;
-        --background: #0e1111;
-        --background-alt: #151919;
-        --surface: #171b1b;
-        --surface-strong: #1d2222;
-        --text: #e8eceb;
-        --muted-text: #8c9693;
-        --body-text: #adb5b3;
-        --border: #313938;
-        --line-strong: #65706e;
-        --accent: #c63a41;
-        --accent-dark: #e8eceb;
-        --accent-soft: #242a29;
-        --accent-muted: #77817f;
-        --accent-ink: #0e1111;
-        --radius: 3px;
-      }
-
-      html[data-ui-theme="terminal"] body {
-        background:
-          linear-gradient(rgba(232, 236, 235, 0.028) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(232, 236, 235, 0.028) 1px, transparent 1px),
-          #0e1111;
-        background-size: 32px 32px;
-        font-family: "DM Mono", monospace;
-      }
-
-      html[data-ui-theme="terminal"] body::before {
-        display: none;
-      }
-
-      html[data-ui-theme="terminal"] .site-header {
-        background: rgba(14, 17, 17, 0.94);
-        border-radius: 3px;
-        box-shadow: 8px 8px 0 rgba(198, 58, 65, 0.13);
-      }
-
-      html[data-ui-theme="terminal"] .brand,
-      html[data-ui-theme="terminal"] .hero h1,
-      html[data-ui-theme="terminal"] .section-title,
-      html[data-ui-theme="terminal"] .indicator-copy h3,
-      html[data-ui-theme="terminal"] .community-card h3,
-      html[data-ui-theme="terminal"] .journal-copy h3,
-      html[data-ui-theme="terminal"] .footer-brand {
-        font-family: "Manrope", sans-serif;
-        font-weight: 800;
-        letter-spacing: -0.055em;
-      }
-
-      html[data-ui-theme="terminal"] .brand {
-        font-size: 26px;
-        letter-spacing: -0.04em;
-        text-transform: uppercase;
-      }
-
-      html[data-ui-theme="terminal"] .hero h1,
-      html[data-ui-theme="terminal"] .section-title {
-        text-transform: uppercase;
-      }
-
-      html[data-ui-theme="terminal"] .hero h1 {
-        font-size: clamp(58px, 7.2vw, 104px);
-        line-height: 0.9;
-      }
-
-      html[data-ui-theme="terminal"] .hero h1 em {
-        color: var(--accent);
-        font-style: normal;
-      }
-
-      html[data-ui-theme="terminal"] .hero-visual {
-        width: min(100%, 400px);
-        min-height: 0;
-        padding: 7px 7px 20px;
-        background: #151919;
-        border-radius: 3px;
-        box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.4);
-      }
-
-      html[data-ui-theme="terminal"] .hero-visual::before {
-        display: none;
-      }
-
-      html[data-ui-theme="terminal"] .portrait-card {
-        width: 100%;
-        border-radius: 0;
-        box-shadow: none;
-      }
-
-      html[data-ui-theme="terminal"] .portrait-card img {
-        object-position: center;
-        filter: grayscale(0.4) contrast(1.12);
-      }
-
-      html[data-ui-theme="terminal"] .portrait-caption strong {
-        font-size: 26px;
-        letter-spacing: -0.04em;
-        text-transform: uppercase;
-      }
-
-      html[data-ui-theme="terminal"] .button,
-      html[data-ui-theme="terminal"] .funnel-header-duo a,
-      html[data-ui-theme="terminal"] .bundle-badge,
-      html[data-ui-theme="terminal"] .feature-list li,
-      html[data-ui-theme="terminal"] .social-link,
-      html[data-ui-theme="terminal"] .discord-icon,
-      html[data-ui-theme="terminal"] .discord-visual,
-      html[data-ui-theme="terminal"] .discord-bubble {
-        border-radius: 2px;
-      }
-
-      html[data-ui-theme="terminal"] .indicators-section {
-        background: rgba(18, 22, 22, 0.9);
-      }
-
-      html[data-ui-theme="terminal"] .indicator-tabs {
-        padding: 0;
-        gap: 0;
-        background: transparent;
-        border-radius: 3px;
-      }
-
-      html[data-ui-theme="terminal"] .indicator-tab {
-        border-radius: 0;
-        border-bottom: 1px solid var(--line);
-      }
-
-      html[data-ui-theme="terminal"] .indicator-tab[aria-selected="true"] {
-        color: #fff;
-        background: #1d2222;
-        border-color: var(--accent);
-        box-shadow: inset 3px 0 0 var(--accent);
-      }
-
-      html[data-ui-theme="terminal"] .indicator-card,
-      html[data-ui-theme="terminal"] .community-card,
-      html[data-ui-theme="terminal"] .journal-card,
-      html[data-ui-theme="terminal"] .funnel-section-banner {
-        border-radius: 3px;
-      }
-
-      html[data-ui-theme="terminal"] .indicator-visual {
-        background: #202625;
-      }
-
-      html[data-ui-theme="terminal"] .community-card {
-        background: #171b1b;
-      }
-
-      html[data-ui-theme="terminal"] .discord-bubble {
-        background: #202525;
-      }
-
-      html[data-ui-theme="terminal"] .journal-copy {
-        background: #171b1b;
-      }
-
-      /* 05 — Monolith: a high-impact dark hero over calm product sections. */
-      html[data-ui-theme="monolith"] {
-        color-scheme: light;
-        --background: #f3f3f0;
-        --background-alt: #e6e6e2;
-        --surface: #fff;
-        --surface-strong: #fff;
-        --text: #111;
-        --muted-text: #696965;
-        --body-text: #555551;
-        --border: #c9c9c4;
-        --line-strong: #888883;
-        --accent: #af1f27;
-        --accent-dark: #111;
-        --accent-soft: #eee9e8;
-        --accent-muted: #767672;
-        --accent-ink: #fff;
-        --radius: 30px;
-      }
-
-      html[data-ui-theme="monolith"] body {
-        background: #f3f3f0;
-      }
-
-      html[data-ui-theme="monolith"] body::before {
-        display: none;
-      }
-
-      html[data-ui-theme="monolith"] .site-header {
-        color: #fff;
-        background: rgba(12, 12, 12, 0.94);
-        border-color: #323232;
-        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.25);
-        backdrop-filter: blur(20px);
-      }
-
-      html[data-ui-theme="monolith"] .site-header .brand,
-      html[data-ui-theme="monolith"] .site-header .header-nav a,
-      html[data-ui-theme="monolith"] .site-header .funnel-header-duo a:not(:first-child),
-      html[data-ui-theme="monolith"] .site-header .funnel-header-duo a:not(:first-child) .external-arrow {
-        color: #fff;
-      }
-
-      html[data-ui-theme="monolith"] .hero {
-        color: #fff;
-        background: #101010;
-        box-shadow: 0 0 0 100vmax #101010;
-        clip-path: inset(0 -100vmax);
-      }
-
-      html[data-ui-theme="monolith"] .hero::after {
-        content: "";
-        position: absolute;
-        right: -7vw;
-        bottom: 4%;
-        width: 40vw;
-        height: 40vw;
-        max-width: 520px;
-        max-height: 520px;
-        border: 1px solid rgba(175, 31, 39, 0.46);
-        border-radius: 50%;
-        pointer-events: none;
-      }
-
-      html[data-ui-theme="monolith"] .hero-lede,
-      html[data-ui-theme="monolith"] .portrait-caption .tool-strip {
-        color: #aaa;
-      }
-
-      html[data-ui-theme="monolith"] .hero h1 em {
-        color: #fff;
-        text-decoration: underline;
-        text-decoration-color: var(--accent);
-        text-decoration-thickness: 5px;
-        text-underline-offset: 8px;
-      }
-
-      html[data-ui-theme="monolith"] .hero .button--primary {
-        color: #111;
-        background: #fff;
-        border-color: #fff;
-      }
-
-      html[data-ui-theme="monolith"] .hero .button--secondary {
-        color: #fff;
-        border-color: #666;
-      }
-
-      html[data-ui-theme="monolith"] .hero-visual {
-        width: min(100%, 410px);
-        min-height: 0;
-        padding: 12px 12px 26px;
-        background: #191919;
-        border-color: #3b3b3b;
-        border-radius: 30px;
-        box-shadow: 0 34px 90px rgba(0, 0, 0, 0.46);
-      }
-
-      html[data-ui-theme="monolith"] .hero-visual::before {
-        display: none;
-      }
-
-      html[data-ui-theme="monolith"] .portrait-card {
-        width: 100%;
-        border: 0;
-        border-radius: 20px;
-        box-shadow: none;
-      }
-
-      html[data-ui-theme="monolith"] .portrait-card img {
-        object-position: center;
-        filter: contrast(1.08);
-      }
-
-      html[data-ui-theme="monolith"] .portrait-caption strong {
-        color: #fff;
-      }
-
-      html[data-ui-theme="monolith"] .indicators-section {
-        background: #e6e6e2;
-        border: 0;
-      }
-
-      html[data-ui-theme="monolith"] .indicator-card,
-      html[data-ui-theme="monolith"] .indicator-tabs,
-      html[data-ui-theme="monolith"] .journal-card {
-        box-shadow: 0 24px 70px rgba(17, 17, 17, 0.09);
-      }
-
-      html[data-ui-theme="monolith"] .community-card {
-        color: #fff;
-        background: #111;
-        border-color: #111;
-        box-shadow: 0 24px 80px rgba(17, 17, 17, 0.18);
-      }
-
-      html[data-ui-theme="monolith"] .community-card p {
-        color: #aaa;
-      }
-
-      html[data-ui-theme="monolith"] .discord-bubble {
-        background: #1f1f1f;
-      }
-
-      /* 06 — Gallery: centered, quiet, and image-led. */
-      html[data-ui-theme="gallery"] {
-        color-scheme: light;
-        --background: #fafafa;
-        --background-alt: #f2f2f2;
-        --surface: #fff;
-        --surface-strong: #fff;
-        --text: #181818;
-        --muted-text: #777;
-        --body-text: #5f5f5f;
-        --border: #dedede;
-        --line-strong: #aaa;
-        --accent: #b22830;
-        --accent-dark: #181818;
-        --accent-soft: #f3ecec;
-        --accent-muted: #898989;
-        --accent-ink: #fff;
-        --max-width: 1120px;
-        --radius: 26px;
-      }
-
-      html[data-ui-theme="gallery"] body {
-        background: #fafafa;
-      }
-
-      html[data-ui-theme="gallery"] body::before {
-        opacity: 0.14;
-        background-image: radial-gradient(rgba(0, 0, 0, 0.16) 0.5px, transparent 0.65px);
-        background-size: 13px 13px;
-      }
-
-      html[data-ui-theme="gallery"] .site-header {
-        background: rgba(255, 255, 255, 0.88);
-        border-color: rgba(0, 0, 0, 0.08);
-        box-shadow: 0 12px 38px rgba(0, 0, 0, 0.06);
-        backdrop-filter: blur(20px);
-      }
-
-      html[data-ui-theme="gallery"] .hero {
-        min-height: 0;
-        padding-block: clamp(82px, 10vw, 140px);
-        grid-template-columns: 1fr;
-        justify-items: center;
-        gap: 64px;
-        text-align: center;
-      }
-
-      html[data-ui-theme="gallery"] .hero-copy {
-        max-width: 920px;
-      }
-
-      html[data-ui-theme="gallery"] .eyebrow,
-      html[data-ui-theme="gallery"] .hero-actions {
-        justify-content: center;
-      }
-
-      html[data-ui-theme="gallery"] .hero h1,
-      html[data-ui-theme="gallery"] .hero-lede {
-        max-width: none;
-      }
-
-      html[data-ui-theme="gallery"] .hero h1 {
-        font-size: clamp(72px, 10vw, 132px);
-      }
-
-      html[data-ui-theme="gallery"] .hero h1 em {
-        color: var(--ink);
-        text-decoration: underline;
-        text-decoration-color: var(--accent);
-        text-decoration-thickness: 3px;
-        text-underline-offset: 10px;
-      }
-
-      html[data-ui-theme="gallery"] .hero-lede {
-        width: min(680px, 100%);
-        margin-inline: auto;
-      }
-
-      html[data-ui-theme="gallery"] .hero-visual {
-        width: min(760px, 100%);
-        min-height: 0;
-        padding: 20px;
-        display: grid;
-        grid-template-columns: 290px minmax(0, 1fr);
-        align-items: center;
-        gap: 34px;
-        justify-self: center;
-        background: #fff;
-        border-color: #ddd;
-        border-radius: 28px;
-        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.09);
-      }
-
-      html[data-ui-theme="gallery"] .hero-visual::before {
-        display: none;
-      }
-
-      html[data-ui-theme="gallery"] .portrait-card {
-        width: 290px;
-        border-color: #cacaca;
-        border-radius: 50%;
-        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
-      }
-
-      html[data-ui-theme="gallery"] .portrait-card img {
-        object-position: center;
-        filter: grayscale(0.3) contrast(1.08);
-      }
-
-      html[data-ui-theme="gallery"] .portrait-caption {
-        margin: 0;
-        text-align: left;
-      }
-
-      html[data-ui-theme="gallery"] .portrait-caption strong {
-        font-size: 50px;
-      }
-
-      html[data-ui-theme="gallery"] .portrait-caption span,
-      html[data-ui-theme="gallery"] .portrait-caption .tool-strip {
-        text-align: left;
-      }
-
-      html[data-ui-theme="gallery"] .section-heading {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        text-align: center;
-      }
-
-      html[data-ui-theme="gallery"] .section-intro {
-        max-width: 680px;
-      }
-
-      html[data-ui-theme="gallery"] .indicator-browser {
-        display: block;
-      }
-
-      html[data-ui-theme="gallery"] .indicator-tabs {
-        margin-bottom: 12px;
-        padding: 6px;
-        display: flex;
-        gap: 4px;
-        overflow-x: auto;
-        background: #fff;
-        border-radius: 999px;
-        scrollbar-width: none;
-      }
-
-      html[data-ui-theme="gallery"] .indicator-tab {
-        min-width: max-content;
-        min-height: 46px;
-        justify-content: center;
-        border-radius: 999px;
-      }
-
-      html[data-ui-theme="gallery"] .indicator-tab[aria-selected="true"] {
-        color: #fff;
-        background: var(--ink);
-      }
-
-      html[data-ui-theme="gallery"] .indicator-card,
-      html[data-ui-theme="gallery"] .community-card,
-      html[data-ui-theme="gallery"] .journal-card {
-        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.07);
-      }
-
-      /* 04 — Studio Edit: Editorial composition with Graphite restraint. */
-      html[data-ui-theme="studio"] {
-        color-scheme: light;
-        --background: #f1f1ee;
-        --background-alt: #e7e7e3;
-        --surface: #fff;
-        --surface-strong: #fff;
-        --text: #141414;
-        --muted-text: #6a6a66;
-        --body-text: #575753;
-        --border: #cdcdc8;
-        --line-strong: #969691;
-        --accent: #141414;
-        --accent-dark: #171717;
-        --accent-soft: #ececea;
-        --accent-muted: #797975;
-        --accent-ink: #fff;
-        --max-width: 1240px;
-        --radius: 14px;
-      }
-
-      html[data-ui-theme="studio"] body {
-        background:
-          linear-gradient(90deg, transparent 0 7.5%, rgba(20, 20, 20, 0.05) 7.5% calc(7.5% + 1px), transparent calc(7.5% + 1px)),
-          radial-gradient(circle at 84% 12%, rgba(20, 20, 20, 0.06), transparent 28rem),
-          #f1f1ee;
-      }
-
-      html[data-ui-theme="studio"] body::before {
-        opacity: 0.16;
-        background-image: radial-gradient(rgba(20, 20, 20, 0.16) 0.55px, transparent 0.7px);
-        background-size: 11px 11px;
-      }
-
-      html[data-ui-theme="studio"] .site-header {
-        background: rgba(255, 255, 255, 0.92);
-        border-color: rgba(20, 20, 20, 0.16);
-        border-radius: 12px;
-        box-shadow: 0 16px 48px rgba(20, 20, 20, 0.08);
-        backdrop-filter: blur(18px);
-      }
-
-      html[data-ui-theme="studio"] .brand,
-      html[data-ui-theme="night"] .brand {
-        font-family: "Manrope", sans-serif;
-        font-style: normal;
-        font-size: 25px;
-        font-weight: 600;
-        letter-spacing: -0.02em;
-      }
-
-      html[data-ui-theme="studio"] .hero {
-        grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.68fr);
-        gap: clamp(36px, 5vw, 70px);
-      }
-
-      html[data-ui-theme="studio"] .hero h1 {
-        font-size: clamp(68px, 7.5vw, 110px);
-        line-height: 0.84;
-      }
-
-      html[data-ui-theme="studio"] .hero h1 em {
-        color: var(--ink);
-        font-style: italic;
-        text-decoration-line: underline;
-        text-decoration-color: var(--accent);
-        text-decoration-thickness: 4px;
-        text-underline-offset: 0.08em;
-      }
-
-      html[data-ui-theme="studio"] .button,
-      html[data-ui-theme="studio"] .funnel-header-duo a,
-      html[data-ui-theme="studio"] .bundle-badge,
-      html[data-ui-theme="studio"] .feature-list li {
-        border-radius: 7px;
-      }
-
-      html[data-ui-theme="studio"] .hero-visual {
-        width: min(100%, 410px);
-        min-height: 0;
-        padding: 9px 9px 24px;
-        display: flex;
-        flex-direction: column;
-        background: #171717;
-        border-color: #2d2d2d;
-        border-radius: 14px;
-        box-shadow: 0 28px 70px rgba(20, 20, 20, 0.16);
-      }
-
-      html[data-ui-theme="studio"] .hero-visual::before {
-        display: none;
-      }
-
-      html[data-ui-theme="studio"] .portrait-card {
-        width: 100%;
-        border: 0;
-        border-radius: 8px;
-        box-shadow: none;
-      }
-
-      html[data-ui-theme="studio"] .portrait-card img {
-        object-position: center;
-        filter: grayscale(0.12) contrast(1.05);
-      }
-
-      html[data-ui-theme="studio"] .portrait-caption {
-        margin: 22px 0 0;
-        padding: 0 16px;
-        display: block;
-        text-align: center;
-      }
-
-      html[data-ui-theme="studio"] .portrait-caption strong {
-        color: #fff;
-        font-size: 32px;
-        line-height: 0.96;
-      }
-
-      html[data-ui-theme="studio"] .portrait-caption span,
-      html[data-ui-theme="studio"] .portrait-caption .tool-strip {
-        color: #b9b9b5;
-        text-align: center;
-      }
-
-      html[data-ui-theme="studio"] .indicators-section {
-        background: #e7e7e3;
-        border-color: #c7c7c2;
-      }
-
-      html[data-ui-theme="studio"] .indicator-browser {
-        display: block;
-      }
-
-      html[data-ui-theme="studio"] .indicator-tabs {
-        margin-bottom: 10px;
-        padding: 5px;
-        grid-template-columns: repeat(9, minmax(0, 1fr));
-        gap: 4px;
-        background: rgba(255, 255, 255, 0.68);
-        border-radius: 12px;
-      }
-
-      html[data-ui-theme="studio"] .indicator-tab {
-        min-height: 54px;
-        padding: 9px;
-        justify-content: center;
-        border-radius: 8px;
-        text-align: center;
-      }
-
-      html[data-ui-theme="studio"] .indicator-tab[aria-selected="true"] {
-        color: #fff;
-        background: #171717;
-        border-color: #171717;
-        box-shadow: inset 0 -3px 0 var(--accent);
-      }
-
-      html[data-ui-theme="studio"] .indicator-tab[aria-selected="true"] .indicator-tab-number {
-        color: #a6a6a2;
-      }
-
-      html[data-ui-theme="studio"] .indicator-card,
-      html[data-ui-theme="studio"] .community-card,
-      html[data-ui-theme="studio"] .journal-card,
-      html[data-ui-theme="studio"] .funnel-section-banner {
-        border-radius: 14px;
-        box-shadow: 0 20px 58px rgba(20, 20, 20, 0.07);
-      }
-
-      html[data-ui-theme="studio"] .section-number {
-        color: var(--accent);
-        font-weight: 700;
-      }
-
-      /* 05 — Night Edit: Editorial hierarchy inside Obsidian's premium dark shell. */
-      html[data-ui-theme="night"] {
-        color-scheme: dark;
-        --background: #0b0b0c;
-        --background-alt: #111113;
-        --surface: #171719;
-        --surface-strong: #1d1d20;
-        --text: #f2f2ef;
-        --muted-text: #979792;
-        --body-text: #b1b1ac;
-        --border: #303033;
-        --line-strong: #57575a;
-        --accent: #f2f2ef;
-        --accent-dark: #f2f2ef;
-        --accent-soft: #1d1d20;
-        --accent-muted: #898984;
-        --accent-ink: #0b0b0c;
-        --max-width: 1240px;
-        --radius: 12px;
-      }
-
-      html[data-ui-theme="night"] body {
-        background:
-          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-          radial-gradient(circle at 78% 14%, rgba(255, 255, 255, 0.13), transparent 30rem),
-          #0b0b0c;
-        background-size: 52px 52px, 52px 52px, auto, auto;
-      }
-
-      html[data-ui-theme="night"] body::before {
-        display: none;
-      }
-
-      html[data-ui-theme="night"] .site-header {
-        background: rgba(13, 13, 15, 0.92);
-        border-color: #343438;
-        border-radius: 12px;
-        box-shadow: 0 22px 70px rgba(0, 0, 0, 0.38);
-        backdrop-filter: blur(20px);
-      }
-
-      html[data-ui-theme="night"] .header-nav a,
-      html[data-ui-theme="night"] .funnel-header-duo a:not(:first-child) {
-        color: var(--body-text);
-      }
-
-      html[data-ui-theme="night"] .funnel-header-duo a:first-child,
-      html[data-ui-theme="night"] .button--primary,
-      html[data-ui-theme="night"] .journal-copy .button {
-        color: #0b0b0c;
-        background: #f2f2ef;
-        border-color: #f2f2ef;
-      }
-
-      html[data-ui-theme="night"] .hero {
-        grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.68fr);
-        gap: clamp(36px, 5vw, 70px);
-      }
-
-      html[data-ui-theme="night"] .hero h1 {
-        font-size: clamp(68px, 7.5vw, 110px);
-        line-height: 0.84;
-      }
-
-      html[data-ui-theme="night"] .hero h1 em {
-        color: #f2f2ef;
-        font-style: italic;
-        text-decoration-line: underline;
-        text-decoration-color: var(--accent);
-        text-decoration-thickness: 4px;
-        text-underline-offset: 0.08em;
-      }
-
-      html[data-ui-theme="night"] .button,
-      html[data-ui-theme="night"] .funnel-header-duo a,
-      html[data-ui-theme="night"] .bundle-badge,
-      html[data-ui-theme="night"] .feature-list li {
-        border-radius: 6px;
-      }
-
-      html[data-ui-theme="night"] .hero-visual {
-        width: min(100%, 410px);
-        min-height: 0;
-        padding: 8px 8px 24px;
-        display: flex;
-        flex-direction: column;
-        background: #171719;
-        border-color: rgba(255, 255, 255, 0.42);
-        border-radius: 12px;
-        box-shadow: 18px 18px 0 rgba(255, 255, 255, 0.08), 0 34px 90px rgba(0, 0, 0, 0.4);
-      }
-
-      html[data-ui-theme="night"] .hero-visual::before {
-        display: none;
-      }
-
-      html[data-ui-theme="night"] .portrait-card {
-        width: 100%;
-        border: 0;
-        border-radius: 7px;
-        box-shadow: none;
-      }
-
-      html[data-ui-theme="night"] .portrait-card img {
-        object-position: center;
-        filter: grayscale(0.22) contrast(1.09);
-      }
-
-      html[data-ui-theme="night"] .portrait-caption {
-        margin: 22px 0 0;
-        padding: 0 16px;
-        display: block;
-        text-align: center;
-      }
-
-      html[data-ui-theme="night"] .portrait-caption strong {
-        color: #fff;
-        font-size: 32px;
-        line-height: 0.96;
-      }
-
-      html[data-ui-theme="night"] .portrait-caption span,
-      html[data-ui-theme="night"] .portrait-caption .tool-strip {
-        color: #a6a6a2;
-        text-align: center;
-      }
-
-      html[data-ui-theme="night"] .indicators-section {
-        background: #101012;
-        border-color: #2b2b2e;
-      }
-
-      html[data-ui-theme="night"] .indicator-browser {
-        display: block;
-      }
-
-      html[data-ui-theme="night"] .indicator-tabs {
-        margin-bottom: 10px;
-        padding: 5px;
-        grid-template-columns: repeat(9, minmax(0, 1fr));
-        gap: 4px;
-        background: #141416;
-        border-radius: 11px;
-      }
-
-      html[data-ui-theme="night"] .indicator-tab {
-        min-height: 54px;
-        padding: 9px;
-        justify-content: center;
-        border-radius: 7px;
-        text-align: center;
-      }
-
-      html[data-ui-theme="night"] .indicator-tab:hover {
-        background: #1d1d20;
-      }
-
-      html[data-ui-theme="night"] .indicator-tab[aria-selected="true"] {
-        color: #fff;
-        background: #232326;
-        border-color: rgba(255, 255, 255, 0.56);
-        box-shadow: inset 0 -3px 0 var(--accent);
-      }
-
-      html[data-ui-theme="night"] .indicator-card,
-      html[data-ui-theme="night"] .community-card,
-      html[data-ui-theme="night"] .journal-card,
-      html[data-ui-theme="night"] .funnel-section-banner {
-        border-radius: 12px;
-        border-color: var(--line);
-        box-shadow: 0 28px 78px rgba(0, 0, 0, 0.24);
-      }
-
-      html[data-ui-theme="night"] .indicator-visual {
-        background: #222224;
-      }
-
-      html[data-ui-theme="night"] .community-card {
-        background: linear-gradient(110deg, #171719 0 68%, rgba(124, 77, 255, 0.08) 100%);
-      }
-
-      html[data-ui-theme="night"] .discord-bubble,
-      html[data-ui-theme="night"] .journal-copy {
-        background: #1c1c1f;
-      }
-
-      html[data-ui-theme="night"] .section-number {
-        color: var(--accent);
-        font-weight: 700;
-      }
-
-      @media (max-width: 920px) {
-        html[data-ui-theme] .hero {
-          grid-template-columns: 1fr;
-        }
-
-        html[data-ui-theme] .hero-visual {
-          justify-self: center;
-        }
-
-        html[data-ui-theme="editorial"] .hero-visual {
-          width: min(100%, 680px);
-        }
-
-        html[data-ui-theme="editorial"] .indicator-tabs {
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-        }
-
-        html[data-ui-theme="editorial"] .indicator-tab:last-child {
-          grid-column: auto;
-        }
-
-        html[data-ui-theme="studio"] .hero-visual,
-        html[data-ui-theme="night"] .hero-visual {
-          width: min(100%, 430px);
-        }
-
-        html[data-ui-theme="studio"] .indicator-tabs,
-        html[data-ui-theme="night"] .indicator-tabs {
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-        }
-
-        html[data-ui-theme="studio"] .indicator-tab:last-child,
-        html[data-ui-theme="night"] .indicator-tab:last-child {
-          grid-column: auto;
-        }
-      }
-
-      @media (max-width: 700px) {
-        .ui-switcher {
-          right: 12px;
-          bottom: 12px;
-        }
-
-        .ui-switcher-toggle {
-          min-height: 44px;
-          padding-inline: 13px;
-        }
-
-        html[data-ui-theme] .site-header {
-          border-radius: 18px;
-        }
-
-        html[data-ui-theme="editorial"] .site-header {
-          top: 0;
-          width: 100%;
-          padding-inline: 14px;
-          border-radius: 0;
-        }
-
-        html[data-ui-theme="editorial"] .hero-visual {
-          grid-template-columns: 1fr;
-        }
-
-        html[data-ui-theme="editorial"] .portrait-caption {
-          gap: 18px;
-        }
-
-        html[data-ui-theme="editorial"] .indicator-tabs {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        html[data-ui-theme="editorial"] .indicator-tab:last-child {
-          grid-column: 1 / -1;
-        }
-
-        html[data-ui-theme="gallery"] .hero {
-          gap: 42px;
-          text-align: left;
-        }
-
-        html[data-ui-theme="gallery"] .eyebrow,
-        html[data-ui-theme="gallery"] .hero-actions {
-          justify-content: flex-start;
-        }
-
-        html[data-ui-theme="gallery"] .hero-visual {
-          width: min(100%, 420px);
-          grid-template-columns: 1fr;
-        }
-
-        html[data-ui-theme="gallery"] .portrait-card {
-          width: 100%;
-          border-radius: 18px;
-        }
-
-        html[data-ui-theme="gallery"] .portrait-caption,
-        html[data-ui-theme="gallery"] .portrait-caption span,
-        html[data-ui-theme="gallery"] .portrait-caption .tool-strip {
-          text-align: center;
-        }
-
-        html[data-ui-theme="gallery"] .portrait-caption strong {
-          font-size: 40px;
-        }
-
-        html[data-ui-theme="gallery"] .section-heading {
-          justify-items: start;
-          text-align: left;
-        }
-
-        html[data-ui-theme="studio"] .hero-visual,
-        html[data-ui-theme="night"] .hero-visual {
-          grid-template-columns: 1fr;
-        }
-
-        html[data-ui-theme="studio"] .portrait-caption,
-        html[data-ui-theme="night"] .portrait-caption {
-          gap: 18px;
-          text-align: center;
-        }
-
-        html[data-ui-theme="studio"] .portrait-caption span,
-        html[data-ui-theme="studio"] .portrait-caption .tool-strip,
-        html[data-ui-theme="night"] .portrait-caption span,
-        html[data-ui-theme="night"] .portrait-caption .tool-strip {
-          text-align: center;
-        }
-
-        html[data-ui-theme="studio"] .indicator-tabs,
-        html[data-ui-theme="night"] .indicator-tabs {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        html[data-ui-theme="studio"] .indicator-tab:last-child,
-        html[data-ui-theme="night"] .indicator-tab:last-child {
-          grid-column: 1 / -1;
-        }
-      }
-
-      /* Final compact light/dark control: split disc. */
-      .header-tools {
-        gap: 6px;
-      }
-
-      .theme-mode-toggle {
-        width: 36px;
-        min-height: 36px;
-      }
-
-      .theme-mode-track {
-        width: 19px;
-        height: 19px;
-        background: linear-gradient(90deg, #171717 0 50%, #f5f5f1 50% 100%);
-        border: 1px solid #8f8f8a;
-        border-radius: 50%;
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
-        transition: border-color 180ms ease, transform 220ms ease;
-      }
-
-      .theme-mode-knob,
-      .theme-mode-track::before,
-      .theme-mode-track::after {
-        display: none;
-      }
-
-      html[data-ui-theme="night"] .theme-mode-track {
-        background: linear-gradient(90deg, #171717 0 50%, #f5f5f1 50% 100%);
-        border-color: #666662;
-        transform: rotate(180deg);
-      }
-
-      @media (max-width: 700px) {
-        .header-tools {
-          grid-template-columns: auto minmax(0, 1fr);
-          gap: 6px;
-        }
-
-        .theme-mode-toggle {
-          width: 36px;
-          min-height: 48px;
-        }
-      }
-    
-      /* ── Option 4: UI fixes (mostly mobile) ── */
-
-      /* "Journal · Free" header link was rendering browser-default blue. */
-      .funnel-header-duo a:not(:first-child) {
-        color: var(--ink);
-      }
-
-      html[data-ui-theme="night"] .funnel-header-duo a:not(:first-child) {
-        color: var(--body-text);
-      }
-
-      /* Screenshot viewer */
-      .indicator-screenshot {
-        cursor: zoom-in;
-      }
-
-      .shot-viewer {
-        width: 100vw;
-        max-width: 100vw;
-        height: 100dvh;
-        max-height: 100dvh;
-        margin: 0;
-        padding: 0;
-        color: #f2f2ef;
-        background: rgba(8, 8, 9, 0.96);
-        border: 0;
-      }
-
-      .shot-viewer::backdrop {
-        background: rgba(8, 8, 9, 0.9);
-      }
-
-      .shot-viewer-scroll {
-        height: calc(100dvh - 120px);
-        margin-top: 64px;
-        display: flex;
-        align-items: center;
-        overflow: auto;
-        overscroll-behavior: contain;
-      }
-
-      .shot-viewer-scroll img {
-        width: min(100%, 1600px);
-        height: auto;
-        margin: auto;
-        display: block;
-      }
-
-      .shot-viewer-bar {
-        position: absolute;
-        inset: 0 0 auto;
-        height: 64px;
-        padding: 0 12px 0 18px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        font-family: "DM Mono", monospace;
-        font-size: 11px;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
-
-      .shot-viewer-close {
-        width: 44px;
-        height: 44px;
-        color: inherit;
-        background: rgba(255, 255, 255, 0.1);
-        border: 0;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 22px;
-        line-height: 1;
-      }
-
-      .shot-viewer-hint {
-        position: absolute;
-        inset: auto 0 18px;
-        margin: 0;
-        color: #8d8d89;
-        font-family: "DM Mono", monospace;
-        font-size: 10px;
-        letter-spacing: 0.1em;
-        text-align: center;
-        text-transform: uppercase;
-      }
-
-      @media (max-width: 700px) {
-        /* Compact one-row header: brand left, theme + buy button right. */
-        html[data-ui-theme] .site-header {
-          top: 8px;
-          min-height: 58px;
-          padding: 8px 8px 8px 16px;
-          grid-template-columns: auto minmax(0, 1fr);
-          justify-items: stretch;
-          align-items: center;
-          gap: 8px;
-          border-radius: 16px;
-        }
-
-        html[data-ui-theme] .brand {
-          justify-self: start;
-          font-size: 22px;
-        }
-
-        html[data-ui-theme] .header-tools {
-          width: auto;
-          min-width: 0;
-          max-width: 100%;
-          display: flex;
-          justify-self: end;
-          gap: 6px;
-        }
-
-        html[data-ui-theme] .funnel-header-duo {
-          width: auto;
-          min-width: 0;
-          display: flex;
-        }
-
-        html[data-ui-theme] .funnel-header-duo a:not(:first-child) {
-          display: none;
-        }
-
-        html[data-ui-theme] .funnel-header-duo a {
-          width: auto;
-          min-height: 42px;
-          padding: 0 16px;
-          font-size: 12px;
-        }
-
-        @media (max-width: 400px) {
-          html[data-ui-theme] .funnel-header-duo {
-            flex: 0 1 auto;
-          }
-
-          html[data-ui-theme] .funnel-header-duo a {
-            min-width: 0;
-            padding: 0 12px;
-            gap: 6px;
-            font-size: 11px;
-            line-height: 1.15;
-            text-align: center;
-            white-space: normal;
-          }
-
-          html[data-ui-theme] .funnel-header-duo a .external-arrow {
-            display: none;
-          }
-        }
-
-        html[data-ui-theme] .theme-mode-toggle {
-          width: 42px;
-          min-height: 42px;
-        }
-
-        /* Tighter hero on phones. */
-        html[data-ui-theme] .hero {
-          padding: 44px 0 56px;
-          gap: 36px;
-        }
-
-        /* Indicator picker: one swipeable row instead of a 4-row grid. */
-        html[data-ui-theme] .indicator-tabs {
-          position: relative;
-          margin-inline: -14px;
-          padding: 6px 14px;
-          display: flex;
-          gap: 6px;
-          overflow-x: auto;
-          scroll-snap-type: x proximity;
-          scroll-padding-inline: 14px;
-          scrollbar-width: none;
-          background: transparent;
-          border: 0;
-          border-radius: 0;
-          box-shadow: none;
-          mask-image: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 28px), transparent);
-        }
-
-        html[data-ui-theme] .indicator-tabs::-webkit-scrollbar {
-          display: none;
-        }
-
-        html[data-ui-theme] .indicator-tab {
-          flex: none;
-          width: auto;
-          min-height: 44px;
-          padding: 0 14px;
-          grid-column: auto;
-          border: 1px solid var(--line);
-          border-radius: 999px;
-          white-space: nowrap;
-          scroll-snap-align: start;
-        }
-
-        html[data-ui-theme] .indicator-tab:last-child {
-          grid-column: auto;
-        }
-
-        html[data-ui-theme] .indicator-copy {
-          padding: 20px 20px 24px;
-        }
-
-        html[data-ui-theme] .indicator-copy h3 {
-          font-size: 36px;
-        }
-
-        .indicator-visual {
-          position: relative;
-        }
-
-        .indicator-visual::after {
-          content: "Tap to enlarge";
-          position: absolute;
-          right: 10px;
-          bottom: 10px;
-          padding: 6px 9px;
-          color: #fff;
-          background: rgba(10, 10, 10, 0.72);
-          border-radius: 999px;
-          font-family: "DM Mono", monospace;
-          font-size: 9.5px;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          pointer-events: none;
-        }
-
-        /* On a phone the viewer shows the chart tall enough to read; swipe to pan. */
-        .shot-viewer-scroll img {
-          width: auto;
-          max-width: none;
-          height: min(62dvh, 520px);
-        }
-
-        /* Decorative chat bubbles add height without information on phones. */
-        html[data-ui-theme] .discord-visual {
-          display: none;
-        }
-
-        html[data-ui-theme] .section-title {
-          font-size: clamp(46px, 13.5vw, 64px);
-        }
-      }
-      /* ── Monochrome base. Color only marks Discord (violet) and the journal (blue). ── */
-      :root {
-        --discord: #7C4DFF;
-        --discord-hover: #6A3BEB;
-        --journal: #0071E3;
-        --journal-hover: #0062C4;
-        --journal-ink: #ffffff;
-        --journal-soft: rgba(0, 113, 227, 0.08);
-      }
-
-      html[data-ui-theme="night"] {
-        --journal: #0A84FF;
-        --journal-hover: #3D9BFF;
-        --journal-ink: #ffffff;
-        --journal-soft: rgba(10, 132, 255, 0.14);
-      }
-
-      .promo-bar {
-        position: relative;
-        z-index: 21;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .promo-link {
-        min-height: 42px;
-        padding: 10px 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 9px;
-        color: #fff;
-        font-size: 13px;
-        font-weight: 600;
-        line-height: 1.3;
-        text-decoration: none;
-        transition: background-color 180ms ease;
-      }
-
-      .promo-link strong {
-        font-weight: 800;
-      }
-
-      .promo-link i {
-        font-size: 15px;
-      }
-
-      .promo-link .arrow-icon {
-        width: 11px;
-        height: 11px;
-      }
-
-      .promo-link--discord {
-        background: var(--discord);
-      }
-
-      .promo-link--discord:hover {
-        background: var(--discord-hover);
-      }
-
-      .promo-link--journal {
-        background: var(--journal);
-      }
-
-      .promo-link--journal:hover {
-        background: var(--journal-hover);
-      }
-
-      html[data-ui-theme] .button.button--discord,
-      html[data-ui-theme] .funnel-header-duo a.duo-discord {
-        color: #fff;
-        background: var(--discord);
-        border-color: var(--discord);
-      }
-
-      html[data-ui-theme] .button.button--discord:hover,
-      html[data-ui-theme] .funnel-header-duo a.duo-discord:hover {
-        color: #fff;
-        background: var(--discord-hover);
-        border-color: var(--discord-hover);
-        box-shadow: 0 10px 28px rgba(124, 77, 255, 0.28);
-      }
-
-      .button--discord .fa-discord,
-      .duo-discord .fa-discord {
-        font-size: 1.25em;
-      }
-
-      html[data-ui-theme] .funnel-header-duo a.duo-journal,
-      html[data-ui-theme] .funnel-header-duo a.duo-journal .external-arrow {
-        color: var(--journal);
-        border-color: var(--journal);
-      }
-
-      .nav-free--discord {
-        color: var(--discord);
-      }
-
-      .nav-free--journal {
-        color: var(--journal);
-      }
-
-      html[data-ui-theme] .bundle-badge {
-        color: #fff;
-        background: var(--discord);
-        border-color: var(--discord);
-      }
-
-      #discord .section-number {
-        color: var(--discord);
-      }
-
-      #journal .section-number,
-      #journal .status-pill {
-        color: var(--journal);
-      }
-
-      html[data-ui-theme] .journal-copy .button {
-        color: var(--journal-ink);
-        background: var(--journal);
-        border-color: var(--journal);
-      }
-
-      html[data-ui-theme] .journal-copy .button:hover {
-        color: var(--journal-ink);
-        background: var(--journal-hover);
-        border-color: var(--journal-hover);
-      }
-
-      html[data-ui-theme] #journal .feature-list li {
-        color: var(--journal);
-        background: var(--journal-soft);
-        border-color: transparent;
-      }
-
-      html[data-ui-theme] .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      html[data-ui-theme] .hero {
-        min-height: 0;
-      }
-
-      html[data-ui-theme] .hero-copy {
-        max-width: 860px;
-        margin-inline: auto;
-        text-align: center;
-      }
-
-      html[data-ui-theme] .hero .eyebrow,
-      html[data-ui-theme] .hero-actions,
-      html[data-ui-theme] .hero-socials {
-        justify-content: center;
-      }
-
-      html[data-ui-theme] .hero-lede {
-        margin-inline: auto;
-      }
-
-      html[data-ui-theme] .button.button--journal {
-        color: var(--journal);
-        background: transparent;
-        border-color: var(--journal);
-      }
-
-      html[data-ui-theme] .button.button--journal:hover {
-        color: var(--journal-ink);
-        background: var(--journal);
-        border-color: var(--journal);
-      }
-
-      #indicators .section-heading {
-        align-items: center;
-      }
-
-      #indicators .bundle-badge {
-        margin: 0;
-        justify-self: end;
-      }
-
-      @media (max-width: 700px) {
-        .promo-bar {
-          grid-template-columns: 1fr;
-        }
-
-        .promo-link {
-          min-height: 38px;
-          padding: 8px 16px;
-          font-size: 12px;
-        }
-
-        #indicators .section-heading {
-          gap: 16px;
-        }
-
-        #indicators .bundle-badge {
-          justify-self: start;
-        }
-
-        html[data-ui-theme] .hero .eyebrow {
-          font-size: 10px;
-          text-wrap: balance;
-        }
-
-        html[data-ui-theme] .hero .eyebrow::before {
-          display: none;
-        }
-
-        /* All nine indicators visible at once as compact pills: tap, no swiping. */
-        html[data-ui-theme] .indicator-tabs {
-          margin: 0 0 14px;
-          padding: 0;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 7px;
-          overflow: visible;
-          -webkit-mask-image: none;
-          mask-image: none;
-        }
-
-        html[data-ui-theme] .indicator-tab,
-        html[data-ui-theme] .indicator-tab:last-child {
-          flex: 0 0 auto;
-          width: auto;
-          min-height: 40px;
-          padding: 0 14px;
-          grid-column: auto;
-          justify-content: center;
-          border-radius: 999px;
-          font-size: 14px;
-          white-space: nowrap;
-        }
-
-        html[data-ui-theme] .indicator-tab-number {
-          display: none;
-        }
-      }
-      /* Production polish: quiet surfaces, clear hierarchy, product-first spacing. */
-      html[data-ui-theme="studio"] {
-        --canvas: #FAFAFA;
-        --canvas-soft: #F3F3F3;
-        --paper: #FFFFFF;
-        --surface: #FFFFFF;
-        --surface-strong: #FFFFFF;
-        --ink: #171717;
-        --muted: #737373;
-        --body-text: #606060;
-        --line: #E4E4E4;
-        --line-strong: #C8C8C8;
-      }
-      html[data-ui-theme="night"] {
-        --canvas: #101011;
-        --canvas-soft: #151516;
-        --paper: #1B1B1D;
-        --surface: #1B1B1D;
-        --surface-strong: #202022;
-        --ink: #F5F5F5;
-        --muted: #A3A3A8;
-        --body-text: #B6B6BC;
-        --line: #303034;
-        --line-strong: #505057;
-      }
-      html[data-ui-theme] body { background: var(--canvas); }
-      html[data-ui-theme] body::before,
-      html[data-ui-theme] .hero::before,
-      html[data-ui-theme] .indicators-section::before { display: none; }
-      .site-shell { width: min(1120px, calc(100% - 64px)); }
-      .promo-bar { background: var(--canvas-soft); border-bottom: 1px solid var(--line); }
-      .promo-link { min-height: 34px; padding: 8px 20px; font-size: 10px; font-weight: 500; color: var(--body-text); background: transparent; }
-      .promo-link strong { font-weight: 600; }
-      .promo-link i { font-size: 12px; }
-      .promo-link--discord { border-right: 1px solid var(--line); }
-      .promo-link--discord i { color: var(--discord); }
-      .promo-link--journal i { color: var(--journal); }
-      .promo-link:hover { background: var(--paper); }
-      html[data-ui-theme] .site-header {
-        position: relative; top: 0; width: min(1120px, calc(100% - 64px)); min-height: 82px;
-        margin: 0 auto; padding: 0; grid-template-columns: auto 1fr auto;
-        background: transparent; border: 0; border-bottom: 1px solid var(--line);
-        border-radius: 0; box-shadow: none; backdrop-filter: none;
-      }
-      html[data-ui-theme] .brand { font-family: "Manrope", sans-serif; font-size: 28px; font-weight: 800; letter-spacing: -1.4px; }
-      .header-nav { width: auto; gap: 26px; }
-      .header-nav a { font-size: 11px; font-weight: 600; letter-spacing: 0; }
-      .header-nav a::after { display: none; }
-      .nav-free { font-size: 7px; margin-left: 5px; }
-      html[data-ui-theme] .header-tools { gap: 17px; }
-      html[data-ui-theme] .funnel-header-duo { gap: 0; }
-      html[data-ui-theme] .funnel-header-duo a { min-height: 40px; padding: 0 15px; border-radius: 7px; font-size: 10px; font-weight: 600; }
-      html[data-ui-theme] .funnel-header-duo a.duo-journal { display: none; }
-      html[data-ui-theme] .funnel-header-duo a.duo-discord { background: var(--ink); border-color: var(--ink); color: var(--canvas); }
-      html[data-ui-theme] .funnel-header-duo a.duo-discord:hover { background: var(--discord); border-color: var(--discord); color: white; box-shadow: none; }
-      .theme-mode-toggle { min-width: 36px; min-height: 40px; padding: 6px; }
-      .theme-mode-track { width: 17px; height: 17px; }
-      html[data-ui-theme] .hero { padding: 66px 0 52px; min-height: 0; gap: 0; }
-      html[data-ui-theme] .hero-copy { max-width: 850px; }
-      html[data-ui-theme] .hero .eyebrow { margin: 0 0 23px; font-family: "Manrope", sans-serif; font-size: 10px; letter-spacing: 1.8px; color: var(--muted); }
-      html[data-ui-theme] .hero .eyebrow::before { display: none; }
-      html[data-ui-theme] .hero h1 {
-        max-width: 850px; margin: 0 auto; font-family: "Manrope", sans-serif;
-        font-size: clamp(48px, 6.4vw, 78px); font-weight: 800; line-height: 1.08; letter-spacing: -4.5px;
-      }
-      html[data-ui-theme] .hero h1 em { font-style: normal; font-weight: 500; color: var(--muted); text-decoration: none; text-decoration-thickness: 0; }
-      html[data-ui-theme] .hero h1 em::after { display: none; }
-      html[data-ui-theme] .hero-lede { max-width: 460px; margin-top: 24px; font-size: 15px; line-height: 1.8; }
-      .hero-actions { margin-top: 27px; gap: 10px; }
-      html[data-ui-theme] .button { min-height: 47px; padding: 0 19px; border-radius: 7px; font-size: 12px; font-weight: 600; box-shadow: none; }
-      html[data-ui-theme] .button:hover { box-shadow: none; }
-      html[data-ui-theme] .button.button--journal { border-color: var(--line); background: var(--paper); color: var(--ink); }
-      html[data-ui-theme] .button.button--journal:hover { border-color: var(--journal); color: var(--journal); }
-      .hero-socials { margin-top: 22px; gap: 14px; }
-      .hero-socials-label { font-size: 8px; letter-spacing: 1.5px; }
-      .hero-socials .social-link { width: 34px; height: 34px; font-size: 15px; }
-      .section { padding: 58px 0; scroll-margin-top: 24px; }
-      .section-heading { margin-bottom: 26px; gap: 24px; }
-      .section-number { font-size: 9px; letter-spacing: 1.3px; margin-bottom: 12px; color: var(--muted); }
-      html[data-ui-theme] .section-title { font-family: "Manrope", sans-serif; font-size: clamp(29px, 3.2vw, 39px); font-weight: 700; line-height: 1.2; letter-spacing: -1.5px; max-width: 740px; }
-      html[data-ui-theme] .indicators-section { padding: 48px 0; background: var(--canvas-soft); }
-      html[data-ui-theme] .bundle-badge { padding: 7px 10px; background: var(--paper); border-color: var(--line); color: var(--body-text); font-family: "Manrope", sans-serif; font-size: 10px; letter-spacing: 0; text-transform: none; border-radius: 6px; }
-      html[data-ui-theme] .indicator-browser { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 22px; }
-      html[data-ui-theme] .indicator-tabs { display: grid; grid-template-columns: 1fr; gap: 5px; padding: 0; background: transparent; border: 0; border-radius: 0; }
-      html[data-ui-theme] .indicator-tab { min-height: 42px; padding: 10px 13px; gap: 10px; border: 1px solid transparent; border-radius: 7px; background: transparent; color: var(--body-text); font-size: 11px; font-weight: 600; }
-      html[data-ui-theme] .indicator-tab:last-child { grid-column: auto; }
-      html[data-ui-theme] .indicator-tab-number { min-width: 20px; font-size: 9px; color: var(--muted); }
-      html[data-ui-theme] .indicator-tab:hover { background: var(--paper); border-color: var(--line); }
-      html[data-ui-theme] .indicator-tab[aria-selected="true"] { color: var(--canvas); background: var(--ink); border-color: var(--ink); box-shadow: none; }
-      html[data-ui-theme] .indicator-tab[aria-selected="true"] .indicator-tab-number { color: inherit; opacity: .55; }
-      html[data-ui-theme] .indicator-card { grid-template-columns: 1fr; border-color: var(--line); background: var(--paper); border-radius: 12px; box-shadow: 0 8px 28px rgb(0 0 0 / 3%); }
-      html[data-ui-theme] .indicator-card:hover { transform: none; border-color: var(--line-strong); }
-      .indicator-visual { border: 0; border-bottom: 1px solid var(--line); }
-      html[data-ui-theme] .indicator-copy { padding: 22px 25px; display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto auto; column-gap: 24px; }
-      .indicator-copy .product-meta { grid-column: 1; font-size: 8px; }
-      html[data-ui-theme] .indicator-copy h3 { grid-column: 1; font-family: "Manrope", sans-serif; font-size: 23px; font-weight: 700; line-height: 1.3; letter-spacing: -.7px; margin: 8px 0; }
-      .indicator-copy p { grid-column: 1; font-size: 12px; line-height: 1.7; max-width: 530px; }
-      .indicator-copy > .button { grid-column: 2; grid-row: 1 / 4; align-self: center; margin: 0; font-size: 10px; min-height: 39px; white-space: nowrap; }
-      html[data-ui-theme="night"] .indicator-copy > .button { background: var(--ink); color: var(--canvas); border-color: var(--ink); }
-      html[data-ui-theme] .funnel-section-banner { margin-top: 20px; padding: 15px 0 0; border: 0; border-top: 1px solid var(--line); background: transparent; border-radius: 0; box-shadow: none; color: var(--body-text); }
-      .funnel-section-banner p { font-size: 11px; }
-      .funnel-section-banner p strong { display: inline; margin-right: 5px; font: 700 11px "Manrope", sans-serif; letter-spacing: 0; }
-      html[data-ui-theme] #discord .section-title { font-size: clamp(29px, 3.2vw, 39px); line-height: 1.2; max-width: 750px; }
-      html[data-ui-theme] .funnel-section-banner .button { min-height: 36px; padding: 0 12px; font-size: 10px; }
-      html[data-ui-theme] .journal-card { border: 1px solid var(--line); border-radius: 12px; box-shadow: none; grid-template-columns: .8fr 1.2fr; background: var(--paper); }
-      html[data-ui-theme] .journal-copy { padding: 34px; background: var(--paper); }
-      html[data-ui-theme] .journal-copy h3 { font-family: "Manrope", sans-serif; font-size: 29px; line-height: 1.2; letter-spacing: -1px; font-weight: 700; margin: 18px 0 12px; }
-      .journal-copy > p { font-size: 13px; line-height: 1.7; }
-      .feature-list { margin: 22px 0; gap: 6px; }
-      html[data-ui-theme] #journal .feature-list li { font-family: "Manrope", sans-serif; font-size: 10px; letter-spacing: 0; text-transform: none; border-radius: 4px; padding: 6px 9px; background: var(--canvas-soft); color: var(--body-text); }
-      .journal-image { min-height: 340px; }
-      html[data-ui-theme] .community-card { padding: 32px; border: 1px solid var(--line); border-radius: 12px; box-shadow: none; background: var(--paper); grid-template-columns: 1fr; min-height: 0; }
-      html[data-ui-theme] .community-card:hover { transform: none; box-shadow: none; }
-      .community-content { display: grid; grid-template-columns: 1fr auto; column-gap: 42px; }
-      .community-brandline { grid-column: 1; gap: 10px; }
-      .discord-icon { width: 31px; height: 31px; border-radius: 7px; box-shadow: none; }
-      .discord-icon i { font-size: 17px; }
-      .community-content h3 { grid-column: 1; font-family: "Manrope", sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -1px; line-height: 1.2; margin: 18px 0 10px; }
-      .community-content > p { grid-column: 1; font-size: 13px; line-height: 1.8; max-width: 550px; }
-      .access-steps { grid-column: 1; display: flex; flex-wrap: wrap; gap: 15px; margin: 18px 0 0; }
-      .access-steps li { font-size: 10px; }
-      .community-content > .button { grid-column: 2; grid-row: 1 / 5; align-self: center; margin-top: 0; }
-      html[data-ui-theme] .discord-visual { display: none; }
-      .site-footer { margin-top: 0; padding: 26px 0; border-top: 1px solid var(--line); }
-      .footer-brand { font-family: "Manrope", sans-serif; font-size: 23px; font-weight: 800; letter-spacing: -1px; }
-      .footer-note { font-size: 9px; }
-      @media (max-width: 1000px) {
-        .header-nav { gap: 16px; }
-        .nav-free { display: none; }
-        html[data-ui-theme] .indicator-browser { grid-template-columns: 160px minmax(0, 1fr); gap: 15px; }
-        html[data-ui-theme] .indicator-copy { grid-template-columns: 1fr; }
-        .indicator-copy > .button { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 15px; }
-      }
-      @media (max-width: 700px) {
-        .site-shell { width: calc(100% - 36px); }
-        .promo-bar { grid-template-columns: 1fr; }
-        .promo-link { min-height: 30px; padding: 7px 10px; font-size: 9px; gap: 7px; }
-        .promo-link--discord { border-right: 0; }
-        .promo-link--journal { display: none; }
-        html[data-ui-theme] .site-header { width: calc(100% - 36px); min-height: 68px; grid-template-columns: 1fr auto; gap: 10px; }
-        html[data-ui-theme] .brand { font-size: 25px; }
-        .header-nav { display: none; }
-        html[data-ui-theme] .header-tools { gap: 10px; }
-        html[data-ui-theme] .funnel-header-duo { display: flex; }
-        html[data-ui-theme] .funnel-header-duo a { min-height: 35px; padding: 0 11px; font-size: 9px; gap: 6px; }
-        .duo-discord .fa-discord { font-size: 12px; }
-        html[data-ui-theme] .theme-mode-toggle { min-width: 32px; }
-        html[data-ui-theme] .hero { padding: 40px 0 32px; }
-        html[data-ui-theme] .hero .eyebrow { font-size: 8px; letter-spacing: 1px; margin-bottom: 17px; }
-        html[data-ui-theme] .hero h1 { font-size: clamp(39px, 10.5vw, 60px); line-height: 1.12; letter-spacing: -2.1px; max-width: 490px; text-wrap: balance; }
-        html[data-ui-theme] .hero-lede { font-size: 13px; max-width: 320px; line-height: 1.75; margin-top: 18px; }
-        .hero-actions { margin-top: 23px; display: grid; grid-template-columns: 1fr; gap: 9px; }
-        html[data-ui-theme] .hero-actions .button { min-height: 45px; width: 100%; font-size: 12px; }
-        .hero-socials { margin-top: 16px; gap: 14px; }
-        .section { padding: 34px 0; }
-        html[data-ui-theme] .section-title, html[data-ui-theme] #discord .section-title { font-size: 27px; line-height: 1.22; letter-spacing: -1px; }
-        .section-number { font-size: 8px; margin-bottom: 10px; }
-        .section-heading { margin-bottom: 20px; grid-template-columns: 1fr; gap: 12px; }
-        html[data-ui-theme] .indicators-section { padding: 29px 0 30px; }
-        #indicators .section-heading { gap: 12px; }
-        html[data-ui-theme] .bundle-badge { font-size: 9px; padding: 5px 8px; }
-        html[data-ui-theme] .indicator-browser { grid-template-columns: 1fr; gap: 0; }
-        html[data-ui-theme] .indicator-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 0 0 16px; overflow: visible; }
-        html[data-ui-theme] .indicator-tab, html[data-ui-theme] .indicator-tab:last-child { width: auto; min-height: 38px; padding: 8px; font-size: 10px; justify-content: center; gap: 5px; border-color: var(--line); background: var(--paper); }
-        html[data-ui-theme] .indicator-tab-number { min-width: 0; font-size: 7px; }
-        html[data-ui-theme] .indicator-tab[aria-selected="true"] { background: var(--ink); color: var(--canvas); border-color: var(--ink); }
-        html[data-ui-theme] .indicator-copy { padding: 18px; column-gap: 0; }
-        html[data-ui-theme] .indicator-copy h3 { font-size: 20px; margin: 7px 0; }
-        .indicator-copy p { font-size: 12px; }
-        .indicator-copy > .button { min-height: 39px; width: 100%; }
-        html[data-ui-theme] .funnel-section-banner { gap: 12px; }
-        .funnel-section-banner p { font-size: 10px; line-height: 1.6; }
-        html[data-ui-theme] .journal-card { grid-template-columns: 1fr; }
-        html[data-ui-theme] .journal-copy { padding: 23px; }
-        html[data-ui-theme] .journal-copy h3 { font-size: 24px; margin-top: 15px; }
-        .journal-copy .button { width: 100%; }
-        .journal-image { min-height: 0; aspect-ratio: 3840 / 2215; }
-        html[data-ui-theme] .community-card { padding: 23px; }
-        .community-content { display: flex; gap: 0; }
-        .community-content h3 { font-size: 24px; }
-        .access-steps { gap: 10px; flex-direction: column; margin: 16px 0 20px; }
-        .community-content > .button { width: 100%; }
-        .site-footer { padding: 22px 0; }
-        .footer-inner { gap: 14px; padding-block: 0; min-height: 0; }
       }
     </style>
   </head>
-
   <body id="top">
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <div class="ui-switcher" data-ui-switcher hidden>
-      <div class="ui-switcher-panel" id="ui-theme-panel" data-ui-theme-panel hidden>
+      <div
+        class="ui-switcher-panel"
+        id="ui-theme-panel"
+        data-ui-theme-panel
+        hidden
+      >
         <p class="ui-switcher-heading">
           <span>Compare UI</span>
           <span>01—05</span>
         </p>
         <div class="ui-theme-options" aria-label="Choose a website design">
-          <button class="ui-theme-option" type="button" data-ui-theme-option="graphite">
+          <button
+            class="ui-theme-option"
+            type="button"
+            data-ui-theme-option="graphite"
+          >
             <span>01</span> Graphite
           </button>
-          <button class="ui-theme-option" type="button" data-ui-theme-option="obsidian">
+          <button
+            class="ui-theme-option"
+            type="button"
+            data-ui-theme-option="obsidian"
+          >
             <span>02</span> Obsidian
           </button>
-          <button class="ui-theme-option" type="button" data-ui-theme-option="editorial">
+          <button
+            class="ui-theme-option"
+            type="button"
+            data-ui-theme-option="editorial"
+          >
             <span>03</span> Editorial
           </button>
-          <button class="ui-theme-option" type="button" data-ui-theme-option="studio">
+          <button
+            class="ui-theme-option"
+            type="button"
+            data-ui-theme-option="studio"
+          >
             <span>04</span> Studio Edit
           </button>
-          <button class="ui-theme-option" type="button" data-ui-theme-option="night">
+          <button
+            class="ui-theme-option"
+            type="button"
+            data-ui-theme-option="night"
+          >
             <span>05</span> Night Edit
           </button>
         </div>
@@ -4230,39 +1527,28 @@
       </button>
     </div>
 
-    <div class="promo-bar" aria-label="Free Bandz links">
+    <div class="announcement">
       <a
-        class="promo-link promo-link--discord"
         href="https://discord.gg/XdWaEBXQ6G"
         target="_blank"
         rel="noopener noreferrer"
-      >
-        <i class="fa-brands fa-discord" aria-hidden="true"></i>
-        <span><strong>9 free, open-source indicators</strong> in the free Discord</span>
-        <svg class="arrow-icon external-arrow" aria-hidden="true" viewBox="0 0 16 16" focusable="false">
-          <path d="M5 11 11 5M6.5 5H11v4.5"></path>
-        </svg>
-      </a>
-      <a
-        class="promo-link promo-link--journal"
-        href="https://bandzjournal.vercel.app/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i class="fa-solid fa-book-open" aria-hidden="true"></i>
-        <span><strong>Free trading journal</strong></span>
-        <svg class="arrow-icon external-arrow" aria-hidden="true" viewBox="0 0 16 16" focusable="false">
-          <path d="M5 11 11 5M6.5 5H11v4.5"></path>
-        </svg>
-      </a>
+        ><span>OPEN SOURCE. OPEN ACCESS.</span> All nine indicators are free.
+        <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M5 11 11 5M6.5 5H11v4.5" /></svg
+      ></a>
     </div>
-
     <header class="site-header" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="Bandz home">Bandz</a>
       <nav class="header-nav" aria-label="Store sections">
-        <a href="#indicators">Indicators <em class="nav-free nav-free--discord">Free</em></a>
-        <a href="#journal">Trading Journal <em class="nav-free nav-free--journal">Free</em></a>
-        <a href="#discord">Discord <em class="nav-free nav-free--discord">Free</em></a>
+        <a href="#indicators"
+          >Indicators <em class="nav-free nav-free--discord">Free</em></a
+        >
+        <a href="#journal"
+          >Trading Journal <em class="nav-free nav-free--journal">Free</em></a
+        >
+        <a href="#discord"
+          >Discord <em class="nav-free nav-free--discord">Free</em></a
+        >
       </nav>
       <div class="header-tools">
         <button
@@ -4278,89 +1564,71 @@
           <span data-theme-mode-label>Light</span>
         </button>
         <div class="funnel-header-duo" aria-label="Bandz product links">
-        <a
-          class="duo-discord"
-          href="https://discord.gg/XdWaEBXQ6G"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i class="fa-brands fa-discord" aria-hidden="true"></i>
-          Free Indicators in Discord
-          <svg
-            class="arrow-icon external-arrow"
-            aria-hidden="true"
-            viewBox="0 0 16 16"
-            focusable="false"
+          <a
+            class="duo-discord"
+            href="https://discord.gg/XdWaEBXQ6G"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <path d="M5 11 11 5M6.5 5H11v4.5"></path>
-          </svg>
-        </a>
-        <a
-          class="duo-journal"
-          href="https://bandzjournal.vercel.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Journal · Free
-          <svg
-            class="arrow-icon external-arrow"
-            aria-hidden="true"
-            viewBox="0 0 16 16"
-            focusable="false"
+            <i class="fa-brands fa-discord" aria-hidden="true"></i>
+            Join Discord
+            <svg
+              class="arrow-icon external-arrow"
+              aria-hidden="true"
+              viewBox="0 0 16 16"
+              focusable="false"
+            >
+              <path d="M5 11 11 5M6.5 5H11v4.5"></path>
+            </svg>
+          </a>
+          <a
+            class="duo-journal"
+            href="https://bandzjournal.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <path d="M5 11 11 5M6.5 5H11v4.5"></path>
-          </svg>
-        </a>
+            Journal · Free
+            <svg
+              class="arrow-icon external-arrow"
+              aria-hidden="true"
+              viewBox="0 0 16 16"
+              focusable="false"
+            >
+              <path d="M5 11 11 5M6.5 5H11v4.5"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </header>
 
     <main id="main-content">
       <section class="hero site-shell" aria-labelledby="hero-title">
-        <svg class="market-decoration market-decoration--hero" viewBox="0 0 900 300" aria-hidden="true">
-          <path d="M0 235 L92 214 L158 247 L248 157 L330 178 L425 95 L510 128 L602 56 L690 101 L782 42 L900 68" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" />
-        </svg>
-        <div class="hero-copy reveal-stagger">
-          <p class="eyebrow">FREE INDICATORS · LIVESTREAMS · FREE JOURNAL</p>
-          <h1 id="hero-title">Live trading. Free <em>tools.</em></h1>
+        <div class="hero-copy">
+          <p class="eyebrow">Built for traders. Open to everyone.</p>
+          <h1 id="hero-title">
+            A clearer view.<br /><span>A better process.</span>
+          </h1>
           <p class="hero-lede">
-            Live streams, a trading community, free indicators, and a free journal.
+            Tools for the chart. Perspective from the community. A place to
+            review it all.<br />This is the Bandz trading workspace.
           </p>
           <div class="hero-actions">
-            <a
-              class="button button--primary button--discord"
+            <a class="button button--primary" href="#indicators"
+              >Explore the indicators
+              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M5 11 11 5M6.5 5H11v4.5" /></svg></a
+            ><a
+              class="button"
               href="https://discord.gg/XdWaEBXQ6G"
               target="_blank"
               rel="noopener noreferrer"
-            >
-              <i class="fa-brands fa-discord" aria-hidden="true"></i>
-              Get the indicators in Discord
-              <svg
-                class="button-arrow arrow-icon external-arrow"
-                aria-hidden="true"
-                viewBox="0 0 16 16"
-                focusable="false"
-              >
-                <path d="M5 11 11 5M6.5 5H11v4.5"></path>
-              </svg>
-            </a>
-            <a
-              class="button button--secondary button--journal"
-              href="https://bandzjournal.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Open the free journal
-              <svg
-                class="button-arrow arrow-icon external-arrow"
-                aria-hidden="true"
-                viewBox="0 0 16 16"
-                focusable="false"
-              >
-                <path d="M5 11 11 5M6.5 5H11v4.5"></path>
-              </svg>
-            </a>
+              ><i class="fa-brands fa-discord" aria-hidden="true"></i> Join
+              Discord
+              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M5 11 11 5M6.5 5H11v4.5" /></svg
+            ></a>
           </div>
+          <p class="hero-footnote">9 OPEN-SOURCE INDICATORS. ALL FREE.</p>
           <nav class="hero-socials" aria-label="Bandz social media quick links">
             <span class="hero-socials-label" aria-hidden="true">Follow</span>
             <a
@@ -4407,19 +1675,99 @@
             </a>
           </nav>
         </div>
-
+        <div class="hero-workspace">
+          <div class="workspace-shell">
+            <div class="workspace-header">
+              <strong>Bandz / Intraday</strong
+              ><span class="window-dots" aria-hidden="true"
+                ><i></i><i></i><i></i
+              ></span>
+            </div>
+            <img
+              class="workspace-image"
+              src="assets/indicators/bandz-intraday-1m.png"
+              width="3840"
+              height="2063"
+              alt="Bandz Intraday chart preview with market structure and price levels"
+              fetchpriority="high"
+            />
+            <div class="workspace-footer">
+              <span>BUILT FOR TRADINGVIEW</span
+              ><span>THE INTRADAY TOOLKIT</span>
+            </div>
+          </div>
+          <div class="workspace-note">
+            <b>09</b
+            ><span
+              >Indicators. Zero paywalls.<small
+                >Open source. Yours to explore.</small
+              ></span
+            >
+          </div>
+          <span class="workspace-caption">ACTUAL INDICATOR PREVIEW</span>
+        </div>
       </section>
-
-      <section class="section indicators-section" id="indicators" aria-labelledby="indicators-title">
-        <svg class="market-decoration market-decoration--indicators" viewBox="0 0 1000 380" aria-hidden="true">
-          <path d="M0 300 L105 282 L186 320 L275 222 L362 249 L455 152 L548 193 L648 102 L742 137 L840 58 L1000 92" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" />
-          <path d="M0 348 L120 330 L206 351 L300 285 L402 302 L498 234 L606 255 L704 192 L820 215 L910 164 L1000 177" fill="none" stroke="currentColor" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+      <nav
+        class="resource-index site-shell"
+        aria-label="Explore Bandz resources"
+      >
+        <a class="resource-link" href="#indicators"
+          ><span>01</span>
+          <div>
+            <strong>Read the chart</strong><small>Nine free indicators</small>
+          </div>
+          <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M5 11 11 5M6.5 5H11v4.5" /></svg></a
+        ><a class="resource-link" href="#journal"
+          ><span>02</span>
+          <div>
+            <strong>Review your trades</strong
+            ><small>Your free trading journal</small>
+          </div>
+          <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M5 11 11 5M6.5 5H11v4.5" /></svg></a
+        ><a class="resource-link" href="#discord"
+          ><span>03</span>
+          <div>
+            <strong>Trade together</strong
+            ><small>Live streams &amp; community</small>
+          </div>
+          <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M5 11 11 5M6.5 5H11v4.5" /></svg
+        ></a>
+      </nav>
+      <section
+        class="section indicators-section"
+        id="indicators"
+        aria-labelledby="indicators-title"
+      >
+        <svg
+          class="market-decoration market-decoration--indicators"
+          viewBox="0 0 1000 380"
+          aria-hidden="true"
+        >
+          <path
+            d="M0 300 L105 282 L186 320 L275 222 L362 249 L455 152 L548 193 L648 102 L742 137 L840 58 L1000 92"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            vector-effect="non-scaling-stroke"
+          />
+          <path
+            d="M0 348 L120 330 L206 351 L300 285 L402 302 L498 234 L606 255 L704 192 L820 215 L910 164 L1000 177"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            vector-effect="non-scaling-stroke"
+          />
         </svg>
         <div class="site-shell">
           <header class="section-heading reveal-stagger">
             <div>
-              <span class="section-number">01 · Indicators</span>
-              <h2 class="section-title" id="indicators-title">Nine free indicators.</h2>
+              <span class="section-number">01 / The indicator collection</span>
+              <h2 class="section-title" id="indicators-title">
+                Your chart. Your toolkit.
+              </h2>
             </div>
             <div>
               <p class="bundle-badge">Free &amp; open source</p>
@@ -4427,7 +1775,11 @@
           </header>
 
           <div class="indicator-browser reveal">
-            <div class="indicator-tabs" role="tablist" aria-label="Choose an indicator">
+            <div
+              class="indicator-tabs"
+              role="tablist"
+              aria-label="Choose an indicator"
+            >
               <button
                 class="indicator-tab"
                 type="button"
@@ -4572,12 +1924,16 @@
                   </div>
                   <h3 data-indicator-heading>Bandz Intraday</h3>
                   <p data-indicator-benefit>
-                    Maps ICT macro windows and first-presented FVGs with volume-imbalance and
-                    calendar context.
+                    Maps ICT macro windows and first-presented FVGs with
+                    volume-imbalance and calendar context.
                   </p>
-                  <a class="button button--primary"
+                  <a
+                    class="button button--primary"
                     href="https://www.tradingview.com/script/I5ttNn7Z-Bandz-Intraday-Open-Source/"
-                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in TradingView</a
+                  >
                 </div>
               </article>
 
@@ -4607,12 +1963,16 @@
                   </div>
                   <h3 data-indicator-heading>Bandz Sessions</h3>
                   <p data-indicator-benefit>
-                    Tracks ICT killzones, session liquidity, opening ranges, and Opening RTH Gap
-                    projections.
+                    Tracks ICT killzones, session liquidity, opening ranges, and
+                    Opening RTH Gap projections.
                   </p>
-                  <a class="button button--primary"
+                  <a
+                    class="button button--primary"
                     href="https://www.tradingview.com/script/U8kMOoTV-Bandz-Sessions-Open-Source/"
-                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in TradingView</a
+                  >
                 </div>
               </article>
 
@@ -4642,12 +2002,16 @@
                   </div>
                   <h3 data-indicator-heading>Bandz SMT</h3>
                   <p data-indicator-benefit>
-                    Scans multi-timeframe SMT divergence while filtering redundant lower-timeframe
-                    signals.
+                    Scans multi-timeframe SMT divergence while filtering
+                    redundant lower-timeframe signals.
                   </p>
-                  <a class="button button--primary"
+                  <a
+                    class="button button--primary"
                     href="https://www.tradingview.com/script/rznhXs1f-Bandz-SMT-Open-Source/"
-                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in TradingView</a
+                  >
                 </div>
               </article>
 
@@ -4677,12 +2041,16 @@
                   </div>
                   <h3 data-indicator-heading>Bandz HTF</h3>
                   <p data-indicator-benefit>
-                    Displays higher-timeframe candles with PSP, SMT, T-Spots, CISD, FVGs, and
-                    sweeps.
+                    Displays higher-timeframe candles with PSP, SMT, T-Spots,
+                    CISD, FVGs, and sweeps.
                   </p>
-                  <a class="button button--primary"
+                  <a
+                    class="button button--primary"
                     href="https://www.tradingview.com/script/o5YEAyX5-Bandz-HTF-Open-Source/"
-                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in TradingView</a
+                  >
                 </div>
               </article>
 
@@ -4712,11 +2080,16 @@
                   </div>
                   <h3 data-indicator-heading>Bandz Levels</h3>
                   <p data-indicator-benefit>
-                    Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.
+                    Maps NWOG, NDOG, HTF levels, scheduled opens, dealing
+                    ranges, and ADR targets.
                   </p>
-                  <a class="button button--primary"
+                  <a
+                    class="button button--primary"
                     href="https://www.tradingview.com/script/ARHLM4iy-Bandz-Levels-Open-Source/"
-                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in TradingView</a
+                  >
                 </div>
               </article>
 
@@ -4746,12 +2119,17 @@
                   </div>
                   <h3 data-indicator-heading>Bandz STDV Flow</h3>
                   <p data-indicator-benefit>
-                    Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing
-                    confirmation, then projects standard-deviation objectives from the setup anchors.
+                    Tracks higher-timeframe liquidity sweeps through CISD and
+                    opposing-swing confirmation, then projects
+                    standard-deviation objectives from the setup anchors.
                   </p>
-                  <a class="button button--primary"
+                  <a
+                    class="button button--primary"
                     href="https://www.tradingview.com/script/y8wBff4r-Bandz-STDV-Flow-Open-Source/"
-                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in TradingView</a
+                  >
                 </div>
               </article>
 
@@ -4781,12 +2159,17 @@
                   </div>
                   <h3 data-indicator-heading>Bandz All-in-One</h3>
                   <p data-indicator-benefit>
-                    Combines five core Bandz workflows into one streamlined script for a cleaner
-                    single-chart workflow. Bandz Levels and alerts are not included.
+                    Combines five core Bandz workflows into one streamlined
+                    script for a cleaner single-chart workflow. Bandz Levels and
+                    alerts are not included.
                   </p>
-                  <a class="button button--primary"
+                  <a
+                    class="button button--primary"
                     href="https://www.tradingview.com/script/CedxWd5T-Bandz-All-in-One-Open-Source/"
-                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in TradingView</a
+                  >
                 </div>
               </article>
 
@@ -4816,12 +2199,17 @@
                   </div>
                   <h3 data-indicator-heading>Bandz HTF Statistical Zones</h3>
                   <p data-indicator-benefit>
-                    Daily percentile zones from the 18:00 New York open, session zones, opening
-                    ranges, and historical price targets for NQ, ES, YM, and GC.
+                    Daily percentile zones from the 18:00 New York open, session
+                    zones, opening ranges, and historical price targets for NQ,
+                    ES, YM, and GC.
                   </p>
-                  <a class="button button--primary"
+                  <a
+                    class="button button--primary"
                     href="https://www.tradingview.com/script/r6gH5G4q-Bandz-HTF-Statistical-Zones-Open-Source/"
-                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in TradingView</a
+                  >
                 </div>
               </article>
 
@@ -4849,12 +2237,16 @@
                   <div class="product-meta"><span>09 / 09</span></div>
                   <h3 data-indicator-heading>Bandz Po3 Profiler</h3>
                   <p data-indicator-benefit>
-                    Pairs C1-C4 sequences and T-Spots with HTF candles, CISD, STDV,
-                    SMT / SSMT, PSP, and entry FVGs.
+                    Pairs C1-C4 sequences and T-Spots with HTF candles, CISD,
+                    STDV, SMT / SSMT, PSP, and entry FVGs.
                   </p>
-                  <a class="button button--primary"
+                  <a
+                    class="button button--primary"
                     href="https://www.tradingview.com/script/i0RzxXU7-Bandz-Po3-Profiler/"
-                    target="_blank" rel="noopener noreferrer">Open in TradingView</a>
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Open in TradingView</a
+                  >
                 </div>
               </article>
             </div>
@@ -4864,7 +2256,10 @@
             class="funnel-section-banner funnel-section-banner--indicators"
             aria-label="Indicator access link"
           >
-            <p><strong>Want all nine?</strong> Free and open source in the Discord.</p>
+            <p>
+              <strong>Want all nine?</strong> Free and open source in the
+              Discord.
+            </p>
             <a
               class="button button--discord"
               href="https://discord.gg/XdWaEBXQ6G"
@@ -4883,15 +2278,20 @@
               </svg>
             </a>
           </aside>
-
         </div>
       </section>
 
-      <section class="section site-shell" id="journal" aria-labelledby="journal-title">
+      <section
+        class="section site-shell journal-stage"
+        id="journal"
+        aria-labelledby="journal-title"
+      >
         <header class="section-heading reveal-stagger">
           <div>
-            <span class="section-number">02 · Trading Journal</span>
-            <h2 class="section-title" id="journal-title">Review the process, not just the P&amp;L.</h2>
+            <span class="section-number">02 / Beyond the chart</span>
+            <h2 class="section-title" id="journal-title">
+              Every trade tells a story.<br />Start keeping track.
+            </h2>
           </div>
         </header>
 
@@ -4939,15 +2339,25 @@
         </article>
       </section>
 
-      <section class="section site-shell" id="discord" aria-labelledby="community-title">
-        <header class="section-heading reveal-stagger">
-          <div>
-            <span class="section-number">03 · Discord</span>
-            <h2 class="section-title" id="community-title">Trade live with us in the free Discord.</h2>
+      <section
+        class="section site-shell community-section"
+        id="discord"
+        aria-labelledby="community-title"
+      >
+        <div class="community-layout">
+          <div class="community-intro">
+            <span class="section-number">03 / Better with company</span>
+            <h2 class="section-title" id="community-title">
+              Trading is individual.<br />Learning doesn’t<br />have to be.
+            </h2>
+            <p>
+              Join the live streams. Talk through a setup. Ask the question
+              you’ve been sitting on. There’s a place for that here.
+            </p>
+            <p class="community-social-note">
+              THE BANDZ COMMUNITY / ON DISCORD
+            </p>
           </div>
-        </header>
-
-        <div class="community-grid">
           <article class="community-card reveal">
             <div class="community-content">
               <div class="community-brandline">
@@ -4957,7 +2367,10 @@
                 <span class="community-status">Free to join</span>
               </div>
               <h3>Free Discord</h3>
-              <p>Watch live trading streams, ask questions in real time, and get all nine indicators.</p>
+              <p>
+                Watch live trading streams, ask questions in real time, and get
+                all nine indicators.
+              </p>
               <ol class="access-steps" aria-label="How to get the indicators">
                 <li><span>01</span> Join the free Discord</li>
                 <li><span>02</span> Catch the live trading streams</li>
@@ -4992,8 +2405,17 @@
           </article>
         </div>
       </section>
+      <div class="closing-line site-shell">
+        <p>
+          <strong>Build your process.</strong> Keep the tools. Make them yours.
+        </p>
+        <a href="#indicators"
+          >Explore the collection
+          <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M5 11 11 5M6.5 5H11v4.5" /></svg
+        ></a>
+      </div>
     </main>
-
     <footer class="site-footer">
       <div class="footer-inner site-shell">
         <p class="footer-brand">Bandz</p>
@@ -5058,7 +2480,9 @@
         const toggle = document.querySelector("[data-ui-switcher-toggle]");
         const panel = document.querySelector("[data-ui-theme-panel]");
         const label = document.querySelector("[data-ui-current-label]");
-        const options = Array.from(document.querySelectorAll("[data-ui-theme-option]"));
+        const options = Array.from(
+          document.querySelectorAll("[data-ui-theme-option]"),
+        );
         const themeColor = document.querySelector('meta[name="theme-color"]');
 
         if (!switcher || !toggle || !panel || !label) return;
@@ -5076,7 +2500,10 @@
           if (themeColor) themeColor.content = uiThemes[theme].color;
 
           options.forEach((option) => {
-            option.setAttribute("aria-pressed", String(option.dataset.uiThemeOption === theme));
+            option.setAttribute(
+              "aria-pressed",
+              String(option.dataset.uiThemeOption === theme),
+            );
           });
 
           if (persist) {
@@ -5111,7 +2538,10 @@
           }
         });
 
-        applyUiTheme(document.documentElement.dataset.uiTheme || "studio", false);
+        applyUiTheme(
+          document.documentElement.dataset.uiTheme || "studio",
+          false,
+        );
       })();
     </script>
 
@@ -5125,15 +2555,23 @@
 
         function applyMode(theme, persist = true) {
           const isDark = theme === "night";
-          document.documentElement.dataset.uiTheme = isDark ? "night" : "studio";
+          document.documentElement.dataset.uiTheme = isDark
+            ? "night"
+            : "studio";
           modeToggle.setAttribute("aria-pressed", String(isDark));
-          modeToggle.setAttribute("aria-label", `Switch to ${isDark ? "light" : "dark"} mode`);
+          modeToggle.setAttribute(
+            "aria-label",
+            `Switch to ${isDark ? "light" : "dark"} mode`,
+          );
           modeLabel.textContent = isDark ? "Dark" : "Light";
           if (themeColor) themeColor.content = isDark ? "#0B0B0C" : "#F1F1EE";
 
           if (persist) {
             try {
-              window.localStorage.setItem("bandz-ui-theme", isDark ? "night" : "studio");
+              window.localStorage.setItem(
+                "bandz-ui-theme",
+                isDark ? "night" : "studio",
+              );
             } catch {
               // The mode toggle remains functional when storage is disabled.
             }
@@ -5141,17 +2579,32 @@
         }
 
         modeToggle.addEventListener("click", () => {
-          applyMode(document.documentElement.dataset.uiTheme === "night" ? "studio" : "night");
+          applyMode(
+            document.documentElement.dataset.uiTheme === "night"
+              ? "studio"
+              : "night",
+          );
         });
 
         applyMode(document.documentElement.dataset.uiTheme, false);
       })();
     </script>
 
-    <dialog class="shot-viewer" data-shot-viewer aria-label="Indicator screenshot">
+    <dialog
+      class="shot-viewer"
+      data-shot-viewer
+      aria-label="Indicator screenshot"
+    >
       <div class="shot-viewer-bar">
         <span data-shot-title></span>
-        <button class="shot-viewer-close" type="button" data-shot-close aria-label="Close screenshot">&times;</button>
+        <button
+          class="shot-viewer-close"
+          type="button"
+          data-shot-close
+          aria-label="Close screenshot"
+        >
+          &times;
+        </button>
       </div>
       <div class="shot-viewer-scroll"><img alt="" data-shot-img /></div>
       <p class="shot-viewer-hint">Swipe to pan · pinch to zoom</p>
@@ -5174,17 +2627,30 @@
         const viewerImg = viewer.querySelector("[data-shot-img]");
         const viewerTitle = viewer.querySelector("[data-shot-title]");
         document.querySelectorAll(".indicator-screenshot").forEach((img) => {
+          img.tabIndex = 0;
+          img.setAttribute("role", "button");
+          img.setAttribute("aria-label", `Enlarge ${img.alt}`);
+          img.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              img.click();
+            }
+          });
           img.addEventListener("click", () => {
             viewerImg.src = img.currentSrc || img.src;
             viewerImg.alt = img.alt;
             viewerTitle.textContent =
-              img.closest("[data-indicator-panel]")?.querySelector("[data-indicator-heading]")?.textContent || "";
+              img
+                .closest("[data-indicator-panel]")
+                ?.querySelector("[data-indicator-heading]")?.textContent || "";
             viewer.showModal();
             const scroller = viewer.querySelector(".shot-viewer-scroll");
             scroller.scrollLeft = 0;
           });
         });
-        viewer.querySelector("[data-shot-close]").addEventListener("click", () => viewer.close());
+        viewer
+          .querySelector("[data-shot-close]")
+          .addEventListener("click", () => viewer.close());
         viewer.addEventListener("click", (event) => {
           if (event.target === viewer) viewer.close();
         });
@@ -5192,7 +2658,9 @@
     </script>
 
     <script>
-      const revealElements = Array.from(document.querySelectorAll(".reveal, .reveal-stagger"));
+      const revealElements = Array.from(
+        document.querySelectorAll(".reveal, .reveal-stagger"),
+      );
 
       if ("IntersectionObserver" in window) {
         const revealObserver = new IntersectionObserver(
@@ -5208,12 +2676,15 @@
 
         revealElements.forEach((element) => revealObserver.observe(element));
       } else {
-        revealElements.forEach((element) => element.classList.add("is-visible"));
+        revealElements.forEach((element) =>
+          element.classList.add("is-visible"),
+        );
       }
 
-      const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent,
-      );
+      const isMobileDevice =
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent,
+        );
 
       if (isMobileDevice) {
         document.querySelectorAll("a[data-app-url]").forEach((link) => {
@@ -5232,13 +2703,25 @@
               }
             };
 
-            document.addEventListener("visibilitychange", handleVisibilityChange);
-            document.addEventListener("webkitvisibilitychange", handleVisibilityChange);
+            document.addEventListener(
+              "visibilitychange",
+              handleVisibilityChange,
+            );
+            document.addEventListener(
+              "webkitvisibilitychange",
+              handleVisibilityChange,
+            );
             window.location.href = appUrl;
 
             window.setTimeout(() => {
-              document.removeEventListener("visibilitychange", handleVisibilityChange);
-              document.removeEventListener("webkitvisibilitychange", handleVisibilityChange);
+              document.removeEventListener(
+                "visibilitychange",
+                handleVisibilityChange,
+              );
+              document.removeEventListener(
+                "webkitvisibilitychange",
+                handleVisibilityChange,
+              );
 
               if (!appOpened && !document.hidden && !document.webkitHidden) {
                 window.location.href = webUrl;
@@ -5255,57 +2738,72 @@
           name: "Bandz Intraday",
           image: "assets/indicators/bandz-intraday-1m.png",
           alt: "Bandz Intraday indicator shown on a 1-minute chart",
-          benefit: "Maps ICT macro windows and first-presented FVGs with volume-imbalance and calendar context.",
+          benefit:
+            "Maps ICT macro windows and first-presented FVGs with volume-imbalance and calendar context.",
         },
         {
           id: "2",
           name: "Bandz Sessions",
           image: "assets/indicators/bandz-sessions-1m.png",
           alt: "Bandz Sessions indicator shown on a 1-minute chart",
-          benefit: "Tracks ICT killzones, session liquidity, opening ranges, and Opening RTH Gap projections.",
+          benefit:
+            "Tracks ICT killzones, session liquidity, opening ranges, and Opening RTH Gap projections.",
         },
         {
           id: "3",
           name: "Bandz SMT",
           image: "assets/indicators/bandz-smt-15m.png",
           alt: "Bandz SMT indicator shown on a 15-minute chart",
-          benefit: "Scans multi-timeframe SMT divergence while filtering redundant lower-timeframe signals.",
+          benefit:
+            "Scans multi-timeframe SMT divergence while filtering redundant lower-timeframe signals.",
         },
         {
           id: "4",
           name: "Bandz HTF",
           image: "assets/indicators/bandz-htf-15m.png",
           alt: "Bandz HTF candles indicator shown on a 1-minute chart",
-          benefit: "Displays higher-timeframe candles with PSP, SMT, T-Spots, CISD, FVGs, and sweeps.",
+          benefit:
+            "Displays higher-timeframe candles with PSP, SMT, T-Spots, CISD, FVGs, and sweeps.",
         },
         {
           id: "5",
           name: "Bandz Levels",
           image: "assets/indicators/bandz-levels-5m.png",
           alt: "Bandz Levels indicator shown on a 5-minute chart",
-          benefit: "Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.",
+          benefit:
+            "Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.",
         },
         {
           id: "6",
           name: "Bandz STDV Flow",
           image: "assets/indicators/bandz-stdv-flow-1h.png",
           alt: "Bandz STDV Flow indicator projecting CISD standard-deviation objectives on a 4-hour MNQ chart",
-          benefit: "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
+          benefit:
+            "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
         },
         {
           id: "7",
           name: "Bandz All-in-One",
           image: "assets/indicators/bandz-all-in-one-4h.png",
           alt: "Bandz All-in-One indicator combining the Bandz toolkit on a 4-hour MNQ chart",
-          benefit: "Combines five core Bandz workflows into one streamlined script for a cleaner single-chart workflow. Bandz Levels and alerts are not included.",
+          benefit:
+            "Combines five core Bandz workflows into one streamlined script for a cleaner single-chart workflow. Bandz Levels and alerts are not included.",
         },
       ];
 
       indicatorCatalog.forEach(({ id, name, image, alt, benefit }) => {
-        const tabName = document.querySelector(`#indicator-tab-${id} [data-indicator-name]`);
-        const panelHeading = document.querySelector(`#indicator-panel-${id} [data-indicator-heading]`);
-        const panelImage = document.querySelector(`#indicator-panel-${id} [data-indicator-image]`);
-        const panelBenefit = document.querySelector(`#indicator-panel-${id} [data-indicator-benefit]`);
+        const tabName = document.querySelector(
+          `#indicator-tab-${id} [data-indicator-name]`,
+        );
+        const panelHeading = document.querySelector(
+          `#indicator-panel-${id} [data-indicator-heading]`,
+        );
+        const panelImage = document.querySelector(
+          `#indicator-panel-${id} [data-indicator-image]`,
+        );
+        const panelBenefit = document.querySelector(
+          `#indicator-panel-${id} [data-indicator-benefit]`,
+        );
 
         if (tabName) tabName.textContent = name.replace(/^Bandz\s+/, "");
         if (panelHeading) panelHeading.textContent = name;
@@ -5316,8 +2814,12 @@
         if (panelBenefit) panelBenefit.textContent = benefit;
       });
 
-      const indicatorTabs = Array.from(document.querySelectorAll("[data-indicator-tab]"));
-      const indicatorPanels = Array.from(document.querySelectorAll("[data-indicator-panel]"));
+      const indicatorTabs = Array.from(
+        document.querySelectorAll("[data-indicator-tab]"),
+      );
+      const indicatorPanels = Array.from(
+        document.querySelectorAll("[data-indicator-panel]"),
+      );
 
       function activateIndicator(nextTab, moveFocus = false) {
         const nextIndicator = nextTab.dataset.indicatorTab;
@@ -5336,7 +2838,10 @@
             panel.classList.remove("is-switching");
             void panel.offsetWidth;
             panel.classList.add("is-switching");
-            window.setTimeout(() => panel.classList.remove("is-switching"), 700);
+            window.setTimeout(
+              () => panel.classList.remove("is-switching"),
+              700,
+            );
           }
         });
 
@@ -5353,7 +2858,8 @@
           if (event.key === "ArrowRight" || event.key === "ArrowDown") {
             nextIndex = (index + 1) % indicatorTabs.length;
           } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-            nextIndex = (index - 1 + indicatorTabs.length) % indicatorTabs.length;
+            nextIndex =
+              (index - 1 + indicatorTabs.length) % indicatorTabs.length;
           } else if (event.key === "Home") {
             nextIndex = 0;
           } else if (event.key === "End") {
@@ -5366,7 +2872,6 @@
           activateIndicator(indicatorTabs[nextIndex], true);
         });
       });
-
     </script>
   </body>
 </html>
