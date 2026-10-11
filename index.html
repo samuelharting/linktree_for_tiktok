@@ -1461,6 +1461,20 @@
         .hero-copy { display: block; }
         .hero h1 { font-size: clamp(46px, 13vw, 64px); }
         .hero-lede { margin-top: 19px; }
+      }      .funnel-section-banner {
+        margin-top: 24px; padding: 28px 30px; border-radius: 12px;
+        background: #7c4dff; color: #fff; gap: 28px;
+      }
+      .funnel-section-banner p { color: #eee7ff; font-size: 13px; max-width: none; line-height: 1.7; }
+      .funnel-section-banner strong { display: block; font-size: 25px; letter-spacing: -.7px; color: #fff; margin-bottom: 5px; }
+      .funnel-section-banner .button { background: #fff; color: #4c239e; min-height: 47px; padding: 0 20px; border-radius: 7px; font-size: 12px; white-space: nowrap; }
+      .funnel-section-banner .button:hover { background: #f0eaff; transform: translateY(-2px); }
+      @media (max-width:700px) {
+        .funnel-section-banner { padding: 24px 21px; flex-direction: column; align-items: stretch; gap: 18px; }
+        .funnel-section-banner p { font-size: 12px; }
+        .funnel-section-banner strong { font-size: 23px; }
+        .funnel-section-banner .button { width: 100%; justify-content: space-between; font-size: 12px; min-height: 46px; }
+        .funnel-section-banner i { display: inline-block; }
       }    </style>
   </head>
   <body id="top">
@@ -2225,7 +2239,7 @@
             aria-label="Indicator access link"
           >
             <p>
-              <strong>Want all nine?</strong> Free and open source in the
+              <strong>Get the full toolkit.</strong> Free and open source in the
               Discord.
             </p>
             <a
