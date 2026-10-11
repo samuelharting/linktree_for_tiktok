@@ -7,7 +7,7 @@
     <title>Bandz | Free Indicators, Discord &amp; Trading Journal</title>
     <meta
       name="description"
-      content="All nine Bandz indicators are free. Join the Discord to get them, and review every trade with the free trading journal."
+      content="Bandz indicators are free and open source. Join the Discord to get them, and review every trade with the free trading journal."
     />
     <meta name="theme-color" content="#F1F1EE" />
 
@@ -18,7 +18,7 @@
     />
     <meta
       property="og:title"
-      content="Bandz | Join the free Discord. Get all 9 indicators."
+      content="Bandz | Join the free Discord. Free tools for your trading day."
     />
     <meta
       property="og:description"
@@ -36,7 +36,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Bandz | Join the free Discord. Get all 9 indicators."
+      content="Bandz | Join the free Discord. Free tools for your trading day."
     />
     <meta
       name="twitter:description"
@@ -50,7 +50,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
     <link
@@ -68,7 +68,10 @@
           : "paper";
 
       const allowedUiThemes = ["studio", "night"];
-      let initialUiTheme = "studio";
+      let initialUiTheme = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "night"
+        : "studio";
 
       try {
         const savedUiTheme = window.localStorage.getItem("bandz-ui-theme");
@@ -84,39 +87,42 @@
     <style>
       :root {
         color-scheme: light;
-        --canvas: #f7f7f5;
+        --canvas: #fafafa;
         --paper: #fff;
-        --ink: #19191b;
-        --muted: #727278;
-        --body-text: #59595f;
-        --line: #dedee1;
-        --soft: #efefed;
-        --discord: #7c4dff;
-        --journal: #0071e3;
-        --radius: 16px;
-        --max-width: 1180px;
+        --ink: #252525;
+        --muted: #6e6e6e;
+        --body-text: #666666;
+        --line: #e7e7e7;
+        --soft: #f3f3f3;
+        --accent: #777777;
+        --discord: #262626;
+        --journal: #3173af;
+        --max-width: 1120px;
       }
       html[data-ui-theme="night"] {
         color-scheme: dark;
-        --canvas: #131315;
-        --paper: #1b1b1e;
-        --ink: #f4f4f5;
-        --muted: #a1a1aa;
-        --body-text: #b9b9c0;
-        --line: #323237;
-        --soft: #222225;
+        --canvas: #151515;
+        --paper: #202020;
+        --ink: #f3f3f3;
+        --muted: #a4a4a4;
+        --body-text: #bcbcbc;
+        --line: #363636;
+        --soft: #292929;
+        --accent: #b8b8b8;
+        --discord: #e5e5e5;
+        --journal: #81b4e0;
       }
       * {
         box-sizing: border-box;
       }
       html {
         scroll-behavior: smooth;
-        scroll-padding-top: 30px;
+        scroll-padding-top: 24px;
       }
       body {
         margin: 0;
         font:
-          14px/1.65 Manrope,
+          14px/1.7 "DM Sans",
           Arial,
           sans-serif;
         background: var(--canvas);
@@ -139,36 +145,39 @@
       svg {
         display: block;
       }
-      a,
-      button {
-        -webkit-tap-highlight-color: transparent;
-      }
-      button:focus-visible,
-      a:focus-visible {
-        outline: 3px solid var(--discord);
-        outline-offset: 4px;
-      }
       h1,
       h2,
       h3,
       p {
         margin: 0;
       }
-      button,
-      a {
+      h1,
+      h2,
+      h3 {
+        font-family: Manrope, Arial, sans-serif;
+      }
+      a,
+      button {
         touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+      button:focus-visible,
+      a:focus-visible,
+      [role="button"]:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 5px;
       }
       [hidden] {
         display: none !important;
       }
       .site-shell {
-        width: min(var(--max-width), calc(100% - 80px));
-        margin: auto;
+        width: min(var(--max-width), calc(100% - 64px));
+        margin-inline: auto;
       }
       .skip-link {
         position: fixed;
-        left: 15px;
         top: -100px;
+        left: 15px;
         z-index: 100;
         background: var(--paper);
         padding: 10px 18px;
@@ -177,490 +186,380 @@
         top: 10px;
       }
       .arrow-icon {
-        width: 18px;
-        height: 18px;
-        flex: 0 0 18px;
+        width: 17px;
+        height: 17px;
+        flex: 0 0 17px;
         fill: none;
         stroke: currentColor;
         stroke-width: 1.5;
         stroke-linecap: round;
         stroke-linejoin: round;
       }
-      .announcement {
-        padding: 9px 20px;
-        background: #202023;
-        color: #e4e4e8;
-        text-align: center;
-        font-size: 10px;
-        letter-spacing: 0.15px;
-      }
-      .announcement span {
-        color: #bba4ff;
-        margin-right: 10px;
-      }
-      .announcement a {
-        display: inline-flex;
-        align-items: center;
-        gap: 13px;
-      }
-      .announcement .arrow-icon {
-        width: 13px;
-        height: 13px;
-        flex-basis: 13px;
-      }
       .site-header {
-        width: min(var(--max-width), calc(100% - 80px));
+        height: 86px;
+        width: min(var(--max-width), calc(100% - 64px));
         margin: auto;
-        height: 88px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         border-bottom: 1px solid var(--line);
-        gap: 30px;
+        gap: 28px;
       }
       .brand {
-        font-size: 28px;
-        letter-spacing: -1.5px;
-        font-weight: 800;
-        display: flex;
-        align-items: center;
-        gap: 11px;
+        font:
+          800 26px Manrope,
+          sans-serif;
+        letter-spacing: -1.2px;
       }
-      .brand:before { content: none; }
       .header-nav {
         display: flex;
-        gap: 28px;
+        gap: 29px;
         margin-left: auto;
       }
       .header-nav a {
-        font-size: 11px;
-        font-weight: 600;
         color: var(--body-text);
+        font-size: 12px;
       }
       .header-nav a:hover {
-        color: var(--discord);
+        color: var(--ink);
       }
       .nav-free {
         display: none;
       }
       .header-tools {
         display: flex;
-        gap: 20px;
+        gap: 14px;
         align-items: center;
       }
       .theme-mode-toggle {
-        background: none;
         border: 0;
+        background: none;
         padding: 10px;
-        min-width: 40px;
         min-height: 40px;
+        min-width: 36px;
         display: grid;
         place-items: center;
       }
       .theme-mode-track {
-        display: block;
-        width: 16px;
-        height: 16px;
-        border: 1.5px solid var(--muted);
+        width: 15px;
+        height: 15px;
+        border: 1.3px solid var(--muted);
         border-radius: 50%;
         background: linear-gradient(90deg, var(--ink) 50%, transparent 50%);
       }
-      [data-theme-mode-label],
-      .theme-mode-knob {
+      .theme-mode-knob,
+      [data-theme-mode-label] {
         display: none;
-      }
-      .funnel-header-duo {
-        display: flex;
       }
       .funnel-header-duo a {
         display: flex;
         align-items: center;
         gap: 9px;
-        min-height: 39px;
-        padding: 0 16px;
-        font-weight: 600;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--paper);
+        padding: 9px 15px;
         font-size: 11px;
-        border-radius: 6px;
-        background: var(--ink);
-        color: var(--paper);
+        font-weight: 600;
+      }
+      .funnel-header-duo a:hover {
+        border-color: var(--accent);
       }
       .funnel-header-duo .duo-journal {
         display: none;
       }
-      .funnel-header-duo i {
+      .funnel-header-duo .fa-discord {
         font-size: 14px;
-      }
-      .funnel-header-duo a:hover {
-        background: var(--discord);
-        color: white;
       }
       .hero {
+        padding: 77px 0 72px;
         display: grid;
-        grid-template-columns: 0.85fr 1.15fr;
-        gap: 55px;
+        grid-template-columns: 1.06fr 0.94fr;
         align-items: center;
-        padding: 78px 0 68px;
+        gap: 65px;
+        position: relative;
       }
-      .eyebrow,
-      .section-number {
-        font:
-          10px "DM Mono",
-          monospace;
-        letter-spacing: 1.4px;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-      .hero .eyebrow {
-        display: flex;
-        align-items: center;
-        gap: 9px;
-        margin-bottom: 24px;
-      }
-      .hero .eyebrow:before {
+      .hero:before {
         content: "";
-        width: 6px;
-        height: 6px;
-        background: var(--discord);
-        border-radius: 50%;
+        position: absolute;
+        z-index: -1;
+        inset: -40px 0 -30px 25%;
+        background: radial-gradient(
+          ellipse at 75% 48%,
+          #e6e6e670,
+          transparent 65%
+        );
+        pointer-events: none;
       }
       .hero h1 {
-        font-size: clamp(49px, 5.25vw, 72px);
-        font-weight: 800;
-        line-height: 1.05;
-        letter-spacing: -3.6px;
+        font-size: clamp(40px, 4.4vw, 57px);
+        font-weight: 600;
+        line-height: 1.14;
+        letter-spacing: -2.6px;
       }
       .hero h1 span {
-        color: var(--muted);
-        font-weight: 500;
+        color: #707070;
       }
       .hero-lede {
-        max-width: 360px;
-        margin-top: 25px;
         font-size: 14px;
-        line-height: 1.85;
         color: var(--body-text);
+        line-height: 1.95;
+        max-width: 365px;
+        margin-top: 23px;
       }
       .hero-actions {
         display: flex;
-        gap: 10px;
-        margin-top: 27px;
         flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 28px;
       }
       .button {
-        min-height: 44px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 12px;
-        padding: 0 18px;
+        gap: 18px;
+        min-height: 44px;
+        padding: 0 19px;
         border: 1px solid var(--line);
-        border-radius: 6px;
-        font-size: 11px;
-        font-weight: 700;
-        line-height: 1.3;
         background: var(--paper);
         color: var(--ink);
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 600;
         transition:
-          background 0.18s,
-          transform 0.18s;
+          transform 0.18s,
+          background 0.18s;
       }
       .button:hover {
         transform: translateY(-2px);
-        border-color: var(--ink);
+        border-color: var(--accent);
       }
       .button--primary {
-        background: var(--ink);
-        color: var(--paper);
-        border-color: var(--ink);
+        background: #262626;
+        border-color: #262626;
+        color: #fff;
       }
-      .button--discord {
-        background: var(--discord);
-        color: white;
-        border-color: var(--discord);
-      }
-      .button--discord:hover {
-        background: #6839e7;
-        border-color: #6839e7;
+      .button--primary:hover {
+        background: #444444;
+        border-color: #444444;
       }
       .hero-footnote {
-        font:
-          9px "DM Mono",
-          monospace;
+        font-size: 10px;
         color: var(--muted);
-        margin-top: 13px;
+        margin-top: 14px;
       }
       .hero-socials {
         display: flex;
-        gap: 16px;
+        gap: 14px;
         align-items: center;
         margin-top: 25px;
       }
       .hero-socials-label {
-        font:
-          8px "DM Mono",
-          monospace;
+        font-size: 8px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
         color: var(--muted);
-        letter-spacing: 1px;
       }
       .social-link {
+        width: 28px;
+        height: 28px;
         display: grid;
         place-items: center;
-        width: 30px;
-        height: 30px;
+        font-size: 14px;
         color: var(--muted);
-        font-size: 15px;
       }
       .social-link:hover {
         color: var(--ink);
       }
-      .hero-workspace {
-        min-width: 0;
-        position: relative;
-        padding: 0 0 36px 16px;
-      }
-      .workspace-shell {
-        position: relative;
+      .routine-card {
+        padding: 25px 27px 18px;
         background: var(--paper);
         border: 1px solid var(--line);
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 22px 60px #1111110c;
-        transform: rotate(-2deg);
+        border-radius: 19px;
+        box-shadow: 0 18px 55px #00000007;
       }
-      .workspace-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 17px;
-        border-bottom: 1px solid var(--line);
-        font-size: 10px;
-      }
-      .workspace-header strong {
-        font-weight: 700;
-      }
-      .window-dots {
-        display: flex;
-        gap: 4px;
-      }
-      .window-dots i {
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: var(--line);
-      }
-      .workspace-image {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 3840/2063;
-        object-fit: cover;
-      }
-      .workspace-footer {
+      .routine-heading {
         display: flex;
         justify-content: space-between;
-        padding: 12px 17px;
-        font:
-          8px "DM Mono",
-          monospace;
-        color: var(--muted);
-      }
-      .workspace-footer span:first-child {
-        color: var(--ink);
-      }
-      .workspace-note {
-        position: absolute;
-        right: -12px;
-        bottom: 7px;
-        display: flex;
-        gap: 14px;
         align-items: center;
-        padding: 17px 22px;
-        background: var(--ink);
-        color: var(--paper);
-        border-radius: 8px;
-        box-shadow: 0 10px 35px #1111111a;
-      }
-      .workspace-note b {
-        font-size: 30px;
-        font-weight: 500;
-        line-height: 1;
-        letter-spacing: -1px;
-      }
-      .workspace-note span {
-        font-size: 10px;
-        line-height: 1.7;
-      }
-      .workspace-note small {
-        display: block;
         font-size: 8px;
-        opacity: 0.55;
-      }
-      .workspace-caption {
-        font:
-          8px "DM Mono",
-          monospace;
+        letter-spacing: 1.8px;
         color: var(--muted);
-        letter-spacing: 1px;
-        position: absolute;
-        bottom: 0;
-        left: 17px;
       }
-      .resource-index {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        border-block: 1px solid var(--line);
-        padding: 23px 0;
-        margin-bottom: 0;
+      .routine-mark {
+        font-size: 19px;
+        color: #a7a7a7;
+        line-height: 1;
       }
-      .resource-link {
+      .routine-card h2 {
+        font-size: 23px;
+        font-weight: 600;
+        letter-spacing: -0.8px;
+        line-height: 1.35;
+        margin: 19px 0 22px;
+      }
+      .routine-row {
         display: grid;
-        grid-template-columns: 33px 1fr 18px;
-        gap: 15px;
+        grid-template-columns: 27px 1fr 17px;
         align-items: center;
-        padding: 5px 27px;
-        border-right: 1px solid var(--line);
+        gap: 12px;
+        padding: 16px 0;
+        border-top: 1px solid var(--line);
       }
-      .resource-link:first-child {
-        padding-left: 0;
+      .routine-row:hover h3 {
+        color: var(--accent);
       }
-      .resource-link:last-child {
-        border: 0;
-        padding-right: 0;
+      .routine-number {
+        font-size: 10px;
+        color: #a1a1a1;
       }
-      .resource-link > span {
-        font:
-          11px "DM Mono",
-          monospace;
-        color: var(--muted);
-      }
-      .resource-link strong {
-        display: block;
+      .routine-row h3 {
         font-size: 12px;
-        font-weight: 700;
+        font-weight: 600;
+        letter-spacing: -0.15px;
       }
-      .resource-link small {
-        display: block;
+      .routine-row p {
         font-size: 10px;
         color: var(--muted);
-        margin-top: 3px;
+        margin-top: 4px;
+        line-height: 1.6;
       }
-      .resource-link:hover strong {
-        color: var(--discord);
+      .routine-row .arrow-icon {
+        color: #aaaaaa;
+        width: 14px;
+        height: 14px;
+      }
+      .routine-footer {
+        font-size: 8px;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+      }
+      .routine-footer span {
+        color: #aaaaaa;
       }
       .section {
-        padding: 75px 0;
+        padding: 62px 0;
       }
       .section-heading {
         display: flex;
-        align-items: end;
         justify-content: space-between;
-        gap: 30px;
+        align-items: end;
+        gap: 35px;
         margin-bottom: 30px;
       }
       .section-number {
+        font-size: 8px;
+        letter-spacing: 1.8px;
+        color: var(--accent);
+        font-weight: 650;
         display: block;
         margin-bottom: 14px;
       }
       .section-title {
-        font-size: clamp(30px, 3.6vw, 43px);
-        line-height: 1.13;
-        font-weight: 700;
-        letter-spacing: -1.8px;
+        font-size: clamp(30px, 3.3vw, 40px);
+        line-height: 1.2;
+        letter-spacing: -1.6px;
+        font-weight: 600;
       }
-      .section-intro {
-        max-width: 340px;
-        color: var(--muted);
+      .collection-intro > p:first-child {
         font-size: 12px;
-        line-height: 1.8;
+        color: var(--muted);
+        line-height: 1.85;
+        margin-bottom: 12px;
       }
       .bundle-badge {
-        padding: 5px 9px;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
         border: 1px solid var(--line);
-        border-radius: 5px;
-        font:
-          9px "DM Mono",
-          monospace;
-        letter-spacing: 0.15px;
-        color: var(--muted);
-        white-space: nowrap;
+        border-radius: 20px;
+        padding: 4px 10px;
+        font-size: 9px;
+        color: var(--accent);
+        background: var(--paper);
+      }
+      .bundle-badge:before {
+        content: "";
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: #a4a4a4;
       }
       .market-decoration {
         display: none;
       }
+      .indicators-section {
+        border-block: 1px solid var(--line);
+        background: var(--soft);
+      }
       .indicator-browser {
         display: grid;
-        gap: 18px;
+        grid-template-columns: 200px minmax(0, 1fr);
+        gap: 21px;
+        align-items: start;
       }
       .indicator-tabs {
         display: grid;
-        grid-template-columns: repeat(9, minmax(0, 1fr));
-        border: 1px solid var(--line);
-        padding: 5px;
-        gap: 3px;
-        background: var(--soft);
-        border-radius: 9px;
+        gap: 7px;
       }
       .indicator-tab {
-        min-height: 43px;
-        padding: 7px 3px;
         display: flex;
-        flex-direction: column;
-        gap: 3px;
         align-items: center;
-        justify-content: center;
+        gap: 11px;
+        min-height: 43px;
+        padding: 10px 13px;
         background: transparent;
         border: 1px solid transparent;
-        border-radius: 5px;
-        color: var(--muted);
-        font-size: 10px;
-        font-weight: 600;
+        border-radius: 9px;
+        font-size: 11px;
+        color: var(--body-text);
+        text-align: left;
       }
       .indicator-tab-number {
-        font:
-          7px "DM Mono",
-          monospace;
-        opacity: 0.6;
+        font-size: 9px;
+        color: #aaaaaa;
+        width: 18px;
+        flex-shrink: 0;
       }
       .indicator-tab[aria-selected="true"] {
+        border-color: #dadada;
         background: var(--paper);
         color: var(--ink);
-        border-color: var(--line);
-        box-shadow: 0 2px 5px #00000006;
+        box-shadow: 0 3px 10px #00000004;
+        font-weight: 600;
       }
       .indicator-tab:hover {
-        color: var(--ink);
         background: var(--paper);
       }
       .indicator-card {
-        display: grid;
-        grid-template-columns: 1.5fr 1fr;
-        background: var(--paper);
         border: 1px solid var(--line);
-        border-radius: 12px;
+        border-radius: 14px;
+        background: var(--paper);
         overflow: hidden;
-        min-height: 345px;
+        display: grid;
+        grid-template-columns: 1fr;
+        box-shadow: 0 10px 35px #00000005;
       }
       .indicator-visual {
         position: relative;
-        display: grid;
-        align-content: center;
-        min-width: 0;
         background: #dfdcd5;
-        border-right: 1px solid var(--line);
         cursor: zoom-in;
       }
       .indicator-visual:after {
         content: "EXPAND CHART";
         position: absolute;
-        right: 11px;
+        right: 12px;
         bottom: 11px;
-        background: #19191bd9;
-        color: #fff;
-        padding: 5px 8px;
+        background: #ffffffdf;
+        color: #4b4b4b;
         border-radius: 4px;
-        font:
-          7px "DM Mono",
-          monospace;
-        letter-spacing: 0.5px;
+        padding: 5px 7px;
+        font-size: 7px;
+        letter-spacing: 0.6px;
         pointer-events: none;
       }
       .indicator-screenshot {
@@ -670,210 +569,199 @@
         object-fit: cover;
       }
       .indicator-copy {
-        padding: 30px;
+        padding: 22px 25px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: 25px;
+        align-items: start;
+      }
+      .product-meta {
+        grid-column: 1;
+        font-size: 8px;
+        color: var(--muted);
+        margin-bottom: 7px;
+      }
+      .indicator-copy h3 {
+        grid-column: 1;
+        font-size: 21px;
+        font-weight: 600;
+        letter-spacing: -0.7px;
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+      .indicator-copy p {
+        grid-column: 1;
+        font-size: 11px;
+        color: var(--body-text);
+        line-height: 1.8;
+        max-width: 490px;
+      }
+      .indicator-copy .button {
+        grid-column: 2;
+        grid-row: 1/4;
+        align-self: center;
+        min-height: 39px;
+        font-size: 10px;
+        padding: 0 15px;
+      }
+      .funnel-section-banner {
+        margin-top: 25px;
+        background: #262626;
+        border-radius: 13px;
+        padding: 25px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 25px;
+      }
+      .funnel-section-banner p {
+        color: #d2d2d2;
+        font-size: 12px;
+      }
+      .funnel-section-banner strong {
+        display: block;
+        font-size: 23px;
+        font-family: Manrope, sans-serif;
+        color: white;
+        font-weight: 600;
+        letter-spacing: -0.7px;
+        margin-bottom: 5px;
+      }
+      .funnel-section-banner .button {
+        background: white;
+        color: #262626;
+        border-color: white;
+        white-space: nowrap;
+        font-size: 11px;
+        min-height: 44px;
+      }
+      .funnel-section-banner .button:hover {
+        background: #f0f0f0;
+      }
+      .journal-stage {
+        padding-top: 67px;
+        padding-bottom: 65px;
+      }
+      .journal-stage .section-title {
+        max-width: 610px;
+      }
+      .journal-card {
+        display: grid;
+        grid-template-columns: 0.78fr 1.22fr;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--paper);
+        overflow: hidden;
+      }
+      .journal-copy {
+        padding: 35px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: start;
       }
-      .product-meta {
-        font:
-          9px "DM Mono",
-          monospace;
-        color: var(--muted);
-        margin-bottom: 16px;
-      }
-      .indicator-copy h3 {
-        font-size: 25px;
-        letter-spacing: -0.8px;
-        line-height: 1.18;
-        margin-bottom: 15px;
-      }
-      .indicator-copy p {
-        font-size: 12px;
-        line-height: 1.85;
-        color: var(--body-text);
-        margin-bottom: 23px;
-      }
-      .indicator-copy .button {
-        font-size: 10px;
-        min-height: 40px;
-      }
-      .funnel-section-banner {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 19px;
-        gap: 20px;
-      }
-      .funnel-section-banner p {
-        font-size: 10px;
-        color: var(--muted);
-      }
-      .funnel-section-banner strong {
-        font-weight: 600;
-        color: var(--ink);
-        margin-right: 4px;
-      }
-      .funnel-section-banner .button {
-        border: 0;
-        background: transparent;
-        color: var(--discord);
-        padding: 0;
-        min-height: 32px;
-        font-size: 10px;
-      }
-      .funnel-section-banner .button:hover {
-        transform: none;
-      }
-      .journal-stage {
-        background: #1a1a1e;
-        color: #f3f3f5;
-        border-radius: 18px;
-        padding: 45px;
-        margin-bottom: 0;
-        position: relative;
-        overflow: hidden;
-      }
-      .journal-stage:before {
-        content: "";
-        position: absolute;
-        width: 460px;
-        height: 460px;
-        border: 1px solid #ffffff09;
-        border-radius: 50%;
-        right: -120px;
-        top: -250px;
-        pointer-events: none;
-      }
-      .journal-stage .section-number {
-        color: #898994;
-      }
-      .journal-stage .section-heading {
-        margin-bottom: 33px;
-      }
-      .journal-stage .section-title {
-        max-width: 640px;
-        font-size: 37px;
-        letter-spacing: -1.4px;
-      }
-      .journal-card {
-        display: grid;
-        grid-template-columns: 0.68fr 1.32fr;
-        gap: 45px;
-        align-items: center;
-      }
-      .journal-copy {
-        min-width: 0;
-      }
       .status-pill {
-        display: inline-flex;
-        gap: 7px;
+        display: flex;
         align-items: center;
-        font:
-          9px "DM Mono",
-          monospace;
-        color: #72b1ff;
+        gap: 7px;
+        font-size: 9px;
+        color: var(--journal);
       }
       .status-pill:before {
         content: "";
         width: 5px;
         height: 5px;
-        background: #72b1ff;
         border-radius: 50%;
+        background: var(--journal);
       }
       .journal-copy h3 {
-        font-size: 21px;
+        font-size: 27px;
+        line-height: 1.2;
+        letter-spacing: -1px;
         font-weight: 600;
-        letter-spacing: -0.7px;
-        margin: 17px 0 12px;
+        margin: 18px 0 12px;
       }
       .journal-copy > p {
         font-size: 12px;
-        line-height: 1.8;
-        color: #a0a0aa;
+        color: var(--body-text);
       }
       .feature-list {
         list-style: none;
-        margin: 20px 0 25px;
+        margin: 21px 0 24px;
         padding: 0;
-        display: grid;
-        gap: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
       }
       .feature-list li {
-        font-size: 11px;
-        color: #c3c3cb;
-        display: flex;
-        gap: 10px;
-        align-items: center;
-      }
-      .feature-list li:before {
-        content: "";
-        height: 4px;
-        width: 4px;
-        background: #555561;
-        border-radius: 1px;
+        font-size: 9px;
+        color: var(--body-text);
+        background: var(--soft);
+        border-radius: 5px;
+        padding: 5px 8px;
       }
       .journal-copy .button {
-        background: #0071e3;
-        border-color: #0071e3;
+        background: var(--journal);
+        border-color: var(--journal);
         color: white;
         font-size: 10px;
       }
       .journal-image {
+        padding: 25px 0 25px 25px;
+        display: flex;
+        align-items: center;
+        background: var(--soft);
         min-width: 0;
-        align-self: center;
-        border-radius: 10px;
-        border: 1px solid #39393f;
-        padding: 7px;
-        background: #25252a;
-        box-shadow: 0 15px 35px #00000033;
+        overflow: hidden;
       }
       .journal-window {
-        border-radius: 5px;
+        border: 5px solid #343434;
+        border-right: 0;
+        border-radius: 8px 0 0 8px;
         overflow: hidden;
+        width: 100%;
+        box-shadow: 0 15px 30px #00000022;
       }
       .journal-window img {
         width: 100%;
         height: auto;
       }
-      .journal-stage .button:hover {
-        background: #1683f1;
-      }
       .community-section {
-        padding-top: 70px;
-        padding-bottom: 60px;
+        padding: 0 0 55px;
       }
       .community-layout {
         display: grid;
-        grid-template-columns: 1fr 1.05fr;
-        gap: 65px;
+        grid-template-columns: 1fr 1fr;
+        gap: 55px;
         align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 39px;
+        background: linear-gradient(125deg, var(--paper), var(--soft));
       }
       .community-intro .section-title {
-        max-width: 440px;
-        font-size: 43px;
+        font-size: 32px;
+        letter-spacing: -1.2px;
+        line-height: 1.22;
       }
       .community-intro > p {
-        font-size: 13px;
-        line-height: 1.85;
-        color: var(--muted);
-        max-width: 345px;
-        margin-top: 20px;
+        font-size: 12px;
+        color: var(--body-text);
+        line-height: 1.9;
+        max-width: 340px;
+        margin-top: 19px;
       }
-      .community-intro .community-social-note {
-        font:
-          9px "DM Mono",
-          monospace;
-        margin-top: 28px;
-        color: var(--muted);
+      .community-social-note {
+        font-size: 8px !important;
+        letter-spacing: 1px;
+        color: var(--muted) !important;
+        margin-top: 23px !important;
       }
       .community-card {
-        background: var(--paper);
         border: 1px solid var(--line);
-        border-radius: 13px;
-        padding: 29px;
-        overflow: hidden;
+        border-radius: 12px;
+        padding: 25px;
+        background: var(--paper);
       }
       .community-brandline {
         display: flex;
@@ -881,112 +769,101 @@
         align-items: center;
       }
       .discord-icon {
-        width: 43px;
-        height: 43px;
-        border-radius: 10px;
-        background: #7c4dff;
-        color: white;
         display: grid;
         place-items: center;
-        font-size: 22px;
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        color: #777777;
+        background: var(--soft);
+        font-size: 18px;
       }
       .community-status {
-        font:
-          8px "DM Mono",
-          monospace;
+        font-size: 8px;
         color: var(--muted);
-        letter-spacing: 0.7px;
       }
       .community-content h3 {
-        font-size: 24px;
-        letter-spacing: -0.8px;
-        margin: 20px 0 10px;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: -0.6px;
+        margin: 17px 0 9px;
       }
       .community-content > p {
-        font-size: 12px;
-        color: var(--muted);
-        line-height: 1.8;
-        max-width: 370px;
+        font-size: 11px;
+        color: var(--body-text);
+        line-height: 1.85;
       }
       .access-steps {
         list-style: none;
         padding: 0;
-        margin: 23px 0;
-        display: grid;
-        gap: 0;
-        border-top: 1px solid var(--line);
+        margin: 19px 0 21px;
       }
       .access-steps li {
         display: flex;
-        align-items: center;
-        gap: 15px;
-        padding: 13px 0;
-        border-bottom: 1px solid var(--line);
-        font-size: 11px;
+        gap: 12px;
+        padding: 10px 0;
+        border-top: 1px solid var(--line);
+        font-size: 10px;
         color: var(--body-text);
       }
       .access-steps li span {
-        font:
-          9px "DM Mono",
-          monospace;
+        font-size: 8px;
         color: var(--muted);
       }
-      .community-content .button {
+      .community-content > .button {
         width: 100%;
+        background: #262626;
+        color: white;
+        border-color: #262626;
         justify-content: space-between;
-        padding: 0 16px;
-        font-size: 11px;
+        font-size: 10px;
+        min-height: 42px;
       }
       .discord-visual {
         display: none;
       }
       .closing-line {
-        padding: 25px 0;
-        border-top: 1px solid var(--line);
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        font-size: 11px;
+        gap: 20px;
+        padding: 0 0 28px;
+        font-size: 10px;
         color: var(--muted);
       }
       .closing-line strong {
-        font-weight: 600;
+        font-weight: 500;
         color: var(--ink);
       }
       .closing-line a {
         display: inline-flex;
+        gap: 8px;
         align-items: center;
-        gap: 7px;
         font-size: 10px;
-      }
-      .closing-line a:hover {
-        color: var(--discord);
+        color: var(--accent);
       }
       .site-footer {
+        padding: 26px 0;
         border-top: 1px solid var(--line);
-        padding: 28px 0;
       }
       .footer-inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 25px;
+        gap: 20px;
       }
       .footer-brand {
-        font-size: 24px;
-        font-weight: 800;
-        letter-spacing: -1px;
-      }
-      .footer-note {
         font:
-          8px "DM Mono",
-          monospace;
-        color: var(--muted);
-        letter-spacing: 0.7px;
+          800 22px Manrope,
+          sans-serif;
+        letter-spacing: -1px;
       }
       .social-links {
         display: flex;
-        gap: 14px;
+        gap: 12px;
+      }
+      .footer-note {
+        font-size: 8px;
+        color: var(--muted);
       }
       .shot-viewer {
         width: min(1400px, 96vw);
@@ -999,7 +876,7 @@
         overflow: hidden;
       }
       .shot-viewer::backdrop {
-        background: #000a;
+        background: #171717a8;
         backdrop-filter: blur(7px);
       }
       .shot-viewer-bar {
@@ -1028,68 +905,53 @@
       .shot-viewer-hint {
         text-align: center;
         padding: 12px;
-        font:
-          9px "DM Mono",
-          monospace;
+        font-size: 9px;
         color: var(--muted);
       }
       @media (max-width: 1000px) {
-        .site-shell,
-        .site-header {
-          width: calc(100% - 48px);
-        }
         .hero {
-          gap: 25px;
-          padding: 55px 0;
+          gap: 30px;
         }
         .hero h1 {
-          font-size: 53px;
-        }
-        .hero-workspace {
-          padding-left: 0;
-        }
-        .workspace-note {
-          right: 0;
-        }
-        .workspace-caption {
-          left: 0;
-          font-size: 7px;
+          font-size: 43px;
+          letter-spacing: -2px;
         }
         .header-nav {
           gap: 17px;
         }
-        .header-tools {
-          gap: 10px;
+        .routine-card {
+          padding: 22px;
         }
-        .funnel-header-duo a {
-          font-size: 10px;
-          padding: 0 12px;
+        .routine-row {
+          gap: 8px;
+          grid-template-columns: 22px 1fr 14px;
         }
-        .resource-link {
-          padding-inline: 16px;
-          gap: 9px;
-          grid-template-columns: 25px 1fr 14px;
-        }
-        .resource-link small {
+        .routine-row p {
           font-size: 9px;
         }
+        .indicator-browser {
+          grid-template-columns: 155px minmax(0, 1fr);
+          gap: 15px;
+        }
         .indicator-copy {
-          padding: 23px;
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+          gap: 0;
         }
-        .indicator-card {
-          min-height: 300px;
+        .indicator-copy .button {
+          margin-top: 14px;
+          align-self: start;
         }
-        .journal-stage {
-          padding: 32px;
-        }
-        .journal-card {
-          gap: 27px;
+        .journal-copy {
+          padding: 25px;
         }
         .community-layout {
-          gap: 30px;
+          gap: 26px;
+          padding: 28px;
         }
         .community-intro .section-title {
-          font-size: 36px;
+          font-size: 29px;
         }
       }
       @media (max-width: 700px) {
@@ -1097,312 +959,242 @@
         .site-header {
           width: calc(100% - 36px);
         }
-        .announcement {
-          font-size: 8px;
-          padding: 8px 12px;
-        }
-        .announcement span {
-          margin-right: 5px;
-        }
-        .announcement a {
-          gap: 8px;
-        }
         .site-header {
-          height: 69px;
-          gap: 12px;
+          height: 70px;
+          gap: 10px;
         }
         .brand {
-          font-size: 25px;
+          font-size: 24px;
         }
-        .brand:before { content: none; }
         .header-nav {
           display: none;
         }
         .header-tools {
-          gap: 6px;
+          gap: 5px;
         }
         .funnel-header-duo a {
           font-size: 10px;
-          min-height: 35px;
-          padding: 0 11px;
-        }
-        .funnel-header-duo a .arrow-icon {
-          display: none;
+          padding: 8px 11px;
+          gap: 7px;
         }
         .theme-mode-toggle {
-          min-width: 35px;
+          min-width: 30px;
         }
         .hero {
           grid-template-columns: 1fr;
-          padding: 37px 0 28px;
-          gap: 31px;
+          padding: 37px 0 35px;
+          gap: 28px;
         }
-        .hero .eyebrow {
-          font-size: 8px;
-          letter-spacing: 1px;
-          margin-bottom: 19px;
+        .hero:before {
+          inset: 0 0 0 0;
+          background: radial-gradient(
+            ellipse at 100% 65%,
+            #e6e6e670,
+            transparent 70%
+          );
         }
         .hero h1 {
-          font-size: clamp(46px, 13vw, 64px);
-          letter-spacing: -2.7px;
-          line-height: 1.04;
+          font-size: clamp(34px, 9.5vw, 45px);
+          letter-spacing: -1.8px;
+          line-height: 1.16;
         }
         .hero-lede {
           font-size: 13px;
-          max-width: 315px;
-          margin-top: 19px;
-          line-height: 1.8;
+          margin-top: 18px;
+          line-height: 1.85;
+          max-width: 335px;
         }
         .hero-actions {
-          margin-top: 23px;
           gap: 8px;
-          flex-wrap: nowrap;
+          margin-top: 22px;
         }
         .hero-actions .button {
           font-size: 10px;
-          padding: 0 12px;
-          gap: 8px;
-          min-height: 44px;
-        }
-        .hero-actions .button .arrow-icon {
-          width: 14px;
-          height: 14px;
-          flex-basis: 14px;
-        }
-        .hero-footnote {
-          font-size: 8px;
-          margin-top: 11px;
+          padding: 0 13px;
+          gap: 11px;
+          min-height: 43px;
         }
         .hero-socials {
           margin-top: 16px;
-          gap: 14px;
+          gap: 12px;
         }
-        .hero-workspace {
-          padding: 0 5px 32px;
-          max-width: 510px;
-          width: 100%;
-          margin: auto;
-        }
-        .workspace-shell {
-          transform: none;
-          border-radius: 9px;
-        }
-        .workspace-header {
+        .hero-footnote {
           font-size: 9px;
-          padding: 11px 12px;
+          margin-top: 11px;
         }
-        .workspace-footer {
-          font-size: 7px;
-          padding: 10px 12px;
+        .routine-card {
+          padding: 21px 22px 16px;
+          border-radius: 15px;
         }
-        .workspace-note {
-          padding: 11px 15px;
-          gap: 11px;
-          bottom: 0;
-          right: 0;
-        }
-        .workspace-note b {
-          font-size: 25px;
-        }
-        .workspace-note span {
-          font-size: 9px;
-        }
-        .workspace-note small {
+        .routine-heading {
           font-size: 7px;
         }
-        .workspace-caption {
-          bottom: 5px;
-          font-size: 6px;
+        .routine-card h2 {
+          font-size: 21px;
+          margin: 14px 0 16px;
         }
-        .resource-index {
-          padding: 16px 0;
+        .routine-row {
+          padding: 13px 0;
+          grid-template-columns: 24px 1fr 15px;
         }
-        .resource-link {
-          grid-template-columns: 1fr;
-          padding: 0 12px;
-          gap: 4px;
+        .routine-row h3 {
+          font-size: 12px;
         }
-        .resource-link > span {
-          font-size: 8px;
-        }
-        .resource-link strong {
+        .routine-row p {
           font-size: 10px;
         }
-        .resource-link small {
-          font-size: 8px;
-          line-height: 1.6;
-          max-width: 80px;
-        }
-        .resource-link .arrow-icon {
-          display: none;
+        .routine-footer {
+          font-size: 7px;
+          padding-top: 12px;
         }
         .section {
-          padding: 38px 0;
+          padding: 34px 0;
         }
         .section-heading {
-          gap: 15px;
-          margin-bottom: 22px;
+          flex-direction: column;
           align-items: start;
+          gap: 13px;
+          margin-bottom: 23px;
         }
         .section-number {
-          font-size: 8px;
-          letter-spacing: 1px;
+          font-size: 7px;
+          letter-spacing: 1.5px;
           margin-bottom: 11px;
         }
         .section-title {
           font-size: 29px;
           letter-spacing: -1.1px;
-          line-height: 1.15;
+        }
+        .collection-intro > p:first-child {
+          font-size: 11px;
+          margin-bottom: 9px;
+        }
+        .collection-intro > p:first-child br {
+          display: none;
         }
         .bundle-badge {
-          font-size: 7px;
-          padding: 5px 6px;
-          margin-top: 26px;
+          font-size: 8px;
+          padding: 3px 8px;
+        }
+        .indicator-browser {
+          grid-template-columns: 1fr;
+          gap: 13px;
         }
         .indicator-tabs {
           grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 4px;
-          padding: 4px;
+          gap: 5px;
         }
         .indicator-tab {
-          min-height: 35px;
-          padding: 7px 2px;
-          flex-direction: row;
+          min-height: 37px;
+          padding: 8px 6px;
           gap: 5px;
+          justify-content: center;
           font-size: 10px;
+          border-color: var(--line);
+          border-radius: 6px;
+          background: var(--paper);
         }
         .indicator-tab-number {
+          width: auto;
           font-size: 7px;
         }
-        .indicator-browser {
-          gap: 12px;
-        }
-        .indicator-card {
-          grid-template-columns: 1fr;
-          min-height: 0;
-          border-radius: 10px;
-        }
-        .indicator-visual {
-          border-right: 0;
-          border-bottom: 1px solid var(--line);
+        .indicator-tab[aria-selected="true"] {
+          background: #e5e5e5;
+          color: #383838;
+          border-color: #cccccc;
         }
         .indicator-copy {
-          padding: 21px;
-        }
-        .product-meta {
-          font-size: 8px;
-          margin-bottom: 10px;
+          padding: 19px;
         }
         .indicator-copy h3 {
-          font-size: 23px;
-          margin-bottom: 11px;
+          font-size: 21px;
+          margin-bottom: 9px;
         }
         .indicator-copy p {
           font-size: 12px;
-          margin-bottom: 18px;
         }
         .indicator-copy .button {
           width: 100%;
           justify-content: space-between;
+          margin-top: 18px;
+          min-height: 41px;
         }
         .funnel-section-banner {
-          margin-top: 14px;
-          gap: 12px;
-          align-items: start;
-        }
-        .funnel-section-banner p {
-          font-size: 9px;
-          max-width: 190px;
-        }
-        .funnel-section-banner strong {
-          display: block;
-        }
-        .funnel-section-banner .button {
-          font-size: 9px;
-          gap: 6px;
-          min-height: 30px;
-        }
-        .funnel-section-banner i {
-          display: none;
-        }
-        .funnel-section-banner .arrow-icon {
-          width: 13px;
-          height: 13px;
-          flex-basis: 13px;
-        }
-        .journal-stage {
-          padding: 26px 21px;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 16px;
+          padding: 23px 21px;
+          margin-top: 19px;
           border-radius: 12px;
         }
-        .journal-stage .section-heading {
-          margin-bottom: 26px;
+        .funnel-section-banner strong {
+          font-size: 23px;
+          margin-bottom: 5px;
         }
-        .journal-stage .section-title {
-          font-size: 29px;
-          letter-spacing: -1px;
+        .funnel-section-banner p {
+          font-size: 12px;
+        }
+        .funnel-section-banner .button {
+          width: 100%;
+          justify-content: space-between;
+          font-size: 11px;
+        }
+        .journal-stage {
+          padding: 37px 0;
         }
         .journal-card {
           grid-template-columns: 1fr;
-          gap: 27px;
+          border-radius: 13px;
+        }
+        .journal-copy {
+          padding: 24px;
         }
         .journal-copy h3 {
-          font-size: 20px;
-          margin-top: 12px;
+          font-size: 25px;
         }
-        .feature-list {
-          grid-template-columns: 1fr 1fr;
-          margin: 17px 0 22px;
-          gap: 8px;
-        }
-        .feature-list li {
-          font-size: 9px;
-        }
-        .journal-copy .button {
+        .journal-copy > .button {
           width: 100%;
           justify-content: space-between;
+          min-height: 43px;
         }
         .journal-image {
-          padding: 4px;
-          border-radius: 7px;
+          padding: 17px 0 17px 17px;
         }
         .community-section {
-          padding-top: 39px;
-          padding-bottom: 30px;
+          padding: 0 0 28px;
         }
         .community-layout {
           grid-template-columns: 1fr;
-          gap: 25px;
+          gap: 22px;
+          padding: 24px 18px;
+          border-radius: 14px;
         }
         .community-intro .section-title {
-          font-size: 33px;
-          max-width: 330px;
+          font-size: 29px;
         }
         .community-intro > p {
           font-size: 12px;
           margin-top: 15px;
-          max-width: 320px;
         }
-        .community-intro .community-social-note {
+        .community-social-note {
           display: none;
         }
         .community-card {
-          padding: 23px;
+          padding: 21px;
         }
         .community-content h3 {
-          font-size: 22px;
-          margin-top: 17px;
+          font-size: 21px;
         }
         .community-content > p {
           font-size: 12px;
         }
-        .access-steps {
-          margin: 19px 0;
+        .access-steps li {
+          font-size: 11px;
         }
         .closing-line {
-          padding: 20px 0;
-          gap: 20px;
+          font-size: 9px;
           align-items: start;
-          font-size: 10px;
+          padding-bottom: 24px;
         }
         .closing-line strong {
           display: block;
@@ -1412,30 +1204,21 @@
           white-space: nowrap;
         }
         .site-footer {
-          padding: 23px 0;
+          padding: 22px 0;
         }
         .footer-inner {
           flex-wrap: wrap;
-          gap: 15px;
-        }
-        .footer-brand {
-          font-size: 23px;
-        }
-        .social-links {
-          gap: 8px;
+          gap: 12px;
         }
         .footer-note {
           width: 100%;
-          font-size: 7px;
+          font-size: 8px;
+        }
+        .social-links {
+          gap: 9px;
         }
         .shot-viewer-scroll img {
           min-width: 900px;
-        }
-        .shot-viewer {
-          width: 96vw;
-        }
-        .shot-viewer-bar {
-          font-size: 10px;
         }
       }
       @media (prefers-reduced-motion: reduce) {
@@ -1449,33 +1232,102 @@
           animation: none !important;
         }
       }
-      /* Editorial hero: the chart preview lives only in the indicator catalog. */
-      .hero { grid-template-columns: 1fr; padding: 58px 0 48px; }
-      .hero-copy { display: grid; grid-template-columns: 1.15fr 1fr; column-gap: 65px; align-items: start; }
-      .hero .eyebrow { grid-column: 1 / -1; }
-      .hero h1 { grid-column: 1; grid-row: 1 / 5; font-size: clamp(46px, 5vw, 68px); }
-      .hero-lede { grid-column: 2; margin-top: 0; }
-      .hero-actions, .hero-footnote, .hero-socials { grid-column: 2; }
-      @media (max-width: 700px) {
-        .hero { padding: 37px 0 28px; }
-        .hero-copy { display: block; }
-        .hero h1 { font-size: clamp(46px, 13vw, 64px); }
-        .hero-lede { margin-top: 19px; }
-      }      .funnel-section-banner {
-        margin-top: 24px; padding: 28px 30px; border-radius: 12px;
-        background: #7c4dff; color: #fff; gap: 28px;
+      /* Brand accents: Discord violet, journal blue; neutral surfaces throughout. */
+      .funnel-header-duo .duo-discord {
+        color: #fff;
+        background: #7c4dff;
+        border-color: #7c4dff;
       }
-      .funnel-section-banner p { color: #eee7ff; font-size: 13px; max-width: none; line-height: 1.7; }
-      .funnel-section-banner strong { display: block; font-size: 25px; letter-spacing: -.7px; color: #fff; margin-bottom: 5px; }
-      .funnel-section-banner .button { background: #fff; color: #4c239e; min-height: 47px; padding: 0 20px; border-radius: 7px; font-size: 12px; white-space: nowrap; }
-      .funnel-section-banner .button:hover { background: #f0eaff; transform: translateY(-2px); }
-      @media (max-width:700px) {
-        .funnel-section-banner { padding: 24px 21px; flex-direction: column; align-items: stretch; gap: 18px; }
-        .funnel-section-banner p { font-size: 12px; }
-        .funnel-section-banner strong { font-size: 23px; }
-        .funnel-section-banner .button { width: 100%; justify-content: space-between; font-size: 12px; min-height: 46px; }
-        .funnel-section-banner i { display: inline-block; }
-      }    </style>
+      .funnel-header-duo .duo-discord:hover {
+        background: #6a3fe0;
+        border-color: #6a3fe0;
+      }
+      .hero-actions .button--primary,
+      .indicator-copy .button--primary,
+      .community-content > .button {
+        color: #fff;
+        background: #7c4dff;
+        border-color: #7c4dff;
+      }
+      .hero-actions .button--primary:hover,
+      .indicator-copy .button--primary:hover,
+      .community-content > .button:hover {
+        background: #6a3fe0;
+        border-color: #6a3fe0;
+      }
+      .funnel-section-banner .button {
+        color: #6a3fe0;
+      }
+      .discord-icon {
+        color: #7c4dff;
+      }
+      .journal-stage .section-number {
+        color: var(--journal);
+      }
+      /* Readable supporting type across both themes. */
+      .button,
+      .funnel-header-duo .duo-discord,
+      .indicator-copy .button,
+      .journal-copy .button,
+      .funnel-section-banner .button {
+        font-size: 12px;
+      }
+      .routine-row p {
+        font-size: 12px;
+      }
+      .routine-heading,
+      .section-number,
+      .hero-socials-label {
+        font-size: 10px;
+      }
+      .hero-footnote,
+      .status-pill,
+      .indicator-count,
+      .feature-list li {
+        font-size: 11px;
+      }
+      html[data-ui-theme="night"] .hero h1 span {
+        color: #b0b0b0;
+      }
+      html[data-ui-theme="night"] .hero:before {
+        background: radial-gradient(
+          ellipse at 75% 48%,
+          #ffffff08,
+          transparent 65%
+        );
+      }
+      html[data-ui-theme="night"] .journal-copy .button {
+        background: #3173af;
+        border-color: #3173af;
+      }
+      @media (max-width: 600px) {
+        .hero-lede,
+        .section-description,
+        .community-intro p,
+        .community-content > p,
+        .journal-copy > p {
+          font-size: 14px;
+        }
+      }
+
+      .theme-mode-toggle {
+        width: 44px;
+        height: 44px;
+      }
+      @media (min-width: 701px) and (max-width: 1000px) {
+        .hero-actions .button {
+          width: 100%;
+        }
+      }
+      @media (max-width: 700px) {
+        .indicator-tab {
+          min-height: 44px;
+        }
+      }
+      .indicator-screenshot:focus-visible {
+        outline-offset: -4px;
+      }
+    </style>
   </head>
   <body id="top">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -1540,16 +1392,6 @@
       </button>
     </div>
 
-    <div class="announcement">
-      <a
-        href="https://discord.gg/XdWaEBXQ6G"
-        target="_blank"
-        rel="noopener noreferrer"
-        ><span>OPEN SOURCE. OPEN ACCESS.</span> All nine indicators are free.
-        <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
-          <path d="M5 11 11 5M6.5 5H11v4.5" /></svg
-      ></a>
-    </div>
     <header class="site-header" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="Bandz home">Bandz</a>
       <nav class="header-nav" aria-label="Store sections">
@@ -1617,33 +1459,30 @@
     <main id="main-content">
       <section class="hero site-shell" aria-labelledby="hero-title">
         <div class="hero-copy">
-          
           <h1 id="hero-title">
-            A clearer view.<br /><span>A better process.</span>
+            Trade with clarity.<br /><span>Build your process.</span>
           </h1>
           <p class="hero-lede">
-            Tools for the chart. Perspective from the community. A place to
-            review it all.
+            Free, open-source indicators, live trading streams, and a trading
+            journal.
           </p>
           <div class="hero-actions">
-            <a class="button button--primary" href="#indicators"
-              >Explore the indicators
-              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
-                <path d="M5 11 11 5M6.5 5H11v4.5" /></svg></a
-            ><a
-              class="button"
+            <a
+              class="button button--primary"
               href="https://discord.gg/XdWaEBXQ6G"
               target="_blank"
               rel="noopener noreferrer"
-              ><i class="fa-brands fa-discord" aria-hidden="true"></i> Join
-              Discord
+              >Join the free Discord
+              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M5 11 11 5M6.5 5H11v4.5" /></svg></a
+            ><a class="button button--secondary" href="#indicators"
+              >Explore the tools
               <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
                 <path d="M5 11 11 5M6.5 5H11v4.5" /></svg
             ></a>
           </div>
-          <p class="hero-footnote">OPEN-SOURCE INDICATORS. ALL FREE.</p>
+
           <nav class="hero-socials" aria-label="Bandz social media quick links">
-            <span class="hero-socials-label" aria-hidden="true">Follow</span>
             <a
               class="social-link"
               href="https://x.com/Bandz_Trading"
@@ -1688,36 +1527,35 @@
             </a>
           </nav>
         </div>
+        <div class="routine-card">
+          <h2>Your trading toolkit.</h2>
+          <a class="routine-row" href="#indicators"
+            ><span class="routine-number">01</span>
+            <div>
+              <h3>Find your context.</h3>
+              <p>Indicators that bring the chart into focus.</p>
+            </div>
+            <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M5 11 11 5M6.5 5H11v4.5" /></svg></a
+          ><a class="routine-row" href="#journal"
+            ><span class="routine-number">02</span>
+            <div>
+              <h3>Review your decisions.</h3>
+              <p>A trading journal built around your process.</p>
+            </div>
+            <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M5 11 11 5M6.5 5H11v4.5" /></svg></a
+          ><a class="routine-row" href="#discord"
+            ><span class="routine-number">03</span>
+            <div>
+              <h3>Keep learning, together.</h3>
+              <p>Live streams and conversations with traders.</p>
+            </div>
+            <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M5 11 11 5M6.5 5H11v4.5" /></svg
+          ></a>
+        </div>
       </section>
-      <nav
-        class="resource-index site-shell"
-        aria-label="Explore Bandz resources"
-      >
-        <a class="resource-link" href="#indicators"
-          ><span>01</span>
-          <div>
-            <strong>Read the chart</strong><small>Open-source indicators</small>
-          </div>
-          <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M5 11 11 5M6.5 5H11v4.5" /></svg></a
-        ><a class="resource-link" href="#journal"
-          ><span>02</span>
-          <div>
-            <strong>Review your trades</strong
-            ><small>Your free trading journal</small>
-          </div>
-          <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M5 11 11 5M6.5 5H11v4.5" /></svg></a
-        ><a class="resource-link" href="#discord"
-          ><span>03</span>
-          <div>
-            <strong>Trade together</strong
-            ><small>Live streams &amp; community</small>
-          </div>
-          <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M5 11 11 5M6.5 5H11v4.5" /></svg
-        ></a>
-      </nav>
       <section
         class="section indicators-section"
         id="indicators"
@@ -1746,13 +1584,13 @@
         <div class="site-shell">
           <header class="section-heading reveal-stagger">
             <div>
-              <span class="section-number">01 / The indicator collection</span>
+              <span class="section-number">THE INDICATOR COLLECTION</span>
               <h2 class="section-title" id="indicators-title">
-                Your chart. Your toolkit.
+                The right tools.<br />A clearer picture.
               </h2>
             </div>
-            <div>
-              <p class="bundle-badge">Free &amp; open source</p>
+            <div class="collection-intro">
+              <p>Explore the indicators. Get them free in Discord.</p>
             </div>
           </header>
 
@@ -2270,16 +2108,15 @@
       >
         <header class="section-heading reveal-stagger">
           <div>
-            <span class="section-number">02 / Beyond the chart</span>
+            <span class="section-number">THE TRADING JOURNAL</span>
             <h2 class="section-title" id="journal-title">
-              Every trade tells a story.<br />Start keeping track.
+              Your next insight<br />starts with a review.
             </h2>
           </div>
         </header>
 
         <article class="journal-card reveal">
           <div class="journal-copy">
-            <span class="status-pill">Free to use</span>
             <h3>Bandz Trading Journal</h3>
             <p>Log every trade. See what is working.</p>
             <ul class="feature-list" aria-label="Journal features">
@@ -2328,17 +2165,10 @@
       >
         <div class="community-layout">
           <div class="community-intro">
-            <span class="section-number">03 / Better with company</span>
+            <span class="section-number">THE COMMUNITY</span>
             <h2 class="section-title" id="community-title">
-              Trading is individual.<br />Learning doesn’t<br />have to be.
+              Trade together.<br />Learn together.
             </h2>
-            <p>
-              Join the live streams. Talk through a setup. Ask the question
-              you’ve been sitting on. There’s a place for that here.
-            </p>
-            <p class="community-social-note">
-              THE BANDZ COMMUNITY / ON DISCORD
-            </p>
           </div>
           <article class="community-card reveal">
             <div class="community-content">
@@ -2346,17 +2176,12 @@
                 <span class="discord-icon" aria-hidden="true">
                   <i class="fa-brands fa-discord"></i>
                 </span>
-                <span class="community-status">Free to join</span>
               </div>
-              <h3>Free Discord</h3>
-              <p>
-                Watch live trading streams, ask questions in real time, and get
-                all nine indicators.
-              </p>
-              <ol class="access-steps" aria-label="How to get the indicators">
-                <li><span>01</span> Join the free Discord</li>
-                <li><span>02</span> Catch the live trading streams</li>
-                <li><span>03</span> Grab all nine indicators</li>
+              <h3>Inside the Discord</h3>
+              <ol class="access-steps" aria-label="Discord community features">
+                <li>Live trading streams</li>
+                <li>Trade discussions</li>
+                <li>Open-source indicators</li>
               </ol>
               <a
                 class="button button--primary button--discord"
@@ -2387,16 +2212,6 @@
           </article>
         </div>
       </section>
-      <div class="closing-line site-shell">
-        <p>
-          <strong>Build your process.</strong> Keep the tools. Make them yours.
-        </p>
-        <a href="#indicators"
-          >Explore the collection
-          <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M5 11 11 5M6.5 5H11v4.5" /></svg
-        ></a>
-      </div>
     </main>
     <footer class="site-footer">
       <div class="footer-inner site-shell">
@@ -2445,7 +2260,6 @@
             <i class="fa-brands fa-youtube" aria-hidden="true"></i>
           </a>
         </nav>
-        <p class="footer-note">Indicators · Discord · Journal</p>
       </div>
     </footer>
 
@@ -2546,7 +2360,7 @@
             `Switch to ${isDark ? "light" : "dark"} mode`,
           );
           modeLabel.textContent = isDark ? "Dark" : "Light";
-          if (themeColor) themeColor.content = isDark ? "#0B0B0C" : "#F1F1EE";
+          if (themeColor) themeColor.content = isDark ? "#151515" : "#fafafa";
 
           if (persist) {
             try {
