@@ -1,0 +1,97 @@
+/* Smart Money Hat promo: launch banner (option 2) and product card (option 1). */
+
+/* Option 2: thin launch banner above the header */
+.hat-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 8px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: -0.1px;
+}
+.hat-banner strong {
+  font-weight: 600;
+}
+.hat-banner .hat-banner-cta {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--paper) 45%, transparent);
+}
+.hat-banner:hover .hat-banner-cta {
+  text-decoration-color: currentColor;
+}
+.hat-banner:focus-visible {
+  outline: 2px solid #7c4dff;
+  outline-offset: -2px;
+}
+
+/* Option 1: product card after the journal */
+.hat-card {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  align-items: center;
+  gap: 18px;
+  max-width: 560px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.hat-card:hover {
+  border-color: color-mix(in srgb, var(--ink) 35%, var(--line));
+  transform: translateY(-1px);
+}
+.hat-card:focus-visible {
+  outline: 2px solid #7c4dff;
+  outline-offset: 3px;
+}
+.hat-card img {
+  width: 132px;
+  height: 132px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #fff;
+}
+.hat-card-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+.hat-card-price {
+  margin: 2px 0 12px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.hat-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 4px;
+}
+.hat-card:hover .hat-card-cta {
+  text-decoration-color: currentColor;
+}
+@media (max-width: 520px) {
+  .hat-card {
+    grid-template-columns: 104px 1fr;
+    gap: 14px;
+  }
+  .hat-card img {
+    width: 104px;
+    height: 104px;
+  }
+}
