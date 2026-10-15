@@ -95,3 +95,15 @@
     height: 104px;
   }
 }
+
+/* Discord livestream screenshot in "Inside the Discord" */
+.discord-shot {
+  margin: 18px 0;
+}
+.discord-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}

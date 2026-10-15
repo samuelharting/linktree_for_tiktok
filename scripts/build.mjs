@@ -38,6 +38,7 @@ await mkdir(path.join(dist, "assets", "indicators"), { recursive: true });
 await mkdir(path.join(dist, "assets", "journal"), { recursive: true });
 await mkdir(path.join(dist, "assets", "hero"), { recursive: true });
 await mkdir(path.join(dist, "assets", "merch"), { recursive: true });
+await mkdir(path.join(dist, "assets", "discord"), { recursive: true });
 
 const workerSource = `
 const pageHtml = ${JSON.stringify(html)};
@@ -147,6 +148,10 @@ await Promise.all([
   copyFile(path.join(root, "experiments-layout.css"), path.join(dist, "experiments-layout.css")),
   copyFile(path.join(root, "experiments-journal.css"), path.join(dist, "experiments-journal.css")),
   copyFile(path.join(root, "hat-promo.css"), path.join(dist, "hat-promo.css")),
+  copyFile(
+    path.join(root, "assets", "discord", "live-call.jpg"),
+    path.join(dist, "assets", "discord", "live-call.jpg"),
+  ),
   copyFile(
     path.join(root, "assets", "merch", "smart-money-hat-desk.jpg"),
     path.join(dist, "assets", "merch", "smart-money-hat-desk.jpg"),
