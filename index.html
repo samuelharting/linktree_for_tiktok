@@ -50,7 +50,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700&amp;display=swap"
       rel="stylesheet"
     />
     <link
@@ -82,6 +82,33 @@
       }
 
       document.documentElement.dataset.uiTheme = initialUiTheme;
+    </script>
+    <script>
+      /* PICKER STATE: ?bg=1-11, ?live=1-15, ?btn=1-4 set data-bg / data-live /
+         data-btn on <html> (defaults 1, 1, 2). With ?picker the last picks are
+         remembered in localStorage and the picker panel is shown. */
+      (function () {
+        var data = document.documentElement.dataset;
+        var picks = { bg: "2", live: "15", btn: "5", nav: "2", layout: "5" };
+        var valid = { bg: /^[1-4]$/, live: /^15$/, btn: /^5$/, nav: /^[1-4]$/, layout: /^[1-5]$/ };
+        var query = null;
+        try {
+          query = new URLSearchParams(window.location.search);
+        } catch (e) {}
+        var picker = !!(query && query.has("picker"));
+        for (var key in picks) {
+          var value = null;
+          if (picker) {
+            try {
+              value = window.localStorage.getItem("bandz-pick-" + key);
+            } catch (e) {}
+          }
+          if (query && query.get(key)) value = query.get(key);
+          if (value && valid[key].test(value)) picks[key] = value;
+          data[key] = picks[key];
+        }
+        if (picker) data.picker = "";
+      })();
     </script>
 
     <style>
@@ -122,7 +149,7 @@
       body {
         margin: 0;
         font:
-          14px/1.7 "DM Sans",
+          14px/1.7 Geist,
           Arial,
           sans-serif;
         background: var(--canvas);
@@ -154,7 +181,7 @@
       h1,
       h2,
       h3 {
-        font-family: Manrope, Arial, sans-serif;
+        font-family: Geist, Arial, sans-serif;
       }
       a,
       button {
@@ -207,9 +234,10 @@
       }
       .brand {
         font:
-          800 26px Manrope,
+          500 26px Geist,
+          Arial,
           sans-serif;
-        letter-spacing: -1.2px;
+        letter-spacing: 0.02em;
       }
       .header-nav {
         display: flex;
@@ -353,6 +381,121 @@
         gap: 14px;
         align-items: center;
         margin-top: 25px;
+      }
+      .live-countdown {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 22px;
+        color: var(--body-text);
+        font-size: 13px;
+        font-variant-numeric: tabular-nums;
+        text-decoration: none;
+      }
+      .live-countdown:hover [data-live-text] {
+        color: var(--ink);
+      }
+      /* Live indicator: slow purple pulse while waiting, red pulse when live. */
+      .live-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #7c4dff;
+        flex: 0 0 auto;
+        box-shadow: 0 0 0 0 rgba(124, 77, 255, 0.45);
+        animation: live-idle 2.8s ease-out infinite;
+      }
+      .live-badge {
+        padding: 2px 7px;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 1.5;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .live-countdown.is-live .live-dot {
+        background: #ff3b30;
+        box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.55);
+        animation: live-pulse 1.5s ease-out infinite;
+      }
+      .live-countdown.is-live .live-badge {
+        color: #ffffff;
+        background: #ff3b30;
+        border-color: #ff3b30;
+      }
+      @keyframes live-idle {
+        0% {
+          box-shadow: 0 0 0 0 rgba(124, 77, 255, 0.45);
+        }
+        70%,
+        100% {
+          box-shadow: 0 0 0 6px rgba(124, 77, 255, 0);
+        }
+      }
+      @keyframes live-pulse {
+        to {
+          box-shadow: 0 0 0 8px rgba(255, 59, 48, 0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .live-dot,
+        .live-countdown.is-live .live-dot {
+          animation: none;
+          box-shadow: none;
+        }
+      }
+      .member-count {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        color: var(--body-text);
+        font-size: 13px;
+        font-variant-numeric: tabular-nums;
+      }
+      .member-count[hidden] {
+        display: none;
+      }
+      .member-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #3ba55d;
+        box-shadow: 0 0 0 3px rgba(59, 165, 93, 0.18);
+      }
+      .community-lede {
+        margin: 0 0 6px;
+        color: var(--body-text);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+      @media (max-width: 700px) {
+        .hero-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .hero-actions .button--primary {
+          width: 100%;
+          justify-content: center;
+          min-height: 50px;
+        }
+        .hero-actions .button--secondary {
+          align-self: center;
+          border: 0;
+          background: transparent;
+          min-height: 40px;
+          padding: 0 6px;
+          box-shadow: none;
+        }
+        .community-section {
+          padding-top: 36px;
+        }
+        .hero .live-countdown {
+          margin-top: 10px;
+        }
       }
       .hero-socials-label {
         font-size: 8px;
@@ -519,90 +662,14 @@
         color: var(--body-text);
         text-align: left;
       }
-      .indicator-tab-number {
-        font-size: 9px;
-        color: #aaaaaa;
-        width: 18px;
-        flex-shrink: 0;
-      }
-      .indicator-tab[aria-selected="true"] {
-        border-color: #dadada;
-        background: var(--paper);
-        color: var(--ink);
-        box-shadow: 0 3px 10px #00000004;
-        font-weight: 600;
-      }
       .indicator-tab:hover {
         background: var(--paper);
-      }
-      .indicator-card {
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: var(--paper);
-        overflow: hidden;
-        display: grid;
-        grid-template-columns: 1fr;
-        box-shadow: 0 10px 35px #00000005;
-      }
-      .indicator-visual {
-        position: relative;
-        background: #dfdcd5;
-        cursor: zoom-in;
-      }
-      .indicator-visual:after {
-        content: "EXPAND CHART";
-        position: absolute;
-        right: 12px;
-        bottom: 11px;
-        background: #ffffffdf;
-        color: #4b4b4b;
-        border-radius: 4px;
-        padding: 5px 7px;
-        font-size: 7px;
-        letter-spacing: 0.6px;
-        pointer-events: none;
-      }
-      .indicator-screenshot {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 3840/2063;
-        object-fit: cover;
-      }
-      .indicator-copy {
-        padding: 22px 25px;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        column-gap: 25px;
-        align-items: start;
       }
       .product-meta {
         grid-column: 1;
         font-size: 8px;
         color: var(--muted);
         margin-bottom: 7px;
-      }
-      .indicator-copy h3 {
-        grid-column: 1;
-        font-size: 21px;
-        font-weight: 600;
-        letter-spacing: -0.7px;
-        margin-bottom: 8px;
-        line-height: 1.4;
-      }
-      .indicator-copy p {
-        grid-column: 1;
-        font-size: 11px;
-        color: var(--body-text);
-        line-height: 1.8;
-        max-width: 490px;
-      }
-      .indicator-copy .button {
-        grid-column: 2;
-        grid-row: 1/4;
-        align-self: center;
-        min-height: 39px;
-        font-size: 10px;
-        padding: 0 15px;
       }
       .funnel-section-banner {
         margin-top: 25px;
@@ -621,7 +688,7 @@
       .funnel-section-banner strong {
         display: block;
         font-size: 23px;
-        font-family: Manrope, sans-serif;
+        font-family: Geist, Arial, sans-serif;
         color: white;
         font-weight: 600;
         letter-spacing: -0.7px;
@@ -701,9 +768,9 @@
         padding: 5px 8px;
       }
       .journal-copy .button {
-        background: var(--journal);
-        border-color: var(--journal);
-        color: white;
+        background: transparent;
+        border: 1px solid var(--line-strong, var(--line));
+        color: var(--ink);
         font-size: 10px;
       }
       .journal-image {
@@ -758,10 +825,10 @@
         margin-top: 23px !important;
       }
       .community-card {
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        padding: 25px;
-        background: var(--paper);
+        border: 0;
+        border-radius: 0;
+        padding: 0;
+        background: transparent;
       }
       .community-brandline {
         display: flex;
@@ -853,9 +920,10 @@
       }
       .footer-brand {
         font:
-          800 22px Manrope,
+          500 22px Geist,
+          Arial,
           sans-serif;
-        letter-spacing: -1px;
+        letter-spacing: 0.02em;
       }
       .social-links {
         display: flex;
@@ -863,49 +931,6 @@
       }
       .footer-note {
         font-size: 8px;
-        color: var(--muted);
-      }
-      .shot-viewer {
-        width: min(1400px, 96vw);
-        max-height: 94dvh;
-        padding: 0;
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        background: var(--paper);
-        color: var(--ink);
-        overflow: hidden;
-      }
-      .shot-viewer::backdrop {
-        background: #171717a8;
-        backdrop-filter: blur(7px);
-      }
-      .shot-viewer-bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 18px;
-        font-size: 12px;
-      }
-      .shot-viewer-close {
-        border: 0;
-        background: var(--soft);
-        border-radius: 50%;
-        width: 32px;
-        height: 32px;
-        font-size: 22px;
-      }
-      .shot-viewer-scroll {
-        overflow: auto;
-        max-height: 75dvh;
-      }
-      .shot-viewer-scroll img {
-        width: 100%;
-        max-width: none;
-      }
-      .shot-viewer-hint {
-        text-align: center;
-        padding: 12px;
-        font-size: 9px;
         color: var(--muted);
       }
       @media (max-width: 1000px) {
@@ -932,16 +957,6 @@
         .indicator-browser {
           grid-template-columns: 155px minmax(0, 1fr);
           gap: 15px;
-        }
-        .indicator-copy {
-          display: flex;
-          flex-direction: column;
-          align-items: start;
-          gap: 0;
-        }
-        .indicator-copy .button {
-          margin-top: 14px;
-          align-self: start;
         }
         .journal-copy {
           padding: 25px;
@@ -1093,31 +1108,6 @@
           border-radius: 6px;
           background: var(--paper);
         }
-        .indicator-tab-number {
-          width: auto;
-          font-size: 7px;
-        }
-        .indicator-tab[aria-selected="true"] {
-          background: #e5e5e5;
-          color: #383838;
-          border-color: #cccccc;
-        }
-        .indicator-copy {
-          padding: 19px;
-        }
-        .indicator-copy h3 {
-          font-size: 21px;
-          margin-bottom: 9px;
-        }
-        .indicator-copy p {
-          font-size: 12px;
-        }
-        .indicator-copy .button {
-          width: 100%;
-          justify-content: space-between;
-          margin-top: 18px;
-          min-height: 41px;
-        }
         .funnel-section-banner {
           flex-direction: column;
           align-items: stretch;
@@ -1179,7 +1169,7 @@
           display: none;
         }
         .community-card {
-          padding: 21px;
+          padding: 0;
         }
         .community-content h3 {
           font-size: 21px;
@@ -1216,9 +1206,6 @@
         .social-links {
           gap: 9px;
         }
-        .shot-viewer-scroll img {
-          min-width: 900px;
-        }
       }
       @media (prefers-reduced-motion: reduce) {
         html {
@@ -1242,14 +1229,12 @@
         border-color: #6a3fe0;
       }
       .hero-actions .button--primary,
-      .indicator-copy .button--primary,
       .community-content > .button {
         color: #fff;
         background: #7c4dff;
         border-color: #7c4dff;
       }
       .hero-actions .button--primary:hover,
-      .indicator-copy .button--primary:hover,
       .community-content > .button:hover {
         background: #6a3fe0;
         border-color: #6a3fe0;
@@ -1266,7 +1251,6 @@
       /* Readable supporting type across both themes. */
       .button,
       .funnel-header-duo .duo-discord,
-      .indicator-copy .button,
       .journal-copy .button,
       .funnel-section-banner .button {
         font-size: 12px;
@@ -1296,8 +1280,9 @@
         );
       }
       html[data-ui-theme="night"] .journal-copy .button {
-        background: #3173af;
-        border-color: #3173af;
+        background: transparent;
+        border-color: #3a3a3a;
+        color: #f2f2f2;
       }
       @media (max-width: 600px) {
         .hero-lede,
@@ -1323,10 +1308,925 @@
           min-height: 44px;
         }
       }
-      .indicator-screenshot:focus-visible {
-        outline-offset: -4px;
+    
+      /* Mobile spacing pass: roomier sections, tighter blocks, centered hero. */
+      @media (max-width: 700px) {
+        .hero {
+          padding: 64px 0 72px;
+          gap: 0;
+          text-align: center;
+        }
+        .hero-copy {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .hero h1 {
+          font-size: 40px;
+          line-height: 1.08;
+        }
+        .hero-lede {
+          margin: 16px auto 0;
+          font-size: 15px;
+          line-height: 1.6;
+          max-width: 320px;
+        }
+        .hero-actions {
+          width: 100%;
+          margin-top: 28px;
+          gap: 4px;
+        }
+        .hero .live-countdown {
+          margin-top: 12px;
+          justify-content: center;
+        }
+        .hero-socials {
+          justify-content: center;
+          margin-top: 20px;
+        }
+        .section {
+          padding: 72px 0;
+        }
+        .section-heading {
+          margin-bottom: 24px;
+          gap: 8px;
+        }
+        .section-title {
+          line-height: 1.1;
+        }
+        .collection-intro p {
+          line-height: 1.6;
+        }
+        .community-section {
+          padding: 72px 0 0;
+        }
+        .community-layout {
+          padding: 28px 22px;
+          gap: 18px;
+        }
+        .community-lede {
+          line-height: 1.6;
+        }
+        .journal-copy > p {
+          line-height: 1.6;
+        }
+      }
+
+      /* Hero: live pill, purple "live." with soft glow, tinted Discord button,
+         quiet member count, live chart card and entrance motion. */
+      .hero h1 span {
+        color: #7c4dff;
+      }
+      html[data-ui-theme="night"] .hero h1 span {
+        color: #a68cff;
+      }
+      .hero:before,
+      html[data-ui-theme="night"] .hero:before {
+        inset: -40px -40px -30px -40px;
+        background: radial-gradient(
+          ellipse 460px 280px at 30% 45%,
+          rgba(124, 77, 255, 0.04),
+          rgba(124, 77, 255, 0) 100%
+        );
+      }
+      html[data-ui-theme="night"] .hero:before {
+        background: radial-gradient(
+          ellipse 460px 280px at 30% 45%,
+          rgba(124, 77, 255, 0.06),
+          rgba(124, 77, 255, 0) 100%
+        );
+      }
+      .hero .hero-copy .live-countdown {
+        margin: 0 0 16px;
+        padding: 5px 5px 5px 12px;
+        gap: 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--paper);
+        font-size: 12.5px;
+        line-height: 1.4;
+        color: var(--body-text);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      }
+      .hero .hero-copy .live-countdown .live-badge {
+        border-radius: 999px;
+        padding: 1px 8px;
+        font-size: 9.5px;
+      }
+      .hero .hero-actions .hero-discord {
+        gap: 10px;
+        min-height: 48px;
+        padding: 0 22px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #ffffff;
+        background: #18181b;
+        border-color: #18181b;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+      .hero .hero-actions .hero-discord:hover {
+        background: #2a2a2e;
+        border-color: #2a2a2e;
+      }
+      .hero .hero-actions .hero-discord .fa-discord {
+        font-size: 16px;
+        color: #a58bff;
+      }
+      html[data-ui-theme="night"] .hero .hero-actions .hero-discord {
+        color: #141414;
+        background: #f2f2f2;
+        border-color: #f2f2f2;
+        box-shadow: none;
+      }
+      html[data-ui-theme="night"] .hero .hero-actions .hero-discord:hover {
+        background: #ffffff;
+        border-color: #ffffff;
+      }
+      html[data-ui-theme="night"] .hero .hero-actions .hero-discord .fa-discord {
+        color: #7c4dff;
+      }
+      .hero-members {
+        flex-basis: 100%;
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.4;
+        font-variant-numeric: tabular-nums;
+      }
+      .hero-members span {
+        color: var(--body-text);
+        font-weight: 600;
+      }
+      .hero-stream {
+        position: relative;
+        display: block;
+        width: 100%;
+        max-width: 440px;
+        aspect-ratio: 16 / 9;
+        margin-top: 36px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--soft);
+        box-shadow: 0 16px 36px -28px rgba(0, 0, 0, 0.4);
+      }
+      .hero-stream-img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 62% 50%;
+        filter: brightness(0.92);
+      }
+      .hero-stream-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 2px 8px 2px 7px;
+        border-radius: 999px;
+        background: rgba(18, 18, 20, 0.78);
+        color: #ffffff;
+        font-size: 9.5px;
+        font-weight: 700;
+        line-height: 1.5;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+      }
+      .hero-stream-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #a58bff;
+      }
+      .hero-stream.is-live .hero-stream-dot {
+        background: #ff3b30;
+      }
+      .hero-stream.is-live .hero-stream-dot {
+        animation: live-blink 1.4s ease-in-out infinite;
+      }
+      @keyframes live-blink {
+        50% {
+          opacity: 0.35;
+        }
+      }
+      html[data-ui-theme="night"] .hero-stream {
+        border-color: #2c2c2c;
+        box-shadow: none;
+      }
+      /* Entrance: headline, lede, button, then live pill and chart card. */
+      @keyframes hero-rise {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .hero h1,
+      .hero .hero-lede,
+      .hero .hero-actions,
+      .hero .hero-copy .live-countdown,
+      .hero .hero-stream {
+        animation: hero-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      }
+      .hero .hero-lede {
+        animation-delay: 0.25s;
+      }
+      .hero .hero-actions {
+        animation-delay: 0.5s;
+      }
+      .hero .hero-copy .live-countdown,
+      .hero .hero-stream {
+        animation-delay: 0.75s;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .hero h1,
+        .hero .hero-lede,
+        .hero .hero-actions,
+        .hero .hero-copy .live-countdown,
+        .hero .hero-stream,
+        .hero-stream.is-live .hero-stream-dot {
+          animation: none;
+        }
+      }
+      @media (max-width: 700px) {
+        /* Compact phone header so the headline leads. */
+        .site-header {
+          height: 48px;
+        }
+        .site-header .brand {
+          font-size: 20px;
+        }
+        .site-header .theme-mode-toggle {
+          width: 28px;
+          height: 28px;
+          min-width: 28px;
+          min-height: 28px;
+          padding: 0;
+        }
+        .site-header .funnel-header-duo .duo-discord {
+          gap: 6px;
+          min-height: 31px;
+          padding: 0 11px;
+          border-radius: 8px;
+          font-size: 12.5px;
+          line-height: 1;
+        }
+        .site-header .funnel-header-duo .fa-discord {
+          font-size: 13px;
+        }
+        .site-header .funnel-header-duo .arrow-icon {
+          width: 12px;
+          height: 12px;
+          flex-basis: 12px;
+        }
+        .hero {
+          padding: 44px 0 72px;
+        }
+        .hero:before,
+        html[data-ui-theme="night"] .hero:before {
+          inset: 0 -18px;
+          background: radial-gradient(
+            ellipse 230px 170px at 50% 140px,
+            rgba(124, 77, 255, 0.045),
+            rgba(124, 77, 255, 0) 100%
+          );
+        }
+        html[data-ui-theme="night"] .hero:before {
+          background: radial-gradient(
+            ellipse 230px 170px at 50% 140px,
+            rgba(124, 77, 255, 0.07),
+            rgba(124, 77, 255, 0) 100%
+          );
+        }
+        .hero h1 {
+          font-size: 40px;
+          line-height: 1.08;
+          letter-spacing: -0.035em;
+        }
+        .hero h1,
+        .hero .hero-lede {
+          text-wrap: balance;
+        }
+        .hero .hero-lede {
+          margin: 14px auto 0;
+          max-width: 300px;
+          font-size: 16px;
+          line-height: 1.55;
+        }
+        .hero .hero-actions {
+          margin-top: 28px;
+          gap: 0;
+        }
+        .hero .hero-actions .hero-discord {
+          min-height: 48px;
+          border-radius: 12px;
+        }
+        .hero-stream {
+          max-width: none;
+        }
+      }
+      /* Sticky header: the slot keeps the header's space so nothing jumps. */
+      .header-slot {
+        height: 86px;
+      }
+      .header-bar.is-stuck {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 60;
+        background: color-mix(in srgb, var(--canvas) 86%, transparent);
+        -webkit-backdrop-filter: saturate(1.4) blur(12px);
+        backdrop-filter: saturate(1.4) blur(12px);
+        border-bottom: 1px solid var(--line);
+        transform: translateY(-100%);
+        transition: transform 260ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      .header-bar.is-stuck.is-shown {
+        transform: none;
+      }
+      .header-bar.is-stuck .site-header {
+        border-bottom-color: transparent;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .header-bar.is-stuck {
+          transition: none;
+        }
+      }
+      @media (max-width: 700px) {
+        .header-slot {
+          height: 48px;
+        }
+      }
+      /* Hero is a positioning context for background experiments. */
+      .hero {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+      }
+      /* PICKER: only rendered with ?picker. */
+      .variant-picker {
+        position: fixed;
+        right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        z-index: 1000;
+        width: 236px;
+        max-width: calc(100vw - 24px);
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--paper);
+        color: var(--ink);
+        box-shadow: 0 14px 36px -14px rgba(0, 0, 0, 0.35);
+        font: 500 12px/1.3 Geist, Arial, sans-serif;
+        text-align: left;
+      }
+      .variant-picker.is-collapsed {
+        width: auto;
+      }
+      .variant-picker-head {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 10px 12px;
+        border: 0;
+        background: none;
+        font-weight: 600;
+      }
+      .variant-picker-body {
+        display: grid;
+        gap: 10px;
+        padding: 0 12px 12px;
+      }
+      .variant-picker.is-collapsed .variant-picker-body {
+        display: none;
+      }
+      .variant-picker-row p {
+        margin: 0 0 6px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .variant-picker-opts {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 4px;
+      }
+      .variant-picker-opts.is-pair {
+        grid-template-columns: 1fr 1fr;
+      }
+      .variant-picker-opts button {
+        height: 30px;
+        padding: 0;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--canvas);
+        color: var(--ink);
+        font: 600 12px Geist, Arial, sans-serif;
+      }
+      .variant-picker-opts button[aria-pressed="true"] {
+        border-color: var(--ink);
+        background: var(--ink);
+        color: var(--canvas);
+      }
+
+      /* Geist type tuning: medium-weight headings, modest negative tracking. */
+      h1,
+      h2,
+      h3 {
+        font-weight: 500;
+      }
+      .hero h1 {
+        font-weight: 600;
+        letter-spacing: -0.035em;
+      }
+      .section-title {
+        font-weight: 600;
+        letter-spacing: -0.03em;
+      }
+      /* Wordmark only: Plus Jakarta Sans 700. */
+      .brand,
+      .footer-brand {
+        font-family: "Plus Jakarta Sans", Geist, Arial, sans-serif;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      @media (max-width: 700px) {
+        #indicators.section {
+          padding: 44px 0 52px;
+        }
+        #indicators .section-heading {
+          gap: 8px;
+          margin-bottom: 24px;
+        }
+        #indicators .indicators-lede {
+          font-size: 14px;
+          line-height: 1.55;
+          margin: 0;
+          max-width: 330px;
+        }
+      }
+      /* Discord section: one flat surface, live-first points, outlined CTA. */
+      #discord .community-layout {
+        background: var(--paper);
+        box-shadow: none;
+      }
+      #discord .community-lede {
+        margin: 0;
+      }
+      #discord .access-steps {
+        display: grid;
+        gap: 12px;
+        margin: 20px 0 24px;
+      }
+      #discord .access-steps li {
+        align-items: center;
+        gap: 12px;
+        padding: 0;
+        border: 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--ink);
+      }
+      #discord .access-icon {
+        flex: 0 0 auto;
+        display: inline-grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: rgba(124, 77, 255, 0.1);
+        color: #7c4dff;
+        font-size: 13px;
+      }
+      html[data-ui-theme="night"] #discord .access-icon {
+        background: rgba(124, 77, 255, 0.18);
+        color: #a68cff;
+      }
+      #discord .community-content > .button,
+      #discord .community-content > .button:hover {
+        justify-content: center;
+        gap: 10px;
+        min-height: 46px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--ink);
+        background: rgba(0, 0, 0, 0.025);
+        border: 1px solid var(--ink);
+      }
+      #discord .community-content > .button:hover {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      html[data-ui-theme="night"] #discord .community-content > .button {
+        background: rgba(255, 255, 255, 0.04);
+      }
+      html[data-ui-theme="night"] #discord .community-content > .button:hover {
+        background: rgba(255, 255, 255, 0.09);
+      }
+      #discord .button--discord .fa-discord {
+        font-size: 15px;
+        color: #7c4dff;
+      }
+      html[data-ui-theme="night"] #discord .button--discord .fa-discord {
+        color: #a68cff;
+      }
+      @media (max-width: 700px) {
+        #discord.community-section {
+          padding: 48px 0 0;
+        }
+        #discord .community-layout {
+          padding: 24px 20px;
+          gap: 14px;
+        }
+        #discord .member-count {
+          margin-top: 10px;
+        }
+      }
+      /* Indicator picker: thumbnail cards (2 columns on phones, 4 on wider
+         screens), "Show more" for the extras. Tapping opens the viewer. */
+      #indicators .indicator-browser {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+      }
+      #indicators .indicator-tabs {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px 14px;
+        overflow: visible;
+      }
+      #indicators .indicator-tab {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 8px;
+        min-width: 0;
+        min-height: 0;
+        padding: 0;
+        margin: 0;
+        background: transparent;
+        border: 0;
+        border-radius: 12px;
+        box-shadow: none;
+        color: var(--ink);
+        font: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        text-align: left;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+      #indicators .indicator-tab[hidden] {
+        display: none;
+      }
+      #indicators .indicator-tab:hover {
+        background: transparent;
+      }
+      #indicators .indicator-thumb {
+        display: block;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #dfdcd5;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+      #indicators .indicator-thumb img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: right center;
+        transition: transform 0.3s ease;
+      }
+      #indicators .indicator-tab-name {
+        display: block;
+        padding: 0 2px;
+        line-height: 1.3;
+        overflow-wrap: anywhere;
+      }
+      #indicators .indicator-tab:hover .indicator-thumb {
+        border-color: #bdbdbd;
+      }
+      @media (hover: hover) {
+        #indicators .indicator-tab:hover .indicator-thumb img {
+          transform: scale(1.03);
+        }
+      }
+      #indicators .indicator-tab:active .indicator-thumb {
+        transform: scale(0.98);
+      }
+      #indicators .indicator-tab:focus-visible {
+        outline: none;
+      }
+      #indicators .indicator-tab:focus-visible .indicator-thumb {
+        outline: 2px solid #7c4dff;
+        outline-offset: 3px;
+      }
+      #indicators .indicator-more {
+        justify-self: center;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        min-height: 44px;
+        margin: 6px 0 10px;
+        padding: 0 12px;
+        background: transparent;
+        border: 0;
+        color: var(--body-text);
+        font: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: underline;
+        text-decoration-color: transparent;
+        text-underline-offset: 4px;
+        transition: text-decoration-color 0.15s;
+      }
+      #indicators .indicator-more::after {
+        content: "";
+        width: 6px;
+        height: 6px;
+        margin-top: -3px;
+        border-right: 1.5px solid currentColor;
+        border-bottom: 1.5px solid currentColor;
+        transform: rotate(45deg);
+        transition: transform 0.2s;
+      }
+      #indicators .indicator-more[aria-expanded="true"]::after {
+        margin-top: 3px;
+        transform: rotate(-135deg);
+      }
+      #indicators .indicator-more:hover {
+        color: var(--ink);
+        text-decoration-color: currentColor;
+      }
+      #indicators .indicator-more:focus-visible {
+        outline: 2px solid #7c4dff;
+        outline-offset: 2px;
+        border-radius: 6px;
+      }
+      #indicators .indicator-more[hidden] {
+        display: none;
+      }
+      html[data-ui-theme="night"] #indicators .indicator-thumb {
+        background: #1c1c1c;
+      }
+      html[data-ui-theme="night"] #indicators .indicator-tab:hover .indicator-thumb {
+        border-color: #4a4a4a;
+      }
+      @media (max-width: 700px) {
+        #indicators .indicator-tabs {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 16px 12px;
+        }
+        #indicators .indicator-tab {
+          font-size: 14px;
+        }
+        #indicators .indicator-more {
+          margin: 4px 0 8px;
+          font-size: 14px;
+        }
+      }
+      /* Indicator viewer: full-screen dialog that grows out of the card. */
+      html.iv-open,
+      html.iv-open body {
+        overflow: hidden;
+      }
+      .indicator-viewer {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--ink);
+        overflow: hidden;
+      }
+      .indicator-viewer::backdrop {
+        background: rgba(18, 18, 18, 0.5);
+        backdrop-filter: blur(6px);
+      }
+      .iv-shell {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        width: 100%;
+        height: 100%;
+        background: var(--paper);
+        padding: env(safe-area-inset-top) env(safe-area-inset-right)
+          env(safe-area-inset-bottom) env(safe-area-inset-left);
+      }
+      .iv-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 8px 10px 0 8px;
+      }
+      .iv-pager {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+      .iv-count {
+        min-width: 44px;
+        text-align: center;
+        font-size: 13px;
+        font-variant-numeric: tabular-nums;
+        color: var(--muted);
+      }
+      .iv-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        border-radius: 10px;
+        background: transparent;
+        color: var(--ink);
+        cursor: pointer;
+      }
+      .iv-icon:hover {
+        background: var(--soft);
+      }
+      .iv-icon:focus-visible,
+      .iv-discord:focus-visible {
+        outline: 2px solid #7c4dff;
+        outline-offset: 2px;
+      }
+      .iv-icon:focus-visible {
+        outline-offset: -2px;
+      }
+      .iv-stage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 0;
+        padding: 8px 12px;
+        touch-action: pinch-zoom;
+        user-select: none;
+      }
+      .iv-img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transform-origin: center;
+        -webkit-user-drag: none;
+      }
+      .iv-info {
+        display: grid;
+        gap: 16px;
+        padding: 12px 20px 20px;
+      }
+      .iv-title {
+        margin: 0 0 4px;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.3;
+      }
+      .iv-blurb {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--body-text);
+      }
+      .iv-discord,
+      .iv-discord:hover {
+        gap: 10px;
+        width: 100%;
+        min-height: 46px;
+        border: 1px solid var(--ink);
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.025);
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .iv-discord:hover {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      .iv-discord .fa-discord {
+        font-size: 14px;
+        color: #7c4dff;
+      }
+      html[data-ui-theme="night"] .iv-discord {
+        background: rgba(255, 255, 255, 0.04);
+      }
+      html[data-ui-theme="night"] .iv-discord:hover {
+        background: rgba(255, 255, 255, 0.09);
+      }
+      html[data-ui-theme="night"] .iv-discord .fa-discord {
+        color: #a68cff;
+      }
+      html[data-ui-theme="night"] .indicator-viewer::backdrop {
+        background: rgba(0, 0, 0, 0.6);
+      }
+      /* Wider screens: a large panel over a dimmed page. */
+      @media (min-width: 701px) and (min-height: 501px) {
+        .iv-shell {
+          width: min(1200px, calc(100% - 48px));
+          height: min(860px, calc(100% - 48px));
+          margin: 24px auto;
+          border: 1px solid var(--line);
+          border-radius: 16px;
+          overflow: hidden;
+          padding: 0;
+        }
+        .iv-stage {
+          padding: 8px 24px;
+        }
+        .iv-info {
+          grid-template-columns: minmax(0, 1fr) auto;
+          align-items: center;
+          gap: 24px;
+          padding: 16px 28px 24px;
+        }
+        .iv-discord,
+        .iv-discord:hover {
+          width: auto;
+          padding: 0 22px;
+        }
+      }
+      /* Phone in landscape: give the chart the height, info in one row. */
+      @media (max-height: 500px) and (orientation: landscape) {
+        .iv-shell {
+          position: relative;
+        }
+        .iv-bar {
+          position: absolute;
+          inset: env(safe-area-inset-top) env(safe-area-inset-right) auto
+            env(safe-area-inset-left);
+          z-index: 1;
+          padding: 4px 8px 0;
+          pointer-events: none;
+        }
+        .iv-bar > * {
+          pointer-events: auto;
+        }
+        .iv-pager,
+        .iv-bar > .iv-icon {
+          background: color-mix(in srgb, var(--paper) 85%, transparent);
+          border-radius: 12px;
+        }
+        .iv-stage {
+          grid-row: 1 / 3;
+          padding: 4px 56px;
+        }
+        .iv-info {
+          grid-template-columns: minmax(0, 1fr) auto;
+          align-items: center;
+          gap: 16px;
+          padding: 6px 20px 10px;
+        }
+        .iv-title {
+          font-size: 16px;
+          margin: 0;
+        }
+        .iv-blurb {
+          font-size: 13px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .iv-discord,
+        .iv-discord:hover {
+          width: auto;
+          min-height: 40px;
+          padding: 0 16px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #indicators .indicator-thumb,
+        #indicators .indicator-thumb img {
+          transition: none;
+        }
       }
     </style>
+    <link rel="stylesheet" href="experiments-live.css" />
+    <link rel="stylesheet" href="experiments-live2.css" />
+      <link rel="stylesheet" href="experiments-bg.css" />
+    <link rel="stylesheet" href="experiments-layout.css" />
+    <link rel="stylesheet" href="experiments-journal.css" />
   </head>
   <body id="top">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -1391,6 +2291,8 @@
       </button>
     </div>
 
+    <div class="header-slot">
+      <div class="header-bar" data-header-bar>
     <header class="site-header" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="Bandz home">Bandz</a>
       <nav class="header-nav" aria-label="Store sections">
@@ -1423,9 +2325,10 @@
             href="https://discord.gg/XdWaEBXQ6G"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Join the Bandz Discord"
           >
             <i class="fa-brands fa-discord" aria-hidden="true"></i>
-            Join Discord
+            Join
             <svg
               class="arrow-icon external-arrow"
               aria-hidden="true"
@@ -1454,77 +2357,64 @@
         </div>
       </div>
     </header>
+      </div>
+    </div>
 
     <main id="main-content">
       <section class="hero site-shell" aria-labelledby="hero-title">
         <div class="hero-copy">
+          <!-- Live status pill above the headline. -->
+          <a
+            class="live-countdown"
+            href="https://discord.gg/XdWaEBXQ6G"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-live-countdown
+          >
+            <span class="live-dot" aria-hidden="true"></span>
+            <span data-live-text>Live every weekday at the 9:30 open</span>
+            <span class="live-badge">Live</span>
+          </a>
           <h1 id="hero-title">
             Watch the trades happen <span>live.</span>
           </h1>
           <p class="hero-lede">
-            Free, open-source indicators, live trading streams, and a trading
-            journal.
+            MNQ at the 9:30 open, traded live. Come watch.
           </p>
           <div class="hero-actions">
             <a
-              class="button button--primary"
+              class="button button--primary hero-discord"
               href="https://discord.gg/XdWaEBXQ6G"
               target="_blank"
               rel="noopener noreferrer"
-              >Indicators in Discord
-              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
-                <path d="M5 11 11 5M6.5 5H11v4.5" /></svg></a
-            ><a class="button button--secondary" href="#indicators"
-              >Explore the tools
-              <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
-                <path d="M5 11 11 5M6.5 5H11v4.5" /></svg
-            ></a>
+              ><i class="fa-brands fa-discord" aria-hidden="true"></i>Join the
+              free Discord</a
+            >
+            <!-- Filled from the Discord invite fetch; stays hidden if it fails. -->
+            <p class="hero-members" data-hero-members hidden>
+              <span data-hero-members-count></span> traders inside
+            </p>
           </div>
-
-          <nav class="hero-socials" aria-label="Bandz social media quick links">
-            <a
-              class="social-link"
-              href="https://x.com/Bandz_Trading"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Bandz on X"
-              title="X"
+          <a
+            class="hero-stream"
+            href="https://discord.gg/XdWaEBXQ6G"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-live-state
+            aria-label="Watch the live stream in the Discord"
+          >
+            <!-- STREAM STILL: swap this src for a real stream screenshot later. -->
+            <img
+              class="hero-stream-img"
+              src="assets/hero/live-chart.jpg"
+              alt=""
+              width="1600"
+              height="725"
+            />
+            <span class="hero-stream-badge"
+              ><span class="hero-stream-dot" aria-hidden="true"></span>Live</span
             >
-              <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
-            </a>
-            <a
-              class="social-link"
-              href="https://www.instagram.com/bandz_trading/"
-              data-app-url="instagram://user?username=bandz_trading"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Bandz on Instagram"
-              title="Instagram"
-            >
-              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
-            </a>
-            <a
-              class="social-link"
-              href="https://www.tiktok.com/@bandztrading"
-              data-app-url="tiktok://@bandztrading"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Bandz on TikTok"
-              title="TikTok"
-            >
-              <i class="fa-brands fa-tiktok" aria-hidden="true"></i>
-            </a>
-            <a
-              class="social-link"
-              href="https://www.youtube.com/@BandzTrading"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Bandz on YouTube"
-              title="YouTube"
-            >
-              <i class="fa-brands fa-youtube" aria-hidden="true"></i>
-            </a>
-          </nav>
+          </a>
         </div>
         <div class="routine-card">
           <h2>Your trading toolkit.</h2>
@@ -1583,578 +2473,172 @@
         <div class="site-shell">
           <header class="section-heading reveal-stagger">
             <div>
-              <span class="section-number">THE INDICATOR COLLECTION</span>
               <h2 class="section-title" id="indicators-title">
-                The right tools.<br />A clearer picture.
+                Open-source indicators.
               </h2>
             </div>
             <div class="collection-intro">
-              <p>Explore the indicators. Get them free in Discord.</p>
+              <p class="indicators-lede">More in the Discord, including community-built ones.</p>
             </div>
           </header>
 
           <div class="indicator-browser reveal">
-            <div
-              class="indicator-tabs"
-              role="tablist"
-              aria-label="Choose an indicator"
-            >
+            <!-- OWNER EDIT: names, screenshots and one-line descriptions live on each card. -->
+            <div class="indicator-tabs" id="indicator-grid">
               <button
                 class="indicator-tab"
                 type="button"
-                role="tab"
-                id="indicator-tab-1"
-                aria-controls="indicator-panel-1"
-                aria-selected="true"
-                data-indicator-tab="1"
+                aria-haspopup="dialog"
+                aria-controls="indicator-viewer"
+                data-indicator-card="1"
+                data-indicator-title="Bandz Po3 Profiler"
+                data-indicator-blurb="C1-C4 sequences with HTF candles, CISD, SMT and PSP."
+                data-indicator-alt="Bandz Po3 Profiler showing C1-C4 sequences, SMT divergence, CISD and three HTF candle lanes"
               >
-                <span class="indicator-tab-number">01</span>
-                <span data-indicator-name>Intraday</span>
-              </button>
-              <button
-                class="indicator-tab"
-                type="button"
-                role="tab"
-                id="indicator-tab-2"
-                aria-controls="indicator-panel-2"
-                aria-selected="false"
-                tabindex="-1"
-                data-indicator-tab="2"
-              >
-                <span class="indicator-tab-number">02</span>
-                <span data-indicator-name>Sessions</span>
-              </button>
-              <button
-                class="indicator-tab"
-                type="button"
-                role="tab"
-                id="indicator-tab-3"
-                aria-controls="indicator-panel-3"
-                aria-selected="false"
-                tabindex="-1"
-                data-indicator-tab="3"
-              >
-                <span class="indicator-tab-number">03</span>
-                <span data-indicator-name>SMT</span>
-              </button>
-              <button
-                class="indicator-tab"
-                type="button"
-                role="tab"
-                id="indicator-tab-4"
-                aria-controls="indicator-panel-4"
-                aria-selected="false"
-                tabindex="-1"
-                data-indicator-tab="4"
-              >
-                <span class="indicator-tab-number">04</span>
-                <span data-indicator-name>HTF</span>
-              </button>
-              <button
-                class="indicator-tab"
-                type="button"
-                role="tab"
-                id="indicator-tab-5"
-                aria-controls="indicator-panel-5"
-                aria-selected="false"
-                tabindex="-1"
-                data-indicator-tab="5"
-              >
-                <span class="indicator-tab-number">05</span>
-                <span data-indicator-name>Levels</span>
-              </button>
-              <button
-                class="indicator-tab"
-                type="button"
-                role="tab"
-                id="indicator-tab-6"
-                aria-controls="indicator-panel-6"
-                aria-selected="false"
-                tabindex="-1"
-                data-indicator-tab="6"
-              >
-                <span class="indicator-tab-number">06</span>
-                <span data-indicator-name>STDV Flow</span>
-              </button>
-              <button
-                class="indicator-tab"
-                type="button"
-                role="tab"
-                id="indicator-tab-7"
-                aria-controls="indicator-panel-7"
-                aria-selected="false"
-                tabindex="-1"
-                data-indicator-tab="7"
-              >
-                <span class="indicator-tab-number">07</span>
-                <span data-indicator-name>All-in-One</span>
-              </button>
-              <button
-                class="indicator-tab"
-                type="button"
-                role="tab"
-                id="indicator-tab-8"
-                aria-controls="indicator-panel-8"
-                aria-selected="false"
-                tabindex="-1"
-                data-indicator-tab="8"
-              >
-                <span class="indicator-tab-number">08</span>
-                <span data-indicator-name>HTF Zones</span>
-              </button>
-              <button
-                class="indicator-tab"
-                type="button"
-                role="tab"
-                id="indicator-tab-9"
-                aria-controls="indicator-panel-9"
-                aria-selected="false"
-                tabindex="-1"
-                data-indicator-tab="9"
-              >
-                <span class="indicator-tab-number">09</span>
-                <span data-indicator-name>Po3 Profiler</span>
-              </button>
-            </div>
-
-            <div class="indicator-list">
-              <article
-                class="indicator-card"
-                role="tabpanel"
-                id="indicator-panel-1"
-                aria-labelledby="indicator-tab-1"
-                data-indicator-panel="1"
-              >
-                <div class="indicator-visual">
+                <span class="indicator-thumb" aria-hidden="true">
                   <img
-                    class="indicator-screenshot"
+                    src="assets/indicators/bandz-po3-profiler.png"
+                    alt=""
+                    width="2000"
+                    height="1074"
+                    loading="lazy"
+                    decoding="async"
+                    data-indicator-thumb
+                  />
+                </span>
+                <span class="indicator-tab-name" data-indicator-name>Po3 Profiler</span>
+              </button>
+              <button
+                class="indicator-tab"
+                type="button"
+                aria-haspopup="dialog"
+                aria-controls="indicator-viewer"
+                data-indicator-card="2"
+                data-indicator-title="Bandz HTF Statistical Zones"
+                data-indicator-blurb="Daily percentile zones, session zones and price targets."
+                data-indicator-alt="Bandz HTF Statistical Zones showing daily percentile zones, session zones, and price targets"
+              >
+                <span class="indicator-thumb" aria-hidden="true">
+                  <img
+                    src="assets/indicators/bandz-htf-zones.png"
+                    alt=""
+                    width="2000"
+                    height="1074"
+                    loading="lazy"
+                    decoding="async"
+                    data-indicator-thumb
+                  />
+                </span>
+                <span class="indicator-tab-name" data-indicator-name>HTF Zones</span>
+              </button>
+              <button
+                class="indicator-tab"
+                type="button"
+                aria-haspopup="dialog"
+                aria-controls="indicator-viewer"
+                data-indicator-card="3"
+                data-indicator-title="Bandz Intraday"
+                data-indicator-blurb="ICT macro windows and first-presented FVGs."
+                data-indicator-alt="Bandz Intraday indicator shown on a 1-minute chart"
+              >
+                <span class="indicator-thumb" aria-hidden="true">
+                  <img
                     src="assets/indicators/bandz-intraday-1m.png"
-                    alt="Bandz Intraday indicator shown on a 1-minute chart"
+                    alt=""
                     width="3412"
                     height="1437"
                     loading="lazy"
                     decoding="async"
-                    data-indicator-image
+                    data-indicator-thumb
                   />
-                </div>
-                <div class="indicator-copy">
-                  <div class="product-meta">
-                    <span>01 / 09</span>
-                  </div>
-                  <h3 data-indicator-heading>Bandz Intraday</h3>
-                  <p data-indicator-benefit>
-                    Maps ICT macro windows and first-presented FVGs with
-                    volume-imbalance and calendar context.
-                  </p>
-                  <a
-                    class="button button--primary"
-                    href="https://discord.gg/XdWaEBXQ6G"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Get it in Discord</a
-                  >
-                </div>
-              </article>
-
-              <article
-                class="indicator-card"
-                role="tabpanel"
-                id="indicator-panel-2"
-                aria-labelledby="indicator-tab-2"
-                data-indicator-panel="2"
-                hidden
+                </span>
+                <span class="indicator-tab-name" data-indicator-name>Intraday</span>
+              </button>
+              <button
+                class="indicator-tab"
+                type="button"
+                aria-haspopup="dialog"
+                aria-controls="indicator-viewer"
+                data-indicator-card="4"
+                data-indicator-title="Bandz SMT"
+                data-indicator-blurb="Multi-timeframe SMT divergence, minus the noise."
+                data-indicator-alt="Bandz SMT indicator shown on a 15-minute chart"
               >
-                <div class="indicator-visual">
+                <span class="indicator-thumb" aria-hidden="true">
                   <img
-                    class="indicator-screenshot"
-                    src="assets/indicators/bandz-sessions-1m.png"
-                    alt="Bandz Sessions indicator shown on a 1-minute chart"
-                    width="3840"
-                    height="2063"
-                    loading="lazy"
-                    decoding="async"
-                    data-indicator-image
-                  />
-                </div>
-                <div class="indicator-copy">
-                  <div class="product-meta">
-                    <span>02 / 09</span>
-                  </div>
-                  <h3 data-indicator-heading>Bandz Sessions</h3>
-                  <p data-indicator-benefit>
-                    Tracks ICT killzones, session liquidity, opening ranges, and
-                    Opening RTH Gap projections.
-                  </p>
-                  <a
-                    class="button button--primary"
-                    href="https://discord.gg/XdWaEBXQ6G"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Get it in Discord</a
-                  >
-                </div>
-              </article>
-
-              <article
-                class="indicator-card"
-                role="tabpanel"
-                id="indicator-panel-3"
-                aria-labelledby="indicator-tab-3"
-                data-indicator-panel="3"
-                hidden
-              >
-                <div class="indicator-visual">
-                  <img
-                    class="indicator-screenshot"
                     src="assets/indicators/bandz-smt-15m.png"
-                    alt="Bandz SMT indicator shown on a 15-minute chart"
+                    alt=""
                     width="3840"
                     height="2063"
                     loading="lazy"
                     decoding="async"
-                    data-indicator-image
+                    data-indicator-thumb
                   />
-                </div>
-                <div class="indicator-copy">
-                  <div class="product-meta">
-                    <span>03 / 09</span>
-                  </div>
-                  <h3 data-indicator-heading>Bandz SMT</h3>
-                  <p data-indicator-benefit>
-                    Scans multi-timeframe SMT divergence while filtering
-                    redundant lower-timeframe signals.
-                  </p>
-                  <a
-                    class="button button--primary"
-                    href="https://discord.gg/XdWaEBXQ6G"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Get it in Discord</a
-                  >
-                </div>
-              </article>
-
-              <article
-                class="indicator-card"
-                role="tabpanel"
-                id="indicator-panel-4"
-                aria-labelledby="indicator-tab-4"
-                data-indicator-panel="4"
+                </span>
+                <span class="indicator-tab-name" data-indicator-name>SMT</span>
+              </button>
+              <button
+                class="indicator-tab"
+                type="button"
+                aria-haspopup="dialog"
+                aria-controls="indicator-viewer"
+                data-indicator-card="5"
+                data-indicator-title="Bandz All-in-One"
+                data-indicator-blurb="Five core Bandz tools in one script."
+                data-indicator-alt="Bandz All-in-One indicator combining the Bandz toolkit on a 4-hour MNQ chart"
+                data-indicator-extra
                 hidden
               >
-                <div class="indicator-visual">
+                <span class="indicator-thumb" aria-hidden="true">
                   <img
-                    class="indicator-screenshot"
-                    src="assets/indicators/bandz-htf-15m.png"
-                    alt="Bandz HTF candles indicator shown on a 1-minute chart"
-                    width="3415"
-                    height="1449"
-                    loading="lazy"
-                    decoding="async"
-                    data-indicator-image
-                  />
-                </div>
-                <div class="indicator-copy">
-                  <div class="product-meta">
-                    <span>04 / 09</span>
-                  </div>
-                  <h3 data-indicator-heading>Bandz HTF</h3>
-                  <p data-indicator-benefit>
-                    Displays higher-timeframe candles with PSP, SMT, T-Spots,
-                    CISD, FVGs, and sweeps.
-                  </p>
-                  <a
-                    class="button button--primary"
-                    href="https://discord.gg/XdWaEBXQ6G"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Get it in Discord</a
-                  >
-                </div>
-              </article>
-
-              <article
-                class="indicator-card"
-                role="tabpanel"
-                id="indicator-panel-5"
-                aria-labelledby="indicator-tab-5"
-                data-indicator-panel="5"
-                hidden
-              >
-                <div class="indicator-visual">
-                  <img
-                    class="indicator-screenshot"
-                    src="assets/indicators/bandz-levels-5m.png"
-                    alt="Bandz Levels indicator shown on a 5-minute chart"
+                    src="assets/indicators/bandz-all-in-one-4h.png"
+                    alt=""
                     width="3840"
                     height="2063"
                     loading="lazy"
                     decoding="async"
-                    data-indicator-image
+                    data-indicator-thumb
                   />
-                </div>
-                <div class="indicator-copy">
-                  <div class="product-meta">
-                    <span>05 / 09</span>
-                  </div>
-                  <h3 data-indicator-heading>Bandz Levels</h3>
-                  <p data-indicator-benefit>
-                    Maps NWOG, NDOG, HTF levels, scheduled opens, dealing
-                    ranges, and ADR targets.
-                  </p>
-                  <a
-                    class="button button--primary"
-                    href="https://discord.gg/XdWaEBXQ6G"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Get it in Discord</a
-                  >
-                </div>
-              </article>
-
-              <article
-                class="indicator-card"
-                role="tabpanel"
-                id="indicator-panel-6"
-                aria-labelledby="indicator-tab-6"
-                data-indicator-panel="6"
+                </span>
+                <span class="indicator-tab-name" data-indicator-name>All-in-One</span>
+              </button>
+              <button
+                class="indicator-tab"
+                type="button"
+                aria-haspopup="dialog"
+                aria-controls="indicator-viewer"
+                data-indicator-card="6"
+                data-indicator-title="Bandz STDV Flow"
+                data-indicator-blurb="CISD sweeps with standard-deviation targets."
+                data-indicator-alt="Bandz STDV Flow indicator projecting CISD standard-deviation objectives on a 4-hour MNQ chart"
+                data-indicator-extra
                 hidden
               >
-                <div class="indicator-visual">
+                <span class="indicator-thumb" aria-hidden="true">
                   <img
-                    class="indicator-screenshot"
                     src="assets/indicators/bandz-stdv-flow-1h.png"
-                    alt="Bandz STDV Flow indicator projecting CISD standard-deviation objectives on a 4-hour MNQ chart"
+                    alt=""
                     width="3409"
                     height="1440"
                     loading="lazy"
                     decoding="async"
-                    data-indicator-image
+                    data-indicator-thumb
                   />
-                </div>
-                <div class="indicator-copy">
-                  <div class="product-meta">
-                    <span>06 / 09</span>
-                  </div>
-                  <h3 data-indicator-heading>Bandz STDV Flow</h3>
-                  <p data-indicator-benefit>
-                    Tracks higher-timeframe liquidity sweeps through CISD and
-                    opposing-swing confirmation, then projects
-                    standard-deviation objectives from the setup anchors.
-                  </p>
-                  <a
-                    class="button button--primary"
-                    href="https://discord.gg/XdWaEBXQ6G"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Get it in Discord</a
-                  >
-                </div>
-              </article>
-
-              <article
-                class="indicator-card"
-                role="tabpanel"
-                id="indicator-panel-7"
-                aria-labelledby="indicator-tab-7"
-                data-indicator-panel="7"
-                hidden
-              >
-                <div class="indicator-visual">
-                  <img
-                    class="indicator-screenshot"
-                    src="assets/indicators/bandz-all-in-one-4h.png"
-                    alt="Bandz All-in-One indicator combining the Bandz toolkit on a 4-hour MNQ chart"
-                    width="3840"
-                    height="2063"
-                    loading="lazy"
-                    decoding="async"
-                    data-indicator-image
-                  />
-                </div>
-                <div class="indicator-copy">
-                  <div class="product-meta">
-                    <span>07 / 09</span>
-                  </div>
-                  <h3 data-indicator-heading>Bandz All-in-One</h3>
-                  <p data-indicator-benefit>
-                    Combines five core Bandz workflows into one streamlined
-                    script for a cleaner single-chart workflow. Bandz Levels and
-                    alerts are not included.
-                  </p>
-                  <a
-                    class="button button--primary"
-                    href="https://discord.gg/XdWaEBXQ6G"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Get it in Discord</a
-                  >
-                </div>
-              </article>
-
-              <article
-                class="indicator-card"
-                role="tabpanel"
-                id="indicator-panel-8"
-                aria-labelledby="indicator-tab-8"
-                data-indicator-panel="8"
-                hidden
-              >
-                <div class="indicator-visual">
-                  <img
-                    class="indicator-screenshot"
-                    src="assets/indicators/bandz-htf-zones.png"
-                    alt="Bandz HTF Statistical Zones showing daily percentile zones, session zones, and price targets"
-                    width="2000"
-                    height="1074"
-                    loading="lazy"
-                    decoding="async"
-                    data-indicator-image
-                  />
-                </div>
-                <div class="indicator-copy">
-                  <div class="product-meta">
-                    <span>08 / 09</span>
-                  </div>
-                  <h3 data-indicator-heading>Bandz HTF Statistical Zones</h3>
-                  <p data-indicator-benefit>
-                    Daily percentile zones from the 18:00 New York open, session
-                    zones, opening ranges, and historical price targets for NQ,
-                    ES, YM, and GC.
-                  </p>
-                  <a
-                    class="button button--primary"
-                    href="https://discord.gg/XdWaEBXQ6G"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Get it in Discord</a
-                  >
-                </div>
-              </article>
-
-              <article
-                class="indicator-card"
-                role="tabpanel"
-                id="indicator-panel-9"
-                aria-labelledby="indicator-tab-9"
-                data-indicator-panel="9"
-                hidden
-              >
-                <div class="indicator-visual">
-                  <img
-                    class="indicator-screenshot"
-                    src="assets/indicators/bandz-po3-profiler.png"
-                    alt="Bandz Po3 Profiler showing C1-C4 sequences, SMT divergence, CISD and three HTF candle lanes"
-                    width="2000"
-                    height="1074"
-                    loading="lazy"
-                    decoding="async"
-                    data-indicator-image
-                  />
-                </div>
-                <div class="indicator-copy">
-                  <div class="product-meta"><span>09 / 09</span></div>
-                  <h3 data-indicator-heading>Bandz Po3 Profiler</h3>
-                  <p data-indicator-benefit>
-                    Pairs C1-C4 sequences and T-Spots with HTF candles, CISD,
-                    STDV, SMT / SSMT, PSP, and entry FVGs.
-                  </p>
-                  <a
-                    class="button button--primary"
-                    href="https://discord.gg/XdWaEBXQ6G"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >Get it in Discord</a
-                  >
-                </div>
-              </article>
+                </span>
+                <span class="indicator-tab-name" data-indicator-name>STDV Flow</span>
+              </button>
             </div>
-          </div>
-
-          <aside
-            class="funnel-section-banner funnel-section-banner--indicators"
-            aria-label="Indicator access link"
-          >
-            <p>
-              <strong>Get the full toolkit.</strong> Free and open source in the
-              Discord.
-            </p>
-            <a
-              class="button button--discord"
-              href="https://discord.gg/XdWaEBXQ6G"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              class="indicator-more"
+              type="button"
+              aria-expanded="false"
+              aria-controls="indicator-grid"
+              data-indicator-more
             >
-              <i class="fa-brands fa-discord" aria-hidden="true"></i>
-              Join the free Discord
-              <svg
-                class="button-arrow arrow-icon external-arrow"
-                aria-hidden="true"
-                viewBox="0 0 16 16"
-                focusable="false"
-              >
-                <path d="M5 11 11 5M6.5 5H11v4.5"></path>
-              </svg>
-            </a>
-          </aside>
+              Show more
+            </button>
+          </div>
         </div>
-      </section>
-
-      <section
-        class="section site-shell journal-stage"
-        id="journal"
-        aria-labelledby="journal-title"
-      >
-        <header class="section-heading reveal-stagger">
-          <div>
-            <span class="section-number">THE TRADING JOURNAL</span>
-            <h2 class="section-title" id="journal-title">
-              Your next insight<br />starts with a review.
-            </h2>
-          </div>
-        </header>
-
-        <article class="journal-card reveal">
-          <div class="journal-copy">
-            <h3>Bandz Trading Journal</h3>
-            <p>Log every trade. See what is working.</p>
-            <ul class="feature-list" aria-label="Journal features">
-              <li>Calendar overview</li>
-              <li>Trade log</li>
-              <li>Notebook</li>
-              <li>Performance summary</li>
-              <li>Data view</li>
-            </ul>
-            <a
-              class="button"
-              href="https://bandzjournal.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Open the free journal
-              <svg
-                class="button-arrow arrow-icon external-arrow"
-                aria-hidden="true"
-                viewBox="0 0 16 16"
-                focusable="false"
-              >
-                <path d="M5 11 11 5M6.5 5H11v4.5"></path>
-              </svg>
-            </a>
-          </div>
-          <div class="journal-image" aria-hidden="true">
-            <div class="journal-window">
-              <img
-                src="assets/journal/bandz-journal-calendar.png"
-                alt=""
-                width="3840"
-                height="2215"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          </div>
-        </article>
       </section>
 
       <section
@@ -2164,39 +2648,42 @@
       >
         <div class="community-layout">
           <div class="community-intro">
-            <span class="section-number">THE COMMUNITY</span>
             <h2 class="section-title" id="community-title">
-              Trade together.<br />Learn together.
+              Inside the Discord
             </h2>
+            <p class="member-count" data-member-count hidden>
+              <span class="member-dot" aria-hidden="true"></span>
+              <span data-member-text></span>
+            </p>
           </div>
           <article class="community-card reveal">
             <div class="community-content">
-              <div class="community-brandline">
-                <span class="discord-icon" aria-hidden="true">
-                  <i class="fa-brands fa-discord"></i>
-                </span>
-              </div>
-              <h3>Inside the Discord</h3>
-              <ol class="access-steps" aria-label="Discord community features">
-                <li>Live trading streams</li>
-                <li>Trade discussions</li>
-                <li>Open-source indicators</li>
-              </ol>
+              <p class="community-lede">
+                Free to join. Learn by trading alongside others.
+              </p>
+              <ul class="access-steps" aria-label="Discord community features">
+                <li>
+                  <span class="access-icon" aria-hidden="true"><i class="fa-solid fa-tower-broadcast"></i></span>
+                  Live at the 9:30 open, every weekday
+                </li>
+                <li>
+                  <span class="access-icon" aria-hidden="true"><i class="fa-solid fa-comments"></i></span>
+                  Ask questions as trades happen
+                </li>
+                <li>
+                  <span class="access-icon" aria-hidden="true"><i class="fa-solid fa-chart-line"></i></span>
+                  Indicators from Bandz and the community
+                </li>
+              </ul>
+              <!-- DISCORD STREAM SCREENSHOT: add <img> here later -->
               <a
                 class="button button--primary button--discord"
                 href="https://discord.gg/XdWaEBXQ6G"
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                <i class="fa-brands fa-discord" aria-hidden="true"></i>
                 Join the free Discord
-                <svg
-                  class="button-arrow arrow-icon external-arrow"
-                  aria-hidden="true"
-                  viewBox="0 0 16 16"
-                  focusable="false"
-                >
-                  <path d="M5 11 11 5M6.5 5H11v4.5"></path>
-                </svg>
               </a>
             </div>
             <div class="discord-visual" aria-hidden="true">
@@ -2209,6 +2696,46 @@
               </span>
             </div>
           </article>
+        </div>
+      </section>
+
+      <section
+        class="section site-shell journal-stage"
+        id="journal"
+        aria-labelledby="journal-title"
+      >
+        <header class="section-heading reveal-stagger">
+          <div>
+            <h2 class="section-title" id="journal-title">
+              Trading journal
+            </h2>
+          </div>
+        </header>
+
+        <div class="journal-promo reveal">
+          <figure class="journal-shot">
+            <img
+              src="assets/journal/bandz-journal-calendar.png"
+              alt="Bandz trading journal calendar view with daily P&amp;L"
+              width="3840"
+              height="2215"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <p class="journal-line">Log every trade. See what's working. Free.</p>
+          <ul class="journal-pills" aria-label="Journal features">
+            <li>Calendar</li>
+            <li>Trade log</li>
+            <li>Stats</li>
+          </ul>
+          <a
+            class="journal-link"
+            href="https://bandzjournal.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Open the free journal <span aria-hidden="true">&rarr;</span></a
+          >
         </div>
       </section>
     </main>
@@ -2259,8 +2786,65 @@
             <i class="fa-brands fa-youtube" aria-hidden="true"></i>
           </a>
         </nav>
+        <p class="footer-nudge" data-footer-nudge>
+          <span data-footer-nudge-text>Next stream soon</span> &middot;
+          <a
+            href="https://discord.gg/XdWaEBXQ6G"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Join the Discord</a
+          >
+        </p>
       </div>
     </footer>
+    <script>
+      (function () {
+        var box = document.querySelector("[data-footer-nudge]");
+        if (!box || typeof Intl === "undefined") return;
+        var text = box.querySelector("[data-footer-nudge-text]");
+        var OPEN = 9 * 3600 + 30 * 60; // 9:30 New York
+        var LIVE_FOR = 90 * 60; // live until 11:00
+        var days = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+        var fmt = new Intl.DateTimeFormat("en-US", {
+          timeZone: "America/New_York",
+          weekday: "short",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+          hourCycle: "h23",
+        });
+        function tick() {
+          var parts = {};
+          fmt.formatToParts(new Date()).forEach(function (p) {
+            parts[p.type] = p.value;
+          });
+          var day = days[parts.weekday];
+          var now = (+parts.hour % 24) * 3600 + +parts.minute * 60 + +parts.second;
+          if (day >= 1 && day <= 5 && now >= OPEN && now < OPEN + LIVE_FOR) {
+            box.classList.add("is-live");
+            text.textContent = "Live now";
+            return;
+          }
+          box.classList.remove("is-live");
+          var ahead = 0;
+          while (true) {
+            var d = (day + ahead) % 7;
+            if (d >= 1 && d <= 5 && (ahead > 0 || now < OPEN)) break;
+            ahead++;
+          }
+          var secs = ahead * 86400 + OPEN - now;
+          var h = Math.floor(secs / 3600);
+          var m = Math.max(1, Math.ceil((secs % 3600) / 60));
+          if (m === 60) { h++; m = 0; }
+          var label = h >= 24
+            ? Math.floor(h / 24) + "d " + (h % 24) + "h"
+            : h > 0 ? h + "h " + m + "m" : m + "m";
+          text.textContent = "Next stream in " + label;
+        }
+        tick();
+        setInterval(tick, 30000);
+      })();
+    </script>
 
     <script>
       (() => {
@@ -2386,72 +2970,250 @@
     </script>
 
     <dialog
-      class="shot-viewer"
-      data-shot-viewer
-      aria-label="Indicator screenshot"
+      class="indicator-viewer"
+      id="indicator-viewer"
+      aria-modal="true"
+      aria-labelledby="indicator-viewer-title"
+      aria-describedby="indicator-viewer-blurb"
+      data-indicator-viewer
     >
-      <div class="shot-viewer-bar">
-        <span data-shot-title></span>
-        <button
-          class="shot-viewer-close"
-          type="button"
-          data-shot-close
-          aria-label="Close screenshot"
-        >
-          &times;
-        </button>
+      <div class="iv-shell" data-iv-shell>
+        <div class="iv-bar">
+          <div class="iv-pager">
+            <button class="iv-icon" type="button" aria-label="Previous indicator" data-iv-prev>
+              <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 5 8l5 5" /></svg>
+            </button>
+            <span class="iv-count" aria-live="polite" data-iv-count></span>
+            <button class="iv-icon" type="button" aria-label="Next indicator" data-iv-next>
+              <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 3 5 5-5 5" /></svg>
+            </button>
+          </div>
+          <button class="iv-icon" type="button" aria-label="Close" data-iv-close>
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8" /></svg>
+          </button>
+        </div>
+        <div class="iv-stage" data-iv-stage>
+          <img class="iv-img" alt="" data-iv-img />
+        </div>
+        <div class="iv-info">
+          <div class="iv-text">
+            <h2 class="iv-title" id="indicator-viewer-title" data-iv-title></h2>
+            <p class="iv-blurb" id="indicator-viewer-blurb" data-iv-blurb></p>
+          </div>
+          <a
+            class="button iv-discord"
+            href="https://discord.gg/XdWaEBXQ6G"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-iv-discord
+            ><i class="fa-brands fa-discord" aria-hidden="true"></i>Get it in Discord</a
+          >
+        </div>
       </div>
-      <div class="shot-viewer-scroll"><img alt="" data-shot-img /></div>
-      <p class="shot-viewer-hint">Swipe to pan · pinch to zoom</p>
     </dialog>
 
     <script>
-      // Keep the selected tab visible in the swipeable mobile tab row.
-      const tabRow = document.querySelector(".indicator-tabs");
-      document.querySelectorAll("[data-indicator-tab]").forEach((tab) => {
-        tab.addEventListener("click", () => {
-          if (tabRow && tabRow.scrollWidth > tabRow.clientWidth) {
-            tabRow.scrollTo({ left: tab.offsetLeft - 14, behavior: "smooth" });
+      (function () {
+        var el = document.querySelector("[data-live-countdown]");
+        if (!el || typeof Intl === "undefined") return;
+        var text = el.querySelector("[data-live-text]");
+        var liveStates = document.querySelectorAll("[data-live-state]");
+        var setLive = function (live) {
+          for (var i = 0; i < liveStates.length; i++)
+            liveStates[i].classList.toggle("is-live", live);
+        };
+        var OPEN = 9 * 3600 + 30 * 60; // 9:30 New York
+        var LIVE_FOR = 90 * 60; // show "live now" until 11:00
+        var days = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+        var fmt = new Intl.DateTimeFormat("en-US", {
+          timeZone: "America/New_York",
+          weekday: "short",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+          hourCycle: "h23",
+        });
+        function tick() {
+          var parts = {};
+          fmt.formatToParts(new Date()).forEach(function (p) {
+            parts[p.type] = p.value;
+          });
+          var day = days[parts.weekday];
+          var now = (+parts.hour % 24) * 3600 + +parts.minute * 60 + +parts.second;
+          var weekday = day >= 1 && day <= 5;
+          if (weekday && now >= OPEN && now < OPEN + LIVE_FOR) {
+            el.classList.add("is-live");
+            setLive(true);
+            text.textContent = "We're live now in the Discord";
+            return;
           }
-        });
-      });
-
-      // Tap a screenshot to view it large.
-      const viewer = document.querySelector("[data-shot-viewer]");
-      if (viewer) {
-        const viewerImg = viewer.querySelector("[data-shot-img]");
-        const viewerTitle = viewer.querySelector("[data-shot-title]");
-        document.querySelectorAll(".indicator-screenshot").forEach((img) => {
-          img.tabIndex = 0;
-          img.setAttribute("role", "button");
-          img.setAttribute("aria-label", `Enlarge ${img.alt}`);
-          img.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              img.click();
+          el.classList.remove("is-live");
+          setLive(false);
+          var ahead = 0;
+          while (true) {
+            var d = (day + ahead) % 7;
+            if (d >= 1 && d <= 5 && (ahead > 0 || now < OPEN)) break;
+            ahead++;
+          }
+          var secs = ahead * 86400 + OPEN - now;
+          var h = Math.floor(secs / 3600);
+          var m = Math.max(1, Math.ceil((secs % 3600) / 60));
+          if (m === 60) { h++; m = 0; }
+          var label = h >= 24
+            ? Math.floor(h / 24) + "d " + (h % 24) + "h"
+            : h > 0 ? h + "h " + m + "m" : m + "m";
+          text.textContent = "We'll be live in " + label;
+        }
+        tick();
+        setInterval(tick, 30000);
+      })();
+      (function () {
+        var fmt = function (n) {
+          return Number(n).toLocaleString("en-US");
+        };
+        fetch("https://discord.com/api/v10/invites/XdWaEBXQ6G?with_counts=true")
+          .then(function (r) {
+            return r.ok ? r.json() : null;
+          })
+          .then(function (d) {
+            if (!d || !d.approximate_member_count) return;
+            var members = fmt(d.approximate_member_count);
+            var online = d.approximate_presence_count;
+            var box = document.querySelector("[data-member-count]");
+            if (box) {
+              box.querySelector("[data-member-text]").textContent =
+                members + " traders" + (online ? " · " + fmt(online) + " online now" : "");
+              box.hidden = false;
             }
-          });
-          img.addEventListener("click", () => {
-            viewerImg.src = img.currentSrc || img.src;
-            viewerImg.alt = img.alt;
-            viewerTitle.textContent =
-              img
-                .closest("[data-indicator-panel]")
-                ?.querySelector("[data-indicator-heading]")?.textContent || "";
-            viewer.showModal();
-            const scroller = viewer.querySelector(".shot-viewer-scroll");
-            scroller.scrollLeft = 0;
-          });
-        });
-        viewer
-          .querySelector("[data-shot-close]")
-          .addEventListener("click", () => viewer.close());
-        viewer.addEventListener("click", (event) => {
-          if (event.target === viewer) viewer.close();
-        });
-      }
-    </script>
+            var heroMembers = document.querySelector("[data-hero-members]");
+            if (heroMembers) {
+              heroMembers.querySelector("[data-hero-members-count]").textContent = members;
+              heroMembers.hidden = false;
+            }
+          })
+          .catch(function () {});
 
+        /* PICKER: compare hero variants. Only rendered with ?picker. */
+        (function () {
+          var root = document.documentElement;
+          if (!("picker" in root.dataset)) return;
+          var groups = [
+            { key: "bg", label: "Background", count: 4 },
+            { key: "nav", label: "Nav button", count: 4 },
+            { key: "layout", label: "Layout", count: 5 },
+          ];
+          var store = function (k, v) {
+            try {
+              window.localStorage.setItem("bandz-pick-" + k, v);
+            } catch (e) {}
+          };
+          var syncUrl = function () {
+            try {
+              var q = new URLSearchParams(window.location.search);
+              groups.forEach(function (g) {
+                q.set(g.key, root.dataset[g.key]);
+              });
+              history.replaceState(null, "", "?" + q.toString().replace("picker=&", "picker&").replace(/picker=$/, "picker"));
+            } catch (e) {}
+          };
+          var panel = document.createElement("div");
+          panel.className = "variant-picker";
+          var head = document.createElement("button");
+          head.type = "button";
+          head.className = "variant-picker-head";
+          head.innerHTML = "<span>Hero picker</span><span aria-hidden=\"true\">&minus;</span>";
+          var body = document.createElement("div");
+          body.className = "variant-picker-body";
+          var addRow = function (label, options, isOn, onPick) {
+            var row = document.createElement("div");
+            row.className = "variant-picker-row";
+            var title = document.createElement("p");
+            title.textContent = label;
+            var opts = document.createElement("div");
+            opts.className = "variant-picker-opts";
+            if (options.length === 2) opts.classList.add("is-pair");
+            options.forEach(function (opt) {
+              var b = document.createElement("button");
+              b.type = "button";
+              b.textContent = opt.text;
+              b.setAttribute("aria-pressed", isOn(opt.value) ? "true" : "false");
+              b.addEventListener("click", function () {
+                onPick(opt.value);
+                opts.querySelectorAll("button").forEach(function (x, i) {
+                  x.setAttribute("aria-pressed", isOn(options[i].value) ? "true" : "false");
+                });
+                document.dispatchEvent(new Event("bandz:variant"));
+              });
+              opts.appendChild(b);
+            });
+            row.appendChild(title);
+            row.appendChild(opts);
+            body.appendChild(row);
+          };
+          groups.forEach(function (g) {
+            var options = [];
+            for (var n = 1; n <= g.count; n++) {
+              if (g.skip && g.skip.indexOf(n) !== -1) continue;
+              options.push({ text: String(n), value: String(n) });
+            }
+            addRow(
+              g.label,
+              options,
+              function (v) {
+                return root.dataset[g.key] === v;
+              },
+              function (v) {
+                root.dataset[g.key] = v;
+                store(g.key, v);
+                syncUrl();
+              },
+            );
+          });
+          head.addEventListener("click", function () {
+            var collapsed = panel.classList.toggle("is-collapsed");
+            head.lastChild.innerHTML = collapsed ? "+" : "&minus;";
+            head.setAttribute("aria-expanded", collapsed ? "false" : "true");
+          });
+          head.setAttribute("aria-expanded", "true");
+          panel.appendChild(head);
+          panel.appendChild(body);
+          document.body.appendChild(panel);
+        })();
+
+        /* Sticky header: in normal flow at the top, slides down once the
+           hero has scrolled out of view, slides back up on return. */
+        var bar = document.querySelector("[data-header-bar]");
+        var hero = document.querySelector(".hero");
+        if (!bar || !hero) return;
+        var reduceMotion = window.matchMedia
+          ? window.matchMedia("(prefers-reduced-motion: reduce)")
+          : { matches: false };
+        var stuck = false;
+        var hideTimer = null;
+        var update = function () {
+          var pastHero = hero.getBoundingClientRect().bottom < 0;
+          if (pastHero === stuck) return;
+          stuck = pastHero;
+          clearTimeout(hideTimer);
+          if (pastHero) {
+            bar.classList.add("is-stuck");
+            void bar.offsetHeight; // start the slide from above the viewport
+            bar.classList.add("is-shown");
+          } else {
+            bar.classList.remove("is-shown");
+            hideTimer = setTimeout(
+              function () {
+                bar.classList.remove("is-stuck");
+              },
+              reduceMotion.matches ? 0 : 260,
+            );
+          }
+        };
+        window.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("resize", update);
+        update();
+      })();
+    </script>
     <script>
       const revealElements = Array.from(
         document.querySelectorAll(".reveal, .reveal-stagger"),
@@ -2526,147 +3288,255 @@
         });
       }
 
-      // OWNER EDIT: Update indicator names, screenshots, and benefits here.
-      const indicatorCatalog = [
-        {
-          id: "1",
-          name: "Bandz Intraday",
-          image: "assets/indicators/bandz-intraday-1m.png",
-          alt: "Bandz Intraday indicator shown on a 1-minute chart",
-          benefit:
-            "Maps ICT macro windows and first-presented FVGs with volume-imbalance and calendar context.",
-        },
-        {
-          id: "2",
-          name: "Bandz Sessions",
-          image: "assets/indicators/bandz-sessions-1m.png",
-          alt: "Bandz Sessions indicator shown on a 1-minute chart",
-          benefit:
-            "Tracks ICT killzones, session liquidity, opening ranges, and Opening RTH Gap projections.",
-        },
-        {
-          id: "3",
-          name: "Bandz SMT",
-          image: "assets/indicators/bandz-smt-15m.png",
-          alt: "Bandz SMT indicator shown on a 15-minute chart",
-          benefit:
-            "Scans multi-timeframe SMT divergence while filtering redundant lower-timeframe signals.",
-        },
-        {
-          id: "4",
-          name: "Bandz HTF",
-          image: "assets/indicators/bandz-htf-15m.png",
-          alt: "Bandz HTF candles indicator shown on a 1-minute chart",
-          benefit:
-            "Displays higher-timeframe candles with PSP, SMT, T-Spots, CISD, FVGs, and sweeps.",
-        },
-        {
-          id: "5",
-          name: "Bandz Levels",
-          image: "assets/indicators/bandz-levels-5m.png",
-          alt: "Bandz Levels indicator shown on a 5-minute chart",
-          benefit:
-            "Maps NWOG, NDOG, HTF levels, scheduled opens, dealing ranges, and ADR targets.",
-        },
-        {
-          id: "6",
-          name: "Bandz STDV Flow",
-          image: "assets/indicators/bandz-stdv-flow-1h.png",
-          alt: "Bandz STDV Flow indicator projecting CISD standard-deviation objectives on a 4-hour MNQ chart",
-          benefit:
-            "Tracks higher-timeframe liquidity sweeps through CISD and opposing-swing confirmation, then projects standard-deviation objectives from the setup anchors.",
-        },
-        {
-          id: "7",
-          name: "Bandz All-in-One",
-          image: "assets/indicators/bandz-all-in-one-4h.png",
-          alt: "Bandz All-in-One indicator combining the Bandz toolkit on a 4-hour MNQ chart",
-          benefit:
-            "Combines five core Bandz workflows into one streamlined script for a cleaner single-chart workflow. Bandz Levels and alerts are not included.",
-        },
-      ];
-
-      indicatorCatalog.forEach(({ id, name, image, alt, benefit }) => {
-        const tabName = document.querySelector(
-          `#indicator-tab-${id} [data-indicator-name]`,
-        );
-        const panelHeading = document.querySelector(
-          `#indicator-panel-${id} [data-indicator-heading]`,
-        );
-        const panelImage = document.querySelector(
-          `#indicator-panel-${id} [data-indicator-image]`,
-        );
-        const panelBenefit = document.querySelector(
-          `#indicator-panel-${id} [data-indicator-benefit]`,
-        );
-
-        if (tabName) tabName.textContent = name.replace(/^Bandz\s+/, "");
-        if (panelHeading) panelHeading.textContent = name;
-        if (panelImage) {
-          panelImage.src = image;
-          panelImage.alt = alt;
-        }
-        if (panelBenefit) panelBenefit.textContent = benefit;
-      });
-
-      const indicatorTabs = Array.from(
-        document.querySelectorAll("[data-indicator-tab]"),
+      // Indicator cards: "Show more" reveals the extras; tapping a card opens
+      // the full-screen viewer, which grows out of the tapped thumbnail.
+      const indicatorCards = Array.from(
+        document.querySelectorAll("[data-indicator-card]"),
       );
-      const indicatorPanels = Array.from(
-        document.querySelectorAll("[data-indicator-panel]"),
+      const indicatorMore = document.querySelector("[data-indicator-more]");
+      const extraIndicatorCards = indicatorCards.filter(
+        (card) => card.dataset && "indicatorExtra" in card.dataset,
       );
 
-      function activateIndicator(nextTab, moveFocus = false) {
-        const nextIndicator = nextTab.dataset.indicatorTab;
-
-        indicatorTabs.forEach((tab) => {
-          const isActive = tab === nextTab;
-          tab.setAttribute("aria-selected", String(isActive));
-          tab.tabIndex = isActive ? 0 : -1;
+      if (indicatorMore && extraIndicatorCards.length) {
+        indicatorMore.addEventListener("click", () => {
+          const expanded = indicatorMore.getAttribute("aria-expanded") !== "true";
+          extraIndicatorCards.forEach((card) => {
+            card.hidden = !expanded;
+          });
+          indicatorMore.setAttribute("aria-expanded", String(expanded));
+          indicatorMore.textContent = expanded ? "Show less" : "Show more";
         });
-
-        indicatorPanels.forEach((panel) => {
-          const isActive = panel.dataset.indicatorPanel === nextIndicator;
-          panel.hidden = !isActive;
-
-          if (isActive && panel.classList) {
-            panel.classList.remove("is-switching");
-            void panel.offsetWidth;
-            panel.classList.add("is-switching");
-            window.setTimeout(
-              () => panel.classList.remove("is-switching"),
-              700,
-            );
-          }
-        });
-
-        if (moveFocus) {
-          nextTab.focus();
-        }
+      } else if (indicatorMore) {
+        indicatorMore.hidden = true;
       }
 
-      indicatorTabs.forEach((tab, index) => {
-        tab.addEventListener("click", () => activateIndicator(tab));
-        tab.addEventListener("keydown", (event) => {
-          let nextIndex;
+      const indicatorViewer = document.querySelector("[data-indicator-viewer]");
+      if (indicatorViewer) {
+        const ivShell = indicatorViewer.querySelector("[data-iv-shell]");
+        const ivStage = indicatorViewer.querySelector("[data-iv-stage]");
+        const ivImg = indicatorViewer.querySelector("[data-iv-img]");
+        const ivTitle = indicatorViewer.querySelector("[data-iv-title]");
+        const ivBlurb = indicatorViewer.querySelector("[data-iv-blurb]");
+        const ivCount = indicatorViewer.querySelector("[data-iv-count]");
+        const ivPrev = indicatorViewer.querySelector("[data-iv-prev]");
+        const ivNext = indicatorViewer.querySelector("[data-iv-next]");
+        const ivClose = indicatorViewer.querySelector("[data-iv-close]");
+        const ivDiscord = indicatorViewer.querySelector("[data-iv-discord]");
+        const ivFocusables = [ivPrev, ivNext, ivClose, ivDiscord].filter(Boolean);
+        const rootElement = document.documentElement;
+        let ivCard = null;
+        let ivClosing = false;
+        let ivSwiped = false;
 
-          if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-            nextIndex = (index + 1) % indicatorTabs.length;
-          } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-            nextIndex =
-              (index - 1 + indicatorTabs.length) % indicatorTabs.length;
-          } else if (event.key === "Home") {
-            nextIndex = 0;
-          } else if (event.key === "End") {
-            nextIndex = indicatorTabs.length - 1;
-          } else {
+        const reducedMotion = () =>
+          typeof window.matchMedia === "function" &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const canAnimate = (element) =>
+          element && typeof element.animate === "function" && !reducedMotion();
+        const shownCards = () => indicatorCards.filter((card) => !card.hidden);
+        const thumbOf = (card) => card.querySelector("[data-indicator-thumb]");
+
+        function showCard(card) {
+          const thumb = thumbOf(card);
+          const cards = shownCards();
+          ivCard = card;
+          ivImg.src = thumb ? thumb.getAttribute("src") : "";
+          ivImg.alt = card.dataset.indicatorAlt || "";
+          ivImg.dataset.ratio = thumb
+            ? String(thumb.getAttribute("width") / thumb.getAttribute("height"))
+            : "";
+          ivTitle.textContent = card.dataset.indicatorTitle || "";
+          ivBlurb.textContent = card.dataset.indicatorBlurb || "";
+          ivCount.textContent = `${cards.indexOf(card) + 1} / ${cards.length}`;
+        }
+
+        // Where the chart is actually drawn inside the object-fit: contain box.
+        function imageRect() {
+          const box = ivImg.getBoundingClientRect();
+          const ratio = Number(ivImg.dataset.ratio) || box.width / box.height;
+          let width = box.width;
+          let height = width / ratio;
+          if (height > box.height) {
+            height = box.height;
+            width = height * ratio;
+          }
+          return {
+            left: box.left + (box.width - width) / 2,
+            top: box.top + (box.height - height) / 2,
+            width,
+            height,
+          };
+        }
+
+        function flipFrom(card) {
+          const thumb = card && card.querySelector(".indicator-thumb");
+          if (!thumb || typeof thumb.getBoundingClientRect !== "function") return null;
+          const from = thumb.getBoundingClientRect();
+          const to = imageRect();
+          if (!from.width || !to.width) return null;
+          const dx = from.left + from.width / 2 - (to.left + to.width / 2);
+          const dy = from.top + from.height / 2 - (to.top + to.height / 2);
+          return `translate(${dx}px, ${dy}px) scale(${from.width / to.width})`;
+        }
+
+        function step(direction) {
+          const cards = shownCards();
+          if (!ivCard || cards.length < 2) return;
+          const index = cards.indexOf(ivCard);
+          showCard(cards[(index + direction + cards.length) % cards.length]);
+          if (canAnimate(ivImg)) {
+            ivImg.animate(
+              [
+                { opacity: 0, transform: `translateX(${direction * 24}px)` },
+                { opacity: 1, transform: "none" },
+              ],
+              { duration: 220, easing: "cubic-bezier(.2,.8,.2,1)" },
+            );
+          }
+        }
+
+        function openViewer(card) {
+          ivClosing = false;
+          showCard(card);
+          if (rootElement && rootElement.classList) {
+            rootElement.classList.add("iv-open");
+          }
+          indicatorViewer.showModal();
+          if (ivClose) ivClose.focus();
+          if (canAnimate(ivShell)) {
+            const start = flipFrom(card);
+            ivShell.animate([{ opacity: 0 }, { opacity: 1 }], {
+              duration: 200,
+              easing: "ease-out",
+            });
+            if (start) {
+              ivImg.animate([{ transform: start }, { transform: "none" }], {
+                duration: 340,
+                easing: "cubic-bezier(.2,.8,.2,1)",
+              });
+            }
+          }
+        }
+
+        function finishClose() {
+          if (indicatorViewer.open) indicatorViewer.close();
+          if (rootElement && rootElement.classList) {
+            rootElement.classList.remove("iv-open");
+          }
+          ivClosing = false;
+          if (ivCard && typeof ivCard.focus === "function") {
+            ivCard.focus({ preventScroll: true });
+          }
+        }
+
+        function closeViewer() {
+          if (ivClosing || !indicatorViewer.open) return;
+          ivClosing = true;
+          if (!canAnimate(ivShell)) {
+            finishClose();
             return;
           }
+          const end = flipFrom(ivCard);
+          const fade = ivShell.animate([{ opacity: 1 }, { opacity: 0 }], {
+            duration: 220,
+            easing: "ease-in",
+            fill: "forwards",
+          });
+          if (end) {
+            ivImg.animate([{ transform: "none" }, { transform: end }], {
+              duration: 260,
+              easing: "cubic-bezier(.4,0,.2,1)",
+              fill: "forwards",
+            });
+          }
+          fade.onfinish = () => {
+            finishClose();
+            ivShell.getAnimations?.().forEach((animation) => animation.cancel());
+            ivImg.getAnimations?.().forEach((animation) => animation.cancel());
+          };
+        }
 
-          event.preventDefault();
-          activateIndicator(indicatorTabs[nextIndex], true);
+        indicatorCards.forEach((card) => {
+          card.addEventListener("click", () => openViewer(card));
         });
-      });
+        if (ivPrev) ivPrev.addEventListener("click", () => step(-1));
+        if (ivNext) ivNext.addEventListener("click", () => step(1));
+        if (ivClose) ivClose.addEventListener("click", closeViewer);
+
+        // Esc animates closed instead of snapping shut.
+        indicatorViewer.addEventListener("cancel", (event) => {
+          event.preventDefault();
+          closeViewer();
+        });
+        // Safety net if the dialog is closed some other way.
+        indicatorViewer.addEventListener("close", () => {
+          if (rootElement && rootElement.classList) {
+            rootElement.classList.remove("iv-open");
+          }
+        });
+        // A swipe should not count as a tap on the backdrop.
+        indicatorViewer.addEventListener("pointerdown", () => {
+          ivSwiped = false;
+        });
+        // Tapping outside the chart (backdrop or empty stage) closes.
+        indicatorViewer.addEventListener("click", (event) => {
+          if (ivSwiped) {
+            ivSwiped = false;
+            return;
+          }
+          if (event.target === indicatorViewer || event.target === ivStage) {
+            closeViewer();
+          }
+        });
+
+        indicatorViewer.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowRight") {
+            event.preventDefault();
+            step(1);
+          } else if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            step(-1);
+          } else if (event.key === "Tab" && ivFocusables.length) {
+            // Keep focus inside the viewer.
+            const first = ivFocusables[0];
+            const last = ivFocusables[ivFocusables.length - 1];
+            const active = document.activeElement;
+            if (event.shiftKey && (active === first || !ivFocusables.includes(active))) {
+              event.preventDefault();
+              last.focus();
+            } else if (!event.shiftKey && (active === last || !ivFocusables.includes(active))) {
+              event.preventDefault();
+              first.focus();
+            }
+          }
+        });
+
+        // Swipe left/right to move between indicators, swipe down to close.
+        if (ivStage) {
+          let swipeStart = null;
+          ivStage.addEventListener("pointerdown", (event) => {
+            swipeStart = { x: event.clientX, y: event.clientY };
+          });
+          ivStage.addEventListener("pointerup", (event) => {
+            if (!swipeStart) return;
+            const dx = event.clientX - swipeStart.x;
+            const dy = event.clientY - swipeStart.y;
+            swipeStart = null;
+            ivSwiped = Math.abs(dx) > 10 || Math.abs(dy) > 10;
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+              step(dx < 0 ? 1 : -1);
+            } else if (dy > 80 && dy > Math.abs(dx)) {
+              closeViewer();
+            }
+          });
+          ivStage.addEventListener("pointercancel", () => {
+            swipeStart = null;
+          });
+        }
+      }
     </script>
+    <script src="experiments-live.js" defer></script>
+    <script src="experiments-live2.js" defer></script>
   </body>
 </html>

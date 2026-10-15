@@ -1,0 +1,168 @@
+/* Journal: low-key secondary promo. Screenshot first, short copy, text link. */
+.journal-stage {
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+.journal-stage .section-heading {
+  margin-bottom: 16px;
+}
+.journal-promo {
+  display: grid;
+  justify-items: start;
+  gap: 0;
+  max-width: 760px;
+}
+.journal-shot {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--soft);
+  box-shadow: 0 16px 36px -28px rgba(0, 0, 0, 0.4);
+}
+.journal-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.journal-line {
+  margin: 16px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--body-text);
+}
+.journal-pills {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.journal-pills li {
+  font-size: 11px;
+  line-height: 1;
+  color: var(--body-text);
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+.journal-link {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.15s ease;
+}
+.journal-link:hover {
+  text-decoration-color: currentColor;
+}
+.journal-link span {
+  transition: transform 0.15s ease;
+}
+.journal-link:hover span {
+  transform: translateX(2px);
+}
+.journal-link:focus-visible {
+  outline: 2px solid #7c4dff;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Footer: brand, small Discord nudge, then socials. */
+.footer-nudge {
+  order: 2;
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.site-footer .social-links {
+  order: 3;
+}
+.footer-nudge a {
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 3px;
+}
+.footer-nudge a:hover {
+  text-decoration-color: #7c4dff;
+}
+.footer-nudge.is-live [data-footer-nudge-text] {
+  color: #7c4dff;
+}
+html[data-ui-theme="night"] .footer-nudge.is-live [data-footer-nudge-text] {
+  color: #a98bff;
+}
+
+@media (max-width: 600px) {
+  .journal-stage {
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+  .journal-shot {
+    border-radius: 12px;
+  }
+  .site-footer {
+    padding: 22px 0 26px;
+  }
+  .site-footer .footer-inner {
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+  }
+  .site-footer .footer-brand {
+    margin: 0;
+  }
+  .site-footer .social-links {
+    justify-content: center;
+    gap: 6px;
+  }
+  .site-footer .social-link {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Louder journal CTA: full-width solid journal-blue button. */
+.journal-link {
+  margin-top: 20px;
+  width: 100%;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 20px;
+  border-radius: 13px;
+  background: #0071e3;
+  color: #ffffff;
+  font-size: 15.5px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 24px -14px rgba(0, 113, 227, 0.7);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+.journal-link:hover {
+  background: #0062c4;
+  transform: translateY(-1px);
+}
+html[data-ui-theme="night"] .journal-link {
+  background: #0a84ff;
+  box-shadow: 0 10px 24px -14px rgba(10, 132, 255, 0.6);
+}
+@media (min-width: 701px) {
+  .journal-link {
+    width: auto;
+  }
+}

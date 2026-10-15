@@ -1,0 +1,239 @@
+/* Experiments: live badge variants 11 and 15 (html[data-live="11"|"15"]).
+   experiments-live2.js adds a .lv2 element inside the hero countdown link and
+   .lv2-on on the link during the live window (9:30-11:00 ET weekdays). */
+
+html {
+  --lv2-accent: #7c4dff;
+  --lv2-accent-text: #6a3df0;
+  --lv2-red: #ff3b30;
+  --lv2-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
+}
+html[data-ui-theme="night"] {
+  --lv2-accent-text: #a487ff;
+  --lv2-red: #ff453a;
+}
+
+.live-countdown .lv2 {
+  display: none;
+}
+html:is([data-live="11"], [data-live="15"])
+  .live-countdown
+  > :not(.lv2) {
+  display: none !important;
+}
+html:is([data-live="11"], [data-live="15"])
+  .live-countdown
+  .lv2 {
+  display: inline-flex;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+html:is([data-live="11"], [data-live="15"])
+  .hero
+  .hero-copy
+  .live-countdown {
+  gap: 0;
+  color: var(--body-text);
+}
+
+/* Shared dot. */
+.lv2 .lv2-dot {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--lv2-accent);
+}
+.lv2-on .lv2 .lv2-dot {
+  background: var(--lv2-red);
+  animation: lv2-ping 1.5s ease-out infinite;
+}
+
+/* 11: flip-clock lite. */
+html[data-live="11"] .hero .hero-copy .live-countdown {
+  padding: 4px 4px 4px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+}
+.lv2-v11 {
+  gap: 8px;
+}
+.lv2-v11 .lv2-dot {
+  animation: lv2-ping-accent 2.8s ease-out infinite;
+}
+.lv2-v11 .lv2-label {
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.lv2-v11 .lv2-cells {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.lv2-v11 .lv2-cell {
+  position: relative;
+  min-width: 24px;
+  height: 22px;
+  padding: 0 4px;
+  border-radius: 6px;
+  background: var(--soft);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 22px;
+  text-align: center;
+  overflow: hidden;
+}
+/* Soft flip seam across the middle of each cell. */
+.lv2-v11 .lv2-cell:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--canvas);
+  opacity: 0.45;
+}
+.lv2-v11 .lv2-sep {
+  color: var(--muted);
+  font-family: var(--lv2-mono);
+  font-size: 11px;
+  opacity: 0.55;
+}
+.lv2-v11 .lv2-cell-s.lv2-bump {
+  animation: lv2-tick 0.6s ease-out;
+}
+html[data-live="11"] .live-countdown.lv2-on {
+  border-color: color-mix(in srgb, var(--lv2-red) 35%, var(--line));
+}
+.lv2-on .lv2-v11 .lv2-label {
+  color: var(--lv2-red);
+  font-weight: 600;
+}
+
+/* 15: minimal, dot with a seconds-sweep ring. */
+html[data-live="15"] .hero .hero-copy .live-countdown {
+  padding: 2px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.lv2-v15 {
+  gap: 9px;
+}
+.lv2-v15 .lv2-ring {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+.lv2-v15 .lv2-ring:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--lv2-accent) calc(var(--lv2-p, 0) * 360deg),
+    var(--line) 0
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.75px), #000 calc(100% - 1.5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 1.75px), #000 calc(100% - 1.5px));
+}
+.lv2-v15 .lv2-ring-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--lv2-accent);
+}
+.lv2-v15 .lv2-label {
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+.lv2-on .lv2-v15 .lv2-label {
+  color: var(--lv2-red);
+  font-weight: 600;
+}
+.lv2-v15 .lv2-time {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 550;
+}
+.lv2-v15 .lv2-unit {
+  margin: 0 5px 0 1px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+.lv2-v15 .lv2-unit:last-child {
+  margin-right: 0;
+}
+.lv2-on .lv2-v15 .lv2-ring:before {
+  background: var(--lv2-red);
+}
+.lv2-on .lv2-v15 .lv2-ring-dot {
+  background: var(--lv2-red);
+  animation: lv2-ping 1.5s ease-out infinite;
+}
+
+@keyframes lv2-ping {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 7px rgba(255, 59, 48, 0);
+  }
+}
+@keyframes lv2-ping-accent {
+  0% {
+    box-shadow: 0 0 0 0 rgba(124, 77, 255, 0.45);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 6px rgba(124, 77, 255, 0);
+  }
+}
+@keyframes lv2-tick {
+  from {
+    color: var(--lv2-accent-text);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lv2 .lv2-dot,
+  .lv2-on .lv2 .lv2-dot,
+  .lv2-v11 .lv2-cell-s.lv2-bump,
+  .lv2-v15 .lv2-ring-dot {
+    animation: none !important;
+  }
+}
+
+/* Final pick: no ring before the countdown; red ring only while live. */
+.lv2-v15 .lv2-ring {
+  display: none;
+}
+.lv2-on .lv2-v15 .lv2-ring {
+  display: inline-block;
+}
+
+
+/* Final size: countdown a step smaller than the bio line. */
+.lv2-v15 .lv2-label {
+  font-size: 11.5px;
+}
+.lv2-v15 .lv2-time {
+  font-size: 12px;
+}
+.lv2-v15 .lv2-unit {
+  font-size: 10px;
+  margin: 0 4px 0 1px;
+}

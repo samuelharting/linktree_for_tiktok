@@ -1,0 +1,81 @@
+/* BG VARIANTS 2-4: subtle hero backgrounds (html[data-bg]). bg 1 = the
+   static .hero:before glow. All use .hero:after so they sit under content. */
+
+html:is([data-bg="2"], [data-bg="3"], [data-bg="4"]) .hero:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 40%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 40%, #000 35%, transparent 100%);
+}
+
+/* The old static glow would stack under these, so turn it off. */
+html:is([data-bg="2"], [data-bg="3"], [data-bg="4"]) .hero:before {
+  background: none !important;
+}
+
+/* 2: soft centered light that breathes and drifts gently (centered loop). */
+html[data-bg="2"] .hero:after {
+  inset: -25%;
+  background:
+    radial-gradient(ellipse 30% 26% at 50% 36%, rgba(124, 77, 255, 0.065), transparent 70%),
+    radial-gradient(ellipse 38% 28% at 50% 62%, rgba(20, 20, 30, 0.03), transparent 72%);
+  animation: bgx-drift 48s ease-in-out infinite;
+}
+html[data-bg="2"][data-ui-theme="night"] .hero:after {
+  background:
+    radial-gradient(ellipse 30% 26% at 50% 36%, rgba(124, 77, 255, 0.1), transparent 70%),
+    radial-gradient(ellipse 38% 28% at 50% 62%, rgba(255, 255, 255, 0.035), transparent 72%);
+}
+@keyframes bgx-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  25% {
+    transform: translate3d(3%, -1.5%, 0) scale(1.04);
+  }
+  50% {
+    transform: translate3d(0, 2%, 0) scale(1.07);
+  }
+  75% {
+    transform: translate3d(-3%, -1%, 0) scale(1.03);
+  }
+}
+
+/* 3: fine dot grid, faded at the edges, drifting up very slowly. */
+html[data-bg="3"] .hero:after {
+  background-image: radial-gradient(rgba(20, 20, 30, 0.16) 1px, transparent 1.2px);
+  background-size: 18px 18px;
+  animation: bgx-dots 60s linear infinite;
+}
+html[data-bg="3"][data-ui-theme="night"] .hero:after {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.13) 1px, transparent 1.2px);
+}
+@keyframes bgx-dots {
+  to {
+    background-position: 0 -180px;
+  }
+}
+
+/* 4: one faint price line across the lower hero, sliding sideways. */
+html[data-bg="4"] .hero:after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='200' viewBox='0 0 600 200'%3E%3Cpath d='M0 140 L40 128 L70 136 L110 104 L150 116 L190 82 L230 96 L270 70 L300 88 L340 60 L380 76 L420 50 L460 72 L500 58 L540 86 L570 74 L600 140' fill='none' stroke='%237c4dff' stroke-width='1.5' stroke-linejoin='round' opacity='0.22'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 600px 200px;
+  background-position: 0 30%;
+  animation: bgx-line 45s linear infinite;
+}
+@keyframes bgx-line {
+  to {
+    background-position: -600px 30%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:is([data-bg="2"], [data-bg="3"], [data-bg="4"]) .hero:after {
+    animation: none;
+  }
+}

@@ -12,15 +12,12 @@ const journalImage = await readFile(
   path.join(root, "assets", "journal", "bandz-journal-calendar.png"),
 );
 const indicatorAssetPaths = [
-  "bandz-intraday-1m.png",
-  "bandz-sessions-1m.png",
-  "bandz-smt-15m.png",
-  "bandz-htf-15m.png",
-  "bandz-levels-5m.png",
-  "bandz-stdv-flow-1h.png",
-  "bandz-all-in-one-4h.png",
-  "bandz-htf-zones.png",
   "bandz-po3-profiler.png",
+  "bandz-htf-zones.png",
+  "bandz-intraday-1m.png",
+  "bandz-smt-15m.png",
+  "bandz-all-in-one-4h.png",
+  "bandz-stdv-flow-1h.png",
 ];
 const indicatorImages = Object.fromEntries(
   await Promise.all(
@@ -39,6 +36,7 @@ for (const entry of await readdir(dist)) {
 await mkdir(serverDir, { recursive: true });
 await mkdir(path.join(dist, "assets", "indicators"), { recursive: true });
 await mkdir(path.join(dist, "assets", "journal"), { recursive: true });
+await mkdir(path.join(dist, "assets", "hero"), { recursive: true });
 
 const workerSource = `
 const pageHtml = ${JSON.stringify(html)};
@@ -140,9 +138,20 @@ export default worker;
 await Promise.all([
   writeFile(path.join(serverDir, "index.js"), workerSource),
   copyFile(path.join(root, "index.html"), path.join(dist, "index.html")),
+  copyFile(path.join(root, "experiments-live.css"), path.join(dist, "experiments-live.css")),
+  copyFile(path.join(root, "experiments-live.js"), path.join(dist, "experiments-live.js")),
+  copyFile(path.join(root, "experiments-live2.css"), path.join(dist, "experiments-live2.css")),
+  copyFile(path.join(root, "experiments-live2.js"), path.join(dist, "experiments-live2.js")),
+  copyFile(path.join(root, "experiments-bg.css"), path.join(dist, "experiments-bg.css")),
+  copyFile(path.join(root, "experiments-layout.css"), path.join(dist, "experiments-layout.css")),
+  copyFile(path.join(root, "experiments-journal.css"), path.join(dist, "experiments-journal.css")),
   copyFile(
     path.join(root, "og-livestream-preview.png"),
     path.join(dist, "og-livestream-preview.png"),
+  ),
+  copyFile(
+    path.join(root, "assets", "hero", "live-chart.jpg"),
+    path.join(dist, "assets", "hero", "live-chart.jpg"),
   ),
   copyFile(
     path.join(root, "assets", "journal", "bandz-journal-calendar.png"),

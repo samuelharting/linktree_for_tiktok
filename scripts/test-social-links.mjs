@@ -88,258 +88,167 @@ function elementWithAttributeValue(tagName, attribute, value) {
 const expectedIndicators = [
   {
     id: "1",
-    name: "Bandz Intraday",
-    source: "assets/indicators/bandz-intraday-1m.png",
-    alt: "Bandz Intraday indicator shown on a 1-minute chart",
+    name: "Bandz Po3 Profiler",
+    cardName: "Po3 Profiler",
+    source: "assets/indicators/bandz-po3-profiler.png",
+    alt: "Bandz Po3 Profiler showing C1-C4 sequences, SMT divergence, CISD and three HTF candle lanes",
   },
   {
     id: "2",
-    name: "Bandz Sessions",
-    source: "assets/indicators/bandz-sessions-1m.png",
-    alt: "Bandz Sessions indicator shown on a 1-minute chart",
-  },
-  {
-    id: "3",
-    name: "Bandz SMT",
-    source: "assets/indicators/bandz-smt-15m.png",
-    alt: "Bandz SMT indicator shown on a 15-minute chart",
-  },
-  {
-    id: "4",
-    name: "Bandz HTF",
-    source: "assets/indicators/bandz-htf-15m.png",
-    alt: "Bandz HTF candles indicator shown on a 1-minute chart",
-  },
-  {
-    id: "5",
-    name: "Bandz Levels",
-    source: "assets/indicators/bandz-levels-5m.png",
-    alt: "Bandz Levels indicator shown on a 5-minute chart",
-  },
-  {
-    id: "6",
-    name: "Bandz STDV Flow",
-    source: "assets/indicators/bandz-stdv-flow-1h.png",
-    alt: "Bandz STDV Flow indicator projecting CISD standard-deviation objectives on a 4-hour MNQ chart",
-  },
-  {
-    id: "7",
-    name: "Bandz All-in-One",
-    source: "assets/indicators/bandz-all-in-one-4h.png",
-    alt: "Bandz All-in-One indicator combining the Bandz toolkit on a 4-hour MNQ chart",
-  },
-  {
-    id: "8",
     name: "Bandz HTF Statistical Zones",
-    tabName: "HTF Zones",
+    cardName: "HTF Zones",
     source: "assets/indicators/bandz-htf-zones.png",
     alt: "Bandz HTF Statistical Zones showing daily percentile zones, session zones, and price targets",
   },
   {
-    id: "9",
-    name: "Bandz Po3 Profiler",
-    tabName: "Po3 Profiler",
-    source: "assets/indicators/bandz-po3-profiler.png",
-    alt: "Bandz Po3 Profiler showing C1-C4 sequences, SMT divergence, CISD and three HTF candle lanes",
+    id: "3",
+    name: "Bandz Intraday",
+    cardName: "Intraday",
+    source: "assets/indicators/bandz-intraday-1m.png",
+    alt: "Bandz Intraday indicator shown on a 1-minute chart",
+  },
+  {
+    id: "4",
+    name: "Bandz SMT",
+    cardName: "SMT",
+    source: "assets/indicators/bandz-smt-15m.png",
+    alt: "Bandz SMT indicator shown on a 15-minute chart",
+  },
+  {
+    id: "5",
+    name: "Bandz All-in-One",
+    cardName: "All-in-One",
+    extra: true,
+    source: "assets/indicators/bandz-all-in-one-4h.png",
+    alt: "Bandz All-in-One indicator combining the Bandz toolkit on a 4-hour MNQ chart",
+  },
+  {
+    id: "6",
+    name: "Bandz STDV Flow",
+    cardName: "STDV Flow",
+    extra: true,
+    source: "assets/indicators/bandz-stdv-flow-1h.png",
+    alt: "Bandz STDV Flow indicator projecting CISD standard-deviation objectives on a 4-hour MNQ chart",
   },
 ];
+const indicatorCount = expectedIndicators.length;
+const discordInvite = "https://discord.gg/XdWaEBXQ6G";
 
-const indicatorCards = classedTags("article", "indicator-card");
-assert.equal(
-  indicatorCards.length,
-  9,
-  "The storefront should contain exactly nine indicator cards",
-);
-assert.equal(
-  classedTags("span", "product-status").length,
-  0,
-  "Released indicators should not display a Coming soon status",
-);
+for (const retired of ["Bandz Sessions", "Bandz Levels", "Bandz HTF\""]) {
+  assert.ok(
+    !html.includes(`data-indicator-title="${retired.replace('"', "")}"`),
+    `${retired.replace('"', "")} is no longer offered in the indicator section`,
+  );
+}
+for (const retiredAsset of [
+  "bandz-sessions-1m.png",
+  "bandz-htf-15m.png",
+  "bandz-levels-5m.png",
+]) {
+  assert.ok(
+    !html.includes(retiredAsset),
+    `${retiredAsset} is no longer referenced by the page`,
+  );
+}
+const lede = html.match(/<p class="indicators-lede">([^<]*)<\/p>/)?.[1].trim();
+assert.ok(lede, "The indicators lede is present");
+assert.match(lede, /Discord/, "The lede points to the Discord");
+assert.match(lede, /community/i, "The lede mentions community-built indicators");
+assert.ok(lede.split(/\s+/).length <= 8, "The lede stays short (8 words max)");
+assert.doesNotMatch(lede, /\d/, "The lede does not state a fixed count");
+
+// The inline chart panel is gone; cards open the viewer instead.
+assert.equal(classedTags("article", "indicator-card").length, 0, "No inline chart panels remain");
+assert.equal(tagsWithAttributeValue(null, "role", "tabpanel").length, 0, "No tabpanels remain");
+assert.equal(tagsWithAttributeValue(null, "role", "tab").length, 0, "Cards are plain buttons, not tabs");
+assert.ok(!html.includes("indicator-expand"), "The old expand-chart icon is gone");
 assert.equal(
   html.includes("data-indicator-timeframe"),
   false,
-  "Indicator slides should not display timeframe labels",
+  "Indicator cards should not display timeframe labels",
 );
 
-const indicatorTabTags = tagsWithAttributeValue("button", "role", "tab");
-const indicatorPanelTags = tagsWithAttributeValue(null, "role", "tabpanel");
-assert.equal(
-  indicatorTabTags.length,
-  9,
-  "The indicator selector should contain exactly nine role=tab buttons",
+const cardTags = openingTags("button").filter((tag) =>
+  hasAttribute(tag, "data-indicator-card"),
 );
-assert.equal(
-  indicatorPanelTags.length,
-  9,
-  "The indicator selector should contain exactly nine tabpanels",
+assert.equal(cardTags.length, indicatorCount, "Exactly six indicator cards are present");
+assert.deepEqual(
+  cardTags.map((tag) => attributeValue(tag, "data-indicator-card")),
+  expectedIndicators.map((indicator) => indicator.id),
+  "Indicator cards appear in the intended order",
 );
 
-const selectedIndicatorTabTags = indicatorTabTags.filter(
-  (tag) => attributeValue(tag, "aria-selected") === "true",
-);
-const visibleIndicatorPanelTags = indicatorPanelTags.filter(
-  (tag) => !hasAttribute(tag, "hidden"),
-);
-assert.equal(
-  selectedIndicatorTabTags.length,
-  1,
-  "Exactly one indicator tab should be selected initially",
-);
-assert.equal(
-  visibleIndicatorPanelTags.length,
-  1,
-  "Exactly one indicator panel should be visible initially",
-);
+for (const expected of expectedIndicators) {
+  const tag = cardTags.find(
+    (candidate) => attributeValue(candidate, "data-indicator-card") === expected.id,
+  );
+  const card = elementWithAttributeValue("button", "data-indicator-card", expected.id);
+  const label = `Indicator card ${expected.id} (${expected.cardName})`;
 
-const tabDataIds = indicatorTabTags.map((tag) =>
-  attributeValue(tag, "data-indicator-tab"),
-);
-const panelDataIds = indicatorPanelTags.map((tag) =>
-  attributeValue(tag, "data-indicator-panel"),
-);
-assert.equal(
-  new Set(tabDataIds).size,
-  9,
-  "Each indicator tab should have a unique data id",
-);
-assert.equal(
-  new Set(panelDataIds).size,
-  9,
-  "Each indicator panel should have a unique data id",
-);
-
-for (const tabTag of indicatorTabTags) {
-  const dataId = attributeValue(tabTag, "data-indicator-tab");
-  const tabId = attributeValue(tabTag, "id");
-  const controlledPanelId = attributeValue(tabTag, "aria-controls");
-  const expectedIndicator = expectedIndicators.find(
-    (indicator) => indicator.id === dataId,
-  );
-  const panelTag = indicatorPanelTags.find(
-    (candidate) => attributeValue(candidate, "data-indicator-panel") === dataId,
-  );
-
-  assert.ok(
-    dataId,
-    "Each indicator tab should provide a data-indicator-tab id",
-  );
-  assert.ok(
-    expectedIndicator,
-    `Indicator tab ${dataId} should map to an expected product`,
-  );
-  assert.ok(
-    panelTag,
-    `Indicator tab ${dataId} should have a panel with the same data id`,
-  );
-  assert.equal(
-    attributeValue(panelTag, "id"),
-    controlledPanelId,
-    `Indicator tab ${dataId} should aria-control its matching panel`,
-  );
-  assert.equal(
-    attributeValue(panelTag, "aria-labelledby"),
-    tabId,
-    `Indicator panel ${dataId} should be labelled by its matching tab`,
-  );
-
-  const tabElement = elementWithAttributeValue(
-    "button",
-    "data-indicator-tab",
-    dataId,
-  );
-  const panelElement = elementWithAttributeValue(
-    "article",
-    "data-indicator-panel",
-    dataId,
-  );
-  assert.ok(tabElement, `Indicator tab ${dataId} markup should be present`);
-  assert.ok(panelElement, `Indicator panel ${dataId} markup should be present`);
+  assert.ok(card, `${label} markup should be present`);
+  assert.equal(attributeValue(tag, "type"), "button", `${label} is a real button`);
+  assert.equal(attributeValue(tag, "aria-haspopup"), "dialog", `${label} announces the viewer`);
+  assert.equal(attributeValue(tag, "aria-controls"), "indicator-viewer", `${label} controls the viewer`);
+  assert.equal(attributeValue(tag, "data-indicator-title"), expected.name, `${label} carries its full name`);
+  assert.equal(attributeValue(tag, "data-indicator-alt"), expected.alt, `${label} describes its chart`);
+  const blurb = attributeValue(tag, "data-indicator-blurb");
+  assert.ok(blurb && blurb.length <= 70, `${label} has a one-line description`);
   assert.match(
-    tabElement,
-    new RegExp(
-      `<span\\b[^>]*\\bdata-indicator-name\\b[^>]*>\\s*${escapeRegExp(expectedIndicator.tabName ?? expectedIndicator.name.replace(/^Bandz\s+/, ""))}\\s*<\\/span>`,
-      "i",
-    ),
-    `Indicator tab ${dataId} should display the short name of ${expectedIndicator.name}`,
-  );
-  assert.match(
-    panelElement,
-    new RegExp(
-      `<h3\\b[^>]*\\bdata-indicator-heading\\b[^>]*>\\s*${escapeRegExp(expectedIndicator.name)}\\s*<\\/h3>`,
-      "i",
-    ),
-    `Indicator panel ${dataId} should display ${expectedIndicator.name}`,
+    card,
+    new RegExp(`<span\\b[^>]*\\bdata-indicator-name\\b[^>]*>\\s*${escapeRegExp(expected.cardName)}\\s*<\\/span>`),
+    `${label} shows its short name`,
   );
 
-  const panelImage = panelElement.match(/<img\b[^>]*>/i)?.[0];
-  if (expectedIndicator.source) {
-    assert.ok(
-      panelImage,
-      `Indicator panel ${dataId} should contain a screenshot image`,
-    );
-    assert.ok(
-      hasAttribute(panelImage, "data-indicator-image"),
-      `Indicator panel ${dataId} screenshot should use the catalog hook`,
-    );
-    assert.equal(
-      attributeValue(panelImage, "src"),
-      expectedIndicator.source,
-      `Indicator panel ${dataId} should use the correct screenshot source`,
-    );
-    assert.equal(
-      attributeValue(panelImage, "alt"),
-      expectedIndicator.alt,
-      `Indicator panel ${dataId} should describe its screenshot`,
-    );
-  } else {
-    const placeholder = panelElement.match(
-      /<div\b[^>]*class=["'][^"']*zones-visual[^"']*["'][^>]*>/i,
-    )?.[0];
-    assert.ok(
-      placeholder,
-      `Indicator panel ${dataId} should contain a preview placeholder until a real chart is supplied`,
-    );
-    assert.equal(
-      attributeValue(placeholder, "role"),
-      "img",
-      `Indicator panel ${dataId} placeholder should expose image semantics`,
-    );
-    assert.equal(
-      attributeValue(placeholder, "aria-label"),
-      expectedIndicator.placeholderAlt,
-      `Indicator panel ${dataId} placeholder should be described accessibly`,
-    );
-  }
-  if (expectedIndicator.source) {
-    await assert.doesNotReject(
-      access(new URL(`../${expectedIndicator.source}`, import.meta.url)),
-      `Indicator panel ${dataId} screenshot asset should exist`,
-    );
-  }
+  const thumb = card.match(/<img\b[^>]*>/i)?.[0];
+  assert.ok(thumb && hasAttribute(thumb, "data-indicator-thumb"), `${label} shows a thumbnail`);
+  assert.equal(attributeValue(thumb, "src"), expected.source, `${label} thumbnail uses its screenshot`);
+  assert.equal(attributeValue(thumb, "alt"), "", `${label} thumbnail is decorative (the name labels the card)`);
+  assert.ok(
+    Number(attributeValue(thumb, "width")) > 0 && Number(attributeValue(thumb, "height")) > 0,
+    `${label} thumbnail declares its size`,
+  );
+  await assert.doesNotReject(
+    access(new URL(`../${expected.source}`, import.meta.url)),
+    `${label} screenshot asset should exist`,
+  );
+
+  assert.equal(hasAttribute(tag, "data-indicator-extra"), Boolean(expected.extra), `${label} ${expected.extra ? "sits" : "does not sit"} behind Show more`);
+  assert.equal(hasAttribute(tag, "hidden"), Boolean(expected.extra), `${label} is ${expected.extra ? "hidden" : "shown"} by default`);
 }
 
-assert.equal(
-  attributeValue(selectedIndicatorTabTags[0], "data-indicator-tab"),
-  attributeValue(visibleIndicatorPanelTags[0], "data-indicator-panel"),
-  "The initially selected tab and visible panel should share the same data id",
+const moreButtonTags = openingTags("button").filter((tag) =>
+  hasAttribute(tag, "data-indicator-more"),
 );
+assert.equal(moreButtonTags.length, 1, "One Show more control is present");
+assert.equal(attributeValue(moreButtonTags[0], "aria-expanded"), "false", "Show more starts collapsed");
+assert.equal(attributeValue(moreButtonTags[0], "aria-controls"), "indicator-grid", "Show more controls the card grid");
+assert.ok(
+  openingTags().some((tag) => attributeValue(tag, "id") === "indicator-grid"),
+  "The Show more target exists",
+);
+
+// The viewer: an aria-modal dialog with title, description, pager, close and one Discord link.
+const viewer = elementWithAttributeValue("dialog", "id", "indicator-viewer");
+assert.ok(viewer, "The indicator viewer dialog is present");
+const viewerTag = elementOpeningTag(viewer, "dialog");
+assert.equal(attributeValue(viewerTag, "aria-modal"), "true", "The viewer is aria-modal");
+assert.equal(attributeValue(viewerTag, "aria-labelledby"), "indicator-viewer-title", "The viewer is labelled by the indicator name");
+assert.ok(/id="indicator-viewer-title"/.test(viewer), "The viewer title element exists");
+for (const hook of ["data-iv-img", "data-iv-blurb", "data-iv-prev", "data-iv-next", "data-iv-close", "data-iv-count"]) {
+  assert.ok(viewer.includes(hook), `The viewer contains ${hook}`);
+}
+for (const hook of ["data-iv-prev", "data-iv-next", "data-iv-close"]) {
+  const tag = (viewer.match(/<button\b[^>]*>/g) || []).find((candidate) => hasAttribute(candidate, hook));
+  assert.ok(attributeValue(tag, "aria-label"), `The ${hook} control has an accessible name`);
+}
 
 // Guard real destinations and functionality independently of the visual design.
 assert.doesNotMatch(html, /href=["'][^"']*tradingview\.com/i, "Indicator access goes through Discord, not direct TradingView links");
-for (let i = 1; i <= 9; i++) {
-  const panel = elementWithAttributeValue(
-    "article",
-    "data-indicator-panel",
-    String(i),
-  );
-  const links = panel.match(/<a\b[^>]*>/g) || [];
-  assert.equal(links.length, 1, "Each indicator has one Discord access link");
-  assert.equal(
-    attributeValue(links[0], "href"),
-    "https://discord.gg/XdWaEBXQ6G",
-    "Every indicator links to the Bandz Discord",
-  );
-}
+const viewerLinks = viewer.match(/<a\b[^>]*>/g) || [];
+assert.equal(viewerLinks.length, 1, "The viewer has one Discord access link");
+assert.equal(attributeValue(viewerLinks[0], "href"), discordInvite, "The viewer links to the Bandz Discord");
+assert.match(viewer, /fa-discord[\s\S]*Get it in Discord/, "The viewer button reads Get it in Discord");
+
 const anchors = openingTags("a");
 for (const tag of anchors) {
   const href = attributeValue(tag, "href");
@@ -365,12 +274,7 @@ for (const label of [
   "Bandz on YouTube",
 ]) {
   const tags = tagsWithAttributeValue("a", "aria-label", label);
-  assert.equal(tags.length, 2, label + " appears in hero and footer");
-  assert.equal(
-    attributeValue(tags[0], "href"),
-    attributeValue(tags[1], "href"),
-    "Social targets agree",
-  );
+  assert.equal(tags.length, 1, label + " appears once, in the footer");
 }
 assert.ok(
   anchors.some(
@@ -400,7 +304,7 @@ assert.equal(
   1,
   "Theme toggle retained",
 );
-assert.ok(html.includes("data-shot-viewer"), "Screenshot viewer retained");
+assert.ok(!html.includes("data-shot-viewer"), "The old screenshot viewer is replaced by the indicator viewer");
 function eventTarget(extra = {}) {
   const listeners = new Map();
 
@@ -418,75 +322,185 @@ function eventTarget(extra = {}) {
   };
 }
 
-function testIndicatorSelection() {
-  function indicatorTab(id, selected) {
-    const attributes = new Map([["aria-selected", String(selected)]]);
+function testIndicatorViewer() {
+  let focused = null;
 
-    return eventTarget({
-      dataset: { indicatorTab: String(id) },
-      tabIndex: selected ? 0 : -1,
+  function element(extra = {}, initialAttributes = {}) {
+    const attributes = new Map(Object.entries(initialAttributes));
+    const node = eventTarget({
+      hidden: false,
+      dataset: {},
+      textContent: "",
+      ...extra,
       setAttribute(name, value) {
         attributes.set(name, String(value));
       },
       getAttribute(name) {
-        return attributes.get(name);
+        return attributes.has(name) ? attributes.get(name) : null;
       },
-      focus() {},
+      focus() {
+        focused = node;
+      },
     });
+    return node;
   }
 
-  const tabs = Array.from({ length: 9 }, (_, index) =>
-    indicatorTab(index + 1, index === 0),
-  );
-  const panels = Array.from({ length: 9 }, (_, index) => ({
-    dataset: { indicatorPanel: String(index + 1) },
-    hidden: index !== 0,
-  }));
+  const cards = expectedIndicators.map((indicator) => {
+    const thumb = element({}, { src: indicator.source, width: "2000", height: "1000" });
+    const card = element({
+      hidden: Boolean(indicator.extra),
+      dataset: {
+        indicatorCard: indicator.id,
+        indicatorTitle: indicator.name,
+        indicatorAlt: indicator.alt,
+        indicatorBlurb: `${indicator.cardName} blurb`,
+        ...(indicator.extra ? { indicatorExtra: "" } : {}),
+      },
+      querySelector(selector) {
+        return selector === "[data-indicator-thumb]" ? thumb : null;
+      },
+    });
+    return card;
+  });
+
+  const parts = {
+    "[data-iv-shell]": element(),
+    "[data-iv-stage]": element(),
+    "[data-iv-img]": element(),
+    "[data-iv-title]": element(),
+    "[data-iv-blurb]": element(),
+    "[data-iv-count]": element(),
+    "[data-iv-prev]": element(),
+    "[data-iv-next]": element(),
+    "[data-iv-close]": element(),
+    "[data-iv-discord]": element(),
+  };
+  const viewer = element({
+    open: false,
+    showModal() {
+      this.open = true;
+    },
+    close() {
+      this.open = false;
+    },
+    querySelector(selector) {
+      return parts[selector] ?? null;
+    },
+  });
+  const moreButton = element({ textContent: "Show more" }, { "aria-expanded": "false" });
+  const rootClasses = new Set();
   const document = eventTarget({
     hidden: false,
     webkitHidden: false,
-    querySelector() {
+    documentElement: {
+      classList: {
+        add: (name) => rootClasses.add(name),
+        remove: (name) => rootClasses.delete(name),
+      },
+    },
+    querySelector(selector) {
+      if (selector === "[data-indicator-more]") return moreButton;
+      if (selector === "[data-indicator-viewer]") return viewer;
       return null;
     },
     querySelectorAll(selector) {
-      if (selector === "[data-indicator-tab]") return tabs;
-      if (selector === "[data-indicator-panel]") return panels;
-      return [];
+      return selector === "[data-indicator-card]" ? cards : [];
     },
   });
+
+  Object.defineProperty(document, "activeElement", { get: () => focused });
 
   vm.runInNewContext(scriptMatch[1], {
     document,
     navigator: { userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" },
-    window: {
-      clearTimeout() {},
-      setTimeout() {},
-    },
+    window: { clearTimeout() {}, setTimeout() {} },
   });
 
-  tabs[2].listener("click")();
+  const click = (node) => node.listener("click")({ target: node });
+  const key = (name, extra = {}) => {
+    let prevented = false;
+    viewer.listener("keydown")({ key: name, ...extra, preventDefault() { prevented = true; } });
+    return prevented;
+  };
+  function assertShowing(index, total, context) {
+    const expected = expectedIndicators[index];
+    assert.equal(viewer.open, true, `The viewer is open ${context}`);
+    assert.equal(parts["[data-iv-title]"].textContent, expected.name, `The viewer shows ${expected.name} ${context}`);
+    assert.equal(parts["[data-iv-img]"].src, expected.source, `The viewer shows the ${expected.cardName} chart ${context}`);
+    assert.equal(parts["[data-iv-img]"].alt, expected.alt, `The viewer chart is described ${context}`);
+    assert.equal(parts["[data-iv-blurb]"].textContent, `${expected.cardName} blurb`, `The viewer shows the description ${context}`);
+    assert.equal(parts["[data-iv-count]"].textContent, `${index + 1} / ${total}`, `The viewer counter reads ${index + 1} / ${total} ${context}`);
+  }
 
-  tabs.forEach((tab, index) => {
-    const isThirdIndicator = index === 2;
-    assert.equal(
-      tab.getAttribute("aria-selected"),
-      String(isThirdIndicator),
-      `Indicator tab ${index + 1} should ${isThirdIndicator ? "be" : "not be"} selected after clicking the third indicator`,
-    );
-    assert.equal(
-      tab.tabIndex,
-      isThirdIndicator ? 0 : -1,
-      `Indicator tab ${index + 1} should have the correct tabIndex after clicking the third indicator`,
-    );
-  });
+  // Tap a card: the viewer opens on it, locks scroll and focuses Close.
+  click(cards[2]);
+  assertShowing(2, 4, "after tapping Intraday");
+  assert.ok(rootClasses.has("iv-open"), "Page scroll is locked while the viewer is open");
+  assert.equal(focused, parts["[data-iv-close]"], "Focus moves into the viewer");
 
-  panels.forEach((panel, index) => {
-    assert.equal(
-      panel.hidden,
-      index !== 2,
-      `Indicator panel ${index + 1} should ${index === 2 ? "be visible" : "be hidden"} after clicking the third indicator`,
-    );
-  });
+  // Next/previous move through the visible cards only, wrapping around.
+  click(parts["[data-iv-next]"]);
+  assertShowing(3, 4, "after Next");
+  click(parts["[data-iv-next]"]);
+  assertShowing(0, 4, "after Next wraps past the last visible card");
+  click(parts["[data-iv-prev]"]);
+  assertShowing(3, 4, "after Previous wraps back");
+  assert.equal(key("ArrowLeft"), true, "ArrowLeft is handled in the viewer");
+  assertShowing(2, 4, "after ArrowLeft");
+
+  // Swipes: left goes to the next indicator, down closes.
+  const stage = parts["[data-iv-stage]"];
+  stage.listener("pointerdown")({ clientX: 300, clientY: 400 });
+  stage.listener("pointerup")({ clientX: 180, clientY: 410 });
+  assertShowing(3, 4, "after swiping left");
+
+  // Focus stays inside: Tab from the last control wraps to the first.
+  parts["[data-iv-discord]"].focus();
+  assert.equal(key("Tab"), true, "Tab is trapped at the end of the viewer");
+  assert.equal(focused, parts["[data-iv-prev]"], "Tab wraps to the first viewer control");
+  assert.equal(key("Tab", { shiftKey: true }), true, "Shift+Tab is trapped at the start");
+  assert.equal(focused, parts["[data-iv-discord]"], "Shift+Tab wraps to the last viewer control");
+
+  // Esc closes and returns focus to the card being shown.
+  let cancelPrevented = false;
+  viewer.listener("cancel")({ preventDefault() { cancelPrevented = true; } });
+  assert.equal(cancelPrevented, true, "Esc is handled by the viewer close");
+  assert.equal(viewer.open, false, "Esc closes the viewer");
+  assert.ok(!rootClasses.has("iv-open"), "Page scroll unlocks after closing");
+  assert.equal(focused, cards[3], "Focus returns to the card that was showing");
+
+  // Show more reveals the extras, and the viewer then pages through all six.
+  click(moreButton);
+  assert.equal(moreButton.getAttribute("aria-expanded"), "true", "Show more expands");
+  assert.equal(moreButton.textContent, "Show less", "Expanded control reads Show less");
+  cards.forEach((card, index) => assert.equal(card.hidden, false, `Card ${index + 1} is shown when expanded`));
+  click(cards[5]);
+  assertShowing(5, 6, "after tapping STDV Flow");
+  click(parts["[data-iv-next]"]);
+  assertShowing(0, 6, "after Next wraps from the last of six");
+
+  // Close button and backdrop both close.
+  click(parts["[data-iv-close]"]);
+  assert.equal(viewer.open, false, "The close button closes the viewer");
+  assert.equal(focused, cards[0], "Focus returns to the card after the close button");
+  click(cards[1]);
+  viewer.listener("pointerdown")({});
+  viewer.listener("click")({ target: viewer });
+  assert.equal(viewer.open, false, "Tapping the backdrop closes the viewer");
+  click(cards[1]);
+  viewer.listener("click")({ target: parts["[data-iv-img]"] });
+  assert.equal(viewer.open, true, "Tapping the chart itself keeps the viewer open");
+  stage.listener("pointerdown")({ clientX: 200, clientY: 200 });
+  stage.listener("pointerup")({ clientX: 205, clientY: 320 });
+  assert.equal(viewer.open, false, "Swiping down closes the viewer");
+
+  // Show less hides the extras again.
+  click(moreButton);
+  assert.equal(moreButton.getAttribute("aria-expanded"), "false", "Show less collapses");
+  assert.equal(moreButton.textContent, "Show more", "Collapsed control reads Show more");
+  cards.forEach((card, index) =>
+    assert.equal(card.hidden, Boolean(expectedIndicators[index].extra), `Card ${index + 1} visibility resets when collapsed`),
+  );
 }
 
 function testMobileAppLink({ appUrl, webUrl }) {
@@ -553,7 +567,7 @@ function testMobileAppLink({ appUrl, webUrl }) {
   );
 }
 
-testIndicatorSelection();
+testIndicatorViewer();
 
 testMobileAppLink({
   appUrl: "instagram://user?username=bandz_trading",
@@ -566,5 +580,5 @@ testMobileAppLink({
 });
 
 console.log(
-  "All nine indicator assets, destinations, tab behaviors, social fallbacks, and page anchors pass.",
+  "All six indicator cards, the indicator viewer, destinations, social fallbacks, and page anchors pass.",
 );

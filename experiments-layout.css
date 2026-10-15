@@ -1,0 +1,42 @@
+/* LAYOUT VARIANTS (html[data-layout] 1-4) for the phone hero. 1 = current. */
+@media (max-width: 700px) {
+  /* 2: compact, everything a step smaller and tighter */
+  html[data-layout="2"] .hero { padding-top: 32px !important; padding-bottom: 48px !important; }
+  html[data-layout="2"] .hero h1 { font-size: 34px !important; line-height: 1.1 !important; margin-top: 12px !important; }
+  html[data-layout="2"] .hero-lede { font-size: 15px !important; line-height: 1.5 !important; margin-top: 12px !important; }
+  html[data-layout="2"] .hero-actions { margin-top: 24px !important; }
+  html[data-layout="2"] .hero-discord { min-height: 44px !important; font-size: 15px !important; border-radius: 11px !important; }
+  html[data-layout="2"] .hero-members { margin-top: 10px !important; font-size: 13px !important; }
+  html[data-layout="2"] .hero-stream { margin-top: 32px !important; }
+
+  /* 3: airy, bigger type and more room between blocks */
+  html[data-layout="3"] .hero { padding-top: 34px !important; padding-bottom: 52px !important; }
+  html[data-layout="3"] .hero .hero-copy .live-countdown { margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  html[data-layout="3"] .hero h1 { font-size: 44px !important; line-height: 1.05 !important; margin-top: 12px !important; }
+  html[data-layout="3"] .hero-lede { font-size: 15.5px !important; line-height: 1.55 !important; margin-top: 16px !important; }
+  html[data-layout="3"] .hero-actions { margin-top: 32px !important; }
+  html[data-layout="3"] .hero-discord { min-height: 52px !important; font-size: 16px !important; border-radius: 13px !important; }
+  html[data-layout="3"] .hero-members { margin-top: 12px !important; font-size: 13.5px !important; }
+  html[data-layout="3"] .hero-stream { margin-top: 44px !important; }
+
+  /* 4: left aligned, big headline, button sized to its label */
+  html[data-layout="4"] .hero { padding-top: 48px !important; text-align: left !important; }
+  html[data-layout="4"] .hero-copy { align-items: flex-start !important; text-align: left !important; }
+  html[data-layout="4"] .live-countdown { align-self: flex-start !important; justify-content: flex-start !important; margin-left: 0 !important; }
+  html[data-layout="4"] .hero h1 { font-size: 41px !important; line-height: 1.04 !important; margin-top: 18px !important; text-align: left !important; }
+  html[data-layout="4"] .hero-lede { font-size: 16px !important; line-height: 1.55 !important; margin: 16px 0 0 !important; text-align: left !important; max-width: 300px !important; }
+  html[data-layout="4"] .hero-actions { margin-top: 30px !important; align-items: flex-start !important; justify-content: flex-start !important; }
+  html[data-layout="4"] .hero-discord { width: auto !important; min-height: 48px !important; padding: 0 22px !important; font-size: 15px !important; }
+  html[data-layout="4"] .hero-members { margin-top: 12px !important; text-align: left !important; align-self: flex-start !important; }
+  html[data-layout="4"] .hero-stream { margin-top: 44px !important; }
+
+  /* 5: layout 3 with only the lede smaller */
+  html[data-layout="5"] .hero { padding-top: 34px !important; padding-bottom: 52px !important; }
+  html[data-layout="5"] .hero .hero-copy .live-countdown { margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; }
+  html[data-layout="5"] .hero h1 { font-size: 44px !important; line-height: 1.05 !important; margin-top: 12px !important; }
+  html[data-layout="5"] .hero-lede { font-size: 14px !important; line-height: 1.5 !important; margin-top: 14px !important; }
+  html[data-layout="5"] .hero-actions { margin-top: 30px !important; }
+  html[data-layout="5"] .hero-discord { min-height: 52px !important; font-size: 16px !important; border-radius: 13px !important; }
+  html[data-layout="5"] .hero-members { margin-top: 12px !important; font-size: 13.5px !important; }
+  html[data-layout="5"] .hero-stream { margin-top: 44px !important; }
+}
