@@ -1,35 +1,30 @@
 /* Smart Money Hat promo: sticky banner, header button, Merch section, footer link. */
 
-/* Thin hat banner, pinned with the header */
+/* Launch banner above the header */
 .hat-banner {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  height: 32px;
-  padding: 0 16px;
-  box-sizing: border-box;
-  background: #111;
-  color: #fff;
-  font-size: 12.5px;
+  min-height: 36px;
+  padding: 8px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: -0.1px;
   text-decoration: none;
+  letter-spacing: -0.1px;
 }
-.hat-banner-tag {
-  font-size: 10px;
+.hat-banner strong {
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
 }
-.hat-banner-arrow {
-  color: rgba(255, 255, 255, 0.55);
-  transition: transform 0.15s ease, color 0.15s ease;
+.hat-banner .hat-banner-cta {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--paper) 45%, transparent);
 }
-.hat-banner:hover .hat-banner-arrow {
-  color: #fff;
-  transform: translateX(2px);
+.hat-banner:hover .hat-banner-cta {
+  text-decoration-color: currentColor;
 }
 .hat-banner:focus-visible {
   outline: 2px solid #7c4dff;
@@ -46,16 +41,6 @@
   height: auto;
   border-radius: 12px;
   border: 1px solid var(--line);
-}
-
-/* Banner lives inside the sticky header bar; give the slot room for it. */
-.header-slot {
-  height: 118px;
-}
-@media (max-width: 700px) {
-  .header-slot {
-    height: 80px;
-  }
 }
 
 /* Merch section, built like the journal block. */
