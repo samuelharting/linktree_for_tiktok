@@ -90,3 +90,13 @@
   }
 }
 
+
+/* Banner sits inside the sticky header bar; give the slot room for it. */
+.header-slot {
+  height: 121px;
+}
+@media (max-width: 700px) {
+  .header-slot {
+    height: 83px;
+  }
+}
