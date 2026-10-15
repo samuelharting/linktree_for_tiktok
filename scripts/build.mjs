@@ -153,8 +153,8 @@ await Promise.all([
     path.join(dist, "assets", "discord", "live-call.jpg"),
   ),
   copyFile(
-    path.join(root, "assets", "merch", "smart-money-hat-desk.jpg"),
-    path.join(dist, "assets", "merch", "smart-money-hat-desk.jpg"),
+    path.join(root, "assets", "merch", "smart-money-hat-wide.jpg"),
+    path.join(dist, "assets", "merch", "smart-money-hat-wide.jpg"),
   ),
   copyFile(
     path.join(root, "og-livestream-preview.png"),
