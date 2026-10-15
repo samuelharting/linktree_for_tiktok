@@ -68,10 +68,8 @@
           : "paper";
 
       const allowedUiThemes = ["studio", "night"];
-      let initialUiTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "night"
-        : "studio";
+      // Light is the default for everyone; a visitor's own toggle choice still wins.
+      let initialUiTheme = "studio";
 
       try {
         const savedUiTheme = window.localStorage.getItem("bandz-ui-theme");
