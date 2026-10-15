@@ -78,7 +78,7 @@ function responseFor(request, body, init) {
 }
 
 function renderPage(requestUrl) {
-  return pageHtml.replaceAll("https://all-bandz-links.vercel.app", requestUrl.origin);
+  return pageHtml.replaceAll("https://bandztrading.com", requestUrl.origin);
 }
 
 const worker = {
