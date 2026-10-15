@@ -2419,34 +2419,6 @@
             >
           </a>
         </div>
-        <div class="routine-card">
-          <h2>Your trading toolkit.</h2>
-          <a class="routine-row" href="#indicators"
-            ><span class="routine-number">01</span>
-            <div>
-              <h3>Find your context.</h3>
-              <p>Indicators that bring the chart into focus.</p>
-            </div>
-            <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M5 11 11 5M6.5 5H11v4.5" /></svg></a
-          ><a class="routine-row" href="#journal"
-            ><span class="routine-number">02</span>
-            <div>
-              <h3>Review your decisions.</h3>
-              <p>A trading journal built around your process.</p>
-            </div>
-            <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M5 11 11 5M6.5 5H11v4.5" /></svg></a
-          ><a class="routine-row" href="#discord"
-            ><span class="routine-number">03</span>
-            <div>
-              <h3>Keep learning, together.</h3>
-              <p>Live streams and conversations with traders.</p>
-            </div>
-            <svg class="arrow-icon" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M5 11 11 5M6.5 5H11v4.5" /></svg
-          ></a>
-        </div>
       </section>
       <section
         class="section indicators-section"
@@ -2658,6 +2630,9 @@
               <span class="member-dot" aria-hidden="true"></span>
               <span data-member-text></span>
             </p>
+            <figure class="discord-shot">
+              <img src="assets/discord/live-call.jpg" alt="A full Bandz livestream call and chat in Discord" width="1538" height="992" loading="lazy" decoding="async" />
+            </figure>
           </div>
           <article class="community-card reveal">
             <div class="community-content">
@@ -2678,9 +2653,6 @@
                   Indicators from Bandz and the community
                 </li>
               </ul>
-              <figure class="discord-shot">
-                <img src="assets/discord/live-call.jpg" alt="A full Bandz livestream call and chat in Discord" width="1538" height="992" loading="lazy" decoding="async" />
-              </figure>
               <a
                 class="button button--primary button--discord"
                 href="https://discord.gg/XdWaEBXQ6G"
@@ -2714,7 +2686,7 @@
           <a class="journal-shot hat-shot" href="https://smartmoneyhat.vercel.app" target="_blank" rel="noopener noreferrer">
             <img src="assets/merch/smart-money-hat-wide.jpg" alt="White Smart Money Hat on a trading desk" width="1200" height="750" loading="lazy" decoding="async" />
           </a>
-          <p class="journal-line hat-line"><strong>Smart Money Hat</strong> &middot; $19.99</p>
+          <p class="journal-line hat-line"><strong>Smart Money Hat</strong> <span class="hat-price">$19.99</span></p>
           <a class="hat-button" href="https://smartmoneyhat.vercel.app" target="_blank" rel="noopener noreferrer">Shop the hat <span aria-hidden="true">&rarr;</span></a>
         </div>
       </section>
@@ -3210,25 +3182,20 @@
         var reduceMotion = window.matchMedia
           ? window.matchMedia("(prefers-reduced-motion: reduce)")
           : { matches: false };
+        /* Slides in once the hero is scrolled past. Scrolling back up it
+           stays pinned and only un-pins at the very top, where it lines up
+           with the in-flow header, so it never disappears and reappears. */
+        var slot = bar.parentElement;
         var stuck = false;
-        var hideTimer = null;
         var update = function () {
-          var pastHero = hero.getBoundingClientRect().bottom < 0;
-          if (pastHero === stuck) return;
-          stuck = pastHero;
-          clearTimeout(hideTimer);
-          if (pastHero) {
+          if (!stuck && hero.getBoundingClientRect().bottom < 0) {
+            stuck = true;
             bar.classList.add("is-stuck");
             void bar.offsetHeight; // start the slide from above the viewport
             bar.classList.add("is-shown");
-          } else {
-            bar.classList.remove("is-shown");
-            hideTimer = setTimeout(
-              function () {
-                bar.classList.remove("is-stuck");
-              },
-              reduceMotion.matches ? 0 : 480,
-            );
+          } else if (stuck && slot.getBoundingClientRect().top >= 0) {
+            stuck = false;
+            bar.classList.remove("is-shown", "is-stuck");
           }
         };
         window.addEventListener("scroll", update, { passive: true });

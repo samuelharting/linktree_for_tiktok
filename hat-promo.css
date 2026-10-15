@@ -131,3 +131,95 @@
     opacity: 1;
   }
 }
+
+/* Desktop layouts */
+@media (min-width: 901px) {
+  /* Hero: copy on the left, live chart on the right (toolkit card removed). */
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .hero-copy {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    column-gap: 64px;
+    align-items: center;
+  }
+  .hero-copy > * {
+    grid-column: 1;
+  }
+  .hero-copy > .hero-stream {
+    grid-column: 2;
+    grid-row: 1 / span 6;
+    align-self: center;
+    margin-top: 0;
+  }
+
+  /* Merch: smaller photo with name, price and button beside it. */
+  .hat-stage .journal-promo {
+    display: grid;
+    grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
+    column-gap: 40px;
+    align-items: center;
+    max-width: 900px;
+  }
+  .hat-stage .hat-shot {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .hat-stage .hat-line {
+    grid-column: 2;
+    align-self: end;
+    margin: 0;
+    font-size: 22px;
+  }
+  .hat-stage .hat-line strong {
+    display: block;
+    font-size: 28px;
+    letter-spacing: -0.8px;
+  }
+  .hat-stage .hat-button {
+    grid-column: 2;
+    align-self: start;
+    justify-self: start;
+    margin-top: 18px;
+  }
+}
+@media (max-width: 900px) {
+  .hat-price::before {
+    content: "\00B7  ";
+  }
+}
+
+/* Journal: screenshot left, copy, pills and button on the right (desktop). */
+@media (min-width: 901px) {
+  .journal-stage .journal-promo {
+    display: grid;
+    grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
+    column-gap: 40px;
+    align-items: center;
+    max-width: 1020px;
+  }
+  .journal-stage .journal-shot {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+  }
+  .journal-stage .journal-line,
+  .journal-stage .journal-pills,
+  .journal-stage .journal-link {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .journal-stage .journal-line {
+    align-self: end;
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  .journal-stage .journal-pills {
+    align-self: center;
+  }
+  .journal-stage .journal-link {
+    align-self: start;
+  }
+}
