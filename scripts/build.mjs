@@ -168,7 +168,7 @@ await Promise.all([
     path.join(root, "assets", "journal", "bandz-journal-calendar.png"),
     path.join(dist, "assets", "journal", "bandz-journal-calendar.png"),
   ),
-  ...["nq-hoodie.png","nq-joggers.png","nq-tee.png","nq-hat.jpg"].map(filename=>copyFile(path.join(root,"assets","merch",filename),path.join(dist,"assets","merch",filename))),
+  ...["nq-hoodie.png","nq-joggers.png","nq-tee.png","nq-hat-us.jpg"].map(filename=>copyFile(path.join(root,"assets","merch",filename),path.join(dist,"assets","merch",filename))),
   ...indicatorAssetPaths.map((filename) =>
     copyFile(
       path.join(root, "assets", "indicators", filename),
