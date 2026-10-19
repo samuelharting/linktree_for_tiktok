@@ -261,16 +261,16 @@
     display: inline-flex;
     align-items: center;
     height: 28px;
-    padding: 0 11px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--paper);
-    color: var(--ink);
-    font-size: 12.5px;
-    font-weight: 600;
+    padding: 0 4px;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
     line-height: 1;
     text-decoration: none;
   }
-  .site-header .header-shop:active { border-color: var(--muted); }
+  .site-header .header-shop:active { opacity: .6; }
   .site-header .header-shop:focus-visible { outline: 2px solid #7c4dff; outline-offset: 2px; }
 }
