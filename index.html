@@ -2369,32 +2369,27 @@
     <main id="main-content">
       <section class="hero site-shell" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <!-- Live status pill above the headline. -->
-          <a
-            class="live-countdown"
-            href="https://discord.gg/XdWaEBXQ6G"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-live-countdown
-          >
-            <span class="live-dot" aria-hidden="true"></span>
-            <span data-live-text>Live every weekday at the 9:30 open</span>
-            <span class="live-badge">Live</span>
-          </a>
           <h1 id="hero-title">
-            Watch the trades happen <span>live.</span>
+            Trade <span>live</span> with us.
           </h1>
           <p class="hero-lede">
-            Real trades. Every weekday at 9:30.<br />With the community.
+            Live trading at <strong>9:30 AM</strong> and during <strong>London</strong>.<br />Hosted by Bandz and other traders.
           </p>
           <div class="hero-actions">
             <a
-              class="button button--primary hero-discord"
+              class="button button--primary hero-discord cd-wrapped"
               href="https://discord.gg/XdWaEBXQ6G"
               target="_blank"
               rel="noopener noreferrer"
-              ><i class="fa-brands fa-discord" aria-hidden="true"></i>Join the
-              free Discord</a
+              ><i class="fa-brands fa-discord" aria-hidden="true"></i
+              ><span class="cd-btn-text"><span>Join the free Discord</span></span
+              ><span class="cd-two is-wrapped" data-hero-sessions
+                ><span class="row" data-idle><span data-t="n1">London stream</span><b data-t="n1t">&mdash;</b></span
+                ><span class="row" data-idle><span data-t="n2">9:30 AM stream</span><b data-t="n2t">&mdash;</b></span
+                ><span class="row" data-live hidden><span data-t="l1"></span><b class="livebadge">LIVE</b></span
+                ><span class="row" data-live hidden><span data-t="l2"></span><b data-t="l2t"></b></span
+              ></span
+            ></a
             >
             <!-- Filled from the Discord invite fetch; stays hidden if it fails. -->
             <p class="hero-members" data-hero-members hidden>
@@ -2640,16 +2635,16 @@
           <article class="community-card reveal">
             <div class="community-content">
               <p class="community-lede">
-                Free to join. Learn by trading alongside others.
+                A free Discord with live trading hosted by Bandz and other traders.
               </p>
               <ul class="access-steps" aria-label="Discord community features">
                 <li>
                   <span class="access-icon" aria-hidden="true"><i class="fa-solid fa-tower-broadcast"></i></span>
-                  Live at the 9:30 open, every weekday
+                  Trade live with us weekdays at 9:30 AM and during London
                 </li>
                 <li>
                   <span class="access-icon" aria-hidden="true"><i class="fa-solid fa-comments"></i></span>
-                  Ask questions as trades happen
+                  Talk through setups and ask questions live
                 </li>
                 <li>
                   <span class="access-icon" aria-hidden="true"><i class="fa-solid fa-chart-line"></i></span>
@@ -2665,6 +2660,7 @@
                 <i class="fa-brands fa-discord" aria-hidden="true"></i>
                 Join the free Discord
               </a>
+              <p class="streamer-invite">Want to stream your trades to the community? Join and introduce yourself. You could become one of our streamers.</p>
             </div>
             <div class="discord-visual" aria-hidden="true">
               <span class="discord-bubble discord-bubble--one"></span>
@@ -2682,7 +2678,7 @@
       <section class="section site-shell hat-stage" id="hat" aria-labelledby="hat-title">
         <header class="section-heading reveal-stagger">
           <div>
-            <h2 class="section-title" id="hat-title">Merch</h2>
+            <h2 class="section-title" id="hat-title">NQ × NYC Clothing</h2>
           </div>
         </header>
         <div class="journal-promo reveal">
@@ -2783,7 +2779,7 @@
           </a>
         </nav>
         <p class="footer-nudge" data-footer-nudge>
-          <span data-footer-nudge-text>Next stream soon</span><span class="footer-separator" aria-hidden="true"> &middot; </span>
+          <span class="footer-sessions"><span data-footer-nudge-text>Next stream soon</span><span class="footer-then" data-footer-nudge-then hidden></span></span><span class="footer-separator" aria-hidden="true"> &middot; </span>
           <span class="footer-actions">
           <a
             href="https://discord.gg/XdWaEBXQ6G"
@@ -2796,54 +2792,6 @@
         </p>
       </div>
     </footer>
-    <script>
-      (function () {
-        var box = document.querySelector("[data-footer-nudge]");
-        if (!box || typeof Intl === "undefined") return;
-        var text = box.querySelector("[data-footer-nudge-text]");
-        var OPEN = 9 * 3600 + 30 * 60; // 9:30 New York
-        var LIVE_FOR = 90 * 60; // live until 11:00
-        var days = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
-        var fmt = new Intl.DateTimeFormat("en-US", {
-          timeZone: "America/New_York",
-          weekday: "short",
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric",
-          hourCycle: "h23",
-        });
-        function tick() {
-          var parts = {};
-          fmt.formatToParts(new Date()).forEach(function (p) {
-            parts[p.type] = p.value;
-          });
-          var day = days[parts.weekday];
-          var now = (+parts.hour % 24) * 3600 + +parts.minute * 60 + +parts.second;
-          if (day >= 1 && day <= 5 && now >= OPEN && now < OPEN + LIVE_FOR) {
-            box.classList.add("is-live");
-            text.textContent = "Live now";
-            return;
-          }
-          box.classList.remove("is-live");
-          var ahead = 0;
-          while (true) {
-            var d = (day + ahead) % 7;
-            if (d >= 1 && d <= 5 && (ahead > 0 || now < OPEN)) break;
-            ahead++;
-          }
-          var secs = ahead * 86400 + OPEN - now;
-          var h = Math.floor(secs / 3600);
-          var m = Math.max(1, Math.ceil((secs % 3600) / 60));
-          if (m === 60) { h++; m = 0; }
-          var label = h >= 24
-            ? Math.floor(h / 24) + "d " + (h % 24) + "h"
-            : h > 0 ? h + "h " + m + "m" : m + "m";
-          text.textContent = "Next stream in " + label;
-        }
-        tick();
-        setInterval(tick, 30000);
-      })();
-    </script>
 
     <script>
       (() => {
@@ -3012,60 +2960,6 @@
     </dialog>
 
     <script>
-      (function () {
-        var el = document.querySelector("[data-live-countdown]");
-        if (!el || typeof Intl === "undefined") return;
-        var text = el.querySelector("[data-live-text]");
-        var liveStates = document.querySelectorAll("[data-live-state]");
-        var setLive = function (live) {
-          for (var i = 0; i < liveStates.length; i++)
-            liveStates[i].classList.toggle("is-live", live);
-        };
-        var OPEN = 9 * 3600 + 30 * 60; // 9:30 New York
-        var LIVE_FOR = 90 * 60; // show "live now" until 11:00
-        var days = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
-        var fmt = new Intl.DateTimeFormat("en-US", {
-          timeZone: "America/New_York",
-          weekday: "short",
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric",
-          hourCycle: "h23",
-        });
-        function tick() {
-          var parts = {};
-          fmt.formatToParts(new Date()).forEach(function (p) {
-            parts[p.type] = p.value;
-          });
-          var day = days[parts.weekday];
-          var now = (+parts.hour % 24) * 3600 + +parts.minute * 60 + +parts.second;
-          var weekday = day >= 1 && day <= 5;
-          if (weekday && now >= OPEN && now < OPEN + LIVE_FOR) {
-            el.classList.add("is-live");
-            setLive(true);
-            text.textContent = "We're live now in the Discord";
-            return;
-          }
-          el.classList.remove("is-live");
-          setLive(false);
-          var ahead = 0;
-          while (true) {
-            var d = (day + ahead) % 7;
-            if (d >= 1 && d <= 5 && (ahead > 0 || now < OPEN)) break;
-            ahead++;
-          }
-          var secs = ahead * 86400 + OPEN - now;
-          var h = Math.floor(secs / 3600);
-          var m = Math.max(1, Math.ceil((secs % 3600) / 60));
-          if (m === 60) { h++; m = 0; }
-          var label = h >= 24
-            ? Math.floor(h / 24) + "d " + (h % 24) + "h"
-            : h > 0 ? h + "h " + m + "m" : m + "m";
-          text.textContent = "We'll be live in " + label;
-        }
-        tick();
-        setInterval(tick, 30000);
-      })();
       (function () {
         var fmt = function (n) {
           return Number(n).toLocaleString("en-US");
@@ -3531,6 +3425,58 @@
       }
     </script>
     <script src="experiments-live.js" defer></script>
-    <script src="experiments-live2.js" defer></script>
+    <script src="experiments-live2.js?v=session-labels-2" defer></script>
+    <script src="hero-countdown.js?v=1" defer></script>
+    <style>
+      .hero .lv2-v15 .lv2-label { color: var(--ink); font-weight: 650; }
+      .hero .lv2-v15 .lv2-time { font-weight: 700; }
+      #discord .community-content .streamer-invite {
+        margin: 14px 0 0;
+        font-size: 13px;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+      /* Hero stream strip, bigger desktop chart, tighter hero top. */
+
+      /* The old countdown used to fill the top of the hero; without it, trim the gap above the headline. */
+      html .hero { padding-top:0 !important; padding-bottom:26px !important; }
+      @media (min-width:701px) { html .hero { padding-top:56px !important; padding-bottom:72px !important; } }
+      /* Bigger hero chart on desktop: lift the 440px cap and give the right column more room. */
+      @media (min-width:1100px) {
+        html .hero-copy { grid-template-columns:minmax(450px,.85fr) minmax(0,1.2fr) !important; column-gap:40px !important; }
+        html .hero-stream { max-width:none !important; width:100% !important; }
+      }
+      .hero-discord { position:relative; flex-wrap:wrap; justify-content:center; row-gap:0; padding-top:6px; padding-bottom:6px; }
+      .cd-btn-text { display:flex; flex-direction:column; align-items:flex-start; line-height:1.25; white-space:nowrap; }
+      .cd-two [hidden] { display:none!important; }
+      .cd-two { display:flex; flex-direction:column; margin-left:12px; padding-left:12px; border-left:1px solid var(--line); line-height:1.3; font-size:12px; color:var(--muted); white-space:nowrap; font-variant-numeric:tabular-nums; }
+      .cd-two .row { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+      .cd-two .row b { font-weight:500; }
+      .cd-two .row:first-child { color:var(--ink); }
+      .cd-two .row:first-child b { font-weight:650; }
+      .cd-two .livebadge { padding:0 7px; border-radius:5px; background:#ff3b30; color:#fff; font-size:10.5px; font-weight:700; letter-spacing:.08em; line-height:1.6; }
+      /* Set by script when the block no longer fits beside the label and drops to its own line. */
+      .hero .hero-actions .hero-discord.cd-wrapped { padding:14px 22px 0 !important; min-height:0 !important; row-gap:0 !important; align-content:flex-start; }
+      .cd-two.is-wrapped { display:grid; grid-template-columns:1fr 1fr; flex:0 0 auto; width:calc(100% + 44px); margin:14px -22px 0; padding:0; border:0; border-top:1px solid rgba(127,127,127,.32); font-size:12px; }
+      .cd-two.is-wrapped .row { flex-direction:column; align-items:center; justify-content:center; gap:1px; padding:8px 8px 9px; }
+      .cd-two.is-wrapped .row + .row, .cd-two.is-wrapped .row[data-live] + .row[data-live] { border-left:1px solid rgba(127,127,127,.32); }
+      .cd-two.is-wrapped .row b { font-size:15px; }
+      .cd-two.is-wrapped .row:first-child { color:var(--muted); }
+      .cd-two.is-wrapped .row:first-child b { color:var(--ink); }
+      .cd-two.is-wrapped .row:last-child b { color:var(--muted); }
+      .cd-two.is-wrapped .row b.livebadge { margin-top:3px; font-size:10.5px; color:#fff; }
+      .cd-two .row:nth-child(3) { color:var(--ink); font-weight:650; }
+      .cd-two.is-wrapped .row:nth-child(3) { background:rgba(255,59,48,.07); }
+      .cd-two.is-wrapped .row:nth-child(4) b { color:var(--muted); }
+      .hero-discord.cd-wrapped { overflow:hidden; min-width:min(100%, 340px); }
+      .cd-two.is-wrapped .row:first-child { background:rgba(124,77,255,.09); }
+
+      /* Footer: next stream on one line, the one after it small underneath. */
+      .footer-sessions { display:inline-flex; flex-direction:column; align-items:center; gap:2px; vertical-align:middle; }
+      .footer-then { font-size:11px; opacity:.72; }
+      /* No chart preview on phones. */
+      @media (max-width:700px) { .hero-stream { display:none !important; } }
+
+    </style>
   </body>
 </html>

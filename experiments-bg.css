@@ -16,32 +16,37 @@ html:is([data-bg="2"], [data-bg="3"], [data-bg="4"]) .hero:before {
   background: none !important;
 }
 
-/* 2: soft centered light that breathes and drifts gently (centered loop). */
+/* 2: two soft purple lights that wander across the hero on their own paths.
+   Each light is its own gradient layer (60% box) so it moves independently. */
 html[data-bg="2"] .hero:after {
   inset: -25%;
-  background:
-    radial-gradient(ellipse 30% 26% at 50% 36%, rgba(124, 77, 255, 0.065), transparent 70%),
+  background-repeat: no-repeat;
+  background-size: 60% 60%, 55% 55%, 100% 100%;
+  background-image:
+    radial-gradient(ellipse 50% 44% at 50% 50%, rgba(124, 77, 255, 0.13), transparent 70%),
+    radial-gradient(ellipse 50% 46% at 50% 50%, rgba(124, 77, 255, 0.09), transparent 70%),
     radial-gradient(ellipse 38% 28% at 50% 62%, rgba(20, 20, 30, 0.03), transparent 72%);
-  animation: bgx-drift 48s ease-in-out infinite;
+  background-position: 25% 25%, 80% 70%, 0 0;
+  animation: bgx-glow 22s ease-in-out infinite alternate;
 }
 html[data-bg="2"][data-ui-theme="night"] .hero:after {
-  background:
-    radial-gradient(ellipse 30% 26% at 50% 36%, rgba(124, 77, 255, 0.1), transparent 70%),
+  background-image:
+    radial-gradient(ellipse 50% 44% at 50% 50%, rgba(124, 77, 255, 0.2), transparent 70%),
+    radial-gradient(ellipse 50% 46% at 50% 50%, rgba(124, 77, 255, 0.14), transparent 70%),
     radial-gradient(ellipse 38% 28% at 50% 62%, rgba(255, 255, 255, 0.035), transparent 72%);
 }
-@keyframes bgx-drift {
-  0%,
-  100% {
+@keyframes bgx-glow {
+  0% {
+    background-position: 20% 20%, 85% 75%, 0 0;
     transform: translate3d(0, 0, 0) scale(1);
   }
-  25% {
-    transform: translate3d(3%, -1.5%, 0) scale(1.04);
-  }
   50% {
-    transform: translate3d(0, 2%, 0) scale(1.07);
+    background-position: 80% 55%, 25% 30%, 0 0;
+    transform: translate3d(3%, -2%, 0) scale(1.05);
   }
-  75% {
-    transform: translate3d(-3%, -1%, 0) scale(1.03);
+  100% {
+    background-position: 45% 90%, 70% 15%, 0 0;
+    transform: translate3d(-3%, 2%, 0) scale(1.02);
   }
 }
 

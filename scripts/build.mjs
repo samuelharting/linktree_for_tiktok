@@ -144,6 +144,7 @@ await Promise.all([
   copyFile(path.join(root, "experiments-live.js"), path.join(dist, "experiments-live.js")),
   copyFile(path.join(root, "experiments-live2.css"), path.join(dist, "experiments-live2.css")),
   copyFile(path.join(root, "experiments-live2.js"), path.join(dist, "experiments-live2.js")),
+  copyFile(path.join(root, "hero-countdown.js"), path.join(dist, "hero-countdown.js")),
   copyFile(path.join(root, "experiments-bg.css"), path.join(dist, "experiments-bg.css")),
   copyFile(path.join(root, "experiments-layout.css"), path.join(dist, "experiments-layout.css")),
   copyFile(path.join(root, "experiments-journal.css"), path.join(dist, "experiments-journal.css")),
