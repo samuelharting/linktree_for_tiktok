@@ -9,7 +9,7 @@
       name="description"
       content="Bandz indicators are free and open source. Join the Discord to get them, and review every trade with the free trading journal."
     />
-    <meta name="theme-color" content="#F1F1EE" />
+    <meta name="theme-color" content="#000000" />
     <link rel="canonical" href="https://bandztrading.com/" />
 
     <meta property="og:type" content="website" />
@@ -27,11 +27,11 @@
     />
     <meta
       property="og:image"
-      content="https://bandztrading.com/og-livestream-preview.png"
+      content="https://bandztrading.com/og-ict-preview.png"
     />
     <meta
       property="og:image:alt"
-      content="Bandz live stream will begin soon, with price delivery and accumulation, manipulation, distribution diagrams."
+      content="Michelangelo hands reaching toward a chrome ICT inner circle logo above the words Bandz Live Trading, Free Discord, Live ICT trading."
     />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -45,13 +45,13 @@
     />
     <meta
       name="twitter:image"
-      content="https://bandztrading.com/og-livestream-preview.png"
+      content="https://bandztrading.com/og-ict-preview.png"
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"
       rel="stylesheet"
     />
     <link
@@ -68,19 +68,9 @@
           ? backgroundVariant
           : "paper";
 
-      const allowedUiThemes = ["studio", "night"];
-      // Light is the default for everyone; a visitor's own toggle choice still wins.
-      let initialUiTheme = "studio";
-
-      try {
-        const savedUiTheme = window.localStorage.getItem("bandz-ui-theme");
-        if (allowedUiThemes.includes(savedUiTheme))
-          initialUiTheme = savedUiTheme;
-      } catch {
-        // The default theme remains available when storage is disabled.
-      }
-
-      document.documentElement.dataset.uiTheme = initialUiTheme;
+      // Dark only: there is no light mode or theme toggle.
+      document.documentElement.dataset.uiTheme = "night";
+      document.documentElement.classList.add("ict-js");
     </script>
     <script>
       /* PICKER STATE: ?bg=1-11, ?live=1-15, ?btn=1-4 set data-bg / data-live /
@@ -465,12 +455,6 @@
         background: #3ba55d;
         box-shadow: 0 0 0 3px rgba(59, 165, 93, 0.18);
       }
-      .community-lede {
-        margin: 0 0 6px;
-        color: var(--body-text);
-        font-size: 14px;
-        line-height: 1.7;
-      }
       @media (max-width: 700px) {
         .hero-actions {
           flex-direction: column;
@@ -488,9 +472,6 @@
           min-height: 40px;
           padding: 0 6px;
           box-shadow: none;
-        }
-        .community-section {
-          padding-top: 36px;
         }
         .hero .live-countdown {
           margin-top: 10px;
@@ -607,12 +588,6 @@
         letter-spacing: -1.6px;
         font-weight: 600;
       }
-      .collection-intro > p:first-child {
-        font-size: 12px;
-        color: var(--muted);
-        line-height: 1.85;
-        margin-bottom: 12px;
-      }
       .bundle-badge {
         display: inline-flex;
         align-items: center;
@@ -630,13 +605,6 @@
         height: 4px;
         border-radius: 50%;
         background: #a4a4a4;
-      }
-      .market-decoration {
-        display: none;
-      }
-      .indicators-section {
-        border-block: 1px solid var(--line);
-        background: var(--soft);
       }
       .indicator-browser {
         display: grid;
@@ -703,13 +671,6 @@
       }
       .funnel-section-banner .button:hover {
         background: #f0f0f0;
-      }
-      .journal-stage {
-        padding-top: 67px;
-        padding-bottom: 65px;
-      }
-      .journal-stage .section-title {
-        max-width: 610px;
       }
       .journal-card {
         display: grid;
@@ -792,102 +753,6 @@
         width: 100%;
         height: auto;
       }
-      .community-section {
-        padding: 0 0 55px;
-      }
-      .community-layout {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 55px;
-        align-items: center;
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 39px;
-        background: linear-gradient(125deg, var(--paper), var(--soft));
-      }
-      .community-intro .section-title {
-        font-size: 32px;
-        letter-spacing: -1.2px;
-        line-height: 1.22;
-      }
-      .community-intro > p {
-        font-size: 12px;
-        color: var(--body-text);
-        line-height: 1.9;
-        max-width: 340px;
-        margin-top: 19px;
-      }
-      .community-social-note {
-        font-size: 8px !important;
-        letter-spacing: 1px;
-        color: var(--muted) !important;
-        margin-top: 23px !important;
-      }
-      .community-card {
-        border: 0;
-        border-radius: 0;
-        padding: 0;
-        background: transparent;
-      }
-      .community-brandline {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .discord-icon {
-        display: grid;
-        place-items: center;
-        width: 34px;
-        height: 34px;
-        border-radius: 8px;
-        color: #777777;
-        background: var(--soft);
-        font-size: 18px;
-      }
-      .community-status {
-        font-size: 8px;
-        color: var(--muted);
-      }
-      .community-content h3 {
-        font-size: 20px;
-        font-weight: 600;
-        letter-spacing: -0.6px;
-        margin: 17px 0 9px;
-      }
-      .community-content > p {
-        font-size: 11px;
-        color: var(--body-text);
-        line-height: 1.85;
-      }
-      .access-steps {
-        list-style: none;
-        padding: 0;
-        margin: 19px 0 21px;
-      }
-      .access-steps li {
-        display: flex;
-        gap: 12px;
-        padding: 10px 0;
-        border-top: 1px solid var(--line);
-        font-size: 10px;
-        color: var(--body-text);
-      }
-      .access-steps li span {
-        font-size: 8px;
-        color: var(--muted);
-      }
-      .community-content > .button {
-        width: 100%;
-        background: #262626;
-        color: white;
-        border-color: #262626;
-        justify-content: space-between;
-        font-size: 10px;
-        min-height: 42px;
-      }
-      .discord-visual {
-        display: none;
-      }
       .closing-line {
         display: flex;
         justify-content: space-between;
@@ -959,13 +824,6 @@
         }
         .journal-copy {
           padding: 25px;
-        }
-        .community-layout {
-          gap: 26px;
-          padding: 28px;
-        }
-        .community-intro .section-title {
-          font-size: 29px;
         }
       }
       @media (max-width: 700px) {
@@ -1078,13 +936,6 @@
           font-size: 29px;
           letter-spacing: -1.1px;
         }
-        .collection-intro > p:first-child {
-          font-size: 11px;
-          margin-bottom: 9px;
-        }
-        .collection-intro > p:first-child br {
-          display: none;
-        }
         .bundle-badge {
           font-size: 8px;
           padding: 3px 8px;
@@ -1127,9 +978,6 @@
           justify-content: space-between;
           font-size: 11px;
         }
-        .journal-stage {
-          padding: 37px 0;
-        }
         .journal-card {
           grid-template-columns: 1fr;
           border-radius: 13px;
@@ -1147,37 +995,6 @@
         }
         .journal-image {
           padding: 17px 0 17px 17px;
-        }
-        .community-section {
-          padding: 0 0 28px;
-        }
-        .community-layout {
-          grid-template-columns: 1fr;
-          gap: 22px;
-          padding: 24px 18px;
-          border-radius: 14px;
-        }
-        .community-intro .section-title {
-          font-size: 29px;
-        }
-        .community-intro > p {
-          font-size: 12px;
-          margin-top: 15px;
-        }
-        .community-social-note {
-          display: none;
-        }
-        .community-card {
-          padding: 0;
-        }
-        .community-content h3 {
-          font-size: 21px;
-        }
-        .community-content > p {
-          font-size: 12px;
-        }
-        .access-steps li {
-          font-size: 11px;
         }
         .closing-line {
           font-size: 9px;
@@ -1227,25 +1044,17 @@
         background: #6a3fe0;
         border-color: #6a3fe0;
       }
-      .hero-actions .button--primary,
-      .community-content > .button {
+      .hero-actions .button--primary {
         color: #fff;
         background: #7c4dff;
         border-color: #7c4dff;
       }
-      .hero-actions .button--primary:hover,
-      .community-content > .button:hover {
+      .hero-actions .button--primary:hover {
         background: #6a3fe0;
         border-color: #6a3fe0;
       }
       .funnel-section-banner .button {
         color: #6a3fe0;
-      }
-      .discord-icon {
-        color: #7c4dff;
-      }
-      .journal-stage .section-number {
-        color: var(--journal);
       }
       /* Readable supporting type across both themes. */
       .button,
@@ -1286,8 +1095,6 @@
       @media (max-width: 600px) {
         .hero-lede,
         .section-description,
-        .community-intro p,
-        .community-content > p,
         .journal-copy > p {
           font-size: 14px;
         }
@@ -1352,19 +1159,6 @@
         }
         .section-title {
           line-height: 1.1;
-        }
-        .collection-intro p {
-          line-height: 1.6;
-        }
-        .community-section {
-          padding: 72px 0 0;
-        }
-        .community-layout {
-          padding: 28px 22px;
-          gap: 18px;
-        }
-        .community-lede {
-          line-height: 1.6;
         }
         .journal-copy > p {
           line-height: 1.6;
@@ -1758,100 +1552,162 @@
         font-weight: 700;
         letter-spacing: -0.02em;
       }
-      @media (max-width: 700px) {
-        #indicators.section {
-          padding: 44px 0 52px;
-        }
-        #indicators .section-heading {
-          gap: 8px;
-          margin-bottom: 24px;
-        }
-        #indicators .indicators-lede {
-          font-size: 14px;
-          line-height: 1.55;
-          margin: 0;
-          max-width: 330px;
-        }
+      /* Indicator picker: typographic cards with a small line glyph (one column
+         on phones, two on wider screens), "Show more" for the extras. Tapping a
+         card opens the detail view. The ICT look lives in ict-theme.css. */
+      .ig-sprite {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        pointer-events: none;
       }
-      /* Discord section: one flat surface, live-first points, outlined CTA. */
-      #discord .community-layout {
-        background: var(--paper);
-        box-shadow: none;
+      .ig-stop-a {
+        stop-color: var(--ig-a, #ffffff);
       }
-      #discord .community-lede {
-        margin: 0;
+      .ig-stop-b {
+        stop-color: var(--ig-b, #dcdce2);
       }
-      #discord .access-steps {
-        display: grid;
-        gap: 12px;
-        margin: 20px 0 24px;
+      .ig-stop-c {
+        stop-color: var(--ig-c, #8e8e97);
       }
-      #discord .access-steps li {
-        align-items: center;
-        gap: 12px;
-        padding: 0;
-        border: 0;
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--ink);
+      .ig-stop-body-a {
+        stop-color: var(--ig-body-a, #f2f2f5);
       }
-      #discord .access-icon {
-        flex: 0 0 auto;
-        display: inline-grid;
-        place-items: center;
-        width: 30px;
-        height: 30px;
-        border-radius: 8px;
-        background: rgba(124, 77, 255, 0.1);
-        color: #7c4dff;
-        font-size: 13px;
+      .ig-stop-body-b {
+        stop-color: var(--ig-body-b, #8a8a93);
       }
-      html[data-ui-theme="night"] #discord .access-icon {
-        background: rgba(124, 77, 255, 0.18);
-        color: #a68cff;
+      .ig-stop-area {
+        stop-color: var(--ig-area, #ffffff);
+        stop-opacity: var(--ig-area-o, 0.13);
       }
-      #discord .community-content > .button,
-      #discord .community-content > .button:hover {
-        justify-content: center;
-        gap: 10px;
-        min-height: 46px;
-        border-radius: 12px;
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--ink);
-        background: rgba(0, 0, 0, 0.025);
-        border: 1px solid var(--ink);
+      .ig-stop-area-end {
+        stop-color: var(--ig-area, #ffffff);
+        stop-opacity: 0;
       }
-      #discord .community-content > .button:hover {
-        background: rgba(0, 0, 0, 0.06);
+      .ig-grid {
+        fill: none;
+        stroke: var(--ig-grid, rgba(255, 255, 255, 0.07));
+        stroke-width: 0.5;
       }
-      html[data-ui-theme="night"] #discord .community-content > .button {
-        background: rgba(255, 255, 255, 0.04);
+      .ig-ink,
+      .ig-dim,
+      .ig-acc-line,
+      .ig-acc-glow {
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
-      html[data-ui-theme="night"] #discord .community-content > .button:hover {
-        background: rgba(255, 255, 255, 0.09);
+      .ig-ink {
+        stroke: url(#ig-chrome);
+        stroke-width: 1.2;
       }
-      #discord .button--discord .fa-discord {
-        font-size: 15px;
-        color: #7c4dff;
+      .ig-bold {
+        stroke-width: 1.8;
       }
-      html[data-ui-theme="night"] #discord .button--discord .fa-discord {
-        color: #a68cff;
+      .ig-dim {
+        stroke: var(--ig-dim, #55555e);
+        stroke-width: 0.8;
       }
-      @media (max-width: 700px) {
-        #discord.community-section {
-          padding: 48px 0 0;
-        }
-        #discord .community-layout {
-          padding: 24px 20px;
-          gap: 14px;
-        }
-        #discord .member-count {
-          margin-top: 10px;
-        }
+      .ig-dash {
+        stroke-dasharray: 1.4 2.2;
       }
-      /* Indicator picker: thumbnail cards (2 columns on phones, 4 on wider
-         screens), "Show more" for the extras. Tapping opens the viewer. */
+      .ig-bull,
+      .ig-bear {
+        stroke: url(#ig-chrome);
+        stroke-width: 0.8;
+      }
+      .ig-bull {
+        fill: url(#ig-body);
+      }
+      .ig-bear {
+        fill: var(--ig-hollow, #0b0b0e);
+      }
+      /* Accents brighten on hover/focus through --ig-boost. */
+      .ig-acc-fill {
+        fill: var(--ig-acc);
+        fill-opacity: calc(0.2 * var(--ig-boost, 1));
+      }
+      .ig-acc-fill.ig-soft {
+        fill-opacity: calc(0.09 * var(--ig-boost, 1));
+      }
+      .ig-acc-line {
+        stroke: var(--ig-acc);
+        stroke-width: 1;
+        stroke-opacity: 0.9;
+      }
+      .ig-acc-line.ig-faint {
+        stroke-opacity: calc(0.38 * var(--ig-boost, 1));
+      }
+      .ig-acc-glow {
+        stroke: var(--ig-acc);
+        stroke-width: 3;
+        opacity: calc(0.45 * var(--ig-pop, 1) * var(--ig-boost, 1));
+        filter: url(#ig-blur);
+      }
+      .ig-halo {
+        fill: var(--ig-acc);
+        opacity: calc(0.55 * var(--ig-pop, 1) * var(--ig-boost, 1));
+        filter: url(#ig-blur);
+      }
+      .ig-dot {
+        fill: var(--ig-dot, #ffffff);
+      }
+      .ig-area {
+        fill: url(#ig-area);
+      }
+      .ig-fvg {
+        fill: var(--ig-fvg, rgba(255, 255, 255, 0.08));
+        stroke: url(#ig-chrome);
+        stroke-width: 0.7;
+        stroke-dasharray: 1.4 1.6;
+      }
+      .ig-plate {
+        fill: var(--ig-plate, #111115);
+        stroke: url(#ig-chrome);
+        stroke-width: 0.9;
+        stroke-linejoin: round;
+      }
+      .ig-side {
+        fill: var(--ig-side, #2a2a31);
+      }
+      /* Motion. Card-level custom properties reach into the <use> copies:
+         --ig-draw (1 hidden, 0 drawn) and --ig-pop (0 hidden, 1 shown) default
+         to the finished drawing, so glyphs are static without JS. Lines draw
+         (pathLength 100), then candles, zones and dots fade up in sequence
+         (--i, --ig-lag). --ig-sweep: -200 sends the accent line through one
+         more full draw for the hover replay. */
+      .ig-draw {
+        stroke-dasharray: 100 100;
+        stroke-dashoffset: calc(var(--ig-draw, 0) * 100);
+        transition-property: stroke-dashoffset, stroke-opacity;
+        transition-duration: var(--ig-dur, 0s), 0.45s;
+        transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1), ease;
+        transition-delay: calc(var(--ig-delay, 0s) + var(--ig-dlag, 0s) * var(--ig-lagk, 1)), 0s;
+      }
+      .ig-draw.ig-sweep {
+        stroke-dashoffset: calc(var(--ig-draw, 0) * 100 + var(--ig-sweep, 0));
+      }
+      .ig-pop {
+        transform: translateY(calc((1 - var(--ig-pop, 1)) * 2.5px)) scale(calc(0.86 + 0.14 * var(--ig-pop, 1)));
+        transform-box: fill-box;
+        transform-origin: 50% 100%;
+        transition-property: opacity, transform, fill-opacity, stroke-opacity;
+        transition-duration: var(--ig-pop-dur, 0s), var(--ig-pop-dur, 0s), 0.45s, 0.45s;
+        transition-timing-function: ease, cubic-bezier(0.2, 0.8, 0.2, 1), ease, ease;
+        transition-delay:
+          calc(var(--ig-delay, 0s) + var(--ig-lag, 0.35s) * var(--ig-lagk, 1) + var(--i, 0) * 60ms),
+          calc(var(--ig-delay, 0s) + var(--ig-lag, 0.35s) * var(--ig-lagk, 1) + var(--i, 0) * 60ms),
+          0s,
+          0s;
+      }
+      .ig-pop:not(.ig-halo):not(.ig-acc-glow) {
+        opacity: var(--ig-pop, 1);
+      }
+      .ig-rise {
+        transform: translateY(calc((1 - var(--ig-pop, 1)) * -6px));
+        transform-origin: 50% 50%;
+      }
       #indicators .indicator-browser {
         display: grid;
         grid-template-columns: minmax(0, 1fr);
@@ -1859,28 +1715,23 @@
       }
       #indicators .indicator-tabs {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 18px 14px;
-        overflow: visible;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
       }
       #indicators .indicator-tab {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: flex-start;
-        gap: 8px;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 24px;
         min-width: 0;
         min-height: 0;
-        padding: 0;
         margin: 0;
-        background: transparent;
-        border: 0;
-        border-radius: 12px;
-        box-shadow: none;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--paper);
         color: var(--ink);
         font: inherit;
-        font-size: 13px;
-        font-weight: 500;
         text-align: left;
         cursor: pointer;
         -webkit-tap-highlight-color: transparent;
@@ -1888,51 +1739,62 @@
       #indicators .indicator-tab[hidden] {
         display: none;
       }
-      #indicators .indicator-tab:hover {
-        background: transparent;
-      }
-      #indicators .indicator-thumb {
-        display: block;
-        aspect-ratio: 16 / 10;
-        overflow: hidden;
+      #indicators .indicator-glyph {
+        display: grid;
+        place-items: center;
+        width: 80px;
+        height: 80px;
         border: 1px solid var(--line);
-        border-radius: 10px;
-        background: #dfdcd5;
-        transition:
-          border-color 0.15s,
-          box-shadow 0.15s;
+        border-radius: 20px;
       }
-      #indicators .indicator-thumb img {
+      #indicators .indicator-glyph svg {
         display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: right center;
-        transition: transform 0.3s ease;
+        width: 56px;
+        height: 56px;
+        overflow: visible;
+      }
+      #indicators .indicator-text {
+        display: grid;
+        gap: 6px;
+        min-width: 0;
+      }
+      #indicators .indicator-num {
+        font-size: 11px;
+        line-height: 1;
+        color: var(--muted);
       }
       #indicators .indicator-tab-name {
         display: block;
-        padding: 0 2px;
-        line-height: 1.3;
-        overflow-wrap: anywhere;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.2;
       }
-      #indicators .indicator-tab:hover .indicator-thumb {
-        border-color: #bdbdbd;
+      #indicators .indicator-blurb {
+        display: block;
+        font-size: 15px;
+        line-height: 1.45;
+        color: var(--body-text);
       }
-      @media (hover: hover) {
-        #indicators .indicator-tab:hover .indicator-thumb img {
-          transform: scale(1.03);
-        }
+      #indicators .indicator-open {
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        color: var(--muted);
       }
-      #indicators .indicator-tab:active .indicator-thumb {
-        transform: scale(0.98);
+      #indicators .indicator-open svg {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.5;
+        stroke-linecap: round;
       }
       #indicators .indicator-tab:focus-visible {
-        outline: none;
-      }
-      #indicators .indicator-tab:focus-visible .indicator-thumb {
-        outline: 2px solid #7c4dff;
-        outline-offset: 3px;
+        outline: 2px solid currentColor;
+        outline-offset: 4px;
       }
       #indicators .indicator-more {
         justify-self: center;
@@ -1980,26 +1842,42 @@
       #indicators .indicator-more[hidden] {
         display: none;
       }
-      html[data-ui-theme="night"] #indicators .indicator-thumb {
-        background: #1c1c1c;
-      }
-      html[data-ui-theme="night"] #indicators .indicator-tab:hover .indicator-thumb {
-        border-color: #4a4a4a;
-      }
       @media (max-width: 700px) {
         #indicators .indicator-tabs {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 16px 12px;
+          grid-template-columns: minmax(0, 1fr);
+          gap: 12px;
         }
         #indicators .indicator-tab {
+          gap: 18px;
+          padding: 16px 18px 16px 16px;
+          border-radius: 20px;
+        }
+        #indicators .indicator-glyph {
+          width: 64px;
+          height: 64px;
+          border-radius: 16px;
+        }
+        #indicators .indicator-glyph svg {
+          width: 44px;
+          height: 44px;
+        }
+        #indicators .indicator-tab-name {
+          font-size: 17px;
+        }
+        #indicators .indicator-blurb {
           font-size: 14px;
+        }
+        #indicators .indicator-open {
+          width: 28px;
+          height: 28px;
         }
         #indicators .indicator-more {
           margin: 4px 0 8px;
           font-size: 14px;
         }
       }
-      /* Indicator viewer: full-screen dialog that grows out of the card. */
+      /* Indicator detail view: a centered panel (a bottom sheet on phones)
+         whose glyph grows out of the tapped card. */
       html.iv-open,
       html.iv-open body {
         overflow: hidden;
@@ -2012,11 +1890,15 @@
         max-width: none;
         max-height: none;
         margin: 0;
-        padding: 0;
+        padding: 24px;
         border: 0;
         background: transparent;
         color: var(--ink);
-        overflow: hidden;
+        overflow: auto;
+      }
+      .indicator-viewer[open] {
+        display: grid;
+        place-items: center;
       }
       .indicator-viewer::backdrop {
         background: rgba(18, 18, 18, 0.5);
@@ -2024,19 +1906,18 @@
       }
       .iv-shell {
         display: grid;
-        grid-template-rows: auto minmax(0, 1fr) auto;
-        width: 100%;
-        height: 100%;
+        width: min(500px, 100%);
+        border: 1px solid var(--line);
+        border-radius: 28px;
         background: var(--paper);
-        padding: env(safe-area-inset-top) env(safe-area-inset-right)
-          env(safe-area-inset-bottom) env(safe-area-inset-left);
+        overflow: hidden;
       }
       .iv-bar {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-        padding: 8px 10px 0 8px;
+        padding: 10px 10px 0;
       }
       .iv-pager {
         display: flex;
@@ -2058,7 +1939,7 @@
         height: 44px;
         padding: 0;
         border: 0;
-        border-radius: 10px;
+        border-radius: 50%;
         background: transparent;
         color: var(--ink);
         cursor: pointer;
@@ -2068,7 +1949,7 @@
       }
       .iv-icon:focus-visible,
       .iv-discord:focus-visible {
-        outline: 2px solid #7c4dff;
+        outline: 2px solid currentColor;
         outline-offset: 2px;
       }
       .iv-icon:focus-visible {
@@ -2076,36 +1957,44 @@
       }
       .iv-stage {
         display: flex;
-        align-items: center;
         justify-content: center;
-        min-height: 0;
-        padding: 8px 12px;
+        padding: 6px 24px 0;
         touch-action: pinch-zoom;
         user-select: none;
       }
-      .iv-img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
+      .iv-glyph {
+        display: grid;
+        place-items: center;
+        width: 132px;
+        height: 132px;
+        border: 1px solid var(--line);
+        border-radius: 32px;
         transform-origin: center;
-        -webkit-user-drag: none;
+      }
+      .iv-glyph svg {
+        display: block;
+        width: 92px;
+        height: 92px;
+        overflow: visible;
       }
       .iv-info {
         display: grid;
-        gap: 16px;
-        padding: 12px 20px 20px;
+        justify-items: center;
+        gap: 28px;
+        padding: 26px 36px 36px;
+        text-align: center;
       }
       .iv-title {
-        margin: 0 0 4px;
-        font-size: 20px;
+        margin: 0 0 10px;
+        font-size: 26px;
         font-weight: 600;
         letter-spacing: -0.02em;
-        line-height: 1.3;
+        line-height: 1.2;
       }
       .iv-blurb {
-        margin: 0;
-        font-size: 14px;
+        margin: 0 auto;
+        max-width: 340px;
+        font-size: 16px;
         line-height: 1.5;
         color: var(--body-text);
       }
@@ -2113,111 +2002,60 @@
       .iv-discord:hover {
         gap: 10px;
         width: 100%;
-        min-height: 46px;
+        max-width: 320px;
+        min-height: 48px;
         border: 1px solid var(--ink);
-        border-radius: 12px;
-        background: rgba(0, 0, 0, 0.025);
+        border-radius: 999px;
+        background: transparent;
         color: var(--ink);
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 500;
       }
-      .iv-discord:hover {
-        background: rgba(0, 0, 0, 0.06);
-      }
-      .iv-discord .fa-discord {
-        font-size: 14px;
-        color: #7c4dff;
-      }
-      html[data-ui-theme="night"] .iv-discord {
-        background: rgba(255, 255, 255, 0.04);
-      }
-      html[data-ui-theme="night"] .iv-discord:hover {
-        background: rgba(255, 255, 255, 0.09);
-      }
-      html[data-ui-theme="night"] .iv-discord .fa-discord {
-        color: #a68cff;
-      }
-      html[data-ui-theme="night"] .indicator-viewer::backdrop {
-        background: rgba(0, 0, 0, 0.6);
-      }
-      /* Wider screens: a large panel over a dimmed page. */
-      @media (min-width: 701px) and (min-height: 501px) {
-        .iv-shell {
-          width: min(1200px, calc(100% - 48px));
-          height: min(860px, calc(100% - 48px));
-          margin: 24px auto;
-          border: 1px solid var(--line);
-          border-radius: 16px;
-          overflow: hidden;
+      @media (max-width: 700px) {
+        .indicator-viewer {
           padding: 0;
         }
-        .iv-stage {
-          padding: 8px 24px;
+        .indicator-viewer[open] {
+          place-items: end stretch;
         }
-        .iv-info {
-          grid-template-columns: minmax(0, 1fr) auto;
-          align-items: center;
-          gap: 24px;
-          padding: 16px 28px 24px;
-        }
-        .iv-discord,
-        .iv-discord:hover {
-          width: auto;
-          padding: 0 22px;
-        }
-      }
-      /* Phone in landscape: give the chart the height, info in one row. */
-      @media (max-height: 500px) and (orientation: landscape) {
         .iv-shell {
-          position: relative;
+          width: 100%;
+          border-bottom: 0;
+          border-radius: 28px 28px 0 0;
+          padding-bottom: env(safe-area-inset-bottom);
         }
-        .iv-bar {
-          position: absolute;
-          inset: env(safe-area-inset-top) env(safe-area-inset-right) auto
-            env(safe-area-inset-left);
-          z-index: 1;
-          padding: 4px 8px 0;
-          pointer-events: none;
+        .iv-glyph {
+          width: 116px;
+          height: 116px;
+          border-radius: 28px;
         }
-        .iv-bar > * {
-          pointer-events: auto;
-        }
-        .iv-pager,
-        .iv-bar > .iv-icon {
-          background: color-mix(in srgb, var(--paper) 85%, transparent);
-          border-radius: 12px;
-        }
-        .iv-stage {
-          grid-row: 1 / 3;
-          padding: 4px 56px;
+        .iv-glyph svg {
+          width: 80px;
+          height: 80px;
         }
         .iv-info {
-          grid-template-columns: minmax(0, 1fr) auto;
-          align-items: center;
-          gap: 16px;
-          padding: 6px 20px 10px;
-        }
-        .iv-title {
-          font-size: 16px;
-          margin: 0;
-        }
-        .iv-blurb {
-          font-size: 13px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          gap: 24px;
+          padding: 22px 24px 28px;
         }
         .iv-discord,
         .iv-discord:hover {
-          width: auto;
-          min-height: 40px;
-          padding: 0 16px;
+          max-width: none;
         }
       }
-      @media (prefers-reduced-motion: reduce) {
-        #indicators .indicator-thumb,
-        #indicators .indicator-thumb img {
-          transition: none;
+      /* Short landscape screens: smaller glyph so the button stays in view. */
+      @media (max-height: 520px) and (orientation: landscape) {
+        .iv-glyph {
+          width: 84px;
+          height: 84px;
+          border-radius: 22px;
+        }
+        .iv-glyph svg {
+          width: 58px;
+          height: 58px;
+        }
+        .iv-info {
+          gap: 16px;
+          padding: 14px 28px 20px;
         }
       }
     </style>
@@ -2227,6 +2065,21 @@
     <link rel="stylesheet" href="experiments-layout.css" />
     <link rel="stylesheet" href="experiments-journal.css" />
     <link rel="stylesheet" href="hat-promo.css" />
+    <link rel="stylesheet" href="assets/ict/ict-hero.css?v=solid2" />
+    <link rel="stylesheet" href="ict-theme.css?v=rev1" />
+    <link rel="stylesheet" href="ict-extras.css?v=1" />
+    <link rel="preload" as="image" href="assets/ict/hands-band-clean.png" fetchpriority="high" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.min.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+    <!-- Module preloads must come after the import map, or browsers drop the map. -->
+    <link rel="modulepreload" href="assets/ict/ict-hero.js?v=solid2" />
+    <link rel="modulepreload" href="https://unpkg.com/three@0.160.0/build/three.module.min.js" crossorigin />
   </head>
   <body id="top">
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -2295,7 +2148,7 @@
       <div class="header-bar" data-header-bar>
       <a class="hat-banner" href="https://nqxnyc.vercel.app" target="_blank" rel="noopener noreferrer"
         ><span>Now available: <strong>NQ × NYC</strong></span
-        ><span class="hat-banner-cta">Shop <span aria-hidden="true">&rarr;</span></span></a
+        ><span class="hat-banner-cta">Apparel <span aria-hidden="true">&rarr;</span></span></a
       >
     <header class="site-header" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="Bandz home">Bandz</a>
@@ -2306,35 +2159,23 @@
         <a href="#discord"
           >Discord <em class="nav-free nav-free--discord">Free</em></a
         >
-        <a class="nav-clothing" href="#hat">Shop</a>
+        <a class="nav-clothing" href="#hat">Apparel</a>
         <a href="#journal"
           >Trading Journal <em class="nav-free nav-free--journal">Free</em></a
         >
       </nav>
       <div class="header-tools">
-        <a class="header-shop" href="https://nqxnyc.vercel.app" target="_blank" rel="noopener noreferrer">Shop</a>
-        <button
-          class="theme-mode-toggle"
-          type="button"
-          aria-pressed="false"
-          aria-label="Switch to dark mode"
-          data-theme-mode-toggle
-        >
-          <span class="theme-mode-track" aria-hidden="true">
-            <span class="theme-mode-knob"></span>
-          </span>
-          <span data-theme-mode-label>Light</span>
-        </button>
+        <a class="header-shop" href="https://nqxnyc.vercel.app" target="_blank" rel="noopener noreferrer">Apparel</a>
         <div class="funnel-header-duo" aria-label="Bandz product links">
           <a
             class="duo-discord"
             href="https://discord.gg/XdWaEBXQ6G"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Join the Bandz Discord"
+            aria-label="Join the Bandz Discord for free"
           >
             <i class="fa-brands fa-discord" aria-hidden="true"></i>
-            Join
+            Free
             <svg
               class="arrow-icon external-arrow"
               aria-hidden="true"
@@ -2367,13 +2208,14 @@
     </div>
 
     <main id="main-content">
-      <section class="hero site-shell" aria-labelledby="hero-title">
-        <div class="hero-copy">
+      <section class="hero" aria-labelledby="hero-title">
+        <div id="ict-hero" class="ict-hero"></div>
+        <div class="hero-copy site-shell">
           <h1 id="hero-title">
             Trade <span>live</span> with us.
           </h1>
           <p class="hero-lede">
-            Live trading at <strong>9:30 AM</strong> and during <strong>London</strong>.<br />Hosted by Bandz and other traders.
+            Multiple streamers. One free room of serious ICT traders.
           </p>
           <div class="hero-actions">
             <a
@@ -2384,16 +2226,16 @@
               ><i class="fa-brands fa-discord" aria-hidden="true"></i
               ><span class="cd-btn-text"><span>Join the free Discord</span></span
               ><span class="cd-two is-wrapped" data-hero-sessions
-                ><span class="row" data-idle><span data-t="n1">London stream</span><b data-t="n1t">&mdash;</b></span
-                ><span class="row" data-idle><span data-t="n2">9:30 AM stream</span><b data-t="n2t">&mdash;</b></span
-                ><span class="row" data-live hidden><span data-t="l1"></span><b class="livebadge">LIVE</b></span
-                ><span class="row" data-live hidden><span data-t="l2"></span><b data-t="l2t"></b></span
+                ><span class="row" data-session="ny"><span>9:30 AM</span><b>&mdash;</b></span
+                ><span class="row" data-session="asia"><span>Asia</span><b>&mdash;</b></span
+                ><span class="row" data-session="london"><span>London</span><b>&mdash;</b></span
               ></span
             ></a
             >
-            <!-- Filled from the Discord invite fetch; stays hidden if it fails. -->
-            <p class="hero-members" data-hero-members hidden>
-              <span data-hero-members-count></span> traders inside
+            <!-- LIVE NOW shows while a stream is live (hero-countdown.js). Counts fill from the Discord invite fetch and stay hidden if it fails. -->
+            <p class="hero-members">
+              <span class="hero-live-tag" data-hero-live-tag hidden><span class="hero-live-dot" aria-hidden="true"></span>Live now</span
+              ><span class="hero-counts" data-hero-members hidden><span class="hero-total"><span class="hero-live-sep" aria-hidden="true"> · </span><span data-hero-members-count></span> traders</span><span class="hero-online" data-hero-online hidden> · <b data-hero-online-count></b> online</span></span>
             </p>
           </div>
           <a
@@ -2418,187 +2260,341 @@
           </a>
         </div>
       </section>
-      <section
-        class="section indicators-section"
-        id="indicators"
-        aria-labelledby="indicators-title"
-      >
-        <svg
-          class="market-decoration market-decoration--indicators"
-          viewBox="0 0 1000 380"
-          aria-hidden="true"
-        >
-          <path
-            d="M0 300 L105 282 L186 320 L275 222 L362 249 L455 152 L548 193 L648 102 L742 137 L840 58 L1000 92"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            vector-effect="non-scaling-stroke"
-          />
-          <path
-            d="M0 348 L120 330 L206 351 L300 285 L402 302 L498 234 L606 255 L704 192 L820 215 L910 164 L1000 177"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            vector-effect="non-scaling-stroke"
-          />
-        </svg>
+      <!-- Bento: live trading, indicators and the journal in one section.
+           The nav anchors (#discord, #indicators, #journal) sit on the tiles. -->
+      <section class="section bento-section" aria-labelledby="bento-title">
         <div class="site-shell">
-          <header class="section-heading reveal-stagger">
+          <header class="section-heading bento-heading reveal-stagger">
             <div>
-              <h2 class="section-title" id="indicators-title">
-                Open-source indicators.
-              </h2>
+              <p class="ict-eyebrow"><span class="ict-mark" aria-hidden="true"></span>What you get</p>
+              <h2 class="section-title" id="bento-title">Everything's free.</h2>
             </div>
-            <div class="collection-intro">
-              <p class="indicators-lede">More in the Discord, including community-built ones.</p>
-            </div>
+            <p class="bento-sub">Live ICT trading, open-source indicators and a free journal.</p>
           </header>
 
-          <div class="indicator-browser reveal">
-            <!-- OWNER EDIT: names, screenshots and one-line descriptions live on each card. -->
+          <div class="bento-grid">
+            <!-- Live trading. Holds the section's one Discord join button. -->
+            <article class="bento-tile bento-live reveal" id="discord" aria-labelledby="live-title">
+              <div class="bento-head">
+                <p class="bento-label"><span class="bento-live-dot" aria-hidden="true"></span>Live trading</p>
+                <h3 class="bento-title" id="live-title">Trade live with us <span>during 9:30 AM, Asia and London.</span></h3>
+                <p class="member-count" data-member-count hidden>
+                  <span class="member-dot" aria-hidden="true"></span>
+                  <span data-member-text></span>
+                </p>
+              </div>
+              <figure class="bento-shot bento-live-shot">
+                <img src="assets/discord/live-call.jpg" alt="A full Bandz livestream call and chat in Discord" width="1538" height="992" loading="lazy" decoding="async" />
+              </figure>
+              <div class="bento-body">
+                <ul class="bento-points" aria-label="Discord community features">
+                  <li><i class="fa-solid fa-comments" aria-hidden="true"></i>Talk setups and ask questions live</li>
+                  <li><i class="fa-solid fa-chart-line" aria-hidden="true"></i>Indicators from Bandz and the community</li>
+                </ul>
+                <a
+                  class="button button--primary button--discord bento-discord"
+                  href="https://discord.gg/XdWaEBXQ6G"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fa-brands fa-discord" aria-hidden="true"></i>Join the free Discord</a
+                >
+                <p class="streamer-invite">Want to stream your trades to the community? Join and introduce yourself.</p>
+              </div>
+            </article>
+
+            <article class="bento-tile bento-indicators reveal" id="indicators" aria-labelledby="indicators-title">
+              <div class="bento-head">
+                <p class="bento-label">ICT toolkit</p>
+                <h3 class="bento-title" id="indicators-title">Open-source indicators.</h3>
+                <p class="indicators-lede">More in the Discord, including community-built ones.</p>
+              </div>
+
+          <!-- Indicator glyphs: mini chart illustrations, one symbol per indicator, reused by the detail view. -->
+          <svg class="ig-sprite" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="ig-chrome" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="0" y2="58">
+                <stop offset="0" class="ig-stop-a" />
+                <stop offset="0.5" class="ig-stop-b" />
+                <stop offset="1" class="ig-stop-c" />
+              </linearGradient>
+              <linearGradient id="ig-body" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" class="ig-stop-body-a" />
+                <stop offset="1" class="ig-stop-body-b" />
+              </linearGradient>
+              <linearGradient id="ig-area" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" class="ig-stop-area" />
+                <stop offset="1" class="ig-stop-area-end" />
+              </linearGradient>
+              <radialGradient id="ig-fade" cx="32" cy="30" r="32" gradientUnits="userSpaceOnUse">
+                <stop offset="0.35" stop-color="#fff" />
+                <stop offset="1" stop-color="#000" />
+              </radialGradient>
+              <mask id="ig-fade-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+                <rect width="64" height="64" fill="url(#ig-fade)" />
+              </mask>
+              <filter id="ig-blur" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="1.6" />
+              </filter>
+            </defs>
+            <!-- Po3 Profiler: C1-C4 HTF candles; C2 sweeps C1's low, C3 closes through the CISD level. -->
+            <symbol id="ig-po3" viewBox="0 0 64 64">
+              <path class="ig-grid ig-pop" style="--ig-lag: 0s" mask="url(#ig-fade-mask)" d="M4 16h56M4 32h56M4 48h56M16 4v56M32 4v56M48 4v56" />
+              <g style="--ig-acc: var(--ig-blue)">
+                <path class="ig-acc-line ig-dash ig-pop" style="--i: 2" d="M8 43h22" />
+                <path class="ig-acc-line ig-draw ig-sweep" style="--ig-dlag: 0.55s" pathLength="100" d="M12 27.5h33" />
+                <circle class="ig-halo ig-pop" style="--i: 4" cx="25" cy="50" r="3.6" />
+              </g>
+              <path class="ig-ink ig-pop" d="M12 23v4.5M12 38v5M25 31v3M25 40v10M38 11v5M38 36v2M51 6v3M51 18v5" />
+              <rect class="ig-bear ig-pop" x="8.5" y="27.5" width="7" height="10.5" rx="1" />
+              <rect class="ig-bull ig-pop" style="--i: 1" x="21.5" y="34" width="7" height="6" rx="1" />
+              <rect class="ig-bull ig-pop" style="--i: 2" x="34.5" y="16" width="7" height="20" rx="1" />
+              <rect class="ig-bull ig-pop" style="--i: 3" x="47.5" y="9" width="7" height="9" rx="1" />
+              <circle class="ig-dot ig-pop" style="--i: 4" cx="25" cy="50" r="1.5" />
+            </symbol>
+            <!-- HTF Zones: stacked percentile zones with price climbing through them. -->
+            <symbol id="ig-htf" viewBox="0 0 64 64">
+              <path class="ig-grid ig-pop" style="--ig-lag: 0s" mask="url(#ig-fade-mask)" d="M4 16h56M4 32h56M4 48h56M16 4v56M32 4v56M48 4v56" />
+              <g style="--ig-acc: var(--ig-violet)">
+                <rect class="ig-acc-fill ig-soft ig-pop" style="--ig-lag: 0.1s" x="6" y="10" width="52" height="7" />
+                <rect class="ig-acc-fill ig-pop" style="--ig-lag: 0.1s" x="6" y="26" width="52" height="11" />
+                <rect class="ig-acc-fill ig-soft ig-pop" style="--ig-lag: 0.1s" x="6" y="46" width="52" height="7" />
+                <path class="ig-acc-line ig-faint ig-pop" style="--ig-lag: 0.1s" d="M6 10h52M6 17h52M6 46h52M6 53h52" />
+                <path class="ig-acc-line ig-draw ig-sweep" pathLength="100" d="M6 26h52" />
+                <path class="ig-acc-line ig-draw ig-sweep" style="--ig-dlag: 0.12s" pathLength="100" d="M6 37h52" />
+              </g>
+              <path class="ig-dim ig-dash ig-pop" style="--ig-lag: 0.1s" d="M6 31.5h52" />
+              <path class="ig-ink ig-pop" style="--i: 2" d="M11 42v2M11 50v3M19 38v2M19 47v2M27 30v3M27 42v2M35 28v2M35 36v3M43 17v3M43 32v2M51 10v3M51 21v2" />
+              <rect class="ig-bull ig-pop" x="9" y="44" width="4" height="6" rx="0.6" />
+              <rect class="ig-bear ig-pop" style="--i: 1" x="17" y="40" width="4" height="7" rx="0.6" />
+              <rect class="ig-bull ig-pop" style="--i: 2" x="25" y="33" width="4" height="9" rx="0.6" />
+              <rect class="ig-bear ig-pop" style="--i: 3" x="33" y="30" width="4" height="6" rx="0.6" />
+              <rect class="ig-bull ig-pop" style="--i: 4" x="41" y="20" width="4" height="12" rx="0.6" />
+              <rect class="ig-bull ig-pop" style="--i: 5" x="49" y="13" width="4" height="8" rx="0.6" />
+            </symbol>
+            <!-- Intraday: a macro time window where displacement leaves an FVG, later retested. -->
+            <symbol id="ig-intraday" viewBox="0 0 64 64">
+              <path class="ig-grid ig-pop" style="--ig-lag: 0s" mask="url(#ig-fade-mask)" d="M4 16h56M4 32h56M4 48h56M16 4v56M32 4v56M48 4v56" />
+              <g style="--ig-acc: var(--ig-blue)">
+                <rect class="ig-acc-fill ig-soft ig-pop" style="--ig-lag: 0.05s" x="21" y="5" width="21" height="54" />
+                <path class="ig-acc-line ig-dash ig-pop" style="--ig-lag: 0.05s" d="M21 5v54M42 5v54" />
+              </g>
+              <rect class="ig-fvg ig-pop" style="--i: 5" x="25" y="28" width="33" height="7" />
+              <path class="ig-ink ig-pop" style="--i: 2" d="M10 34v3M10 44v3M17 38v3M17 47v2M25 33v2M25 40v3M32 19v3M32 41v2M39 15v2M39 24v4M46 21v2M46 29v3M53 9v3M53 23v2" />
+              <rect class="ig-bear ig-pop" x="7.5" y="37" width="5" height="7" rx="0.8" />
+              <rect class="ig-bear ig-pop" style="--i: 1" x="14.5" y="41" width="5" height="6" rx="0.8" />
+              <rect class="ig-bear ig-pop" style="--i: 2" x="22.5" y="35" width="5" height="5" rx="0.8" />
+              <rect class="ig-bull ig-pop" style="--i: 3" x="29.5" y="22" width="5" height="19" rx="0.8" />
+              <rect class="ig-bull ig-pop" style="--i: 4" x="36.5" y="17" width="5" height="7" rx="0.8" />
+              <rect class="ig-bear ig-pop" style="--i: 5" x="43.5" y="23" width="5" height="6" rx="0.8" />
+              <rect class="ig-bull ig-pop" style="--i: 6" x="50.5" y="12" width="5" height="11" rx="0.8" />
+            </symbol>
+            <!-- SMT: one instrument makes a higher high, the other a lower high. -->
+            <symbol id="ig-smt" viewBox="0 0 64 64">
+              <path class="ig-grid ig-pop" style="--ig-lag: 0s" mask="url(#ig-fade-mask)" d="M4 16h56M4 32h56M4 48h56M16 4v56M32 4v56M48 4v56" />
+              <path class="ig-area ig-pop" style="--ig-lag: 0.6s" d="M6 24L14 14L21 20L28 18L38 9L45 16L52 13L58 18V29H6Z" />
+              <path class="ig-area ig-pop" style="--ig-lag: 0.6s" d="M6 53L14 40L21 47L28 45L38 44L45 51L52 48L58 53V58H6Z" />
+              <path class="ig-dim ig-dash ig-pop" style="--ig-lag: 0s" d="M6 32h52" />
+              <g style="--ig-acc: var(--ig-violet)">
+                <path class="ig-acc-line ig-faint ig-dash ig-pop" style="--ig-lag: 0.7s" d="M38 9v35" />
+                <path class="ig-acc-glow ig-pop" style="--ig-lag: 0.9s" d="M14 14L38 9M14 40L38 44" />
+                <path class="ig-acc-line ig-draw ig-sweep" style="--ig-dlag: 0.6s" pathLength="100" d="M14 14L38 9" />
+                <path class="ig-acc-line ig-draw ig-sweep" style="--ig-dlag: 0.7s" pathLength="100" d="M14 40L38 44" />
+              </g>
+              <path class="ig-ink ig-draw" pathLength="100" d="M6 24L14 14L21 20L28 18L38 9L45 16L52 13L58 18" />
+              <path class="ig-ink ig-draw" style="--ig-dlag: 0.1s" pathLength="100" d="M6 53L14 40L21 47L28 45L38 44L45 51L52 48L58 53" />
+              <circle class="ig-dot ig-pop" style="--ig-lag: 0.5s" cx="14" cy="14" r="1.3" />
+              <circle class="ig-dot ig-pop" style="--ig-lag: 0.5s" cx="14" cy="40" r="1.3" />
+              <circle class="ig-dot ig-pop" style="--ig-lag: 0.75s" cx="38" cy="9" r="1.7" />
+              <circle class="ig-dot ig-pop" style="--ig-lag: 0.75s" cx="38" cy="44" r="1.7" />
+            </symbol>
+            <!-- All-in-One: the Bandz tools stacked as layers in one script. -->
+            <symbol id="ig-aio" viewBox="0 0 64 64">
+              <path class="ig-grid ig-pop" style="--ig-lag: 0s" mask="url(#ig-fade-mask)" d="M4 16h56M4 32h56M4 48h56M16 4v56M32 4v56M48 4v56" />
+              <g class="ig-pop ig-rise" style="--ig-lag: 0s">
+                <path class="ig-side" d="M10 43l22 9 22-9v2.5l-22 9-22-9z" />
+                <path class="ig-plate" d="M32 34l22 9-22 9-22-9z" />
+              </g>
+              <g class="ig-pop ig-rise" style="--ig-lag: 0.12s">
+                <path class="ig-side" d="M10 31l22 9 22-9v2.5l-22 9-22-9z" />
+                <path class="ig-plate" d="M32 22l22 9-22 9-22-9z" />
+                <path class="ig-dim" d="M19 31l6 2.5 6-2.5 6 2.5 6-2.5" />
+              </g>
+              <g class="ig-pop ig-rise" style="--ig-lag: 0.24s; --ig-acc: var(--ig-blue)">
+                <path class="ig-side" d="M10 19l22 9 22-9v2.5l-22 9-22-9z" />
+                <path class="ig-acc-glow" d="M32 10l22 9-22 9-22-9z" />
+                <path class="ig-plate" d="M32 10l22 9-22 9-22-9z" />
+                <path class="ig-acc-fill" d="M32 10l22 9-22 9-22-9z" />
+              </g>
+              <path class="ig-ink ig-draw ig-sweep" style="--ig-dlag: 0.55s" pathLength="100" d="M18 20l5-2.5 4 1.5 5-5 5 2 6-1.5" />
+              <circle class="ig-dot ig-pop" style="--ig-lag: 1.2s" cx="43" cy="14.5" r="1.5" />
+            </symbol>
+            <!-- STDV Flow: a leg projected into -2, -2.5 and -4 standard-deviation targets. -->
+            <symbol id="ig-stdv" viewBox="0 0 64 64">
+              <path class="ig-grid ig-pop" style="--ig-lag: 0s" mask="url(#ig-fade-mask)" d="M4 16h56M4 32h56M4 48h56M16 4v56M32 4v56M48 4v56" />
+              <path class="ig-dim ig-pop" style="--ig-lag: 0s" d="M14 9h44M14 17h44M7 9v8M5.5 9h3M5.5 17h3" />
+              <g style="--ig-acc: var(--ig-violet)">
+                <rect class="ig-acc-fill ig-pop" style="--ig-lag: 0.5s" x="14" y="33" width="44" height="4" />
+                <path class="ig-acc-line ig-draw ig-sweep" style="--ig-dlag: 0.45s" pathLength="100" d="M14 33h44" />
+                <path class="ig-acc-line ig-draw ig-sweep" style="--ig-dlag: 0.55s" pathLength="100" d="M14 37h44" />
+                <path class="ig-acc-line ig-dash ig-pop" style="--ig-lag: 0.75s" d="M14 49h44" />
+                <circle class="ig-halo ig-pop" style="--ig-lag: 1.05s" cx="53" cy="49" r="3.6" />
+              </g>
+              <path class="ig-ink ig-bold ig-draw" pathLength="100" d="M14 17L21 9" />
+              <path class="ig-ink ig-draw" style="--ig-dlag: 0.2s" pathLength="100" d="M21 9L26 19L30 16L35 30L39 27L44 40L48 37L53 49" />
+              <circle class="ig-dot ig-pop" style="--ig-lag: 1.05s" cx="53" cy="49" r="1.5" />
+            </symbol>
+          </svg>
+          <div class="indicator-browser">
+            <!-- OWNER EDIT: each card holds its name, one-line description (also in
+                 data-indicator-blurb for the detail view) and a glyph from the sprite above. -->
             <div class="indicator-tabs" id="indicator-grid">
               <button
                 class="indicator-tab"
                 type="button"
                 aria-haspopup="dialog"
                 aria-controls="indicator-viewer"
+                aria-labelledby="indicator-1-name"
+                aria-describedby="indicator-1-blurb"
                 data-indicator-card="1"
                 data-indicator-title="Bandz Po3 Profiler"
                 data-indicator-blurb="C1-C4 sequences with HTF candles, CISD, SMT and PSP."
-                data-indicator-alt="Bandz Po3 Profiler showing C1-C4 sequences, SMT divergence, CISD and three HTF candle lanes"
+                data-indicator-glyph="po3"
               >
-                <span class="indicator-thumb" aria-hidden="true">
-                  <img
-                    src="assets/indicators/bandz-po3-profiler.png"
-                    alt=""
-                    width="2000"
-                    height="1074"
-                    loading="lazy"
-                    decoding="async"
-                    data-indicator-thumb
-                  />
+                <span class="indicator-glyph" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" focusable="false"><use href="#ig-po3" /></svg>
                 </span>
-                <span class="indicator-tab-name" data-indicator-name>Po3 Profiler</span>
+                <span class="indicator-text">
+                  <span class="indicator-num" aria-hidden="true">01</span>
+                  <span class="indicator-tab-name" id="indicator-1-name" data-indicator-name>Po3 Profiler</span>
+                  <span class="indicator-blurb" id="indicator-1-blurb">C1-C4 sequences with HTF candles, CISD, SMT and PSP.</span>
+                </span>
+                <span class="indicator-open" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" focusable="false"><path d="M8 3.5v9M3.5 8h9" /></svg>
+                </span>
               </button>
               <button
                 class="indicator-tab"
                 type="button"
                 aria-haspopup="dialog"
                 aria-controls="indicator-viewer"
+                aria-labelledby="indicator-2-name"
+                aria-describedby="indicator-2-blurb"
                 data-indicator-card="2"
                 data-indicator-title="Bandz HTF Statistical Zones"
                 data-indicator-blurb="Daily percentile zones, session zones and price targets."
-                data-indicator-alt="Bandz HTF Statistical Zones showing daily percentile zones, session zones, and price targets"
+                data-indicator-glyph="htf"
               >
-                <span class="indicator-thumb" aria-hidden="true">
-                  <img
-                    src="assets/indicators/bandz-htf-zones.png"
-                    alt=""
-                    width="2000"
-                    height="1074"
-                    loading="lazy"
-                    decoding="async"
-                    data-indicator-thumb
-                  />
+                <span class="indicator-glyph" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" focusable="false"><use href="#ig-htf" /></svg>
                 </span>
-                <span class="indicator-tab-name" data-indicator-name>HTF Zones</span>
+                <span class="indicator-text">
+                  <span class="indicator-num" aria-hidden="true">02</span>
+                  <span class="indicator-tab-name" id="indicator-2-name" data-indicator-name>HTF Zones</span>
+                  <span class="indicator-blurb" id="indicator-2-blurb">Daily percentile zones, session zones and price targets.</span>
+                </span>
+                <span class="indicator-open" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" focusable="false"><path d="M8 3.5v9M3.5 8h9" /></svg>
+                </span>
               </button>
               <button
                 class="indicator-tab"
                 type="button"
                 aria-haspopup="dialog"
                 aria-controls="indicator-viewer"
+                aria-labelledby="indicator-3-name"
+                aria-describedby="indicator-3-blurb"
                 data-indicator-card="3"
                 data-indicator-title="Bandz Intraday"
                 data-indicator-blurb="ICT macro windows and first-presented FVGs."
-                data-indicator-alt="Bandz Intraday indicator shown on a 1-minute chart"
+                data-indicator-glyph="intraday"
               >
-                <span class="indicator-thumb" aria-hidden="true">
-                  <img
-                    src="assets/indicators/bandz-intraday-1m.png"
-                    alt=""
-                    width="3412"
-                    height="1437"
-                    loading="lazy"
-                    decoding="async"
-                    data-indicator-thumb
-                  />
+                <span class="indicator-glyph" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" focusable="false"><use href="#ig-intraday" /></svg>
                 </span>
-                <span class="indicator-tab-name" data-indicator-name>Intraday</span>
+                <span class="indicator-text">
+                  <span class="indicator-num" aria-hidden="true">03</span>
+                  <span class="indicator-tab-name" id="indicator-3-name" data-indicator-name>Intraday</span>
+                  <span class="indicator-blurb" id="indicator-3-blurb">ICT macro windows and first-presented FVGs.</span>
+                </span>
+                <span class="indicator-open" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" focusable="false"><path d="M8 3.5v9M3.5 8h9" /></svg>
+                </span>
               </button>
               <button
                 class="indicator-tab"
                 type="button"
                 aria-haspopup="dialog"
                 aria-controls="indicator-viewer"
+                aria-labelledby="indicator-4-name"
+                aria-describedby="indicator-4-blurb"
                 data-indicator-card="4"
                 data-indicator-title="Bandz SMT"
                 data-indicator-blurb="Multi-timeframe SMT divergence, minus the noise."
-                data-indicator-alt="Bandz SMT indicator shown on a 15-minute chart"
+                data-indicator-glyph="smt"
               >
-                <span class="indicator-thumb" aria-hidden="true">
-                  <img
-                    src="assets/indicators/bandz-smt-15m.png"
-                    alt=""
-                    width="3840"
-                    height="2063"
-                    loading="lazy"
-                    decoding="async"
-                    data-indicator-thumb
-                  />
+                <span class="indicator-glyph" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" focusable="false"><use href="#ig-smt" /></svg>
                 </span>
-                <span class="indicator-tab-name" data-indicator-name>SMT</span>
+                <span class="indicator-text">
+                  <span class="indicator-num" aria-hidden="true">04</span>
+                  <span class="indicator-tab-name" id="indicator-4-name" data-indicator-name>SMT</span>
+                  <span class="indicator-blurb" id="indicator-4-blurb">Multi-timeframe SMT divergence, minus the noise.</span>
+                </span>
+                <span class="indicator-open" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" focusable="false"><path d="M8 3.5v9M3.5 8h9" /></svg>
+                </span>
               </button>
               <button
                 class="indicator-tab"
                 type="button"
                 aria-haspopup="dialog"
                 aria-controls="indicator-viewer"
+                aria-labelledby="indicator-5-name"
+                aria-describedby="indicator-5-blurb"
                 data-indicator-card="5"
                 data-indicator-title="Bandz All-in-One"
                 data-indicator-blurb="Five core Bandz tools in one script."
-                data-indicator-alt="Bandz All-in-One indicator combining the Bandz toolkit on a 4-hour MNQ chart"
+                data-indicator-glyph="aio"
                 data-indicator-extra
                 hidden
               >
-                <span class="indicator-thumb" aria-hidden="true">
-                  <img
-                    src="assets/indicators/bandz-all-in-one-4h.png"
-                    alt=""
-                    width="3840"
-                    height="2063"
-                    loading="lazy"
-                    decoding="async"
-                    data-indicator-thumb
-                  />
+                <span class="indicator-glyph" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" focusable="false"><use href="#ig-aio" /></svg>
                 </span>
-                <span class="indicator-tab-name" data-indicator-name>All-in-One</span>
+                <span class="indicator-text">
+                  <span class="indicator-num" aria-hidden="true">05</span>
+                  <span class="indicator-tab-name" id="indicator-5-name" data-indicator-name>All-in-One</span>
+                  <span class="indicator-blurb" id="indicator-5-blurb">Five core Bandz tools in one script.</span>
+                </span>
+                <span class="indicator-open" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" focusable="false"><path d="M8 3.5v9M3.5 8h9" /></svg>
+                </span>
               </button>
               <button
                 class="indicator-tab"
                 type="button"
                 aria-haspopup="dialog"
                 aria-controls="indicator-viewer"
+                aria-labelledby="indicator-6-name"
+                aria-describedby="indicator-6-blurb"
                 data-indicator-card="6"
                 data-indicator-title="Bandz STDV Flow"
                 data-indicator-blurb="CISD sweeps with standard-deviation targets."
-                data-indicator-alt="Bandz STDV Flow indicator projecting CISD standard-deviation objectives on a 4-hour MNQ chart"
+                data-indicator-glyph="stdv"
                 data-indicator-extra
                 hidden
               >
-                <span class="indicator-thumb" aria-hidden="true">
-                  <img
-                    src="assets/indicators/bandz-stdv-flow-1h.png"
-                    alt=""
-                    width="3409"
-                    height="1440"
-                    loading="lazy"
-                    decoding="async"
-                    data-indicator-thumb
-                  />
+                <span class="indicator-glyph" aria-hidden="true">
+                  <svg viewBox="0 0 64 64" focusable="false"><use href="#ig-stdv" /></svg>
                 </span>
-                <span class="indicator-tab-name" data-indicator-name>STDV Flow</span>
+                <span class="indicator-text">
+                  <span class="indicator-num" aria-hidden="true">06</span>
+                  <span class="indicator-tab-name" id="indicator-6-name" data-indicator-name>STDV Flow</span>
+                  <span class="indicator-blurb" id="indicator-6-blurb">CISD sweeps with standard-deviation targets.</span>
+                </span>
+                <span class="indicator-open" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" focusable="false"><path d="M8 3.5v9M3.5 8h9" /></svg>
+                </span>
               </button>
             </div>
             <button
@@ -2611,74 +2607,47 @@
               Show more
             </button>
           </div>
-        </div>
-      </section>
+            </article>
 
-      <section
-        class="section site-shell community-section"
-        id="discord"
-        aria-labelledby="community-title"
-      >
-        <div class="community-layout">
-          <div class="community-intro">
-            <h2 class="section-title" id="community-title">
-              Inside the Discord
-            </h2>
-            <p class="member-count" data-member-count hidden>
-              <span class="member-dot" aria-hidden="true"></span>
-              <span data-member-text></span>
-            </p>
-            <figure class="discord-shot">
-              <img src="assets/discord/live-call.jpg" alt="A full Bandz livestream call and chat in Discord" width="1538" height="992" loading="lazy" decoding="async" />
-            </figure>
+            <article class="bento-tile bento-journal reveal" id="journal" aria-labelledby="journal-title">
+              <div class="bento-head">
+                <p class="bento-label">Trading journal</p>
+                <h3 class="bento-title" id="journal-title">Log every trade. <span>See what's working. Free.</span></h3>
+              </div>
+              <div class="bento-body">
+                <ul class="journal-pills" aria-label="Journal features">
+                  <li>Calendar</li>
+                  <li>Trade log</li>
+                  <li>Stats</li>
+                </ul>
+                <a
+                  class="journal-link"
+                  href="https://bandzjournal.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Open the free journal <span aria-hidden="true">&rarr;</span></a
+                >
+              </div>
+              <figure class="bento-shot bento-journal-shot">
+                <img
+                  src="assets/journal/bandz-journal-calendar.png"
+                  alt="Bandz trading journal calendar view with daily P&amp;L"
+                  width="3840"
+                  height="2215"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            </article>
           </div>
-          <article class="community-card reveal">
-            <div class="community-content">
-              <p class="community-lede">
-                A free Discord with live trading hosted by Bandz and other traders.
-              </p>
-              <ul class="access-steps" aria-label="Discord community features">
-                <li>
-                  <span class="access-icon" aria-hidden="true"><i class="fa-solid fa-tower-broadcast"></i></span>
-                  Trade live with us weekdays at 9:30 AM and during London
-                </li>
-                <li>
-                  <span class="access-icon" aria-hidden="true"><i class="fa-solid fa-comments"></i></span>
-                  Talk through setups and ask questions live
-                </li>
-                <li>
-                  <span class="access-icon" aria-hidden="true"><i class="fa-solid fa-chart-line"></i></span>
-                  Indicators from Bandz and the community
-                </li>
-              </ul>
-              <a
-                class="button button--primary button--discord"
-                href="https://discord.gg/XdWaEBXQ6G"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i class="fa-brands fa-discord" aria-hidden="true"></i>
-                Join the free Discord
-              </a>
-              <p class="streamer-invite">Want to stream your trades to the community? Join and introduce yourself. You could become one of our streamers.</p>
-            </div>
-            <div class="discord-visual" aria-hidden="true">
-              <span class="discord-bubble discord-bubble--one"></span>
-              <span class="discord-bubble discord-bubble--two"></span>
-              <span class="discord-avatars">
-                <span class="discord-avatar"></span>
-                <span class="discord-avatar"></span>
-                <span class="discord-avatar"></span>
-              </span>
-            </div>
-          </article>
         </div>
       </section>
 
       <section class="section site-shell hat-stage" id="hat" aria-labelledby="hat-title">
         <header class="section-heading reveal-stagger">
           <div>
-            <h2 class="section-title" id="hat-title">NQ × NYC Clothing</h2>
+            <p class="ict-eyebrow"><span class="ict-mark" aria-hidden="true"></span>Apparel</p>
+            <h2 class="section-title" id="hat-title">NQ × NYC Apparel</h2>
           </div>
         </header>
         <div class="journal-promo reveal">
@@ -2686,54 +2655,14 @@
             <span class="merch-grid"><img src="assets/merch/nq-hoodie.png" alt="Black NQ × NYC hoodie" width="800" height="1000" loading="lazy" decoding="async"><img src="assets/merch/nq-joggers.png" alt="Black NQ × NYC cuffed joggers" width="800" height="1000" loading="lazy" decoding="async"><img src="assets/merch/nq-tee.png" alt="Black NQ × NYC heavyweight tee" width="800" height="1000" loading="lazy" decoding="async"><img src="assets/merch/nq-hat-us.jpg" alt="White Smart Money Hat" width="1024" height="1024" loading="lazy" decoding="async"></span>
           </a>
           <p class="journal-line hat-line"><strong>NQ × NYC</strong> <span class="merch-description">Hoodies, joggers, tees and the original Smart Money Hat.</span><span class="merch-status">Available now</span></p>
-          <a class="hat-button" href="https://nqxnyc.vercel.app" target="_blank" rel="noopener noreferrer">Shop the collection <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </section>
-
-      <section
-        class="section site-shell journal-stage"
-        id="journal"
-        aria-labelledby="journal-title"
-      >
-        <header class="section-heading reveal-stagger">
-          <div>
-            <h2 class="section-title" id="journal-title">
-              Trading journal
-            </h2>
-          </div>
-        </header>
-
-        <div class="journal-promo reveal">
-          <figure class="journal-shot">
-            <img
-              src="assets/journal/bandz-journal-calendar.png"
-              alt="Bandz trading journal calendar view with daily P&amp;L"
-              width="3840"
-              height="2215"
-              loading="lazy"
-              decoding="async"
-            />
-          </figure>
-          <p class="journal-line">Log every trade. See what's working. Free.</p>
-          <ul class="journal-pills" aria-label="Journal features">
-            <li>Calendar</li>
-            <li>Trade log</li>
-            <li>Stats</li>
-          </ul>
-          <a
-            class="journal-link"
-            href="https://bandzjournal.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Open the free journal <span aria-hidden="true">&rarr;</span></a
-          >
+          <a class="hat-button" href="https://nqxnyc.vercel.app" target="_blank" rel="noopener noreferrer">View the apparel <span aria-hidden="true">&rarr;</span></a>
         </div>
       </section>
 
     </main>
     <footer class="site-footer">
       <div class="footer-inner site-shell">
-        <p class="footer-brand">Bandz</p>
+        <p class="footer-brand"><span class="ict-mark ict-mark--footer" aria-hidden="true"></span>Bandz</p>
         <nav class="social-links" aria-label="Bandz social media">
           <a
             class="social-link"
@@ -2787,10 +2716,11 @@
             rel="noopener noreferrer"
             >Join the Discord</a
           >
-          <span class="footer-separator" aria-hidden="true"> &middot; </span><a href="https://nqxnyc.vercel.app" target="_blank" rel="noopener noreferrer">Shop</a>
+          <span class="footer-separator" aria-hidden="true"> &middot; </span><a href="https://nqxnyc.vercel.app" target="_blank" rel="noopener noreferrer">Apparel</a>
           </span>
         </p>
       </div>
+      <div class="footer-wordmark" aria-hidden="true">Bandz</div>
     </footer>
 
     <script>
@@ -2890,7 +2820,7 @@
             `Switch to ${isDark ? "light" : "dark"} mode`,
           );
           modeLabel.textContent = isDark ? "Dark" : "Light";
-          if (themeColor) themeColor.content = isDark ? "#151515" : "#fafafa";
+          if (themeColor) themeColor.content = isDark ? "#000000" : "#f5f5f7";
 
           if (persist) {
             try {
@@ -2940,7 +2870,9 @@
           </button>
         </div>
         <div class="iv-stage" data-iv-stage>
-          <img class="iv-img" alt="" data-iv-img />
+          <span class="iv-glyph" aria-hidden="true" data-iv-glyph>
+            <svg viewBox="0 0 64 64" focusable="false"><use href="#ig-po3" data-iv-use /></svg>
+          </span>
         </div>
         <div class="iv-info">
           <div class="iv-text">
@@ -2981,6 +2913,11 @@
             var heroMembers = document.querySelector("[data-hero-members]");
             if (heroMembers) {
               heroMembers.querySelector("[data-hero-members-count]").textContent = members;
+              var heroOnline = heroMembers.querySelector("[data-hero-online]");
+              if (heroOnline && online) {
+                heroOnline.querySelector("[data-hero-online-count]").textContent = fmt(online);
+                heroOnline.hidden = false;
+              }
               heroMembers.hidden = false;
             }
           })
@@ -3177,7 +3114,7 @@
       }
 
       // Indicator cards: "Show more" reveals the extras; tapping a card opens
-      // the full-screen viewer, which grows out of the tapped thumbnail.
+      // the detail view, whose glyph grows out of the tapped card's glyph.
       const indicatorCards = Array.from(
         document.querySelectorAll("[data-indicator-card]"),
       );
@@ -3199,11 +3136,35 @@
         indicatorMore.hidden = true;
       }
 
+      // Glyphs draw in once, when their card scrolls into view. Cards behind
+      // "Show more" draw when revealed. .is-settled hands off to the hover replay.
+      const drawGlyph = (card) => {
+        if (!card.classList || card.classList.contains("is-drawn")) return;
+        card.classList.add("is-drawn");
+        window.setTimeout(() => card.classList.add("is-settled"), 2200);
+      };
+      if (typeof window.IntersectionObserver === "function") {
+        const glyphObserver = new window.IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              drawGlyph(entry.target);
+              glyphObserver.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.35 },
+        );
+        indicatorCards.forEach((card) => glyphObserver.observe(card));
+      } else {
+        indicatorCards.forEach(drawGlyph);
+      }
+
       const indicatorViewer = document.querySelector("[data-indicator-viewer]");
       if (indicatorViewer) {
         const ivShell = indicatorViewer.querySelector("[data-iv-shell]");
         const ivStage = indicatorViewer.querySelector("[data-iv-stage]");
-        const ivImg = indicatorViewer.querySelector("[data-iv-img]");
+        const ivGlyph = indicatorViewer.querySelector("[data-iv-glyph]");
+        const ivUse = indicatorViewer.querySelector("[data-iv-use]");
         const ivTitle = indicatorViewer.querySelector("[data-iv-title]");
         const ivBlurb = indicatorViewer.querySelector("[data-iv-blurb]");
         const ivCount = indicatorViewer.querySelector("[data-iv-count]");
@@ -3223,45 +3184,27 @@
         const canAnimate = (element) =>
           element && typeof element.animate === "function" && !reducedMotion();
         const shownCards = () => indicatorCards.filter((card) => !card.hidden);
-        const thumbOf = (card) => card.querySelector("[data-indicator-thumb]");
-
         function showCard(card) {
-          const thumb = thumbOf(card);
           const cards = shownCards();
           ivCard = card;
-          ivImg.src = thumb ? thumb.getAttribute("src") : "";
-          ivImg.alt = card.dataset.indicatorAlt || "";
-          ivImg.dataset.ratio = thumb
-            ? String(thumb.getAttribute("width") / thumb.getAttribute("height"))
-            : "";
+          if (ivUse) ivUse.setAttribute("href", `#ig-${card.dataset.indicatorGlyph || ""}`);
+          // Replay the glyph's draw-in for each indicator shown.
+          if (ivGlyph && ivGlyph.classList && !reducedMotion()) {
+            ivGlyph.classList.add("is-reset");
+            ivGlyph.getBoundingClientRect();
+            ivGlyph.classList.remove("is-reset");
+          }
           ivTitle.textContent = card.dataset.indicatorTitle || "";
           ivBlurb.textContent = card.dataset.indicatorBlurb || "";
           ivCount.textContent = `${cards.indexOf(card) + 1} / ${cards.length}`;
         }
 
-        // Where the chart is actually drawn inside the object-fit: contain box.
-        function imageRect() {
-          const box = ivImg.getBoundingClientRect();
-          const ratio = Number(ivImg.dataset.ratio) || box.width / box.height;
-          let width = box.width;
-          let height = width / ratio;
-          if (height > box.height) {
-            height = box.height;
-            width = height * ratio;
-          }
-          return {
-            left: box.left + (box.width - width) / 2,
-            top: box.top + (box.height - height) / 2,
-            width,
-            height,
-          };
-        }
-
+        // Transform that places the detail glyph over the card's glyph tile.
         function flipFrom(card) {
-          const thumb = card && card.querySelector(".indicator-thumb");
-          if (!thumb || typeof thumb.getBoundingClientRect !== "function") return null;
-          const from = thumb.getBoundingClientRect();
-          const to = imageRect();
+          const tile = card && card.querySelector(".indicator-glyph");
+          if (!tile || !ivGlyph || typeof tile.getBoundingClientRect !== "function") return null;
+          const from = tile.getBoundingClientRect();
+          const to = ivGlyph.getBoundingClientRect();
           if (!from.width || !to.width) return null;
           const dx = from.left + from.width / 2 - (to.left + to.width / 2);
           const dy = from.top + from.height / 2 - (to.top + to.height / 2);
@@ -3273,15 +3216,16 @@
           if (!ivCard || cards.length < 2) return;
           const index = cards.indexOf(ivCard);
           showCard(cards[(index + direction + cards.length) % cards.length]);
-          if (canAnimate(ivImg)) {
-            ivImg.animate(
+          [ivGlyph, ivTitle, ivBlurb].forEach((part) => {
+            if (!canAnimate(part)) return;
+            part.animate(
               [
-                { opacity: 0, transform: `translateX(${direction * 24}px)` },
+                { opacity: 0, transform: `translateX(${direction * 18}px)` },
                 { opacity: 1, transform: "none" },
               ],
-              { duration: 220, easing: "cubic-bezier(.2,.8,.2,1)" },
+              { duration: 240, easing: "cubic-bezier(.2,.8,.2,1)" },
             );
-          }
+          });
         }
 
         function openViewer(card) {
@@ -3299,7 +3243,7 @@
               easing: "ease-out",
             });
             if (start) {
-              ivImg.animate([{ transform: start }, { transform: "none" }], {
+              ivGlyph.animate([{ transform: start }, { transform: "none" }], {
                 duration: 340,
                 easing: "cubic-bezier(.2,.8,.2,1)",
               });
@@ -3332,7 +3276,7 @@
             fill: "forwards",
           });
           if (end) {
-            ivImg.animate([{ transform: "none" }, { transform: end }], {
+            ivGlyph.animate([{ transform: "none" }, { transform: end }], {
               duration: 260,
               easing: "cubic-bezier(.4,0,.2,1)",
               fill: "forwards",
@@ -3341,7 +3285,7 @@
           fade.onfinish = () => {
             finishClose();
             ivShell.getAnimations?.().forEach((animation) => animation.cancel());
-            ivImg.getAnimations?.().forEach((animation) => animation.cancel());
+            ivGlyph.getAnimations?.().forEach((animation) => animation.cancel());
           };
         }
 
@@ -3367,13 +3311,13 @@
         indicatorViewer.addEventListener("pointerdown", () => {
           ivSwiped = false;
         });
-        // Tapping outside the chart (backdrop or empty stage) closes.
+        // Tapping outside the panel (the backdrop) closes.
         indicatorViewer.addEventListener("click", (event) => {
           if (ivSwiped) {
             ivSwiped = false;
             return;
           }
-          if (event.target === indicatorViewer || event.target === ivStage) {
+          if (event.target === indicatorViewer) {
             closeViewer();
           }
         });
@@ -3426,16 +3370,24 @@
     </script>
     <script src="experiments-live.js" defer></script>
     <script src="experiments-live2.js?v=session-labels-2" defer></script>
-    <script src="hero-countdown.js?v=1" defer></script>
+    <script src="hero-countdown.js?v=2" defer></script>
+    <script src="ict-extras.js?v=1" defer></script>
+    <script type="module">
+      /* ICT hero: 3D hands + chrome logo. A missing or failing module leaves a static fallback. */
+      const ictHeroEl = document.getElementById("ict-hero");
+      if (ictHeroEl) {
+        import("./assets/ict/ict-hero.js?v=solid2")
+          .then((mod) => mod.mountIctHero(ictHeroEl))
+          .catch((error) => {
+            ictHeroEl.replaceChildren();
+            ictHeroEl.classList.add("ict-hero--fallback");
+            console.warn("ICT hero unavailable, showing the still.", error);
+          });
+      }
+    </script>
     <style>
       .hero .lv2-v15 .lv2-label { color: var(--ink); font-weight: 650; }
       .hero .lv2-v15 .lv2-time { font-weight: 700; }
-      #discord .community-content .streamer-invite {
-        margin: 14px 0 0;
-        font-size: 13px;
-        line-height: 1.6;
-        color: var(--muted);
-      }
       /* Hero stream strip, bigger desktop chart, tighter hero top. */
 
       /* The old countdown used to fill the top of the hero; without it, trim the gap above the headline. */
@@ -3457,19 +3409,14 @@
       .cd-two .livebadge { padding:0 7px; border-radius:5px; background:#ff3b30; color:#fff; font-size:10.5px; font-weight:700; letter-spacing:.08em; line-height:1.6; }
       /* Set by script when the block no longer fits beside the label and drops to its own line. */
       .hero .hero-actions .hero-discord.cd-wrapped { padding:14px 22px 0 !important; min-height:0 !important; row-gap:0 !important; align-content:flex-start; }
-      .cd-two.is-wrapped { display:grid; grid-template-columns:1fr 1fr; flex:0 0 auto; width:calc(100% + 44px); margin:14px -22px 0; padding:0; border:0; border-top:1px solid rgba(127,127,127,.32); font-size:12px; }
-      .cd-two.is-wrapped .row { flex-direction:column; align-items:center; justify-content:center; gap:1px; padding:8px 8px 9px; }
-      .cd-two.is-wrapped .row + .row, .cd-two.is-wrapped .row[data-live] + .row[data-live] { border-left:1px solid rgba(127,127,127,.32); }
-      .cd-two.is-wrapped .row b { font-size:15px; }
-      .cd-two.is-wrapped .row:first-child { color:var(--muted); }
-      .cd-two.is-wrapped .row:first-child b { color:var(--ink); }
-      .cd-two.is-wrapped .row:last-child b { color:var(--muted); }
+      /* One equal column per session (9:30 AM, Asia, London), each a countdown or a LIVE badge. */
+      .cd-two.is-wrapped { display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr); flex:0 0 auto; width:calc(100% + 44px); margin:14px -22px 0; padding:0; border:0; border-top:1px solid rgba(127,127,127,.32); font-size:12px; }
+      .cd-two.is-wrapped .row { min-width:0; flex-direction:column; align-items:center; justify-content:center; gap:1px; padding:8px 6px 9px; }
+      .cd-two.is-wrapped .row + .row { border-left:1px solid rgba(127,127,127,.32); }
+      .cd-two.is-wrapped .row b { font-size:15px; color:var(--ink); }
       .cd-two.is-wrapped .row b.livebadge { margin-top:3px; font-size:10.5px; color:#fff; }
-      .cd-two .row:nth-child(3) { color:var(--ink); font-weight:650; }
-      .cd-two.is-wrapped .row:nth-child(3) { background:rgba(255,59,48,.07); }
-      .cd-two.is-wrapped .row:nth-child(4) b { color:var(--muted); }
+      .cd-two.is-wrapped .row.is-live { color:var(--ink); background:rgba(255,59,48,.07); }
       .hero-discord.cd-wrapped { overflow:hidden; min-width:min(100%, 340px); }
-      .cd-two.is-wrapped .row:first-child { background:rgba(124,77,255,.09); }
 
       /* Footer: next stream on one line, the one after it small underneath. */
       .footer-sessions { display:inline-flex; flex-direction:column; align-items:center; gap:2px; vertical-align:middle; }

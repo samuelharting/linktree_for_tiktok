@@ -7,7 +7,7 @@ const dist = path.join(root, "dist");
 const serverDir = path.join(dist, "server");
 
 const html = await readFile(path.join(root, "index.html"), "utf8");
-const ogImage = await readFile(path.join(root, "og-livestream-preview.png"));
+const ogImage = await readFile(path.join(root, "og-ict-preview.png"));
 const journalImage = await readFile(
   path.join(root, "assets", "journal", "bandz-journal-calendar.png"),
 );
@@ -39,6 +39,12 @@ await mkdir(path.join(dist, "assets", "journal"), { recursive: true });
 await mkdir(path.join(dist, "assets", "hero"), { recursive: true });
 await mkdir(path.join(dist, "assets", "merch"), { recursive: true });
 await mkdir(path.join(dist, "assets", "discord"), { recursive: true });
+await mkdir(path.join(dist, "assets", "ict"), { recursive: true });
+// ICT theme assets: the 3D hero module, its stills and sound, and the fractal mark.
+// Reference sheets (ref-*) and the unused split hand cut-outs stay out of the deploy.
+const ictAssetPaths = (await readdir(path.join(root, "assets", "ict"))).filter(
+  (filename) => !filename.startsWith("ref-") && !filename.startsWith("hand-"),
+);
 
 const workerSource = `
 const pageHtml = ${JSON.stringify(html)};
@@ -92,7 +98,7 @@ const worker = {
 
     const url = new URL(request.url);
 
-    if (url.pathname === "/og-livestream-preview.png") {
+    if (url.pathname === "/og-ict-preview.png") {
       return responseFor(request, getOgBytes(), {
         headers: {
           "Content-Type": "image/png",
@@ -149,6 +155,12 @@ await Promise.all([
   copyFile(path.join(root, "experiments-layout.css"), path.join(dist, "experiments-layout.css")),
   copyFile(path.join(root, "experiments-journal.css"), path.join(dist, "experiments-journal.css")),
   copyFile(path.join(root, "hat-promo.css"), path.join(dist, "hat-promo.css")),
+  copyFile(path.join(root, "ict-theme.css"), path.join(dist, "ict-theme.css")),
+  copyFile(path.join(root, "ict-extras.css"), path.join(dist, "ict-extras.css")),
+  copyFile(path.join(root, "ict-extras.js"), path.join(dist, "ict-extras.js")),
+  ...ictAssetPaths.map((filename) =>
+    copyFile(path.join(root, "assets", "ict", filename), path.join(dist, "assets", "ict", filename)),
+  ),
   copyFile(
     path.join(root, "assets", "discord", "live-call.jpg"),
     path.join(dist, "assets", "discord", "live-call.jpg"),
@@ -158,8 +170,8 @@ await Promise.all([
     path.join(dist, "assets", "merch", "smart-money-hat-wide.jpg"),
   ),
   copyFile(
-    path.join(root, "og-livestream-preview.png"),
-    path.join(dist, "og-livestream-preview.png"),
+    path.join(root, "og-ict-preview.png"),
+    path.join(dist, "og-ict-preview.png"),
   ),
   copyFile(
     path.join(root, "assets", "hero", "live-chart.jpg"),

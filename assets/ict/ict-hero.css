@@ -1,0 +1,170 @@
+/* ICT cinematic hero. Pair with assets/ict/ict-hero.js (mountIctHero). */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Inter:wght@400;500&display=swap');
+
+.ict-hero {
+  --ict-band-w: 100%;
+  --ict-band-x: 0%;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2000 / 655;
+  background: #000;
+  overflow: hidden;
+  isolation: isolate;
+  color: #f5f5f7;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The band is the hands image's own coordinate space; everything inside is
+   positioned in % of it, so the logo always sits between the fingertips. */
+.ict-hero__band {
+  position: absolute;
+  top: 50%;
+  left: var(--ict-band-x);
+  width: var(--ict-band-w);
+  aspect-ratio: 2000 / 655;
+  transform: translateY(-50%);
+  container-type: inline-size;
+}
+
+.ict-hero__hands {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  clip-path: inset(0 0.1% 0 0); /* source has a 2px grey seam on its right edge */
+  opacity: 0;
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ict-hero.is-hands-ready .ict-hero__hands { opacity: 1; }
+
+/* Two copies of the band, each clipped to one hand at the gap's centre (pure black
+   there), so the hands can drift apart as the page scrolls. --ict-scroll (0..1,
+   already eased) is written by ict-hero.js; without it nothing moves. */
+.ict-hero__hands--l,
+.ict-hero__hands--r {
+  will-change: transform;
+}
+.ict-hero__hands--l {
+  clip-path: inset(0 49.55% 0 0);
+  transform: translate3d(calc(var(--ict-scroll, 0) * -3%), 0, 0);
+}
+.ict-hero__hands--r {
+  clip-path: inset(0 0.1% 0 50.45%);
+  transform: translate3d(calc(var(--ict-scroll, 0) * 3%), 0, 0);
+}
+
+/* soft white bloom behind the chrome */
+.ict-hero__halo {
+  position: absolute;
+  left: 50.45%;
+  top: 48%;
+  width: 34%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) scale(calc(1 - var(--ict-scroll, 0) * 0.12));
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.014) 50%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.ict-hero__canvas {
+  position: absolute;
+  left: 30%;
+  top: 0;
+  width: 41%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  /* glow hugging the logo silhouette, like the reference */
+  filter: drop-shadow(0 0 0.45cqw rgba(255, 255, 255, 0.42)) drop-shadow(0 0 1.6cqw rgba(255, 255, 255, 0.16));
+}
+
+.ict-hero__fallback {
+  position: absolute;
+  left: 50.45%;
+  top: 48%;
+  width: 25%;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+}
+/* WebGL context lost (e.g. mobile Safari backgrounding): show the still until restored */
+.ict-hero.is-context-lost .ict-hero__canvas { visibility: hidden; }
+
+/* sound toggle */
+.ict-hero__sound {
+  position: absolute;
+  right: clamp(12px, 1.6vw, 28px);
+  bottom: clamp(12px, 1.6vw, 24px);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 32px;
+  padding: 0 14px 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(20, 20, 22, 0.55);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  color: rgba(245, 245, 247, 0.78);
+  font: 500 11.5px/1 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+.ict-hero__sound:hover { color: #fff; border-color: rgba(255, 255, 255, 0.3); }
+.ict-hero__sound:focus-visible { outline: 2px solid rgba(255, 255, 255, 0.7); outline-offset: 3px; }
+.ict-hero__eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 10px;
+}
+.ict-hero__eq i {
+  display: block;
+  width: 2px;
+  height: 3px;
+  border-radius: 1px;
+  background: currentColor;
+  transition: height 0.3s ease;
+}
+.ict-hero__eq i:nth-child(2) { height: 5px; }
+.ict-hero__eq i:nth-child(3) { height: 4px; }
+.ict-hero__eq i:nth-child(4) { height: 6px; }
+.ict-hero.is-sound-on .ict-hero__eq i { animation: ict-eq 1.1s ease-in-out infinite alternate; }
+.ict-hero.is-sound-on .ict-hero__eq i:nth-child(2) { animation-delay: -0.35s; animation-duration: 0.9s; }
+.ict-hero.is-sound-on .ict-hero__eq i:nth-child(3) { animation-delay: -0.7s; animation-duration: 1.25s; }
+.ict-hero.is-sound-on .ict-hero__eq i:nth-child(4) { animation-delay: -0.2s; animation-duration: 0.8s; }
+@keyframes ict-eq {
+  from { height: 2px; }
+  to { height: 10px; }
+}
+
+/* tablets: trim a little forearm */
+@media (max-width: 900px) {
+  .ict-hero {
+    aspect-ratio: 2 / 1;
+    --ict-band-w: 140.85%; /* shows source x 300..1720 */
+    --ict-band-x: -21.13%;
+  }
+}
+
+/* phones: both hands clearly visible, only the outer forearms cropped */
+@media (max-width: 640px) {
+  .ict-hero {
+    aspect-ratio: 390 / 300;
+    --ict-band-w: 156.25%; /* shows source x 360..1640: full hands and wrists */
+    --ict-band-x: -28.125%;
+  }
+  .ict-hero__sound { height: 30px; padding: 0 12px 0 10px; font-size: 11px; }
+}
+
+.ict-hero.is-reduced .ict-hero__hands { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ict-hero__hands { transition: none; transform: none; }
+  .ict-hero.is-sound-on .ict-hero__eq i { animation: none; height: 8px; }
+}

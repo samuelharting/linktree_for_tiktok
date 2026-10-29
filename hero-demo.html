@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ICT Hero Demo</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="assets/ict/ict-hero.css?v=solid2" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+    <style>
+      html, body { margin: 0; background: #000; }
+      body { min-height: 100vh; display: flex; align-items: center; }
+      main { width: 100%; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section id="ict-hero" aria-label="Bandz ICT"></section>
+    </main>
+    <script type="module">
+      import { mountIctHero } from './assets/ict/ict-hero.js?v=solid2';
+      // ?t=6.2 freezes the cycle at 6.2 s (for screenshots)
+      const t = parseFloat(new URLSearchParams(location.search).get('t'));
+      mountIctHero(document.getElementById('ict-hero'), Number.isFinite(t) ? { freezeAt: t } : {});
+    </script>
+  </body>
+</html>

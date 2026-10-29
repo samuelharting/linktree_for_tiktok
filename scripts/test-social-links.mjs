@@ -85,51 +85,14 @@ function elementWithAttributeValue(tagName, attribute, value) {
   );
 }
 
+// Cards are typographic: a line glyph from the page's SVG sprite, no screenshots.
 const expectedIndicators = [
-  {
-    id: "1",
-    name: "Bandz Po3 Profiler",
-    cardName: "Po3 Profiler",
-    source: "assets/indicators/bandz-po3-profiler.png",
-    alt: "Bandz Po3 Profiler showing C1-C4 sequences, SMT divergence, CISD and three HTF candle lanes",
-  },
-  {
-    id: "2",
-    name: "Bandz HTF Statistical Zones",
-    cardName: "HTF Zones",
-    source: "assets/indicators/bandz-htf-zones.png",
-    alt: "Bandz HTF Statistical Zones showing daily percentile zones, session zones, and price targets",
-  },
-  {
-    id: "3",
-    name: "Bandz Intraday",
-    cardName: "Intraday",
-    source: "assets/indicators/bandz-intraday-1m.png",
-    alt: "Bandz Intraday indicator shown on a 1-minute chart",
-  },
-  {
-    id: "4",
-    name: "Bandz SMT",
-    cardName: "SMT",
-    source: "assets/indicators/bandz-smt-15m.png",
-    alt: "Bandz SMT indicator shown on a 15-minute chart",
-  },
-  {
-    id: "5",
-    name: "Bandz All-in-One",
-    cardName: "All-in-One",
-    extra: true,
-    source: "assets/indicators/bandz-all-in-one-4h.png",
-    alt: "Bandz All-in-One indicator combining the Bandz toolkit on a 4-hour MNQ chart",
-  },
-  {
-    id: "6",
-    name: "Bandz STDV Flow",
-    cardName: "STDV Flow",
-    extra: true,
-    source: "assets/indicators/bandz-stdv-flow-1h.png",
-    alt: "Bandz STDV Flow indicator projecting CISD standard-deviation objectives on a 4-hour MNQ chart",
-  },
+  { id: "1", name: "Bandz Po3 Profiler", cardName: "Po3 Profiler", glyph: "po3" },
+  { id: "2", name: "Bandz HTF Statistical Zones", cardName: "HTF Zones", glyph: "htf" },
+  { id: "3", name: "Bandz Intraday", cardName: "Intraday", glyph: "intraday" },
+  { id: "4", name: "Bandz SMT", cardName: "SMT", glyph: "smt" },
+  { id: "5", name: "Bandz All-in-One", cardName: "All-in-One", glyph: "aio", extra: true },
+  { id: "6", name: "Bandz STDV Flow", cardName: "STDV Flow", glyph: "stdv", extra: true },
 ];
 const indicatorCount = expectedIndicators.length;
 const discordInvite = "https://discord.gg/XdWaEBXQ6G";
@@ -190,7 +153,6 @@ for (const expected of expectedIndicators) {
   assert.equal(attributeValue(tag, "aria-haspopup"), "dialog", `${label} announces the viewer`);
   assert.equal(attributeValue(tag, "aria-controls"), "indicator-viewer", `${label} controls the viewer`);
   assert.equal(attributeValue(tag, "data-indicator-title"), expected.name, `${label} carries its full name`);
-  assert.equal(attributeValue(tag, "data-indicator-alt"), expected.alt, `${label} describes its chart`);
   const blurb = attributeValue(tag, "data-indicator-blurb");
   assert.ok(blurb && blurb.length <= 70, `${label} has a one-line description`);
   assert.match(
@@ -198,19 +160,16 @@ for (const expected of expectedIndicators) {
     new RegExp(`<span\\b[^>]*\\bdata-indicator-name\\b[^>]*>\\s*${escapeRegExp(expected.cardName)}\\s*<\\/span>`),
     `${label} shows its short name`,
   );
+  assert.ok(textFromMarkup(card).includes(blurb), `${label} shows its description on the card`);
+  const nameId = attributeValue(tag, "aria-labelledby");
+  assert.ok(nameId && card.includes(`id="${nameId}"`), `${label} is named by its visible name`);
 
-  const thumb = card.match(/<img\b[^>]*>/i)?.[0];
-  assert.ok(thumb && hasAttribute(thumb, "data-indicator-thumb"), `${label} shows a thumbnail`);
-  assert.equal(attributeValue(thumb, "src"), expected.source, `${label} thumbnail uses its screenshot`);
-  assert.equal(attributeValue(thumb, "alt"), "", `${label} thumbnail is decorative (the name labels the card)`);
-  assert.ok(
-    Number(attributeValue(thumb, "width")) > 0 && Number(attributeValue(thumb, "height")) > 0,
-    `${label} thumbnail declares its size`,
-  );
-  await assert.doesNotReject(
-    access(new URL(`../${expected.source}`, import.meta.url)),
-    `${label} screenshot asset should exist`,
-  );
+  // A small line glyph from the page sprite replaces the old screenshot thumbnail.
+  assert.doesNotMatch(card, /<img\b/i, `${label} no longer loads a screenshot`);
+  assert.equal(attributeValue(tag, "data-indicator-glyph"), expected.glyph, `${label} names its glyph`);
+  assert.match(card, new RegExp(`<use\\b[^>]*href="#ig-${expected.glyph}"`), `${label} draws its glyph`);
+  assert.match(html, new RegExp(`<symbol\\b[^>]*id="ig-${expected.glyph}"`), `${label} glyph is defined`);
+  assert.match(card, /class="indicator-glyph" aria-hidden="true"/, `${label} glyph is decorative`);
 
   assert.equal(hasAttribute(tag, "data-indicator-extra"), Boolean(expected.extra), `${label} ${expected.extra ? "sits" : "does not sit"} behind Show more`);
   assert.equal(hasAttribute(tag, "hidden"), Boolean(expected.extra), `${label} is ${expected.extra ? "hidden" : "shown"} by default`);
@@ -234,9 +193,11 @@ const viewerTag = elementOpeningTag(viewer, "dialog");
 assert.equal(attributeValue(viewerTag, "aria-modal"), "true", "The viewer is aria-modal");
 assert.equal(attributeValue(viewerTag, "aria-labelledby"), "indicator-viewer-title", "The viewer is labelled by the indicator name");
 assert.ok(/id="indicator-viewer-title"/.test(viewer), "The viewer title element exists");
-for (const hook of ["data-iv-img", "data-iv-blurb", "data-iv-prev", "data-iv-next", "data-iv-close", "data-iv-count"]) {
+for (const hook of ["data-iv-glyph", "data-iv-use", "data-iv-blurb", "data-iv-prev", "data-iv-next", "data-iv-close", "data-iv-count"]) {
   assert.ok(viewer.includes(hook), `The viewer contains ${hook}`);
 }
+assert.doesNotMatch(viewer, /<img\b/i, "The viewer is a text detail view, not a screenshot");
+assert.doesNotMatch(html, /assets\/indicators\//, "Indicator screenshots are no longer loaded by the page");
 for (const hook of ["data-iv-prev", "data-iv-next", "data-iv-close"]) {
   const tag = (viewer.match(/<button\b[^>]*>/g) || []).find((candidate) => hasAttribute(candidate, hook));
   assert.ok(attributeValue(tag, "aria-label"), `The ${hook} control has an accessible name`);
@@ -289,7 +250,7 @@ assert.ok(
   "Journal retained",
 );
 assert.ok(
-  html.includes("og-livestream-preview.png"),
+  html.includes("og-ict-preview.png"),
   "Social preview retained",
 );
 assert.ok(!html.includes("↗"), "Use SVG arrows to avoid iOS emoji rendering");
@@ -301,8 +262,8 @@ for (const tag of openingTags("img")) {
 }
 assert.equal(
   classedTags("button", "theme-mode-toggle").length,
-  1,
-  "Theme toggle retained",
+  0,
+  "Site is dark only, with no theme toggle",
 );
 assert.ok(!html.includes("data-shot-viewer"), "The old screenshot viewer is replaced by the indicator viewer");
 function eventTarget(extra = {}) {
@@ -346,18 +307,17 @@ function testIndicatorViewer() {
   }
 
   const cards = expectedIndicators.map((indicator) => {
-    const thumb = element({}, { src: indicator.source, width: "2000", height: "1000" });
     const card = element({
       hidden: Boolean(indicator.extra),
       dataset: {
         indicatorCard: indicator.id,
         indicatorTitle: indicator.name,
-        indicatorAlt: indicator.alt,
         indicatorBlurb: `${indicator.cardName} blurb`,
+        indicatorGlyph: indicator.glyph,
         ...(indicator.extra ? { indicatorExtra: "" } : {}),
       },
-      querySelector(selector) {
-        return selector === "[data-indicator-thumb]" ? thumb : null;
+      querySelector() {
+        return null;
       },
     });
     return card;
@@ -366,7 +326,8 @@ function testIndicatorViewer() {
   const parts = {
     "[data-iv-shell]": element(),
     "[data-iv-stage]": element(),
-    "[data-iv-img]": element(),
+    "[data-iv-glyph]": element(),
+    "[data-iv-use]": element(),
     "[data-iv-title]": element(),
     "[data-iv-blurb]": element(),
     "[data-iv-count]": element(),
@@ -426,8 +387,7 @@ function testIndicatorViewer() {
     const expected = expectedIndicators[index];
     assert.equal(viewer.open, true, `The viewer is open ${context}`);
     assert.equal(parts["[data-iv-title]"].textContent, expected.name, `The viewer shows ${expected.name} ${context}`);
-    assert.equal(parts["[data-iv-img]"].src, expected.source, `The viewer shows the ${expected.cardName} chart ${context}`);
-    assert.equal(parts["[data-iv-img]"].alt, expected.alt, `The viewer chart is described ${context}`);
+    assert.equal(parts["[data-iv-use]"].getAttribute("href"), `#ig-${expected.glyph}`, `The viewer shows the ${expected.cardName} glyph ${context}`);
     assert.equal(parts["[data-iv-blurb]"].textContent, `${expected.cardName} blurb`, `The viewer shows the description ${context}`);
     assert.equal(parts["[data-iv-count]"].textContent, `${index + 1} / ${total}`, `The viewer counter reads ${index + 1} / ${total} ${context}`);
   }
@@ -488,8 +448,10 @@ function testIndicatorViewer() {
   viewer.listener("click")({ target: viewer });
   assert.equal(viewer.open, false, "Tapping the backdrop closes the viewer");
   click(cards[1]);
-  viewer.listener("click")({ target: parts["[data-iv-img]"] });
-  assert.equal(viewer.open, true, "Tapping the chart itself keeps the viewer open");
+  viewer.listener("click")({ target: parts["[data-iv-glyph]"] });
+  assert.equal(viewer.open, true, "Tapping inside the panel keeps the viewer open");
+  viewer.listener("click")({ target: stage });
+  assert.equal(viewer.open, true, "Tapping the glyph area keeps the viewer open");
   stage.listener("pointerdown")({ clientX: 200, clientY: 200 });
   stage.listener("pointerup")({ clientX: 205, clientY: 320 });
   assert.equal(viewer.open, false, "Swiping down closes the viewer");

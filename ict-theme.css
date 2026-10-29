@@ -1,0 +1,1764 @@
+/* ICT theme: pure black, chrome and white type, hairlines, soft white glow.
+   Loaded last. Dark ("night") is the default; "studio" is the silver/white light mode.
+   :root[data-ui-theme] (0,2,0) is used as the prefix so these rules outrank the
+   older html[data-*] experiment rules without rewriting them. */
+
+/* ---------- Tokens ---------- */
+:root[data-ui-theme] {
+  --canvas: #000000;
+  --paper: #0a0a0c;
+  --ink: #f5f5f7;
+  --muted: #86868b;
+  --body-text: #a1a1a6;
+  --line: #1c1c22;
+  --soft: #070709;
+  --accent: #d2d2d7;
+  --journal: #4aa3ff;
+  --max-width: 1180px;
+
+  --ict-card: #070708;
+  --ict-line-hover: #34343c;
+  --ict-heading: linear-gradient(180deg, #ffffff 0%, #ececf0 38%, #a4a4ac 100%);
+  --ict-chrome: linear-gradient(180deg, #aaa6ba 0%, #918ca5 48%, #7d7893 100%);
+  --ict-chrome-hover: linear-gradient(180deg, #b6b2c6 0%, #9d98b1 48%, #89849f 100%);
+  --ict-chrome-ink: #0a0a0c;
+  --ict-chrome-edge: rgba(200, 190, 255, 0.24);
+  --ict-chrome-glow: 0 18px 50px -22px rgba(255, 255, 255, 0.12);
+  --ict-discord-icon: #4b33c4;
+  --ict-mark-fill: linear-gradient(160deg, #ffffff 0%, #c9c9cf 55%, #8d8d95 100%);
+  --ict-glow: rgba(255, 255, 255, 0.075);
+  --ict-strip: #09090b;
+  --ict-strip-line: rgba(255, 255, 255, 0.12);
+  --f-display: "Cinzel", "Times New Roman", serif;
+  --f-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+:root[data-ui-theme="studio"] {
+  --canvas: #f5f5f7;
+  --paper: #ffffff;
+  --ink: #1d1d1f;
+  --muted: #6e6e73;
+  --body-text: #515154;
+  --line: #e1e1e6;
+  --soft: #ececf0;
+  --accent: #3a3a3f;
+  --journal: #0071e3;
+
+  --ict-card: #ffffff;
+  --ict-line-hover: #c4c4cb;
+  --ict-heading: linear-gradient(180deg, #1d1d1f 0%, #2e2e33 45%, #5e5e66 100%);
+  --ict-chrome: linear-gradient(180deg, #3c3c42 0%, #1e1e22 48%, #0b0b0d 100%);
+  --ict-chrome-hover: linear-gradient(180deg, #4a4a51 0%, #26262b 48%, #121215 100%);
+  --ict-chrome-ink: #ffffff;
+  --ict-chrome-edge: rgba(0, 0, 0, 0.85);
+  --ict-chrome-glow: 0 16px 36px -18px rgba(0, 0, 0, 0.45);
+  --ict-discord-icon: #b9a6ff;
+  --ict-mark-fill: linear-gradient(160deg, #4a4a50 0%, #1d1d1f 60%, #000000 100%);
+  --ict-glow: rgba(255, 255, 255, 0.7);
+  --ict-strip: #ffffff;
+  --ict-strip-line: #e1e1e6;
+  color-scheme: light;
+}
+
+/* ---------- Base type ---------- */
+:root[data-ui-theme] body {
+  font-family: var(--f-body);
+  font-size: 15px;
+  background: var(--canvas);
+  color: var(--ink);
+  letter-spacing: -0.006em;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+:root[data-ui-theme] h1,
+:root[data-ui-theme] h2,
+:root[data-ui-theme] h3 {
+  font-family: var(--f-body);
+}
+:root[data-ui-theme] ::selection {
+  background: rgba(255, 255, 255, 0.22);
+}
+:root[data-ui-theme="studio"] ::selection {
+  background: rgba(0, 0, 0, 0.12);
+}
+:root[data-ui-theme] :is(button, a, [role="button"]):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+/* ---------- ICT mark (fractal circle) ---------- */
+.ict-mark {
+  display: inline-block;
+  flex: none;
+  width: 15px;
+  height: 15px;
+  background: var(--ict-mark-fill);
+  -webkit-mask: url("assets/ict/fractal-mark.png") center / contain no-repeat;
+  mask: url("assets/ict/fractal-mark.png") center / contain no-repeat;
+}
+.ict-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 22px;
+  font: 500 12.5px/1 var(--f-display);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #c3c3c9;
+}
+:root[data-ui-theme="studio"] .ict-eyebrow {
+  color: #4a4a50;
+}
+.ict-eyebrow .ict-mark {
+  width: 17px;
+  height: 17px;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.25));
+}
+:root[data-ui-theme="studio"] .ict-eyebrow .ict-mark {
+  filter: none;
+}
+
+/* ---------- Header ---------- */
+:root[data-ui-theme] .hat-banner {
+  background: var(--canvas);
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font: 400 12.5px/1.2 var(--f-body);
+  letter-spacing: 0.01em;
+}
+:root[data-ui-theme] .hat-banner strong,
+:root[data-ui-theme] .hat-banner .hat-banner-cta {
+  color: var(--ink);
+  font-weight: 500;
+}
+:root[data-ui-theme] .site-header {
+  border-bottom-color: var(--line);
+}
+:root[data-ui-theme] .site-header .brand,
+:root[data-ui-theme] .brand {
+  font: 600 21px/1 var(--f-display);
+  letter-spacing: 0.4em;
+  margin-right: -0.4em;
+  text-transform: uppercase;
+  background: var(--ict-heading);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+:root[data-ui-theme] .header-nav {
+  gap: 34px;
+}
+:root[data-ui-theme] .header-nav a {
+  font: 400 13px var(--f-body);
+  letter-spacing: 0;
+  color: var(--body-text);
+  transition: color 0.2s;
+}
+:root[data-ui-theme] .header-nav a:hover {
+  color: var(--ink);
+}
+:root[data-ui-theme] .site-header .funnel-header-duo .duo-discord {
+  gap: 6px;
+  min-height: 30px !important;
+  height: 30px;
+  padding: 0 13px 0 11px !important;
+  border: 1px solid var(--ict-chrome-edge) !important;
+  border-radius: 999px;
+  background: var(--ict-chrome) !important;
+  color: var(--ict-chrome-ink) !important;
+  font: 600 12.5px var(--f-body);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+:root[data-ui-theme] .site-header .funnel-header-duo .duo-discord:hover {
+  background: var(--ict-chrome-hover) !important;
+  transform: translateY(-1px);
+}
+:root[data-ui-theme] .site-header .funnel-header-duo .duo-discord .fa-discord {
+  font-size: 13px;
+  color: var(--ict-discord-icon) !important;
+}
+:root[data-ui-theme] .header-bar.is-stuck {
+  background: color-mix(in srgb, var(--canvas) 74%, transparent);
+  border-bottom-color: var(--line);
+}
+
+/* ---------- Hero ---------- */
+:root[data-ui-theme] .hero {
+  display: block !important;
+  padding: 0 0 96px !important;
+  text-align: center;
+  overflow: hidden;
+}
+:root[data-ui-theme] .hero::before,
+:root[data-ui-theme] .hero::after {
+  display: none !important;
+}
+/* Soft white glow behind the headline. It fades to nothing at its box edges,
+   so it never shows a seam against the black hands stage above. */
+:root[data-ui-theme] .hero-copy {
+  position: relative;
+}
+:root[data-ui-theme] .hero-copy::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 0;
+  width: min(1100px, 100vw);
+  height: 100%;
+  translate: -50% 0;
+  background: radial-gradient(closest-side, var(--ict-glow), transparent);
+  pointer-events: none;
+  animation: ict-breathe 9s ease-in-out infinite alternate;
+}
+:root[data-ui-theme="studio"] .hero-copy::before {
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.95), transparent);
+}
+@keyframes ict-breathe {
+  from {
+    opacity: 0.65;
+  }
+  to {
+    opacity: 1;
+  }
+}
+:root[data-ui-theme] .hero > .ict-hero {
+  position: relative;
+  display: block;
+}
+/* Light mode: the black stage reads as a framed film tile. */
+:root[data-ui-theme="studio"] .hero > .ict-hero {
+  width: min(1400px, calc(100% - 32px)) !important;
+  margin: 20px auto 0 !important;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #000;
+}
+/* Static still, only used if the 3D module fails to load. */
+.ict-hero.ict-hero--fallback {
+  height: clamp(240px, 36vw, 560px);
+  background: #000 url("assets/ict/hands-band-clean.png") center / auto 100% no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 84%, transparent 100%);
+  perspective: 800px;
+}
+:root[data-ui-theme="studio"] .ict-hero.ict-hero--fallback {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.ict-hero.ict-hero--fallback::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  width: clamp(64px, 8.5vw, 124px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  background: linear-gradient(160deg, #ffffff 0%, #d9d9de 45%, #8f8f97 100%);
+  -webkit-mask: url("assets/ict/fractal-mark.png") center / contain no-repeat;
+  mask: url("assets/ict/fractal-mark.png") center / contain no-repeat;
+  filter: drop-shadow(0 0 22px rgba(255, 255, 255, 0.35));
+  animation: ict-spin 9s linear infinite;
+}
+@keyframes ict-spin {
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+:root[data-ui-theme] .hero-copy {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  grid-template-columns: none !important;
+  padding-top: 40px;
+}
+:root[data-ui-theme] .hero .ict-eyebrow {
+  margin-bottom: 26px;
+  animation: hero-rise 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+:root[data-ui-theme] .hero h1 {
+  max-width: 13ch;
+  margin: 0 !important;
+  font: 600 clamp(56px, 6.4vw, 92px) / 0.98 var(--f-body) !important;
+  letter-spacing: -0.052em !important;
+  padding-bottom: 0.06em;
+  background: var(--ict-heading);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-wrap: balance;
+  animation-duration: 1.2s;
+  animation-delay: 0.1s;
+}
+:root[data-ui-theme] .hero h1 span {
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 40%, #c8c8ce 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 28px rgba(255, 255, 255, 0.35));
+}
+:root[data-ui-theme="studio"] .hero h1 span {
+  background: linear-gradient(180deg, #000 0%, #2a2a2e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: none;
+}
+:root[data-ui-theme] .hero .hero-lede {
+  max-width: 540px !important;
+  margin: 20px auto 0 !important;
+  font-size: 20px !important;
+  line-height: 1.55 !important;
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  color: var(--body-text);
+  animation-duration: 1.2s;
+}
+:root[data-ui-theme] .hero .hero-lede strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+:root[data-ui-theme] .hero .hero-actions {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 34px !important;
+  gap: 0;
+  animation-duration: 1.2s;
+}
+
+/* Hero Discord button: a chrome ingot with the stream countdown strip beneath. */
+:root[data-ui-theme] .hero .hero-actions .hero-discord,
+:root[data-ui-theme] .hero .hero-actions .hero-discord.cd-wrapped {
+  width: min(100%, 430px);
+  min-height: 0 !important;
+  padding: 17px 22px 0 !important;
+  gap: 12px;
+  border: 1px solid var(--ict-chrome-edge) !important;
+  border-radius: 18px !important;
+  background: var(--ict-chrome) !important;
+  color: var(--ict-chrome-ink) !important;
+  font: 600 16.5px/1.2 var(--f-body) !important;
+  letter-spacing: -0.01em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 24px 70px -26px rgba(255, 255, 255, 0.12) !important;
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.3s;
+}
+:root[data-ui-theme="studio"] .hero .hero-actions .hero-discord,
+:root[data-ui-theme="studio"] .hero .hero-actions .hero-discord.cd-wrapped {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 22px 50px -24px rgba(0, 0, 0, 0.55) !important;
+}
+:root[data-ui-theme] .hero .hero-actions .hero-discord:hover {
+  background: var(--ict-chrome-hover) !important;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 30px 90px -24px rgba(255, 255, 255, 0.18) !important;
+}
+:root[data-ui-theme] .hero .hero-actions .hero-discord .fa-discord {
+  font-size: 19px;
+  color: var(--ict-discord-icon) !important;
+}
+/* Three equal columns (9:30 AM, Asia, London), built by hero-countdown.js from its SESSIONS config. */
+:root[data-ui-theme] .cd-two.is-wrapped {
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  width: calc(100% + 44px);
+  margin: 17px -22px 0;
+  background: var(--ict-strip);
+  border-top: 1px solid var(--ict-strip-line);
+  color: var(--muted);
+}
+:root[data-ui-theme] .cd-two.is-wrapped .row {
+  min-width: 0;
+  padding: 11px 4px 12px;
+  gap: 3px;
+  background: transparent !important;
+  white-space: nowrap;
+}
+:root[data-ui-theme] .cd-two.is-wrapped .row + .row {
+  border-left: 1px solid var(--ict-strip-line);
+}
+:root[data-ui-theme] .cd-two.is-wrapped .row > span {
+  font: 600 10.5px/1.2 var(--f-body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #d2d2d8;
+}
+/* Sessions that are not next sit back; the next one (or the live one) is white. */
+:root[data-ui-theme] .cd-two.is-wrapped .row b {
+  font: 500 15px/1.3 var(--f-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  color: color-mix(in srgb, var(--ink) 84%, transparent) !important;
+}
+:root[data-ui-theme] .cd-two.is-wrapped .row.is-next b {
+  color: var(--ink) !important;
+}
+:root[data-ui-theme] .cd-two.is-wrapped .row:is(.is-next, .is-live) > span {
+  color: var(--ink);
+}
+:root[data-ui-theme] .cd-two.is-wrapped .row b.livebadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  padding: 2px 10px 2px 8px;
+  border: 1px solid rgba(255, 82, 72, 0.55);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 59, 48, 0.22), rgba(255, 59, 48, 0.1));
+  color: #ff7a70 !important;
+  font: 600 10.5px/1.5 var(--f-mono);
+  letter-spacing: 0.2em;
+  margin-right: -0.2em;
+  box-shadow: 0 0 16px -4px rgba(255, 59, 48, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+:root[data-ui-theme] .cd-two.is-wrapped .row b.livebadge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff453a;
+  box-shadow: 0 0 8px 1px rgba(255, 69, 58, 0.8);
+  animation: ict-live-pulse 1.6s ease-in-out infinite;
+}
+:root[data-ui-theme] .hero-members {
+  margin: 20px 0 0;
+  white-space: nowrap;
+  font: 400 min(12px, 3.5vw)/1.4 var(--f-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #b4b4bc;
+}
+:root[data-ui-theme] .hero-members [data-hero-members-count],
+:root[data-ui-theme] .hero-members [data-hero-online-count] {
+  color: var(--ink);
+  font-weight: 500;
+}
+:root[data-ui-theme] .hero-members .hero-online,
+:root[data-ui-theme] .hero-members .hero-counts,
+:root[data-ui-theme] .hero-members .hero-total,
+:root[data-ui-theme] .hero-members .hero-live-sep {
+  color: inherit;
+  font-weight: inherit;
+}
+/* Nothing to show yet (not live, counts not loaded): keep the line out of the layout. */
+:root[data-ui-theme] .hero-members:not(:has(> :not([hidden]))) {
+  display: none;
+}
+
+/* Live now: html.is-stream-live is set by hero-countdown.js while any session is live
+   (?cdlive=asia|london|ny forces it). A red dot on the header Discord pill and
+   "LIVE NOW" leading the hero members line. */
+@keyframes ict-live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.78);
+  }
+}
+:root[data-ui-theme] .site-header .funnel-header-duo .duo-discord {
+  position: relative;
+}
+:root[data-ui-theme].is-stream-live .site-header .funnel-header-duo .duo-discord::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: -1px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff3b30;
+  box-shadow: 0 0 0 2px var(--canvas), 0 0 10px 1px rgba(255, 59, 48, 0.7);
+  animation: ict-live-pulse 1.6s ease-in-out infinite;
+  pointer-events: none;
+}
+:root[data-ui-theme] .hero-members .hero-live-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #ff3b30;
+  font-weight: 600;
+}
+/* The session strip's LIVE badge is the one live signal in the hero, so the
+   members line never repeats it. */
+:root[data-ui-theme] .hero-members .hero-live-tag,
+:root[data-ui-theme] .hero-members .hero-live-sep {
+  display: none !important;
+}
+:root[data-ui-theme] .hero-members .hero-live-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff3b30;
+  box-shadow: 0 0 8px 1px rgba(255, 59, 48, 0.7);
+  animation: ict-live-pulse 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root[data-ui-theme].is-stream-live .site-header .funnel-header-duo .duo-discord::after,
+  :root[data-ui-theme] .hero-members .hero-live-dot,
+  :root[data-ui-theme] .cd-two.is-wrapped .row b.livebadge::before {
+    animation: none;
+  }
+}
+/* The old chart preview competes with the hands; its Live state is already on the button. */
+:root[data-ui-theme] .hero .hero-stream {
+  display: none !important;
+}
+
+/* ---------- Sections: product chapters ---------- */
+:root[data-ui-theme] .section {
+  padding: 96px 0;
+}
+/* The apparel chapter sits on a slightly lifted full-bleed band with hairlines,
+   so it reads as its own room after the black bento without breaking the black. */
+:root[data-ui-theme] .hat-stage.section {
+  position: relative;
+  background: #0a0a0c;
+  box-shadow: 0 0 0 100vmax #0a0a0c;
+  clip-path: inset(0 -100vmax);
+  border-top: 1px solid transparent;
+}
+:root[data-ui-theme] .hat-stage.section::before,
+:root[data-ui-theme] .hat-stage.section::after {
+  content: "";
+  position: absolute;
+  left: -100vmax;
+  right: -100vmax;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09) 30%, rgba(255, 255, 255, 0.09) 70%, transparent);
+  pointer-events: none;
+}
+:root[data-ui-theme] .hat-stage.section::before { top: 0; }
+:root[data-ui-theme] .hat-stage.section::after { bottom: 0; }
+:root[data-ui-theme] .section-heading {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0;
+  margin-bottom: 64px !important;
+}
+:root[data-ui-theme] .section-heading > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+:root[data-ui-theme] .section-title {
+  font: 600 clamp(40px, 5.2vw, 72px) / 1.02 var(--f-body) !important;
+  letter-spacing: -0.048em !important;
+  padding-bottom: 0.08em;
+  background: var(--ict-heading);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-wrap: balance;
+}
+
+/* ---------- Bento: live trading, indicators, journal ----------
+   One section of tiles. Every tile is a .bento-tile; its ::before/::after stay
+   free for the cursor spotlight in ict-extras. Layout per breakpoint further down. */
+:root[data-ui-theme] .bento-section {
+  position: relative;
+  padding: 104px 0 112px;
+}
+:root[data-ui-theme] .bento-heading {
+  margin-bottom: 56px !important;
+}
+:root[data-ui-theme] .bento-sub {
+  max-width: 560px;
+  margin: 20px auto 0;
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: -0.012em;
+  color: var(--body-text);
+  text-wrap: balance;
+}
+:root[data-ui-theme] .bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 18px;
+}
+:root[data-ui-theme] .bento-tile {
+  --bento-pad: 40px;
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  margin: 0;
+  padding: var(--bento-pad);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background:
+    radial-gradient(110% 70% at 50% 0%, rgba(255, 255, 255, 0.04), transparent 62%),
+    linear-gradient(180deg, #0d0d10 0%, #070708 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  color: var(--ink);
+  scroll-margin-top: 150px;
+}
+/* Tiles fade in one after another. */
+html.ict-js .bento-grid > .reveal.is-visible:nth-child(2) {
+  transition-delay: 0.2s;
+}
+html.ict-js .bento-grid > .reveal.is-visible:nth-child(3) {
+  transition-delay: 0.3s;
+}
+:root[data-ui-theme] .bento-label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 16px;
+  font: 500 11px/1 var(--f-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+/* Grey at rest; red and pulsing while a stream is live (hero-countdown.js). */
+:root[data-ui-theme] .bento-live-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4a4a52;
+}
+:root[data-ui-theme].is-stream-live .bento-live-dot {
+  background: #ff3b30;
+  box-shadow: 0 0 8px 1px rgba(255, 59, 48, 0.7);
+  animation: ict-live-pulse 1.6s ease-in-out infinite;
+}
+:root[data-ui-theme] .bento-title {
+  margin: 0;
+  padding-bottom: 0.06em;
+  font: 600 30px/1.14 var(--f-body);
+  letter-spacing: -0.032em;
+  background: var(--ict-heading);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-wrap: balance;
+}
+/* Two-tone headline: the second half sits back in grey and, when the line is
+   too short for both, drops to its own line instead of splitting mid-phrase. */
+:root[data-ui-theme] .bento-title span {
+  display: inline-block;
+  color: #6e6e76;
+}
+:root[data-ui-theme] .bento-shot {
+  margin: 0;
+}
+:root[data-ui-theme] .bento-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid #24242b;
+  border-radius: 14px;
+  background: #050506;
+}
+
+/* Live tile */
+:root[data-ui-theme] #discord .member-count {
+  margin: 16px 0 0;
+  gap: 9px;
+  font: 400 11.5px/1.4 var(--f-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+:root[data-ui-theme] #discord .member-count[hidden] {
+  display: none;
+}
+:root[data-ui-theme] #discord .member-dot {
+  background: #34c759;
+  box-shadow: 0 0 10px rgba(52, 199, 89, 0.6);
+}
+:root[data-ui-theme] .bento-points {
+  display: grid;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+:root[data-ui-theme] .bento-points li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 400 15px/1.4 var(--f-body);
+  letter-spacing: -0.01em;
+  color: var(--body-text);
+}
+:root[data-ui-theme] .bento-points .fa-solid {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #0b0b0e;
+  color: #c3c3c9;
+  font-size: 12px;
+}
+:root[data-ui-theme] #discord .bento-body .streamer-invite {
+  max-width: 400px;
+  margin: 16px 0 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* Indicators tile */
+:root[data-ui-theme] #indicators .indicators-lede {
+  max-width: 400px;
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--body-text);
+  text-wrap: balance;
+}
+/* Indicator cards: words plus a small mini-chart glyph, no screenshots.
+   Glyphs: chrome strokes, silver candle bodies, one blue or violet accent each. */
+:root[data-ui-theme] {
+  --ig-a: #ffffff;
+  --ig-b: #dcdce2;
+  --ig-c: #8e8e97;
+  --ig-body-a: #f4f4f7;
+  --ig-body-b: #8a8a93;
+  --ig-area: #ffffff;
+  --ig-area-o: 0.13;
+  --ig-grid: rgba(255, 255, 255, 0.07);
+  --ig-dim: #55555e;
+  --ig-hollow: #0b0b0e;
+  --ig-dot: #ffffff;
+  --ig-fvg: rgba(255, 255, 255, 0.08);
+  --ig-plate: #111115;
+  --ig-side: #2a2a31;
+  --ig-blue: #7aa2ff;
+  --ig-violet: #9d8cff;
+  --ig-tile:
+    radial-gradient(90% 55% at 50% 0%, rgba(255, 255, 255, 0.085), transparent 72%),
+    linear-gradient(180deg, #16161a 0%, #0b0b0d 52%, #060607 100%);
+  --ig-tile-edge:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+    0 14px 30px -18px rgba(0, 0, 0, 0.9);
+  --ig-glow: drop-shadow(0 0 5px rgba(255, 255, 255, 0.22));
+}
+:root[data-ui-theme="studio"] {
+  --ig-a: #55555c;
+  --ig-b: #2a2a2e;
+  --ig-c: #0b0b0d;
+  --ig-body-a: #5a5a62;
+  --ig-body-b: #1d1d1f;
+  --ig-area: #1d1d1f;
+  --ig-area-o: 0.08;
+  --ig-grid: rgba(0, 0, 0, 0.06);
+  --ig-dim: #b4b4bb;
+  --ig-hollow: #ffffff;
+  --ig-dot: #1d1d1f;
+  --ig-fvg: rgba(0, 0, 0, 0.05);
+  --ig-plate: #ffffff;
+  --ig-side: #d6d6dc;
+  --ig-blue: #3a6df0;
+  --ig-violet: #6b55f0;
+  --ig-tile:
+    radial-gradient(90% 55% at 50% 0%, #ffffff, transparent 72%),
+    linear-gradient(180deg, #ffffff 0%, #f4f4f6 55%, #ebebef 100%);
+  --ig-tile-edge:
+    inset 0 1px 0 #ffffff,
+    inset 0 -1px 0 rgba(0, 0, 0, 0.04),
+    0 12px 24px -16px rgba(0, 0, 0, 0.28);
+  --ig-glow: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.14));
+}
+/* In the tile the six indicators are a compact list: rows run edge to edge with
+   inset hairline dividers; each row still opens the detail viewer. */
+:root[data-ui-theme] #indicators .indicator-browser {
+  margin: 24px calc(-1 * var(--bento-pad)) 0;
+  border-top: 1px solid var(--line);
+}
+:root[data-ui-theme] #indicators .indicator-tabs {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  width: 100%;
+  margin: 0;
+}
+:root[data-ui-theme] #indicators .indicator-tab {
+  position: relative;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 16px;
+  padding: 14px var(--bento-pad);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  box-shadow: none;
+  transition: background-color 0.3s;
+}
+:root[data-ui-theme] #indicators .indicator-tab[hidden] {
+  display: none;
+}
+:root[data-ui-theme] #indicators .indicator-tab + .indicator-tab::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(var(--bento-pad) + 68px);
+  right: var(--bento-pad);
+  height: 1px;
+  background: var(--line);
+}
+:root[data-ui-theme] #indicators .indicator-glyph {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--ig-tile);
+  box-shadow: var(--ig-tile-edge);
+  transition: box-shadow 0.45s;
+}
+:root[data-ui-theme] #indicators .indicator-glyph svg {
+  width: 42px;
+  height: 42px;
+  transition: filter 0.45s, transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+:root[data-ui-theme] #indicators .indicator-text {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 9px;
+  row-gap: 4px;
+}
+:root[data-ui-theme] #indicators .indicator-num {
+  margin: 0;
+  font: 400 10.5px/1 var(--f-mono);
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+:root[data-ui-theme] #indicators .indicator-tab-name {
+  padding: 0 0 0.06em;
+  font: 600 17px/1.25 var(--f-body);
+  letter-spacing: -0.02em;
+  background: var(--ict-heading);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+:root[data-ui-theme] #indicators .indicator-blurb {
+  grid-column: 1 / -1;
+  font: 400 13.5px/1.4 var(--f-body);
+  letter-spacing: -0.006em;
+  color: var(--body-text);
+  text-wrap: pretty;
+}
+:root[data-ui-theme] #indicators .indicator-open {
+  width: 28px;
+  height: 28px;
+  border-color: var(--line);
+  color: var(--muted);
+  transition: color 0.35s, border-color 0.35s, transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+:root[data-ui-theme] #indicators .indicator-open svg {
+  width: 12px;
+  height: 12px;
+}
+@media (hover: hover) {
+  :root[data-ui-theme] #indicators .indicator-tab:hover {
+    background: rgba(255, 255, 255, 0.028);
+  }
+  :root[data-ui-theme] #indicators .indicator-tab:hover .indicator-glyph {
+    box-shadow: var(--ig-tile-edge), 0 0 24px -8px rgba(255, 255, 255, 0.24);
+  }
+  :root[data-ui-theme] #indicators .indicator-tab:hover .indicator-glyph svg {
+    filter: var(--ig-glow);
+    transform: scale(1.05);
+  }
+  :root[data-ui-theme] #indicators .indicator-tab:hover .indicator-open {
+    border-color: var(--ict-line-hover);
+    color: var(--ink);
+    transform: rotate(90deg);
+  }
+}
+:root[data-ui-theme] #indicators .indicator-tab:active {
+  background: rgba(255, 255, 255, 0.045);
+}
+:root[data-ui-theme] #indicators .indicator-tab:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -3px;
+  border-radius: 14px;
+}
+/* Glyph motion (see the .ig-draw/.ig-pop rules in index.html). Each card's
+   glyph draws in once when it scrolls into view (JS adds .is-drawn, then
+   .is-settled), staggered per card; hover/focus replays the accent line. */
+:root[data-ui-theme] #indicators .indicator-glyph,
+:root[data-ui-theme] .iv-glyph {
+  --ig-dur: 0.9s;
+  --ig-pop-dur: 0.6s;
+  --ig-delay: 0.25s;
+}
+:root[data-ui-theme] #indicators .indicator-tab:nth-child(2) .indicator-glyph,
+:root[data-ui-theme] #indicators .indicator-tab:nth-child(6) .indicator-glyph {
+  --ig-delay: 0.37s;
+}
+:root[data-ui-theme] #indicators .indicator-tab:nth-child(3) .indicator-glyph {
+  --ig-delay: 0.49s;
+}
+:root[data-ui-theme] #indicators .indicator-tab:nth-child(4) .indicator-glyph {
+  --ig-delay: 0.61s;
+}
+html.ict-js #indicators .indicator-tab:not(.is-drawn) .indicator-glyph,
+:root[data-ui-theme] .iv-glyph.is-reset {
+  --ig-draw: 1;
+  --ig-pop: 0;
+}
+:root[data-ui-theme] .iv-glyph {
+  --ig-delay: 0.12s;
+}
+:root[data-ui-theme] .iv-glyph.is-reset,
+:root[data-ui-theme] #indicators .indicator-tab.is-settled .indicator-glyph {
+  --ig-dur: 0s;
+  --ig-pop-dur: 0s;
+  --ig-delay: 0s;
+  --ig-lagk: 0;
+}
+:root[data-ui-theme] #indicators .indicator-tab:is(:hover, :focus-visible) .indicator-glyph {
+  --ig-boost: 1.8;
+}
+:root[data-ui-theme] #indicators .indicator-tab.is-settled:is(:hover, :focus-visible) .indicator-glyph {
+  --ig-dur: 0.85s;
+  --ig-sweep: -200;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root[data-ui-theme] #indicators .indicator-tab,
+  :root[data-ui-theme] #indicators .indicator-glyph svg,
+  :root[data-ui-theme] #indicators .indicator-open {
+    transition: none;
+    transform: none !important;
+  }
+  :root[data-ui-theme] #indicators .indicator-glyph,
+  :root[data-ui-theme] .iv-glyph {
+    --ig-draw: 0 !important;
+    --ig-pop: 1 !important;
+    --ig-sweep: 0 !important;
+    --ig-dur: 0s !important;
+    --ig-pop-dur: 0s !important;
+  }
+}
+/* Guard: full-bleed section hairlines (left/right: -100vmax) must not widen
+   the page; without this, phones zoom out to fit them. */
+:root[data-ui-theme] main {
+  overflow-x: hidden; /* iOS 15 and older: no clip support */
+  overflow-x: clip;
+}
+/* Desktop: trim the black above and below the hands so the Discord button
+   stays above the fold on laptops (the band is centred and overflow is hidden). */
+@media (min-width: 901px) {
+  :root[data-ui-theme] .hero > .ict-hero {
+    aspect-ratio: auto;
+    height: min(32.75vw, 42vh);
+  }
+}
+:root[data-ui-theme] #indicators .indicator-more {
+  margin: 16px 0 0;
+  padding: 0 22px;
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--body-text);
+  font: 500 14px var(--f-body);
+  text-decoration: none;
+  transition: border-color 0.25s, color 0.25s;
+}
+:root[data-ui-theme] #indicators .indicator-more:hover {
+  border-color: var(--ict-line-hover);
+  color: var(--ink);
+}
+:root[data-ui-theme] #indicators .indicator-more:focus-visible {
+  outline-color: var(--ink);
+}
+
+/* The section's one Discord join button: a chrome pill, as in the header. */
+:root[data-ui-theme] #discord .button.button--discord,
+:root[data-ui-theme] #discord .button.button--discord:hover {
+  min-height: 52px;
+  margin-top: 26px;
+  padding: 0 30px;
+  gap: 11px;
+  border: 1px solid var(--ict-chrome-edge) !important;
+  border-radius: 999px;
+  background: var(--ict-chrome) !important;
+  color: var(--ict-chrome-ink) !important;
+  font: 600 16px var(--f-body);
+  letter-spacing: -0.01em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    var(--ict-chrome-glow) !important;
+}
+:root[data-ui-theme] #discord .button.button--discord:hover {
+  background: var(--ict-chrome-hover) !important;
+  transform: translateY(-2px);
+}
+:root[data-ui-theme] #discord .button--discord .fa-discord {
+  font-size: 18px;
+  color: var(--ict-discord-icon) !important;
+}
+
+/* Journal tile: copy, pills and link, then the calendar running off the bottom edge. */
+:root[data-ui-theme] .bento-journal {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
+}
+:root[data-ui-theme] .bento-journal .bento-body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 16px;
+  margin-top: 22px;
+}
+:root[data-ui-theme] .bento-journal .journal-pills {
+  margin: 0;
+}
+:root[data-ui-theme] .bento-journal .journal-link {
+  width: auto;
+  min-height: 46px;
+  margin: 0;
+  padding: 0 24px;
+  font-size: 15px;
+}
+:root[data-ui-theme] .bento-journal-shot {
+  margin-top: 28px;
+}
+:root[data-ui-theme] .bento-journal-shot img {
+  border-bottom: 0;
+  border-radius: 14px 14px 0 0;
+}
+:root[data-ui-theme] .bento-live .bento-shot {
+  margin-top: 26px;
+}
+:root[data-ui-theme] .bento-live .bento-body {
+  margin-top: 26px;
+}
+
+/* Wider than phones: screenshots fill whatever height their tile row gives them
+   (cropped from the top-left), so tiles in a row always line up. */
+@media (min-width: 701px) {
+  :root[data-ui-theme] .bento-indicators,
+  :root[data-ui-theme] .bento-journal {
+    grid-column: span 6;
+  }
+  :root[data-ui-theme] .bento-live {
+    grid-column: 1 / -1;
+  }
+  :root[data-ui-theme] .bento-indicators {
+    display: flex;
+    flex-direction: column;
+  }
+  :root[data-ui-theme] .bento-journal-shot {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 220px;
+  }
+  :root[data-ui-theme] .bento-journal-shot img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+  }
+}
+
+/* Desktop: the live tile spans the top (copy left, the call screenshot running
+   off the right and bottom edges); below it the indicators list beside the journal. */
+@media (min-width: 1001px) {
+  :root[data-ui-theme] .bento-live {
+    --bento-pad: 52px;
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "head shot"
+      "body shot";
+    column-gap: 56px;
+    padding: var(--bento-pad) 0 var(--bento-pad) var(--bento-pad);
+  }
+  :root[data-ui-theme] .bento-live .bento-head {
+    grid-area: head;
+  }
+  :root[data-ui-theme] .bento-live .bento-body {
+    grid-area: body;
+    align-self: end;
+    margin-top: 32px;
+  }
+  :root[data-ui-theme] .bento-live .bento-title {
+    font-size: 40px;
+  }
+  :root[data-ui-theme] .bento-live .bento-shot {
+    grid-area: shot;
+    position: relative;
+    min-height: 400px;
+    margin: 0 0 calc(-1 * var(--bento-pad));
+  }
+  :root[data-ui-theme] .bento-live .bento-shot img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+    border-right: 0;
+    border-bottom: 0;
+    border-radius: 16px 0 0 0;
+  }
+  :root[data-ui-theme] .bento-indicators {
+    grid-column: span 5;
+  }
+  :root[data-ui-theme] .bento-journal {
+    grid-column: span 7;
+  }
+}
+
+/* Apparel */
+:root[data-ui-theme] .hat-stage.section {
+  padding: 96px 0;
+}
+:root[data-ui-theme] .hat-stage .hat-shot {
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 50px 120px -60px rgba(255, 255, 255, 0.16);
+}
+:root[data-ui-theme] .hat-stage .merch-grid {
+  gap: 1px;
+  background: #dcdce0;
+}
+:root[data-ui-theme] .hat-stage .merch-grid img {
+  background: #fff;
+}
+:root[data-ui-theme="night"] .hat-stage .merch-grid {
+  filter: brightness(0.93);
+}
+:root[data-ui-theme] .hat-stage .hat-line {
+  margin-top: 36px;
+  color: var(--body-text);
+}
+:root[data-ui-theme] .hat-stage .hat-line strong {
+  display: block;
+  font: 600 32px/1.1 var(--f-body);
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+:root[data-ui-theme] .merch-description {
+  margin-top: 10px;
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--body-text);
+}
+:root[data-ui-theme] .merch-status {
+  margin-top: 16px;
+  font: 400 11.5px/1 var(--f-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+:root[data-ui-theme] .hat-button {
+  min-height: 52px;
+  padding: 0 30px;
+  border: 1px solid var(--ict-chrome-edge);
+  border-radius: 999px;
+  background: var(--ict-chrome);
+  color: var(--ict-chrome-ink);
+  font: 600 15.5px var(--f-body);
+  letter-spacing: -0.01em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), var(--ict-chrome-glow);
+  transition: transform 0.25s, background 0.25s;
+}
+:root[data-ui-theme] .hat-button:hover {
+  opacity: 1;
+  background: var(--ict-chrome-hover);
+  transform: translateY(-2px);
+}
+
+/* Shared screenshot frame (the apparel photo uses it), journal pills and link. */
+:root[data-ui-theme] .journal-shot {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--soft);
+  box-shadow: 0 50px 120px -50px rgba(255, 255, 255, 0.14);
+}
+:root[data-ui-theme="studio"] .journal-shot,
+:root[data-ui-theme="studio"] .hat-stage .hat-shot {
+  box-shadow: 0 40px 90px -50px rgba(0, 0, 0, 0.35);
+}
+:root[data-ui-theme] .journal-line {
+  color: var(--body-text);
+  font-size: 18px;
+  line-height: 1.5;
+}
+:root[data-ui-theme] .journal-pills {
+  gap: 8px;
+}
+:root[data-ui-theme] .journal-pills li {
+  padding: 8px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: 400 11px/1 var(--f-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+:root[data-ui-theme] .journal-link {
+  min-height: 52px;
+  padding: 0 30px;
+  border: 1px solid var(--ict-chrome-edge);
+  border-radius: 999px;
+  background: var(--ict-chrome);
+  color: var(--ict-chrome-ink);
+  font: 600 15.5px var(--f-body);
+  letter-spacing: -0.01em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), var(--ict-chrome-glow);
+  transition: transform 0.25s, background 0.25s;
+}
+:root[data-ui-theme] .journal-link:hover {
+  background: var(--ict-chrome-hover);
+  transform: translateY(-1px);
+}
+:root[data-ui-theme="studio"] .journal-link {
+  border-color: #0071e3;
+  background: #0071e3;
+  color: #fff;
+  box-shadow: 0 14px 30px -16px rgba(0, 113, 227, 0.7);
+}
+:root[data-ui-theme="studio"] .journal-link:hover {
+  background: #0062c4;
+}
+
+/* ---------- Footer ---------- */
+:root[data-ui-theme] .site-footer {
+  padding: 64px 0 56px;
+  border-top: 1px solid var(--line);
+}
+:root[data-ui-theme] .site-footer .footer-inner {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  text-align: center;
+}
+:root[data-ui-theme] .site-footer .footer-brand { order: 1; }
+:root[data-ui-theme] .site-footer .footer-nudge { order: 2; }
+:root[data-ui-theme] .site-footer .social-links { order: 3; margin-top: 4px; }
+:root[data-ui-theme] .site-footer .footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  margin: 0;
+  font: 500 17px/1 var(--f-display);
+  letter-spacing: 0.44em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.ict-mark.ict-mark--footer {
+  width: 52px;
+  height: 52px;
+  translate: -0.22em 0;
+  filter: drop-shadow(0 0 22px rgba(255, 255, 255, 0.22));
+}
+:root[data-ui-theme="studio"] .ict-mark.ict-mark--footer {
+  filter: none;
+}
+:root[data-ui-theme] .footer-nudge {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px 14px;
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+:root[data-ui-theme] .footer-nudge > .footer-separator {
+  display: none;
+}
+:root[data-ui-theme] .footer-nudge .footer-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+:root[data-ui-theme] .footer-nudge .footer-actions .footer-separator {
+  color: var(--muted);
+}
+:root[data-ui-theme] .footer-nudge [data-footer-nudge-text] {
+  color: var(--body-text);
+}
+:root[data-ui-theme] .footer-nudge a {
+  color: var(--ink);
+  text-decoration-color: var(--line);
+}
+:root[data-ui-theme] .footer-nudge a:hover {
+  text-decoration-color: var(--ink);
+}
+:root[data-ui-theme] .footer-nudge.is-live [data-footer-nudge-text] {
+  color: #ff453a;
+}
+:root[data-ui-theme] .site-footer .social-links {
+  gap: 14px;
+}
+:root[data-ui-theme] .site-footer .social-link {
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  background: linear-gradient(180deg, #232329 0%, #0c0c0f 100%);
+  color: #f5f5f7;
+  font-size: 20px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 12px 30px -14px rgba(255, 255, 255, 0.28);
+  transition: transform 0.25s, background 0.25s, color 0.25s, box-shadow 0.25s;
+}
+:root[data-ui-theme] .site-footer .social-link:hover {
+  background: var(--ict-chrome);
+  border-color: var(--ict-chrome-edge);
+  color: var(--ict-chrome-ink);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -14px rgba(180, 170, 255, 0.45);
+}
+
+/* ---------- Indicator viewer ---------- */
+:root[data-ui-theme] .indicator-viewer::backdrop {
+  background: rgba(0, 0, 0, 0.78);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+:root[data-ui-theme="studio"] .indicator-viewer::backdrop {
+  background: rgba(240, 240, 244, 0.7);
+}
+:root[data-ui-theme] .iv-shell {
+  background: var(--paper);
+  border-color: var(--line);
+  box-shadow: 0 60px 140px -60px rgba(255, 255, 255, 0.16);
+}
+:root[data-ui-theme="night"] .iv-shell {
+  background: linear-gradient(180deg, #0c0c0e 0%, #050506 60%);
+}
+:root[data-ui-theme="studio"] .iv-shell {
+  box-shadow: 0 50px 120px -60px rgba(0, 0, 0, 0.35);
+}
+:root[data-ui-theme] .iv-count {
+  font: 400 12px var(--f-mono);
+  letter-spacing: 0.06em;
+}
+:root[data-ui-theme] .iv-icon {
+  color: var(--body-text);
+  transition: background 0.25s, color 0.25s;
+}
+:root[data-ui-theme] .iv-icon:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink);
+}
+:root[data-ui-theme="studio"] .iv-icon:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+:root[data-ui-theme] .iv-glyph {
+  border-color: var(--line);
+  background: var(--ig-tile);
+  box-shadow: var(--ig-tile-edge), 0 0 60px -18px rgba(255, 255, 255, 0.2);
+}
+:root[data-ui-theme="studio"] .iv-glyph {
+  box-shadow: var(--ig-tile-edge), 0 18px 40px -24px rgba(0, 0, 0, 0.3);
+}
+:root[data-ui-theme] .iv-glyph svg {
+  filter: var(--ig-glow);
+}
+:root[data-ui-theme] .iv-title {
+  font: 600 30px/1.15 var(--f-body);
+  letter-spacing: -0.035em;
+  padding-bottom: 0.06em;
+  background: var(--ict-heading);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+:root[data-ui-theme] .iv-blurb {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--body-text);
+}
+:root[data-ui-theme] .iv-discord,
+:root[data-ui-theme] .iv-discord:hover {
+  border: 1px solid var(--ict-chrome-edge) !important;
+  border-radius: 999px;
+  background: var(--ict-chrome) !important;
+  color: var(--ict-chrome-ink) !important;
+  font: 600 15px var(--f-body);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), var(--ict-chrome-glow);
+}
+:root[data-ui-theme] .iv-discord:hover {
+  background: var(--ict-chrome-hover) !important;
+}
+:root[data-ui-theme] .iv-discord .fa-discord {
+  color: var(--ict-discord-icon) !important;
+}
+:root[data-ui-theme] .iv-icon:focus-visible,
+:root[data-ui-theme] .iv-discord:focus-visible {
+  outline-color: var(--ink);
+}
+
+/* ---------- Scroll reveal: slow, quiet fades ---------- */
+html.ict-js .reveal,
+html.ict-js .reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 1.2s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+html.ict-js .reveal.is-visible,
+html.ict-js .reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: none;
+}
+html.ict-js .reveal-stagger.is-visible > :nth-child(2) {
+  transition-delay: 0.15s;
+}
+html.ict-js .reveal.is-visible {
+  transition-delay: 0.1s;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.ict-js .reveal,
+  html.ict-js .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .ict-hero.ict-hero--fallback::after,
+  :root[data-ui-theme] .hero-copy::before {
+    animation: none;
+  }
+}
+
+/* ---------- Tablet ---------- */
+/* Tiles stack full width: the indicator list runs in two columns and the journal
+   puts its copy beside the calendar, which runs off the right and bottom edges. */
+@media (min-width: 701px) and (max-width: 1000px) {
+  :root[data-ui-theme] .bento-tile {
+    --bento-pad: 32px;
+  }
+  :root[data-ui-theme] .bento-live .bento-title {
+    font-size: 34px;
+  }
+  :root[data-ui-theme] .bento-indicators,
+  :root[data-ui-theme] .bento-journal {
+    grid-column: 1 / -1;
+  }
+  :root[data-ui-theme] #indicators .indicator-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  :root[data-ui-theme] #indicators .indicator-tab:nth-child(2)::before {
+    content: none;
+  }
+  :root[data-ui-theme] .bento-journal {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "head shot"
+      "body shot";
+    column-gap: 32px;
+    padding: var(--bento-pad) 0 var(--bento-pad) var(--bento-pad);
+  }
+  :root[data-ui-theme] .bento-journal .bento-head {
+    grid-area: head;
+  }
+  :root[data-ui-theme] .bento-journal .bento-body {
+    grid-area: body;
+    align-self: end;
+    justify-content: flex-start;
+  }
+  :root[data-ui-theme] .bento-journal-shot {
+    grid-area: shot;
+    min-height: 300px;
+    margin: 0 0 calc(-1 * var(--bento-pad));
+  }
+  :root[data-ui-theme] .bento-journal-shot img {
+    border-right: 0;
+    border-radius: 14px 0 0 0;
+  }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 700px) {
+  :root[data-ui-theme] body {
+    font-size: 15px;
+  }
+  :root[data-ui-theme] .site-header .brand {
+    font-size: 16px;
+    letter-spacing: 0.34em;
+    margin-right: -0.34em;
+  }
+  :root[data-ui-theme] .site-header .funnel-header-duo .duo-discord {
+    min-height: 28px !important;
+    height: 28px;
+    padding: 0 11px 0 10px !important;
+    font-size: 12.5px;
+  }
+  :root[data-ui-theme] .site-header .header-shop {
+    color: var(--body-text);
+  }
+  :root[data-ui-theme] .hat-banner {
+    font-size: 12px;
+  }
+
+  :root[data-ui-theme] .hero {
+    padding: 0 0 40px !important;
+  }
+  :root[data-ui-theme] .hero-copy {
+    padding-top: 22px;
+  }
+  :root[data-ui-theme="studio"] .hero > .ict-hero {
+    width: calc(100% - 24px) !important;
+    margin-top: 12px !important;
+    border-radius: 22px;
+  }
+  :root[data-ui-theme] .hero .ict-eyebrow {
+    margin-bottom: 20px;
+  }
+  :root[data-ui-theme] .ict-eyebrow {
+    font-size: 11.5px;
+    letter-spacing: 0.3em;
+  }
+  :root[data-ui-theme] .hero h1 {
+    font-size: clamp(46px, 14.2vw, 64px) !important;
+    line-height: 1 !important;
+    letter-spacing: -0.05em !important;
+  }
+  :root[data-ui-theme] .hero .hero-lede {
+    max-width: 330px !important;
+    margin-top: 14px !important;
+    font-size: 17px !important;
+    line-height: 1.5 !important;
+  }
+  :root[data-ui-theme] .hero .hero-actions {
+    margin-top: 26px !important;
+  }
+  :root[data-ui-theme] .hero .hero-actions .hero-discord,
+  :root[data-ui-theme] .hero .hero-actions .hero-discord.cd-wrapped {
+    width: 100%;
+    padding-top: 16px !important;
+    font-size: 16px !important;
+  }
+
+  :root[data-ui-theme] .section,
+  :root[data-ui-theme] .hat-stage.section {
+    padding: 44px 0;
+  }
+  :root[data-ui-theme] .section-heading {
+    margin-bottom: 28px !important;
+  }
+  :root[data-ui-theme] .section-title {
+    font-size: clamp(40px, 11.5vw, 52px) !important;
+    letter-spacing: -0.045em !important;
+  }
+  :root[data-ui-theme] .iv-title {
+    font-size: 26px;
+  }
+
+  /* Bento on phones: one column in reading order (live, indicators, journal),
+     tight tiles, edge-to-edge list rows. */
+  :root[data-ui-theme] .bento-section {
+    padding: 48px 0 52px;
+  }
+  :root[data-ui-theme] .bento-heading {
+    margin-bottom: 26px !important;
+  }
+  /* The tiles say it on phones; the sub line would only add scroll. */
+  :root[data-ui-theme] .bento-sub {
+    display: none;
+  }
+  :root[data-ui-theme] .bento-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  :root[data-ui-theme] .bento-tile {
+    --bento-pad: 20px;
+    padding: 24px var(--bento-pad);
+    border-radius: 24px;
+    scroll-margin-top: 92px;
+  }
+  :root[data-ui-theme] .bento-label {
+    margin-bottom: 12px;
+    font-size: 10.5px;
+  }
+  :root[data-ui-theme] .bento-title {
+    font-size: 24px;
+  }
+  :root[data-ui-theme] .bento-live .bento-title {
+    font-size: 26px;
+  }
+  :root[data-ui-theme] #discord .member-count {
+    margin-top: 12px;
+    font-size: 10.5px;
+  }
+  :root[data-ui-theme] .bento-shot img {
+    border-radius: 12px;
+  }
+  /* Trim the empty black band above the call grid. */
+  :root[data-ui-theme] .bento-live .bento-shot img {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: 0 75%;
+  }
+  :root[data-ui-theme] .bento-live .bento-shot,
+  :root[data-ui-theme] .bento-live .bento-body {
+    margin-top: 18px;
+  }
+  :root[data-ui-theme] .bento-points {
+    gap: 9px;
+  }
+  :root[data-ui-theme] .bento-points li {
+    gap: 11px;
+    font-size: 14px;
+  }
+  :root[data-ui-theme] .bento-points .fa-solid {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    font-size: 11px;
+  }
+  :root[data-ui-theme] #discord .button.button--discord {
+    width: 100%;
+    margin-top: 20px;
+    padding: 0 18px;
+    white-space: nowrap;
+  }
+  :root[data-ui-theme] #discord .bento-body .streamer-invite {
+    margin-top: 12px;
+    font-size: 13px;
+    text-align: center;
+    text-wrap: balance;
+  }
+  :root[data-ui-theme] #indicators .indicators-lede {
+    margin-top: 8px;
+    font-size: 14.5px;
+  }
+  :root[data-ui-theme] #indicators .indicator-browser {
+    margin-top: 18px;
+  }
+  :root[data-ui-theme] #indicators .indicator-tab {
+    gap: 14px;
+    padding: 11px var(--bento-pad);
+  }
+  :root[data-ui-theme] #indicators .indicator-tab + .indicator-tab::before {
+    left: calc(var(--bento-pad) + 60px);
+  }
+  :root[data-ui-theme] #indicators .indicator-glyph {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+  }
+  :root[data-ui-theme] #indicators .indicator-glyph svg {
+    width: 38px;
+    height: 38px;
+  }
+  :root[data-ui-theme] #indicators .indicator-tab-name {
+    font-size: 16px;
+  }
+  :root[data-ui-theme] #indicators .indicator-blurb {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  :root[data-ui-theme] #indicators .indicator-open {
+    width: 24px;
+    height: 24px;
+    border: 0;
+  }
+  :root[data-ui-theme] #indicators .indicator-more {
+    margin-top: 8px;
+    min-height: 44px;
+  }
+  :root[data-ui-theme] .bento-journal {
+    padding-bottom: 0;
+  }
+  :root[data-ui-theme] .bento-journal .bento-body {
+    margin-top: 16px;
+  }
+  :root[data-ui-theme] .bento-journal .journal-pills {
+    gap: 6px;
+  }
+  :root[data-ui-theme] .bento-journal .journal-pills li {
+    padding: 7px 10px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+  :root[data-ui-theme] .bento-journal .journal-link {
+    width: 100%;
+  }
+  :root[data-ui-theme] .bento-journal-shot {
+    margin-top: 20px;
+  }
+  :root[data-ui-theme] .bento-journal-shot img {
+    border-radius: 12px 12px 0 0;
+  }
+
+  :root[data-ui-theme] .hat-stage .hat-shot {
+    border-radius: 20px;
+  }
+  :root[data-ui-theme] .hat-stage .hat-line {
+    margin-top: 28px;
+  }
+  :root[data-ui-theme] .hat-stage .hat-line strong {
+    font-size: 28px;
+  }
+  :root[data-ui-theme] .merch-description {
+    font-size: 16.5px;
+  }
+  :root[data-ui-theme] .hat-button,
+  :root[data-ui-theme] .journal-link {
+    width: 100%;
+  }
+  :root[data-ui-theme] .journal-shot {
+    border-radius: 16px;
+  }
+  :root[data-ui-theme] .journal-line {
+    margin-top: 24px;
+    font-size: 17px;
+  }
+  :root[data-ui-theme] .journal-pills {
+    margin-top: 14px;
+  }
+
+  :root[data-ui-theme] .site-footer {
+    padding: 64px 0 48px;
+  }
+  .ict-mark.ict-mark--footer {
+    width: 46px;
+    height: 46px;
+  }
+}
+/* Smallest phones: the decorative "+" on each indicator row gives its room to the text. */
+@media (max-width: 360px) {
+  :root[data-ui-theme] #indicators .indicator-tab {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  :root[data-ui-theme] #indicators .indicator-open {
+    display: none;
+  }
+}
